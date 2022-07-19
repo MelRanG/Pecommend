@@ -2,7 +2,7 @@ function communitySidebar() {
     return (
             <div class="col-lg-3">
                 <div class="sidebar-style mr-30" style={{border:"1px solid rgb(98,98,98)", backgroundColor:"rgb(249,244,253)", borderRadius:"20px"}}>
-                    <div class="sidebar-widget">
+                    <div class="sidebar-widget mt-3">
                         <h4 class="pro-sidebar-title" style={{textAlign:"center"}}>게시판 </h4>
                         <div class="pro-sidebar-search mb-50 mt-25">
                             <form class="pro-sidebar-search-form" action="#">

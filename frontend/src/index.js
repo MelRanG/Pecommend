@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Community from './domain/community/community'
+import Community from './domain/community/communityList'
 import CommunityDetail from './domain/community/communityDetail';
 import PerfumeList from './domain/perfume/perfumeList'
 import PerfumeDetail from './domain/perfume/perfumeDetail'

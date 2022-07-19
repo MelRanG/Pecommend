@@ -2,7 +2,7 @@
 import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
 
-function community () {
+function communityList () {
     return (
         <div className="community">
             <Nav/>
@@ -248,4 +248,4 @@ function community () {
     );
 }
 
-export default community;
+export default communityList;
