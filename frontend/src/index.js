@@ -6,11 +6,13 @@ import Community from './community/community'
 import PerfumeList from './perfume/perfumeList'
 import Login from './user/Login'
 import reportWebVitals from './reportWebVitals';
+import Nav from './nav/nav';
+import Footer from './footer/footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Login />
+    <App />
   </React.StrictMode>
 );
 
