@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Community from './domain/community/communityList'
 import CommunityDetail from './domain/community/communityDetail';
+import CommunityMain from './domain/community/communityMain';
 import PerfumeList from './domain/perfume/perfumeList'
 import PerfumeDetail from './domain/perfume/perfumeDetail'
 import Login from './domain/user/Login'
@@ -14,7 +15,7 @@ import Footer from './components/footer';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <CommunityDetail />
   </React.StrictMode>
 );
 
