@@ -96,3 +96,9 @@
   /* width: 90%; */
   justify-content: center;
 }
+
+
+/* 선호,비선호향수 */
+.description-likeDislike{
+  background-color: #ede4ffb8;
+}

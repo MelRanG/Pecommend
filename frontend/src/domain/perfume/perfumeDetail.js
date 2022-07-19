@@ -359,8 +359,6 @@ function perfumeDetail() {
         </div>
       </header>
       {/* 여기까지 헤더 */}
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
       <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
         <div className="container">
@@ -646,6 +644,24 @@ function perfumeDetail() {
           </div>
         </div>
       </div> */}
+
+      <div className="description-likeDislike pb-90">
+        <div className="container">
+          <div className="section-title text-center mb-50">
+            <h2>이 향수를 (     )하는 사람이 궁금해요</h2>
+          </div>
+          <div className="likeDislikeList">
+            <img src="assets/img/testimonial/1.jpg" alt=""/>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
       {/* 리뷰 */}
       {/* 게시글 상세의 댓글과 유사하게 */}
       <div class="description-review-area pb-90">
