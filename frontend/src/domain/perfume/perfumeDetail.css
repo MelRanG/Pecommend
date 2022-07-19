@@ -99,6 +99,56 @@
 
 
 /* 선호,비선호향수 */
-.description-likeDislike{
-  background-color: #ede4ffb8;
+/* 2개용 */
+.likeDislikeList{
+  background-color: #edededb8;
+  border-radius: 20px;
+  padding: 40px;
 }
+
+.likeDislikeList-items{
+  text-align: center;
+  display: inline;
+  padding-top: 10px;
+}
+
+.likeDislikeList-items span{
+  height: 170px;
+  line-height: 170px;
+}
+.likeDislikeList-item img{
+  height: 150px;
+}
+
+/* 4개용
+.topList {
+  margin: 0px;
+  justify-content: center;
+}
+.topList-emo{
+  text-align: center;
+} 
+.likeDislikeList{
+  background-color: #edededb8;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.likeDislikeList-items{
+  text-align: center;
+  display: inline;
+  padding-top: 10px;
+}
+
+.likeDislikeList-items span{
+  height: 120px;
+  line-height: 120px;
+}
+.likeDislikeList-item{
+  width: 100px;
+  padding: 0px;
+  margin: 0 10px;
+}
+.likeDislikeList-item img{
+  height: 120px;
+} */

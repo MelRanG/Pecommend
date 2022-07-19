@@ -645,18 +645,167 @@ function perfumeDetail() {
         </div>
       </div> */}
 
+      {/* 2개용 */}
       <div className="description-likeDislike pb-90">
         <div className="container">
-          <div className="section-title text-center mb-50">
-            <h2>이 향수를 (     )하는 사람이 궁금해요</h2>
-          </div>
           <div className="likeDislikeList">
-            <img src="assets/img/testimonial/1.jpg" alt=""/>
+            <div className="section-title text-center mb-50">
+              <h2>이 향수를 선호 / 비선호 하는 사람이 궁금해요</h2>
+            </div>
+            <div className="likeDislikeList-items row">
+              <div className="col-lg-3">
+                <span className="glyphicon glyphicon-thumbs-up"></span>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+              <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+              <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+              <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+            </div>
+            <div className="likeDislikeList-items row">
+              <div className="col-lg-3">
+              <span className="glyphicon glyphicon-thumbs-down"></span>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+                <img src="assets/img/testimonial/1.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+                <img src="assets/img/testimonial/1.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+                <img src="assets/img/testimonial/1.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+              <div className="likeDislikeList-item col-lg-2">
+                <img src="assets/img/testimonial/1.jpg" alt="" />
+                <p>향수명</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      {/* 4개용
+      <div className="description-likeDislike pb-90">
+        <div className="container">
+          <div className="likeDislikeList">
+            <div className="section-title text-center mb-50">
+              <h2>이 향수를 선호 / 비선호 하는 사람이 궁금해요</h2>
+            </div>
+            <div className="emo row">
+              <div className="topList-emo col-lg-6">
+                <span className="glyphicon glyphicon-thumbs-up"> 선호한다면 추천</span>
+              </div>
+              <div className="topList-emo col-lg-6">
+                <span className="glyphicon glyphicon-thumbs-up"> 비선호한다면 추천</span>
+              </div>
+            </div>
+            <div className="topList row">
+              <div className="likeDislikeList-items row col-lg-6">
+
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+              </div>
+              <div className="likeDislikeList-items row col-lg-6">
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="emo row">
+              <div className="topList-emo col-lg-6">
+                <span className="glyphicon glyphicon-thumbs-down"> 선호한다면 비추천</span>
+              </div>
+              <div className="topList-emo col-lg-6">
+                <span className="glyphicon glyphicon-thumbs-down"> 비선호한다면 비추천</span>
+              </div>
+            </div>
+            <div className="topList row">
+              <div className="likeDislikeList-items row col-lg-6">
+
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+              </div>
+              <div className="likeDislikeList-items row col-lg-6">
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="likeDislikeList-item col-lg-2">
+                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+              </div>
+            </div>
 
 
           </div>
         </div>
-      </div>
+      </div> */}
 
 
 
