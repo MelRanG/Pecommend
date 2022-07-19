@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Community from './domain/community/community'
-import communityDetail from './domain/community/communityDetail';
+import CommunityDetail from './domain/community/communityDetail';
 import PerfumeList from './domain/perfume/perfumeList'
 import PerfumeDetail from './domain/perfume/perfumeDetail'
 import Login from './domain/user/Login'
@@ -14,7 +14,7 @@ import Footer from './components/footer';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Community />
+    <App />
   </React.StrictMode>
 );
 
