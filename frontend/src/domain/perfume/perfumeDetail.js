@@ -657,15 +657,15 @@ function perfumeDetail() {
                 <span className="glyphicon glyphicon-thumbs-up"></span>
               </div>
               <div className="likeDislikeList-item col-lg-2">
-              <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
               <div className="likeDislikeList-item col-lg-2">
-              <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
               <div className="likeDislikeList-item col-lg-2">
-              <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
               <div className="likeDislikeList-item col-lg-2">
@@ -675,7 +675,7 @@ function perfumeDetail() {
             </div>
             <div className="likeDislikeList-items row">
               <div className="col-lg-3">
-              <span className="glyphicon glyphicon-thumbs-down"></span>
+                <span className="glyphicon glyphicon-thumbs-down"></span>
               </div>
               <div className="likeDislikeList-item col-lg-2">
                 <img src="assets/img/testimonial/1.jpg" alt="" />
@@ -820,7 +820,219 @@ function perfumeDetail() {
           </div>
           <div className="description-review-wrapper">
             <div className="tab-content description-review-bottom">
-              <div id="des-details3" className="">
+
+              {/* 리뷰입력 ver.1
+              <div className="row">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row">
+                        <div className="col-md-3">
+                          <div className="review-profile mb-10 pt-10">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </div>
+                        </div>
+                        <div className="col-md-8">
+                          <div className="rating-form-style form-submit">
+                            <textarea
+                              name="Your Review"
+                              placeholder="Message"
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div className="col-md-1 ">
+                          <input type="submit" value="Submit" />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div> */}
+
+              {/* 리뷰입력 */}
+              <div className="row">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row">
+                        <div className="col-md-3">
+                          <div className="review-profile mb-10 pt-10">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </div>
+                        </div>
+                        <div className="col-md-8">
+                          <div className="rating-form-style form-submit">
+                            <textarea
+                              name="Your Review"
+                              placeholder="Message"
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div className="col-md-1 ">
+                          <input type="submit" value="Submit" />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div className="line"></div>
+
+
+              {/* 리뷰내용 */}
+              <div className="row mt-10">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row review-text-line">
+                        {/* <div className="col-md-3">
+                          <div className="review-profile review-text mb-10 pt-10">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                            <p>닉네임</p>
+                          </div>
+                        </div> */}
+
+                        <div className="col-md-12">
+                          <div className="review-rating mb-10">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                          <div className="review-text form-submit">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-md-9 review-text-profile">
+                          <span className="review-text-profile-img">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </span>
+                          <span>&nbsp; 어쩌구저쩌구 님</span>
+                        </div>
+                        <div className="col-md-3 review-text-like">
+                          <span className="glyphicon glyphicon-thumbs-up"></span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span className="glyphicon glyphicon-thumbs-down"></span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div className="row mt-10">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row review-text-line">
+                        {/* <div className="col-md-3">
+                          <div className="review-profile review-text mb-10 pt-10">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                            <p>닉네임</p>
+                          </div>
+                        </div> */}
+
+                        <div className="col-md-12">
+                          <div className="review-rating mb-10">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                          <div className="review-text form-submit">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-md-9 review-text-profile">
+                          <span className="review-text-profile-img">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </span>
+                          <span>&nbsp; 어쩌구저쩌구 님</span>
+                        </div>
+                        <div className="col-md-3 review-text-like">
+                          <span className="glyphicon glyphicon-thumbs-up"></span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span className="glyphicon glyphicon-thumbs-down"></span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div className="row mt-10">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row review-text-line">
+                        {/* <div className="col-md-3">
+                          <div className="review-profile review-text mb-10 pt-10">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                            <p>닉네임</p>
+                          </div>
+                        </div> */}
+
+                        <div className="col-md-12">
+                          <div className="review-rating mb-10">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                          <div className="review-text form-submit">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-md-9 review-text-profile">
+                          <span className="review-text-profile-img">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </span>
+                          <span>&nbsp; 어쩌구저쩌구 님</span>
+                        </div>
+                        <div className="col-md-3 review-text-like">
+                          <span className="glyphicon glyphicon-thumbs-up"></span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span className="glyphicon glyphicon-thumbs-down"></span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* <div id="des-details3" className="">
                 <div className="row">
                   <div className="col-lg-7">
                     <div className="review-wrapper">
@@ -890,48 +1102,9 @@ function perfumeDetail() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-5">
-                    <div className="ratting-form-wrapper pl-50">
-                      <h3>Add a Review</h3>
-                      <div className="ratting-form">
-                        <form action="#">
-                          <div className="star-box">
-                            <span>Your rating:</span>
-                            <div className="ratting-star">
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-6">
-                              <div className="rating-form-style mb-10">
-                                <input placeholder="Name" type="text" />
-                              </div>
-                            </div>
-                            <div className="col-md-6">
-                              <div className="rating-form-style mb-10">
-                                <input placeholder="Email" type="email" />
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="rating-form-style form-submit">
-                                <textarea
-                                  name="Your Review"
-                                  placeholder="Message"
-                                ></textarea>
-                                <input type="submit" value="Submit" />
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
