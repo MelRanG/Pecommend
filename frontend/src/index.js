@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Community from './community/community'
-import PerfumeList from './perfume/perfumeList'
-import Login from './user/Login'
+import Community from './domain/community/community'
+import PerfumeList from './domain/perfume/perfumeList'
+import Login from './domain/user/Login'
 import reportWebVitals from './reportWebVitals';
-import Nav from './nav/nav';
-import Footer from './footer/footer';
+import Nav from './components/nav';
+import Footer from './components/footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
