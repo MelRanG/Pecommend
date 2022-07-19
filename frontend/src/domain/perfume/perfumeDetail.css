@@ -1,0 +1,98 @@
+.pro-details-list{
+  padding: 20px !important;
+  border: 1px solid #e5e5e5;
+  background-color: #f4e9ff5c;
+  border-radius: 20px;
+  margin: 20px 10px 34px 10px !important;
+}
+
+.pro-details-list:nth-child(2){
+  padding: 20px !important;
+  border: 1px solid #e5e5e5;
+  background-color: #e9faff80;
+  border-radius: 20px;
+  margin: 20px 10px 34px 10px !important;
+}
+
+/* 해시태그 */
+.product-hashtag{
+  display: flex;
+  padding: 10px 0 10px;
+  cursor: pointer;
+  
+}
+
+.product-hashtag ul li{
+  color: #5a4366;
+  float: left;
+  margin: auto 5px;
+  min-width: 70px;
+  height: 28px;
+  line-height: 26px;
+  background-color: #acffbe79;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  text-align: center;
+}
+/* .product-hashtag ul li:nth-child(3n+1){
+  background-color: #acffbe79;
+} */
+
+.product-hashtag ul li:nth-child(3n+2){
+  background-color: #fffeacad;
+}
+
+.product-hashtag ul li:nth-child(3n+3){
+  background-color: #ffacf849;
+}
+
+.pro-details-likeDislike{
+  padding: 30px;
+  text-align: center;
+  width: 90%;
+}
+
+
+/* 그래프 */
+.likeDislikeGraph{
+  height: 40px;
+  background: #ccc;
+  border-radius: 40px;
+}
+
+.likeDislikeGraph span{
+  display: block;
+  padding: 0 10px;
+  width: 75%;
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
+  background: #616dff;
+  border-radius: 40px;
+  color: #fff;
+  animation: stack 2s 1;
+}
+@keyframes stack{
+  0% {width: 0; color: rgba(255,255,255, 0);}
+  100% {width: 75%; color: rgba(255,255,255,1);}
+}
+
+/* 좋아요/싫어요 */
+
+.glyphicon{
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+}
+.glyphicon-thumbs-up{
+  color: #616dff;
+}
+.glyphicon-thumbs-down{
+  color: #ff6161;
+}
+
+/* 하단 sns */
+.pro-details-social ul{
+  /* width: 90%; */
+  justify-content: center;
+}
