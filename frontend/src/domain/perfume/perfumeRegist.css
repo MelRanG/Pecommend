@@ -1,0 +1,44 @@
+.perfumeRegistBox > div {
+    margin-top:20px;
+}
+
+.name-input {
+    width:50%;
+}
+
+.description-input {
+    resize: none;
+}
+
+.ButtonArea {
+    display:flex;
+    justify-content: end;
+}
+
+.BackButton {
+    margin:5px;
+    background-color: #cd5c5c;
+    border: none;
+    color: #ffffff;
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.BackButton:hover {
+    color: #000000;
+}
+
+.AcceptButton {
+    margin:5px;
+    background-color: #87ceeb;
+    border: none;
+    color: #ffffff;
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.AcceptButton:hover {
+    color: #000000;
+}
