@@ -1,10 +1,12 @@
 // import logo from "./logo.svg";
 // import "./App.css";
 // import "./App.css";
+import './Login.css';
 
 function Login() {
-  return (
-    <div className="Login">
+    return (
+
+      <div className="Login">
       <header class="header-area header-in-container clearfix">
     <div class="header-top-area">
         <div class="container">
@@ -384,25 +386,33 @@ function Login() {
                             <h4> register </h4>
                         </a>
                     </div>
-                    <div class="tab-content">
-                        <div id="lg1" class="tab-pane active">
-                            <div class="login-form-container">
-                                <div class="login-register-form">
-                                    <form action="#" method="post">
-                                        <input type="text" name="user-name" placeholder="Username" />
-                                        <input type="password" name="user-password" placeholder="Password" />
-                                        <div class="button-box">
-                                            <div class="login-toggle-btn">
-                                                <input type="checkbox" />
-                                                <label>Remember me</label>
-                                                <a href="#">Forgot Password?</a>
-                                            </div>
-                                            <button type="submit"><span>Login</span></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                              <div class="tab-content">
+                                  <div id="lg1" class="tab-pane active">
+                                      <div class="login-form-container">
+                                          <div class="login-register-form">
+                                              <form action="#" method="post">
+                                                  <input type="text" name="user-name" placeholder="Email" />
+                                                  <input type="password" name="user-password" placeholder="Password" />
+                                                  <div class="button-box">
+                                                      <div class="login-toggle-btn">
+                                                          <input type="checkbox" />
+                                                          <label>Remember me</label>
+                                                          <a href="#">Forgot Password?</a>
+                                                      </div>
+                                                      <div class="d-grid gap-2">
+                                                          <button type="submit" class="bbb"><span>Login</span></button>
+                                                          <div class="login_l m-4"></div>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                          </div>
+                                          <div class="d-grid gap-2">
+                                              <button type="submit" class="naver-login-btn mb-3"><span>네이버 로그인</span></button>
+                                              <button type="submit" class="google-login-btn"><span>구글 로그인</span></button>
+                                          </div>
+                                      </div>
+                                  </div>
+
                         <div id="lg2" class="tab-pane">
                             <div class="login-form-container">
                                 <div class="login-register-form">
@@ -505,7 +515,7 @@ function Login() {
                 </div>
             </div>
         </div>
-    </div>
+              </div>
 </footer>
 
 
@@ -639,8 +649,10 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+                  </div>
+                  
+              </div>
+              
 </div>
 {/* <!-- Modal end --> */}
     </div>
