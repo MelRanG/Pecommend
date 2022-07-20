@@ -2,12 +2,34 @@
     margin-top:20px;
 }
 
+.NameBox {
+    display: flex;
+    flex-direction: column !important;
+}
+
 .name-input {
     width:50%;
 }
 
+.name-input:focus {
+    background-color: #ffffff;
+}
+
 .description-input {
     resize: none;
+}
+
+.MakerBox {
+    display: flex;
+    flex-direction: column !important;
+}
+
+.maker-input {
+    width:50%;
+}
+
+.maker-input:focus {
+    background-color: #ffffff;
 }
 
 .ButtonArea {
