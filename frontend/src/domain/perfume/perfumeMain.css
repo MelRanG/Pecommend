@@ -108,45 +108,41 @@
   width: 90%;
 }
 
-.perfume-popular-hashtag{
-  /* justify-content: center;
-  text-align: center; */
-}
 
 /* 구분선 */
 .line{
   width: 100%;
-  border-bottom: 1px solid #cacaca;
-  margin-bottom: 10px;
+  border-bottom: 1px solid #dfdfdf;
+  /* margin-bottom: 10px; */
+  margin-top: 50px;
 }
 
 /* 카드리뷰 */
+.col-testimonials-list{
+  display: inline;
+}
+.slider-testimonials{
+  display: flex;
+}
 .item-testimonials{
-width: 320px;
-height: 370px;
+width: 280px;
+height: 300px;
 margin: 0 10px;
-background: #FAF9FF;
+background: #ffffff;
 border: 1px solid #CCBDFF;
 -webkit-box-sizing: border-box;
 box-sizing: border-box;
 border-radius: 25px;
-padding: 20px 20px;}
-.item-testimonials{
-width: 400px;
-padding: 30px;
-height: 430px;
+padding: 20px 20px;
+}
+.box-item-testimonials-text{
+  border-radius: 12px;
+  background-color: #f4f0ffa3;
+  padding: 10px;
+  max-height: 160px;
+  overflow: hidden;
 }
 
-[data-aos][data-aos][data-aos-delay="200"].aos-animate, body[data-aos-delay="200"] [data-aos].aos-animate{
-  transition-delay: .2s;
-}
-[data-aos^=fade][data-aos^=fade].aos-animate{
-  opacity: 1;
-  transform: translateZ(0);
-}
-.text2 {
-  font-size: 25px;
-}
 .title1 {
   font-size: 41px;
   margin-bottom: 15px;
@@ -155,60 +151,40 @@ height: 430px;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-.box-slider-testimonials1 {
-  width: auto;
-  margin: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
+.review-card-title{
   display: flex;
 }
-element.style {
-  animation: 40s linear 0s infinite normal none running moveSlideshow;
+.review-card-title img{
+  width: 80px;
+  margin-right: 20px;
 }
-.item-testimonials {
-  width: 400px;
-  padding: 30px;
-  height: 430px;
+
+.review-text-profile{
+  /* text-align: right; */
+  display: inline;
+  height: 50px;
+  float: right;
+  /* float: right;
+  position: relative;
+  margin-top: 24px;
+  padding-right: 44px;
+  text-align: right; */
 }
-.item-testimonials {
-  width: 320px;
-  height: 370px;
+
+.review-text-profile img{
+  height: 50px;
+  width: 45px;
+}
+
+/* 슬라이드 */
+.slider-item{
+  width: 280px !important;
+  height: 300px;
   margin: 0 10px;
-  background: #FAF9FF;
+  background: #ffffff;
   border: 1px solid #CCBDFF;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 25px;
   padding: 20px 20px;
-}
-.item-testimonials-stars {
-  margin-bottom: 15px;
-}
-.box-left-labresults .link-more-testimonials, .item-testimonials-date {
-  font-size: 18px;
-}
-.item-testimonials-title {
-  font-size: 30px;
-}
-.item-testimonials-title {
-  font-weight: 600;
-  font-size: 26px;
-  margin-bottom: 20px;
-  color: #000;
-}
-.box-item-testimonials-text p {
-  font-size: 18px;
-}
-[data-aos][data-aos][data-aos-easing=linear], body[data-aos-easing=linear] [data-aos] {
-  transition-timing-function: cubic-bezier(.25,.25,.75,.75);
-}
-.slider-testimonials {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  height: 100%;
-  width: auto;
-  padding: 10px 0px;
-  max-width: auto;
-}
+  }

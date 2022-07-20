@@ -441,7 +441,7 @@ function perfumeMain() {
             <div className="line"></div>
             {/* 해시태그 */}
             {/* ul li가아니라 div로 처리할지 고민중. */}
-            <div className="product-details-content mt-50">
+            <div className="product-details-content mt-30">
               <div className="title row">
                 <h2 className="title-popular col-sm-6">인기 키워드</h2>
                 <div className="title-sub col-sm-6">더보기 {'>'}</div>
@@ -475,619 +475,448 @@ function perfumeMain() {
 
             <div className="line"></div>
             {/* 최신리뷰 */}
-            <div className="product-details-content mt-50">
-              <div className="title row">
+            <div className="product-details-content mt-30">
+              <div className="title row ">
                 <h2 className="title-popular col-sm-6">최신 리뷰</h2>
                 <div className="title-sub col-sm-6">더보기 {'>'}</div>
               </div>
 
-              
 
-{/* <div class="card border-secondary mb-3" style={{"max-width": "18rem"}}>
-  <div class="card-header">Header</div>
-  <div class="card-body text-secondary">
-    <h5 class="card-title">Secondary card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div> */}
-
-
-            
-              <div class="row">
-                <div class="col-lg-4 col-text-testimonials aos-init aos-animate" data-aos="fade-in" data-aos-easing="linear" data-aos-duration="500" data-aos-delay="200">
-                  <p class="text2">Testimonials</p>
-                  <h2 class="title1">All aboard the <br />snoozzze train.</h2>
-                  <a href="/products/lullaby-berry-tincture-potion?scroll=reviews" class="link-more-testimonials link-more-testimonials-desktop link-animate1">Read all reviews</a>
+              {/* 슬라이딩 */}
+              <div className="slider">
+                {/* <div>I am a slide.</div>
+      <div>I am another slide.</div> */}
+                <div class="slider-item">
+                  {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                  <div className="review-card-title">
+                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                    <div>
+                      <h4 class="item-testimonials-title">Perfume Name</h4>
+                      <div className="review-text-profile">
+                        {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                        <span>&nbsp; 닉네임 님</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-item-testimonials-text mt-10">
+                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  </div>
                 </div>
-                <div class="col-lg-8 col-testimonials-list aos-init aos-animate" data-aos="fade-in" data-aos-easing="linear" data-aos-duration="500" data-aos-delay="200">
+                <div class="slider-item">
+                  {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                  <div className="review-card-title">
+                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                    <div>
+                      <h4 class="item-testimonials-title">Perfume Name</h4>
+                      <div className="review-text-profile">
+                        {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                        <span>&nbsp; 닉네임 님</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-item-testimonials-text mt-10">
+                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  </div>
+                </div>
+                <div class="slider-item">
+                  {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                  <div className="review-card-title">
+                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                    <div>
+                      <h4 class="item-testimonials-title">Perfume Name</h4>
+                      <div className="review-text-profile">
+                        {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                        <span>&nbsp; 닉네임 님</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-item-testimonials-text mt-10">
+                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  </div>
+                </div>
+                <div class="slider-item">
+                  {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                  <div className="review-card-title">
+                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                    <div>
+                      <h4 class="item-testimonials-title">Perfume Name</h4>
+                      <div className="review-text-profile">
+                        {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                        <span>&nbsp; 닉네임 님</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-item-testimonials-text mt-10">
+                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  </div>
+                </div>
+                <div class="slider-item">
+                  {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                  <div className="review-card-title">
+                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                    <div>
+                      <h4 class="item-testimonials-title">Perfume Name</h4>
+                      <div className="review-text-profile">
+                        {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                        <span>&nbsp; 닉네임 님</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-item-testimonials-text mt-10">
+                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  </div>
+                </div>
+              </div>
+              {/* 슬라이딩끝 */}
+
+
+
+
+              <div class="mt-20">
+                <div class="col-testimonials-list aos-init aos-animate" data-aos="fade-in" data-aos-easing="linear" data-aos-duration="500" data-aos-delay="200">
                   <div class="box-slider-testimonials">
                     <div class="box-slider-testimonials1">
-
-                      <div class="slider-testimonials slider-testimonials1 clone" style={{ "animation": "40s linear 0s infinite normal none running moveSlideshow"}}>
+                      <div class="slider-testimonials slider-testimonials1 clone">
                         <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
+                          {/* <div class="item-testimonials-stars">
                             <span class="text-stars">MacAllister</span>
+                          </div> */}
+                          <div className="review-card-title">
+                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                            <div>
+                              <h4 class="item-testimonials-title">Perfume Name</h4>
+                              <div className="review-text-profile">
+                                {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                                <span>&nbsp; 닉네임 님</span>
+                              </div>
+                            </div>
                           </div>
-                          <p class="item-testimonials-date">Age 23, Miami</p>
-                          <h3 class="item-testimonials-title">Works amazing!</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>This was my first time trying any hemp oil and it is perfect. I didn’t have a hard time sleeping before but I wanted to get my sleep schedule right. This product has given me a deeper and more restful sleep. I wake up feeling refreshed and not groggy as if I woke up multiple times in the night.</p>
+                          <div class="box-item-testimonials-text mt-10">
+                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                          </div>
+                        </div>
+
+                        <div class="item-testimonials">
+                          {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                          <div className="review-card-title">
+                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                            <div>
+                              <h4 class="item-testimonials-title">Perfume Name</h4>
+                              <div className="review-text-profile">
+                                {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                                <span>&nbsp; 닉네임 님</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="box-item-testimonials-text mt-10">
+                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
                           </div>
                         </div>
                         <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Samantha P.</span>
+                          {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                          <div className="review-card-title">
+                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                            <div>
+                              <h4 class="item-testimonials-title">Perfume Name</h4>
+                              <div className="review-text-profile">
+                                {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                                <span>&nbsp; 닉네임 님</span>
+                              </div>
+                            </div>
                           </div>
-                          <p class="item-testimonials-date">Age 30, Los Angeles</p>
-                          <h3 class="item-testimonials-title">My go-to sleep tool</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>I’ve tried loads of oils for sleep but nothing as good as this. Simply unbelievable! The DreamPotion has fixed up my sleep schedule for what it used to be.</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Trevor G</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 36, Wyoming </p>
-                          <h3 class="item-testimonials-title">OUT COLD</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>As an entrepreneur trying to juggle everything sleep is obviously extremely important and something I don’t get enough of. I used to wake up randomly through the night and woke up exhausted. With Sweet Dreams I’m out cold. First night I took it I was out for 10 hours. Probably making up for sleep I’ve needed to catch up on. Definitely part of my nightly routine now</p>
+                          <div class="box-item-testimonials-text mt-10">
+                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
                           </div>
                         </div>
                         <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Nik S</span>
+                          {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                          <div className="review-card-title">
+                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                            <div>
+                              <h4 class="item-testimonials-title">Perfume Name</h4>
+                              <div className="review-text-profile">
+                                {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                                <span>&nbsp; 닉네임 님</span>
+                              </div>
+                            </div>
                           </div>
-                          <p class="item-testimonials-date">Age 29, Nevada</p>
-                          <h3 class="item-testimonials-title">My day is powered by SweetDreams </h3>
-                          <div class="box-item-testimonials-text">
-                            <p>After the trial, the DreamPotion became an essential in my nightly routine. My sleep improved and my days grew more productive</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Kim L</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 25, New York</p>
-                          <h3 class="item-testimonials-title">Makes me feel like I’m floating on a cloud </h3>
-                          <div class="box-item-testimonials-text">
-                            <p>After daily anxiety and minor insomnia, I tried the DreamPotion and got the best sleep I’ve had in the last 6 months</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Adrian B</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 28, New York</p>
-                          <h3 class="item-testimonials-title">Love at first sleep</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>I am used to taking other products daily but those stopped working for me. I switched to SweetDreams and the first night of my trial, I fell in love. Instantly ordered another months supply. </p>
+                          <div class="box-item-testimonials-text mt-10">
+                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
                           </div>
                         </div>
                       </div>
 
-
-
-                      <div class="slider-testimonials slider-testimonials1 clone" style={{ "animation": "40s linear 0s infinite normal none running moveSlideshow"}}>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">MacAllister</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 23, Miami</p>
-                          <h3 class="item-testimonials-title">Works amazing!</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>This was my first time trying any hemp oil and it is perfect. I didn’t have a hard time sleeping before but I wanted to get my sleep schedule right. This product has given me a deeper and more restful sleep. I wake up feeling refreshed and not groggy as if I woke up multiple times in the night.</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Samantha P.</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 30, Los Angeles</p>
-                          <h3 class="item-testimonials-title">My go-to sleep tool</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>I’ve tried loads of oils for sleep but nothing as good as this. Simply unbelievable! The DreamPotion has fixed up my sleep schedule for what it used to be.</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Trevor G</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 36, Wyoming </p>
-                          <h3 class="item-testimonials-title">OUT COLD</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>As an entrepreneur trying to juggle everything sleep is obviously extremely important and something I don’t get enough of. I used to wake up randomly through the night and woke up exhausted. With Sweet Dreams I’m out cold. First night I took it I was out for 10 hours. Probably making up for sleep I’ve needed to catch up on. Definitely part of my nightly routine now</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Nik S</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 29, Nevada</p>
-                          <h3 class="item-testimonials-title">My day is powered by SweetDreams </h3>
-                          <div class="box-item-testimonials-text">
-                            <p>After the trial, the DreamPotion became an essential in my nightly routine. My sleep improved and my days grew more productive</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Kim L</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 25, New York</p>
-                          <h3 class="item-testimonials-title">Makes me feel like I’m floating on a cloud </h3>
-                          <div class="box-item-testimonials-text">
-                            <p>After daily anxiety and minor insomnia, I tried the DreamPotion and got the best sleep I’ve had in the last 6 months</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          <div class="item-testimonials-stars">
-
-                            <span class="text-stars">Adrian B</span>
-                          </div>
-                          <p class="item-testimonials-date">Age 28, New York</p>
-                          <h3 class="item-testimonials-title">Love at first sleep</h3>
-                          <div class="box-item-testimonials-text">
-                            <p>I am used to taking other products daily but those stopped working for me. I switched to SweetDreams and the first night of my trial, I fell in love. Instantly ordered another months supply. </p>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
-                  <div class="owl-carousel owl-theme dots-custom1 owl-loaded owl-drag" id="carousel-testimonials">
 
-
-
-
-
-
-                    <div class="owl-stage-outer"><div class="owl-stage" style={{"transform": "translate3d(0px, 0px, 0px)", "transition": "all 0s ease 0s"}}><div class="owl-item"><div class="item-testimonials">
-                      <div class="item-testimonials-stars">
-
-                        <span class="text-stars">MacAllister</span>
-                      </div>
-                      <p class="item-testimonials-date">Age 23, Miami</p>
-                      <h3 class="item-testimonials-title">Works amazing!</h3>
-                      <div class="box-item-testimonials-text">
-                        <p>This was my first time trying any hemp oil and it is perfect. I didn’t have a hard time sleeping before but I wanted to get my sleep schedule right. This product has given me a deeper and more restful sleep. I wake up feeling refreshed and not groggy as if I woke up multiple times in the night.</p>
-                      </div>
-                    </div></div><div class="owl-item"><div class="item-testimonials">
-                      <div class="item-testimonials-stars">
-
-                        <span class="text-stars">Samantha P.</span>
-                      </div>
-                      <p class="item-testimonials-date">Age 30, Los Angeles</p>
-                      <h3 class="item-testimonials-title">My go-to sleep tool</h3>
-                      <div class="box-item-testimonials-text">
-                        <p>I’ve tried loads of oils for sleep but nothing as good as this. Simply unbelievable! The DreamPotion has fixed up my sleep schedule for what it used to be.</p>
-                      </div>
-                    </div></div><div class="owl-item"><div class="item-testimonials">
-                      <div class="item-testimonials-stars">
-
-                        <span class="text-stars">Trevor G</span>
-                      </div>
-                      <p class="item-testimonials-date">Age 36, Wyoming</p>
-                      <h3 class="item-testimonials-title">OUT COLD</h3>
-                      <div class="box-item-testimonials-text">
-                        <p>As an entrepreneur trying to juggle everything sleep is obviously extremely important and something I don’t get enough of. I used to wake up randomly through the night and woke up exhausted. With Sweet Dreams I’m out cold. First night I took it I was out for 10 hours. Probably making up for sleep I’ve needed to catch up on. Definitely part of my nightly routine now</p>
-                      </div>
-                    </div></div><div class="owl-item"><div class="item-testimonials">
-                      <div class="item-testimonials-stars">
-
-                        <span class="text-stars">Nik S</span>
-                      </div>
-                      <p class="item-testimonials-date">Age 29, Nevada</p>
-                      <h3 class="item-testimonials-title">My day is powered by SweetDreams </h3>
-                      <div class="box-item-testimonials-text">
-                        <p>After the trial, the DreamPotion became an essential in my nightly routine. My sleep improved and my days grew more productive</p>
-                      </div>
-                    </div></div><div class="owl-item"><div class="item-testimonials">
-                      <div class="item-testimonials-stars">
-
-                        <span class="text-stars">Kim L</span>
-                      </div>
-                      <p class="item-testimonials-date">Age 25, New York</p>
-                      <h3 class="item-testimonials-title">Makes me feel like I’m floating on a cloud </h3>
-                      <div class="box-item-testimonials-text">
-                        <p>After daily anxiety and minor insomnia, I tried the DreamPotion and got the best sleep I’ve had in the last 6 months</p>
-                      </div>
-                    </div></div><div class="owl-item"><div class="item-testimonials">
-                      <div class="item-testimonials-stars">
-
-                        <span class="text-stars">Adrian B</span>
-                      </div>
-                      <p class="item-testimonials-date">Age 28, New York</p>
-                      <h3 class="item-testimonials-title">Love at first sleep</h3>
-                      <div class="box-item-testimonials-text">
-                        <p>I am used to taking other products daily but those stopped working for me. I switched to SweetDreams and the first night of my trial, I fell in love. Instantly ordered another months supply. </p>
-                      </div>
-                    </div></div></div></div><div class="owl-nav disabled"><div class="owl-prev">prev</div><div class="owl-next">next</div></div><div class="owl-dots"><div class="owl-dot active"><span></span></div><div class="owl-dot"><span></span></div><div class="owl-dot"><span></span></div><div class="owl-dot"><span></span></div><div class="owl-dot"><span></span></div><div class="owl-dot"><span></span></div></div></div>
-                  <a href="/products/lullaby-berry-tincture-potion?scroll=reviews" class="link-more-testimonials link-more-testimonials-mobile">See more reviews</a>
                 </div>
               </div>
 
 
 
-            {/* 카드리뷰
-              <div class="row mx-auto my-auto justify-content-center">
-                <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active">
-                      <div class="col-md-3">
-                        <div class="card">
-                          <div class="card-img">
-                            <img src="https://via.placeholder.com/500x400/31f?text=1" class="img-fluid" />
-                          </div>
-                          <div class="card-img-overlay">Slide 1</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="col-md-3">
-                        <div class="card">
-                          <div class="card-img">
-                            <img src="https://via.placeholder.com/500x400/e66?text=2" class="img-fluid" />
-                          </div>
-                          <div class="card-img-overlay">Slide 2</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="col-md-3">
-                        <div class="card">
-                          <div class="card-img">
-                            <img src="https://via.placeholder.com/500x400/7d2?text=3" class="img-fluid" />
-                          </div>
-                          <div class="card-img-overlay">Slide 3</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="col-md-3">
-                        <div class="card">
-                          <div class="card-img">
-                            <img src="https://via.placeholder.com/500x400?text=4" class="img-fluid" />
-                          </div>
-                          <div class="card-img-overlay">Slide 4</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="col-md-3">
-                        <div class="card">
-                          <div class="card-img">
-                            <img src="https://via.placeholder.com/500x400/aba?text=5" class="img-fluid" />
-                          </div>
-                          <div class="card-img-overlay">Slide 5</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="col-md-3">
-                        <div class="card">
-                          <div class="card-img">
-                            <img src="https://via.placeholder.com/500x400/fc0?text=6" class="img-fluid" />
-                          </div>
-                          <div class="card-img-overlay">Slide 6</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  </a>
-                  <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  </a>
-                </div>
-              </div> */}
 
-
-
-
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
 
 
 
 
-
-      {/* 2개용
-      <div className="description-likeDislike pb-90">
+      <footer className="footer-area bg-gray pt-100 pb-70">
         <div className="container">
-          <div className="likeDislikeList">
-            <div className="section-title text-center mb-50">
-              <h2>이 향수를 선호 / 비선호 하는 사람이 궁금해요</h2>
-            </div>
-            <div className="likeDislikeList-items row">
-              <div className="col-lg-3">
-                <span className="glyphicon glyphicon-thumbs-up"></span>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-            </div>
-            <div className="likeDislikeList-items row">
-              <div className="col-lg-3">
-                <span className="glyphicon glyphicon-thumbs-down"></span>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-  <footer className="footer-area bg-gray pt-100 pb-70">
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-2 col-md-4 col-sm-4">
-          <div className="copyright mb-30">
-            <div className="footer-logo">
-              <a href="index.html">
-                <img alt="" src="assets/img/logo/logo.png" />
-              </a>
-            </div>
-            <p>© 2021 <a href="#">Flone</a>.<br /> All Rights Reserved</p>
-          </div>
-        </div>
-        <div className="col-lg-2 col-md-4 col-sm-4">
-          <div className="footer-widget mb-30 ml-30">
-            <div className="footer-title">
-              <h3>ABOUT US</h3>
-            </div>
-            <div className="footer-list">
-              <ul>
-                <li><a href="about.html">About us</a></li>
-                <li><a href="#">Store location</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="#">Orders tracking</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-2 col-md-4 col-sm-4">
-          <div className="footer-widget mb-30 ml-50">
-            <div className="footer-title">
-              <h3>USEFUL LINKS</h3>
-            </div>
-            <div className="footer-list">
-              <ul>
-                <li><a href="#">Returns</a></li>
-                <li><a href="#">Support Policy</a></li>
-                <li><a href="#">Size guide</a></li>
-                <li><a href="#">FAQs</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-2 col-md-6 col-sm-6">
-          <div className="footer-widget mb-30 ml-75">
-            <div className="footer-title">
-              <h3>FOLLOW US</h3>
-            </div>
-            <div className="footer-list">
-              <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Youtube</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6 col-sm-6">
-          <div className="footer-widget mb-30 ml-70">
-            <div className="footer-title">
-              <h3>SUBSCRIBE</h3>
-            </div>
-            <div className="subscribe-style">
-              <p>Get E-mail updates about our latest shop and special offers.</p>
-              <div id="mc_embed_signup" className="subscribe-form">
-                <form id="mc-embedded-subscribe-form" className="validate" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
-                  <div id="mc_embed_signup_scroll" className="mc-form">
-                    <input className="email" type="email" required="" placeholder="Enter your email here.." name="EMAIL" value="" />
-                    <div className="mc-news" aria-hidden="true">
-                      <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" />
-                    </div>
-                    <div className="clear">
-                      <input id="mc-embedded-subscribe" className="button" type="submit" name="subscribe" value="Subscribe" />
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-
-  {/* <!-- Modal --> */ }
-  <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-    <div className="modal-dialog" role="document">
-      <div className="modal-content">
-        <div className="modal-header">
-          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div className="modal-body">
           <div className="row">
-            <div className="col-md-5 col-sm-12 col-xs-12">
-              <div className="tab-content quickview-big-img">
-                <div id="pro-1" className="tab-pane fade show active">
-                  <img src="assets/img/product/quickview-l1.jpg" alt="" />
+            <div className="col-lg-2 col-md-4 col-sm-4">
+              <div className="copyright mb-30">
+                <div className="footer-logo">
+                  <a href="index.html">
+                    <img alt="" src="assets/img/logo/logo.png" />
+                  </a>
                 </div>
-                <div id="pro-2" className="tab-pane fade">
-                  <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                </div>
-                <div id="pro-3" className="tab-pane fade">
-                  <img src="assets/img/product/quickview-l3.jpg" alt="" />
-                </div>
-                <div id="pro-4" className="tab-pane fade">
-                  <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                </div>
+                <p>© 2021 <a href="#">Flone</a>.<br /> All Rights Reserved</p>
               </div>
-              {/* <!-- Thumbnail Large Image End --> */}
-              {/* <!-- Thumbnail Image End --> */}
-              <div className="quickview-wrap mt-15">
-                <div className="quickview-slide-active owl-carousel nav nav-style-1" role="tablist">
-                  <a className="active" data-bs-toggle="tab" href="#pro-1"><img src="assets/img/product/quickview-s1.jpg" alt="" /></a>
-                  <a data-bs-toggle="tab" href="#pro-2"><img src="assets/img/product/quickview-s2.jpg" alt="" /></a>
-                  <a data-bs-toggle="tab" href="#pro-3"><img src="assets/img/product/quickview-s3.jpg" alt="" /></a>
-                  <a data-bs-toggle="tab" href="#pro-4"><img src="assets/img/product/quickview-s2.jpg" alt="" /></a>
+            </div>
+            <div className="col-lg-2 col-md-4 col-sm-4">
+              <div className="footer-widget mb-30 ml-30">
+                <div className="footer-title">
+                  <h3>ABOUT US</h3>
+                </div>
+                <div className="footer-list">
+                  <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Store location</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Orders tracking</a></li>
+                  </ul>
                 </div>
               </div>
             </div>
-            <div className="col-md-7 col-sm-12 col-xs-12">
-              <div className="product-details-content quickview-content">
-                <h2>Products Name Here</h2>
-                <div className="product-details-price">
-                  <span>$18.00 </span>
-                  <span className="old">$20.00 </span>
+            <div className="col-lg-2 col-md-4 col-sm-4">
+              <div className="footer-widget mb-30 ml-50">
+                <div className="footer-title">
+                  <h3>USEFUL LINKS</h3>
                 </div>
-                <div className="pro-details-rating-wrap">
-                  <div className="pro-details-rating">
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o"></i>
-                    <i className="fa fa-star-o"></i>
-                  </div>
-                  <span>3 Reviews</span>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
-                <div className="pro-details-list">
+                <div className="footer-list">
                   <ul>
-                    <li>- 0.5 mm Dail</li>
-                    <li>- Inspired vector icons</li>
-                    <li>- Very modern style  </li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Support Policy</a></li>
+                    <li><a href="#">Size guide</a></li>
+                    <li><a href="#">FAQs</a></li>
                   </ul>
                 </div>
-                <div className="pro-details-size-color">
-                  <div className="pro-details-color-wrap">
-                    <span>Color</span>
-                    <div className="pro-details-color-content">
+              </div>
+            </div>
+            <div className="col-lg-2 col-md-6 col-sm-6">
+              <div className="footer-widget mb-30 ml-75">
+                <div className="footer-title">
+                  <h3>FOLLOW US</h3>
+                </div>
+                <div className="footer-list">
+                  <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Youtube</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-6 col-sm-6">
+              <div className="footer-widget mb-30 ml-70">
+                <div className="footer-title">
+                  <h3>SUBSCRIBE</h3>
+                </div>
+                <div className="subscribe-style">
+                  <p>Get E-mail updates about our latest shop and special offers.</p>
+                  <div id="mc_embed_signup" className="subscribe-form">
+                    <form id="mc-embedded-subscribe-form" className="validate" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
+                      <div id="mc_embed_signup_scroll" className="mc-form">
+                        <input className="email" type="email" required="" placeholder="Enter your email here.." name="EMAIL" value="" />
+                        <div className="mc-news" aria-hidden="true">
+                          <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" />
+                        </div>
+                        <div className="clear">
+                          <input id="mc-embedded-subscribe" className="button" type="submit" name="subscribe" value="Subscribe" />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+      {/* <!-- Modal --> */}
+      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <div className="row">
+                <div className="col-md-5 col-sm-12 col-xs-12">
+                  <div className="tab-content quickview-big-img">
+                    <div id="pro-1" className="tab-pane fade show active">
+                      <img src="assets/img/product/quickview-l1.jpg" alt="" />
+                    </div>
+                    <div id="pro-2" className="tab-pane fade">
+                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
+                    </div>
+                    <div id="pro-3" className="tab-pane fade">
+                      <img src="assets/img/product/quickview-l3.jpg" alt="" />
+                    </div>
+                    <div id="pro-4" className="tab-pane fade">
+                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
+                    </div>
+                  </div>
+                  {/* <!-- Thumbnail Large Image End --> */}
+                  {/* <!-- Thumbnail Image End --> */}
+                  <div className="quickview-wrap mt-15">
+                    <div className="quickview-slide-active owl-carousel nav nav-style-1" role="tablist">
+                      <a className="active" data-bs-toggle="tab" href="#pro-1"><img src="assets/img/product/quickview-s1.jpg" alt="" /></a>
+                      <a data-bs-toggle="tab" href="#pro-2"><img src="assets/img/product/quickview-s2.jpg" alt="" /></a>
+                      <a data-bs-toggle="tab" href="#pro-3"><img src="assets/img/product/quickview-s3.jpg" alt="" /></a>
+                      <a data-bs-toggle="tab" href="#pro-4"><img src="assets/img/product/quickview-s2.jpg" alt="" /></a>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-7 col-sm-12 col-xs-12">
+                  <div className="product-details-content quickview-content">
+                    <h2>Products Name Here</h2>
+                    <div className="product-details-price">
+                      <span>$18.00 </span>
+                      <span className="old">$20.00 </span>
+                    </div>
+                    <div className="pro-details-rating-wrap">
+                      <div className="pro-details-rating">
+                        <i className="fa fa-star-o yellow"></i>
+                        <i className="fa fa-star-o yellow"></i>
+                        <i className="fa fa-star-o yellow"></i>
+                        <i className="fa fa-star-o"></i>
+                        <i className="fa fa-star-o"></i>
+                      </div>
+                      <span>3 Reviews</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
+                    <div className="pro-details-list">
                       <ul>
-                        <li className="blue"></li>
-                        <li className="maroon active"></li>
-                        <li className="gray"></li>
-                        <li className="green"></li>
-                        <li className="yellow"></li>
+                        <li>- 0.5 mm Dail</li>
+                        <li>- Inspired vector icons</li>
+                        <li>- Very modern style  </li>
+                      </ul>
+                    </div>
+                    <div className="pro-details-size-color">
+                      <div className="pro-details-color-wrap">
+                        <span>Color</span>
+                        <div className="pro-details-color-content">
+                          <ul>
+                            <li className="blue"></li>
+                            <li className="maroon active"></li>
+                            <li className="gray"></li>
+                            <li className="green"></li>
+                            <li className="yellow"></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="pro-details-size">
+                        <span>Size</span>
+                        <div className="pro-details-size-content">
+                          <ul>
+                            <li><a href="#">s</a></li>
+                            <li><a href="#">m</a></li>
+                            <li><a href="#">l</a></li>
+                            <li><a href="#">xl</a></li>
+                            <li><a href="#">xxl</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pro-details-quality">
+                      <div className="cart-plus-minus">
+                        <input className="cart-plus-minus-box" type="text" name="qtybutton" value="2" />
+                      </div>
+                      <div className="pro-details-cart btn-hover">
+                        <a href="#">Add To Cart</a>
+                      </div>
+                      <div className="pro-details-wishlist">
+                        <a href="#"><i className="fa fa-heart-o"></i></a>
+                      </div>
+                      <div className="pro-details-compare">
+                        <a href="#"><i className="pe-7s-shuffle"></i></a>
+                      </div>
+                    </div>
+                    <div className="pro-details-meta">
+                      <span>Categories :</span>
+                      <ul>
+                        <li><a href="#">Minimal,</a></li>
+                        <li><a href="#">Furniture,</a></li>
+                        <li><a href="#">Electronic</a></li>
+                      </ul>
+                    </div>
+                    <div className="pro-details-meta">
+                      <span>Tag :</span>
+                      <ul>
+                        <li><a href="#">Fashion, </a></li>
+                        <li><a href="#">Furniture,</a></li>
+                        <li><a href="#">Electronic</a></li>
+                      </ul>
+                    </div>
+                    <div className="pro-details-social">
+                      <ul>
+                        <li><a href="#"><i className="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i className="fa fa-dribbble"></i></a></li>
+                        <li><a href="#"><i className="fa fa-pinterest-p"></i></a></li>
+                        <li><a href="#"><i className="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i className="fa fa-linkedin"></i></a></li>
                       </ul>
                     </div>
                   </div>
-                  <div className="pro-details-size">
-                    <span>Size</span>
-                    <div className="pro-details-size-content">
-                      <ul>
-                        <li><a href="#">s</a></li>
-                        <li><a href="#">m</a></li>
-                        <li><a href="#">l</a></li>
-                        <li><a href="#">xl</a></li>
-                        <li><a href="#">xxl</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="pro-details-quality">
-                  <div className="cart-plus-minus">
-                    <input className="cart-plus-minus-box" type="text" name="qtybutton" value="2" />
-                  </div>
-                  <div className="pro-details-cart btn-hover">
-                    <a href="#">Add To Cart</a>
-                  </div>
-                  <div className="pro-details-wishlist">
-                    <a href="#"><i className="fa fa-heart-o"></i></a>
-                  </div>
-                  <div className="pro-details-compare">
-                    <a href="#"><i className="pe-7s-shuffle"></i></a>
-                  </div>
-                </div>
-                <div className="pro-details-meta">
-                  <span>Categories :</span>
-                  <ul>
-                    <li><a href="#">Minimal,</a></li>
-                    <li><a href="#">Furniture,</a></li>
-                    <li><a href="#">Electronic</a></li>
-                  </ul>
-                </div>
-                <div className="pro-details-meta">
-                  <span>Tag :</span>
-                  <ul>
-                    <li><a href="#">Fashion, </a></li>
-                    <li><a href="#">Furniture,</a></li>
-                    <li><a href="#">Electronic</a></li>
-                  </ul>
-                </div>
-                <div className="pro-details-social">
-                  <ul>
-                    <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i className="fa fa-dribbble"></i></a></li>
-                    <li><a href="#"><i className="fa fa-pinterest-p"></i></a></li>
-                    <li><a href="#"><i className="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i className="fa fa-linkedin"></i></a></li>
-                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  {/* <!-- Modal end --> */ }
+      {/* <!-- Modal end --> */}
     </div >
 
   );

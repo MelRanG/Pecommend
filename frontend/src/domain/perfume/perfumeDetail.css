@@ -199,15 +199,14 @@
 
 .review-text-profile img{
   height: 50px;
+  width: 45px;
 }
 
 .review-text-like{
   text-align: right;
 }
 
-.review-text-profile-img{
-  width: 45px;
-}
+
 
 .review-rating i{
   color: #ffa900;
