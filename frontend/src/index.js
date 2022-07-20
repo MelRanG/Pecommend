@@ -2,17 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Community from './community/community'
-import PerfumeList from './perfume/perfumeList'
-import Login from './user/Login'
+import Community from './domain/community/communityList'
+import CommunityDetail from './domain/community/communityDetail';
+import CommunityMain from './domain/community/communityMain';
+import PerfumeList from './domain/perfume/perfumeList'
+import PerfumeDetail from './domain/perfume/perfumeDetail'
+import Login from './domain/user/Login'
 import reportWebVitals from './reportWebVitals';
-import Nav from './nav/nav';
-import Footer from './footer/footer';
+import Nav from './components/nav';
+import Footer from './components/footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Community />
   </React.StrictMode>
 );
 

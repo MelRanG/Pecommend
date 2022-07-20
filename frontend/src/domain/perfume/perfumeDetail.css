@@ -1,0 +1,216 @@
+.pro-details-list{
+  padding: 20px !important;
+  border: 1px solid #e5e5e5;
+  background-color: #f4e9ff5c;
+  border-radius: 20px;
+  margin: 20px 10px 34px 10px !important;
+}
+
+.pro-details-list:nth-child(2){
+  padding: 20px !important;
+  border: 1px solid #e5e5e5;
+  background-color: #e9faff80;
+  border-radius: 20px;
+  margin: 20px 10px 34px 10px !important;
+}
+
+/* 해시태그 */
+.product-hashtag{
+  display: flex;
+  padding: 10px 0 10px;
+  cursor: pointer;
+  
+}
+
+.product-hashtag ul li{
+  color: #5a4366;
+  float: left;
+  margin: auto 5px;
+  min-width: 70px;
+  height: 28px;
+  line-height: 26px;
+  background-color: #acffbe79;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  text-align: center;
+}
+/* .product-hashtag ul li:nth-child(3n+1){
+  background-color: #acffbe79;
+} */
+
+.product-hashtag ul li:nth-child(3n+2){
+  background-color: #fffeacad;
+}
+
+.product-hashtag ul li:nth-child(3n+3){
+  background-color: #ffacf849;
+}
+
+.pro-details-likeDislike{
+  padding: 30px;
+  text-align: center;
+  width: 90%;
+}
+
+
+/* 그래프 */
+.likeDislikeGraph{
+  height: 40px;
+  background: #ccc;
+  border-radius: 40px;
+}
+
+.likeDislikeGraph span{
+  display: block;
+  padding: 0 10px;
+  width: 75%;
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
+  background: #616dff;
+  border-radius: 40px;
+  color: #fff;
+  animation: stack 2s 1;
+}
+@keyframes stack{
+  0% {width: 0; color: rgba(255,255,255, 0);}
+  100% {width: 75%; color: rgba(255,255,255,1);}
+}
+
+/* 좋아요/싫어요 */
+
+.glyphicon{
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+.glyphicon-thumbs-up{
+  color: #616dff;
+}
+.glyphicon-thumbs-down{
+  color: #ff6161;
+}
+
+/* 하단 sns */
+.pro-details-social ul{
+  /* width: 90%; */
+  justify-content: center;
+}
+
+
+/* 선호,비선호향수 */
+/* 2개용 */
+.likeDislikeList{
+  background-color: #edededb8;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.likeDislikeList-items{
+  text-align: center;
+  display: inline;
+  padding-top: 10px;
+}
+
+.likeDislikeList-items span{
+  height: 170px;
+  line-height: 170px;
+}
+.likeDislikeList-item img{
+  height: 150px;
+}
+
+/* 4개용
+.topList {
+  margin: 0px;
+  justify-content: center;
+}
+.topList-emo{
+  text-align: center;
+} 
+.likeDislikeList{
+  background-color: #edededb8;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.likeDislikeList-items{
+  text-align: center;
+  display: inline;
+  padding-top: 10px;
+}
+
+.likeDislikeList-items span{
+  height: 120px;
+  line-height: 120px;
+}
+.likeDislikeList-item{
+  width: 100px;
+  padding: 0px;
+  margin: 0 10px;
+}
+.likeDislikeList-item img{
+  height: 120px;
+} */
+
+/* 리뷰 */
+.review-profile{
+  border: 1px solid #e5e5e5;
+  height: 150px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 12px;
+}
+.ratting-form-wrapper .ratting-form form .rating-form-style textarea{
+  height: 150px;
+}
+.review-text{
+  /* border: 2px solid #d7dce5; */
+  margin-bottom: 20px;
+  /* height: 150px; */
+
+  /* border-radius: 12px; */
+}
+
+.line{
+  width: 100%;
+  border-bottom: 1px solid #cacaca;
+  margin-bottom: 10px;
+}
+
+.review-text-line{
+  padding:24px 16px;
+  border-bottom: 1px solid #d7dce5;
+  /* border-top: 1px solid #d7dce5; */
+}
+
+.review-text-profile{
+  /* text-align: right; */
+  display: inline;
+  height: 50px;
+  float: right;
+  /* float: right;
+  position: relative;
+  margin-top: 24px;
+  padding-right: 44px;
+  text-align: right; */
+}
+
+.review-text-profile img{
+  height: 50px;
+}
+
+.review-text-like{
+  text-align: right;
+}
+
+.review-text-profile-img{
+  width: 45px;
+}
+
+.review-rating i{
+  color: #ffa900;
+  margin-right: 3px;
+  font-size: 15px;
+}
