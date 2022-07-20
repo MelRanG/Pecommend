@@ -1,6 +1,7 @@
 // import logo from "./logo.svg";
 // import "./App.css";
 // import "./App.css";
+import "./Login.css";
 
 function Login() {
   return (
@@ -799,6 +800,7 @@ function Login() {
         <div class="container">
           <div class="row">
             <div class="col-lg-7 col-md-12 ms-auto me-auto">
+              \
               <div class="login-register-wrapper">
                 <div class="login-register-tab-list nav">
                   <a class="active" data-bs-toggle="tab" href="#lg1">
@@ -816,7 +818,7 @@ function Login() {
                           <input
                             type="text"
                             name="user-name"
-                            placeholder="Username"
+                            placeholder="Email"
                           />
                           <input
                             type="password"
@@ -829,11 +831,22 @@ function Login() {
                               <label>Remember me</label>
                               <a href="#">Forgot Password?</a>
                             </div>
-                            <button type="submit">
-                              <span>Login</span>
-                            </button>
+                            <div class="d-grid gap-2">
+                              <button type="submit" class="bbb">
+                                <span>Login</span>
+                              </button>
+                              <div class="login_l m-4"></div>
+                            </div>
                           </div>
                         </form>
+                      </div>
+                      <div class="d-grid gap-2">
+                        <button type="submit" class="naver-login-btn mb-3">
+                          <span>네이버 로그인</span>
+                        </button>
+                        <button type="submit" class="google-login-btn">
+                          <span>구글 로그인</span>
+                        </button>
                       </div>
                     </div>
                   </div>
