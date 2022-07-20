@@ -9,6 +9,11 @@ import PerfumeList from './domain/perfume/perfumeList';
 import PerfumeDetail from './domain/perfume/perfumeDetail';
 import PerfumeMain from './domain/perfume/perfumeMain';
 import Login from './domain/user/Login';
+import PerfumeList from './domain/perfume/perfumeList'
+import PerfumeDetail from './domain/perfume/perfumeDetail'
+import PerfumeRegistList from './domain/perfume/perfumeRegistList';
+import PerfumeRegist from './domain/perfume/perfumeRegist';
+import Login from './domain/user/Login'
 import reportWebVitals from './reportWebVitals';
 import Nav from './components/nav';
 import Footer from './components/footer';
@@ -16,7 +21,7 @@ import Footer from './components/footer';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Community />
+    <PerfumeRegistList />
   </React.StrictMode>
 );
 
