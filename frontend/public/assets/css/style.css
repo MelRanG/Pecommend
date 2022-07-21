@@ -15469,9 +15469,25 @@ h3.cart-page-title {
   margin-bottom: 30px;
   padding: 0 15px;
 }
+.login-register-wrapper .login-form-container .login-register-form form select {
+  background-color: transparent;
+  border: 1px solid #ebebeb;
+  color: #333;
+  font-size: 14px;
+  height: 45px;
+  margin-bottom: 30px;
+  padding: 0 15px;
+}
 .login-register-wrapper .login-form-container .login-register-form form input[type=checkbox] {
   height: 15px;
   margin: 0;
+  position: relative;
+  top: 1px;
+  width: 17px;
+}
+.login-register-wrapper .login-form-container .login-register-form form input[type=radio] {
+  height: 15px;
+  margin: 0 10px;
   position: relative;
   top: 1px;
   width: 17px;

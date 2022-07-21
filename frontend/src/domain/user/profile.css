@@ -1,0 +1,184 @@
+.mainProfile {
+    margin-top:30px;
+    padding: 5px;
+}
+
+.profileBox {
+    margin: 0;
+    padding:0;
+}
+
+.profileBox > div {
+    margin: 0px 10px 0px 10px;
+    background-color: #E1AFFF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img {
+    width:100%;
+}
+
+.profile-edit-button {
+    width:30%;
+    min-width: 120px;
+    background-color: gray;
+    border-radius: 10px;
+}
+
+.perfumeBox {
+    margin: 0;
+    padding: 0;
+}
+
+.perfumeBox > div {
+    margin: 0px 2px 0px 2px;
+    padding: 8px;
+    background-color: #D9D9D9;
+    border-radius: 8px;
+}
+
+.perfume-like > button {
+    background-color: #799FFF;
+    margin: 8px 10px 1px 10px;
+    border: none;
+    color: #ffffff;
+    min-width: 60px;
+    border-radius: 8px;
+}
+
+.like-list {
+    padding:8px;
+}
+
+.perfume-dislike > button {
+    background-color: #FF7979;
+    margin: 8px 10px 1px 10px;
+    border: none;
+    color: #ffffff;
+    min-width: 60px;
+    border-radius: 8px;
+}
+
+.dislike-list {
+    padding:8px;
+}
+
+.perfume-img {
+    width:100%;
+    object-fit: cover;
+}
+
+.community-title {
+    position: relative;
+    display:flex;
+    justify-content: center;
+}
+
+.comment-title {
+    position: relative;
+    display:flex;
+    justify-content: center;
+}
+
+.linebox {
+    position: absolute;
+    width: 80%;
+    height:1px;
+    top:50%;
+    background-color: #000000;
+    z-index: 1;
+}
+
+.title-box {
+    background-color: white;
+    z-index: 2;
+    min-width: 100px;
+    text-align: center;
+}
+
+.community-list {
+    padding-left:10%;
+    padding-right:10%;
+    display: flex;
+    justify-content: center;
+}
+
+.community-list > div {
+    padding: 2px;
+}
+
+.community-list > div > h5 {
+    margin: 2px;
+}
+
+.comment-list {
+    padding-left:10%;
+    padding-right:10%;
+    display: flex;
+    justify-content: center;
+}
+
+.comment-list > div {
+    padding: 2px;
+}
+
+.comment-list > div > h5 {
+    margin: 2px;
+}
+
+.mid {
+    text-align: center;
+}
+
+.hashtagBox {
+    margin-top: 20px;
+}
+
+.hashtag-title {
+    position: relative;
+    display:flex;
+    justify-content: center;
+}
+
+.hashtag-list {
+    padding: 5px 10% 5px 10%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hashtag0 {
+    min-width: 40px;
+    background-color: #FF7979;
+    border: none;
+    color: #ffffff;
+    border-radius: 7px;
+    padding: 3px 7px 3px 7px;
+    margin: 0px 5px 4px 5px;
+}
+
+.hashtag1 {
+    min-width: 40px;
+    background-color: #799FFF;
+    border: none;
+    color: #ffffff;
+    border-radius: 7px;
+    padding: 3px 7px 3px 7px;
+    margin: 0px 5px 4px 5px;
+}
+
+.hashtag2 {
+    min-width: 40px;
+    background-color: #85AF4B;
+    border: none;
+    color: #ffffff;
+    border-radius: 7px;
+    padding: 3px 7px 3px 7px;
+    margin: 0px 5px 4px 5px;
+}

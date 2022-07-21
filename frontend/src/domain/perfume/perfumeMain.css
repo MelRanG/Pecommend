@@ -1,0 +1,190 @@
+
+
+/* 더보기 */
+.title{
+  display: inline;
+
+}
+.title-sub{
+  cursor: pointer;
+  text-align: right;
+  display: inline;
+  line-height: 44px;
+  font-size: 15px;
+  height: 44px;
+  vertical-align: middle;
+  padding-right: 70px;
+}
+
+
+/* 인기향수리스트 */
+.title-popular{
+  font-weight: bold;
+  padding: 10px;
+  padding-left: 70px;
+  display: inline;
+}
+.perfume-popular-area{
+  justify-content: center;
+}
+
+.perfume-popular-items{
+  text-align: center;
+  /* display: inline; */
+  padding-top: 10px;
+  justify-content: center;
+  /* margin-bottom: 20px; */
+}
+
+.perfume-popular-item{
+ border: 2.5px solid rgb(223, 223, 223);
+ margin: 0 20px;
+ margin-bottom: 20px;
+  box-shadow: 2px 3px 5px 0px rgb(223, 223, 223);
+}
+.perfume-popular-item:hover{
+  transform: scale(1.1);
+}
+.perfume-popular-item img{
+  height: 150px;
+  /* content: url(".\assets\tempImg\123359405127241D28.jpg"); */
+}
+
+.perfume-popular-item img:hover{
+  /* background: '.\assets\tempImg\다운로드 (2).jpg'; */
+  /* content: url("./public\assets\tempImg\다운로드 (2).jpg"); */
+  content: url("../../../public/assets/tempImg/다운로드\ \(2\).jpg");
+}
+
+
+
+/* 해시태그 */
+.product-hashtag{
+  display: block;
+  padding: 10px 0 10px;
+  cursor: pointer;
+}
+.product-hashtag ul{
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+  /* justify-content: flex-end; */
+}
+
+.product-hashtag ul:nth-child(2){
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+  /* justify-content: flex-start; */
+}
+
+.product-hashtag ul li{
+  color: #5a4366;
+  /* float: left; */
+  margin: auto 5px;
+  min-width: 70px;
+  height: 28px;
+  line-height: 26px;
+  background-color: #acffbe79;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  text-align: center;
+}
+/* .product-hashtag ul li:nth-child(3n+1){
+  background-color: #acffbe79;
+} */
+
+.product-hashtag ul li:nth-child(3n+2){
+  background-color: #fffeacad;
+}
+
+.product-hashtag ul li:nth-child(3n+3){
+  background-color: #ffacf849;
+}
+
+.pro-details-likeDislike{
+  padding: 30px;
+  text-align: center;
+  width: 90%;
+}
+
+
+/* 구분선 */
+.line{
+  width: 100%;
+  border-bottom: 1px solid #dfdfdf;
+  /* margin-bottom: 10px; */
+  margin-top: 50px;
+}
+
+/* 카드리뷰 */
+.col-testimonials-list{
+  display: inline;
+}
+.slider-testimonials{
+  display: flex;
+}
+.item-testimonials{
+width: 280px;
+height: 300px;
+margin: 0 10px;
+background: #ffffff;
+border: 1px solid #CCBDFF;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+border-radius: 25px;
+padding: 20px 20px;
+}
+.box-item-testimonials-text{
+  border-radius: 12px;
+  background-color: #f4f0ffa3;
+  padding: 10px;
+  max-height: 160px;
+  overflow: hidden;
+}
+
+.title1 {
+  font-size: 41px;
+  margin-bottom: 15px;
+}
+.box-slider-testimonials {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.review-card-title{
+  display: flex;
+}
+.review-card-title img{
+  width: 80px;
+  margin-right: 20px;
+}
+
+.review-text-profile{
+  /* text-align: right; */
+  display: inline;
+  height: 50px;
+  float: right;
+  /* float: right;
+  position: relative;
+  margin-top: 24px;
+  padding-right: 44px;
+  text-align: right; */
+}
+
+.review-text-profile img{
+  height: 50px;
+  width: 45px;
+}
+
+/* 슬라이드 */
+.slider-item{
+  width: 280px !important;
+  height: 300px;
+  margin: 0 10px;
+  background: #ffffff;
+  border: 1px solid #CCBDFF;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 25px;
+  padding: 20px 20px;
+  }

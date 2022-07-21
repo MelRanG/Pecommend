@@ -1,0 +1,12 @@
+.sidebar-widget{
+    align-items: center;
+}
+
+.sidebar-widget a {
+    color: black;
+    text-decoration: none;
+}
+
+.sidebar-widget a:hover{
+    color: purple;
+}

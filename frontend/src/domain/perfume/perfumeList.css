@@ -1,0 +1,7 @@
+#explain{ 
+    position: absolute; opacity: 0; 
+    } 
+    
+    .text_photo:hover #explain{ 
+    opacity: 1; 
+    }

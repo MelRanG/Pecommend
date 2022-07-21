@@ -1,0 +1,11 @@
+.community-main-box {
+    border: 2px solid gray;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px;
+    min-height: 50px;
+}
+
+.community-main > div {
+    padding: 0px;
+}
