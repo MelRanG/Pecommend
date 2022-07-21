@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function profile () {
 
-    let hashtag_list = ['따뜻한','봄','가을','가벼운','풀내음','길게길게쓰면어찌나오나요','바로 이렇게 나옵니다.','줄을 넘어가면 어찌되나요','이렇게 됩니다'];
+    let hashtag_list = ['따뜻한','봄','가을'];
 
     return (
         <div className="profile">

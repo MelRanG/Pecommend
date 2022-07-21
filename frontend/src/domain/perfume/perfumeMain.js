@@ -385,7 +385,7 @@ function perfumeMain() {
               </div>
               <div className="perfume-popular-items row pl-20 pr-20">
                 <div className="perfume-popular-item col-lg-2">
-                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <img src=".\assets\tempImg\280 (1).jpg" alt="" />
                   <p>향수명</p>
                 </div>
                 <div className="perfume-popular-item col-lg-2">

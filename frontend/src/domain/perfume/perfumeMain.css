@@ -14,6 +14,7 @@
   height: 44px;
   vertical-align: middle;
   padding-right: 70px;
+  text-align: center;
 }
 
 
@@ -23,6 +24,7 @@
   padding: 10px;
   padding-left: 70px;
   display: inline;
+  /* color: #fff; */
 }
 .perfume-popular-area{
   justify-content: center;
@@ -37,10 +39,11 @@
 }
 
 .perfume-popular-item{
- border: 2.5px solid rgb(223, 223, 223);
+ /* border: 2.5px solid rgb(223, 223, 223); */
  margin: 0 20px;
  margin-bottom: 20px;
   box-shadow: 2px 3px 5px 0px rgb(223, 223, 223);
+  background-color: #fff;
 }
 .perfume-popular-item:hover{
   transform: scale(1.1);
@@ -85,7 +88,7 @@
   min-width: 70px;
   height: 28px;
   line-height: 26px;
-  background-color: #acffbe79;
+  background-color: #F2F2F2;
   border: 1px solid #ffffff;
   border-radius: 10px;
   text-align: center;
@@ -93,14 +96,14 @@
 /* .product-hashtag ul li:nth-child(3n+1){
   background-color: #acffbe79;
 } */
-
+/* 
 .product-hashtag ul li:nth-child(3n+2){
   background-color: #fffeacad;
 }
 
 .product-hashtag ul li:nth-child(3n+3){
   background-color: #ffacf849;
-}
+} */
 
 .pro-details-likeDislike{
   padding: 30px;

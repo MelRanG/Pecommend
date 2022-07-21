@@ -21,9 +21,9 @@ function communityList() {
             <div class="pt-95 pb-100">
                 <div class="container">
                     <div class="row flex-row-reverse">
-                        <div class="col-lg-9" style={{ border: "1px solid rgb(30,30,30)", borderRadius: "20px" }}>
+                        <div class="col-lg-9" >
                             <div>
-                                <h3 class="mt-3">카테고리 게시판</h3>
+                                <h4 class="mt-5"  style={{  "text-align": "center"}}>카테고리 게시판</h4>
                             </div>
                             <hr></hr>
                             <div className="community-top-box">

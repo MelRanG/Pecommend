@@ -23,13 +23,15 @@
 }
 
 .product-hashtag ul li{
-  color: #5a4366;
+  color: #a600ff;
   float: left;
   margin: auto 5px;
   min-width: 70px;
   height: 28px;
   line-height: 26px;
-  background-color: #acffbe79;
+  /* background-color: #acffbe79;
+   */
+     background-color: #ec1414;
   border: 1px solid #ffffff;
   border-radius: 10px;
   text-align: center;
@@ -38,13 +40,13 @@
   background-color: #acffbe79;
 } */
 
-.product-hashtag ul li:nth-child(3n+2){
+/* .product-hashtag ul li:nth-child(3n+2){
   background-color: #fffeacad;
 }
 
 .product-hashtag ul li:nth-child(3n+3){
   background-color: #ffacf849;
-}
+} */
 
 .pro-details-likeDislike{
   padding: 30px;
@@ -86,7 +88,7 @@
   cursor: pointer;
 }
 .glyphicon-thumbs-up{
-  color: #616dff;
+  color: #764AF1;
 }
 .glyphicon-thumbs-down{
   color: #ff6161;
