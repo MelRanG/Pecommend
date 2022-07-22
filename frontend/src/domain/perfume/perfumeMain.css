@@ -1,3 +1,23 @@
+/* 원그래프 */
+.pie-chart2 {
+  display:inline-block;
+  position:relative;
+  width: 300px;
+  height: 300px;
+  background: conic-gradient(#8b22ff 0% 25%, #ffc33b 25% 56%, #21f3d6 56% 100%);
+  border-radius: 50%;
+  /* visibility: hidden; */
+}
+.pie-chart2  .center{
+  position:absolute;
+  width:200px; 
+  height: 200px;
+  background :#fff;
+  border-radius: 50%;
+  top: 50px;
+  left:50px;
+  
+}
 
 
 /* 더보기 */
@@ -56,7 +76,9 @@
 .perfume-popular-item img:hover{
   /* background: '.\assets\tempImg\다운로드 (2).jpg'; */
   /* content: url("./public\assets\tempImg\다운로드 (2).jpg"); */
-  content: url("../../../public/assets/tempImg/다운로드\ \(2\).jpg");
+  /* content: url("../../../public/assets/tempImg/다운로드\ \(2\).jpg"); */
+  /* content: url(""); */
+  opacity: 0.3;
 }
 
 

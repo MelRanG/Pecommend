@@ -386,6 +386,7 @@ function perfumeMain() {
               <div className="perfume-popular-items row pl-20 pr-20">
                 <div className="perfume-popular-item col-lg-2">
                   <img src=".\assets\tempImg\280 (1).jpg" alt="" />
+                  <div class="pie-chart2"><span class="center"></span></div>
                   <p>향수명</p>
                 </div>
                 <div className="perfume-popular-item col-lg-2">
