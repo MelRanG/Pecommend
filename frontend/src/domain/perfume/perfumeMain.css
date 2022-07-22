@@ -64,14 +64,14 @@
 /* 해시태그 */
 .product-hashtag{
   display: block;
-  padding: 10px 0 10px;
+  /* padding: 10px 0 10px; */
+  margin: 8px 0;
   cursor: pointer;
 }
 .product-hashtag ul{
   margin-left: auto;
   margin-right: auto;
-  display: table;
-  /* justify-content: flex-end; */
+  /* display: table; */
 }
 
 .product-hashtag ul:nth-child(2){
@@ -82,9 +82,11 @@
 }
 
 .product-hashtag ul li{
+  float: left;
   color: #5a4366;
   /* float: left; */
-  margin: auto 5px;
+  margin-left: 0;
+  margin-right: 10px;
   min-width: 70px;
   height: 28px;
   line-height: 26px;
@@ -110,6 +112,8 @@
   text-align: center;
   width: 90%;
 }
+
+
 
 
 /* 구분선 */
