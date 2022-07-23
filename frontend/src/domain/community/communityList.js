@@ -1,6 +1,7 @@
 // import './community.css';
 import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
+import './communityList.css'
 
 function communityList() {
     return (
@@ -18,55 +19,58 @@ function communityList() {
                     </div>
                 </div>
             </div>
-            <div class="pt-95 pb-100">
+            <CommunitySidebar />
+            <div class="pb-100">
                 <div class="container">
                     <div class="row flex-row-reverse">
-                        <div class="col-lg-9" >
+                        <div class="col-lg-12" >
                             <div>
                                 <h4 class="mt-5"  style={{  "text-align": "center"}}>카테고리 게시판</h4>
                             </div>
                             <hr></hr>
                             <div className="community-top-box">
-                                <button style={{ fontSize: "20px", borderRadius: "3px", border: "3px solid rgb(255,190,190)", margin: "5px 8px", backgroundColor: "rgb(255,255,255)" }}>HOT</button>
-                                <button style={{ fontSize: "20px", borderRadius: "3px", border: "3px solid rgb(255,190,190)", margin: "5px 8px", backgroundColor: "rgb(255,255,255)" }}>베스트</button>
+                                <button className="community-top-box-active">ㆍ최신</button>
+                                <button className="community-top-box-wait">ㆍ추천</button>
+                                <button className="community-top-box-wait">ㆍHOT</button>
+                                <button className="community-top-box-wait">ㆍ베스트</button>
                             </div>
                             <div class="shop-bottom-area mt-15">
                                 <div class="tab-content jump">
-                                    <table className="table table-hover community-table table-responsive" style={{ width: "100%" }}>
+                                    <table className="table table-hover community-table table-responsive" style={{ width: "100%" ,marginBottom:"0px"}}>
                                         <thead className="">
                                             <tr style={{ textAlign: "center" }}>
-                                                <th style={{ color: "rgb(143,24,237)", width: "50px" }}>번호</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237" }}>글 제목</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "150px" }}>작성자</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "100px" }}>작성일</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "70px" }}>조회수</th>
+                                                <th style={{ color: "rgb(143,24,237)", width: "50px", textAlign: "center" }}>번호</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", textAlign: "center" }}>글 제목</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "150px", textAlign: "center" }}>작성자</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "100px", textAlign: "center" }}>작성일</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "70px", textAlign: "center" }}>조회수</th>
                                             </tr>
                                         </thead>
                                         <tbody className="table-group-divider" style={{ textAlign: "center" }}>
                                             <tr style={{ height: "20px" }}>
-                                                <th scope="row">22542</th>
-                                                <td style={{ overflow: "hidden", height: "20px" }}>4번 글입니다.123213124124124</td>
+                                                <th scope="row" style={{ textAlign: "center" }}>22542</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>4번 글입니다.123213124124124</td>
                                                 <td>DDD</td>
                                                 <td>15:08</td>
                                                 <td>3</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">15</th>
-                                                <td>3번 글입니다</td>
+                                                <th scope="row" style={{ textAlign: "center" }}>15</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>3번 글입니다</td>
                                                 <td>BBB</td>
                                                 <td>12:14</td>
                                                 <td>12</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">2</th>
-                                                <td>2번 글입니다</td>
+                                                <th scope="row" style={{ textAlign: "center" }}>2</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>2번 글입니다</td>
                                                 <td>AAA</td>
                                                 <td>22.07.27</td>
                                                 <td>1333</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>1번 글입니다</td>
+                                                <th scope="row" style={{ textAlign: "center" }}>1</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>1번 글입니다</td>
                                                 <td>DDD</td>
                                                 <td>22.07.15</td>
                                                 <td>14415</td>
@@ -74,7 +78,10 @@ function communityList() {
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="pro-pagination-style text-center mt-30 mb-3">
+                                <div className="d-flex flex-row-reverse">
+                                    <button className="List-regist-button">글 작성</button>
+                                </div>
+                                <div class="pro-pagination-style text-center mt-10 mb-3">
                                     <ul>
                                         <li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
                                         <li><a class="active" href="#">1</a></li>
@@ -105,7 +112,7 @@ function communityList() {
                                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                                         </ul>
                                     </div>
-                                    <form action="#" class="searchform">
+                                    <form action="#" className="searchform searchtable">
                                         <input type="text" name="search" id="error_search" placeholder="Search..." class="searchform__input" />
                                         <button type="submit" class="searchform__submit">
                                             <i class="fa fa-search"></i>
@@ -114,8 +121,6 @@ function communityList() {
                                 </div>
                             </div>
                         </div>
-
-                        <CommunitySidebar />
                     </div>
                 </div>
             </div>

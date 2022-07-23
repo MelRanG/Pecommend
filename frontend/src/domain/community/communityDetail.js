@@ -18,6 +18,7 @@ function communityDetail () {
                     </div>
                 </div>
             </div>
+            <CommunitySidebar />
             <div class="pt-95 pb-100">
                 <div class="container">
                     <div class="row flex-row-reverse">
@@ -93,7 +94,6 @@ function communityDetail () {
                                 <button class="community-button">목록으로</button>
                             </div>
                         </div>
-                        <CommunitySidebar />
                     </div>
                 </div>
             </div>
