@@ -1,7 +1,10 @@
 /* eslint-disable */
+import React, { useState } from "react";
 import "./perfumeMain.css"
 // 향수 메인 페이지
-function perfumeMain() {
+const perfumeMain = () => {
+
+
   return (
     <div className="perfumeDetail">
       <header className="header-area header-in-container clearfix">
@@ -375,9 +378,80 @@ function perfumeMain() {
       </div>
       <div className="perfume-popular-area pt-100 pb-100">
         <div className="container">
-          <div className="">
 
-            {/* 인기향수 */}
+
+          {/* 해시태그 */}
+          {/* ul li가아니라 div로 처리할지 고민중. */}
+          <div className="product-details-content mt-30">
+            <div className="title row">
+              <h2 className="title-popular col-sm-6">인기 키워드</h2>
+              <div className="title-sub col-sm-6">더보기 {'>'}</div>
+            </div>
+            <div className="perfume-popular-hashtag">
+              {/* 이부분에 해시태그 */}
+              {/* <div className="product-hashtag">
+                  <ul>
+                    <li className="">#봄</li>
+                    <li className="">#여름</li>
+                    <li className="">#가을</li>
+                    <li className="">#겨울</li>
+                    <li className="">#20대</li>
+                    <li className="">#꽃향기나는</li>
+                    <li className="">#가을</li>
+                    <li className="">#겨울</li>
+                  </ul>
+                  <ul>
+                    <li className="">#봄</li>
+                    <li className="">#여름</li>
+                    <li className="">#가을</li>
+                    <li className="">#겨울</li>
+                    <li className="">#20대</li>
+                    <li className="">#꽃향기나는</li>
+                    <li className="">#가을</li>
+                    <li className="">#겨울</li>
+                  </ul>
+                </div> */}
+              <div className="product-hashtag">
+                <div className="">#30대</div>
+                <div className="">#장미</div>
+                <div className="">#ESTP</div>
+                <div className="">#해시태그가어디까지길어지는거죠?</div>
+                <div className="">#30대</div>
+                <div className="">#복숭아</div>
+                <div className="">#봄</div>
+                <div className="">#시트러스</div>
+                <div className="">#INFP</div>
+                <div className="">#장미</div>
+                <div className="">#여름</div>
+                <div className="">#30대</div>
+                <div className="">#엄청긴해시태그가등장</div>
+                <div className="">#ESTP</div>
+                <div className="">#코튼향</div>
+                <div className="">#10대</div>
+                <div className="">#시트러스</div>
+                <div className="">#해시태그가길다길어</div>
+                <div className="">#30대</div>
+                <div className="">#INFP</div>
+                <div className="">#장미</div>
+                <div className="">#여름</div>
+                <div className="">#시트러스</div>
+                <div className="">#ESTP</div>
+                <div className="">#코튼향</div>
+                <div className="">#10대</div>
+                <div className="">#복숭아</div>
+                <div className="">#장미</div>
+                <div className="">#30대</div>
+              </div>
+
+            </div>
+          </div>
+          {/* <div className="line"></div> */}
+
+        </div>
+
+        {/* 인기향수 */}
+        <div className="popular-container">
+          <div className="container">
             <div className="product-details-content">
               <div className="title row">
                 <h2 className="title-popular col-sm-6">인기 향수</h2>
@@ -385,12 +459,18 @@ function perfumeMain() {
               </div>
               <div className="perfume-popular-items row pl-20 pr-20">
                 <div className="perfume-popular-item col-lg-2">
-                  <img src=".\assets\tempImg\280 (1).jpg" alt="" />
-                  <div class="pie-chart2"><span class="center"></span></div>
+                  <div className="popular-img">
+                    <img src=".\assets\tempImg\280 (1).jpg" alt="" />
+                  </div>
+                  <div className="popular-chart">
+                    <div className="pie-chart2"><span className="center"></span></div>
+                  </div>
                   <p>향수명</p>
                 </div>
                 <div className="perfume-popular-item col-lg-2">
-                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div className="popular-img">
+                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  </div>
                   <p>향수명</p>
                 </div>
                 <div className="perfume-popular-item col-lg-2">
@@ -439,258 +519,244 @@ function perfumeMain() {
                 </div>
               </div>
             </div>
-            <div className="line"></div>
-            {/* 해시태그 */}
-            {/* ul li가아니라 div로 처리할지 고민중. */}
-            <div className="product-details-content mt-30">
-              <div className="title row">
-                <h2 className="title-popular col-sm-6">인기 키워드</h2>
-                <div className="title-sub col-sm-6">더보기 {'>'}</div>
+          </div>
+        </div>
+
+        <div className="container">
+          {/* <div className="line"></div> */}
+          {/* 최신리뷰 */}
+          <div className="product-details-content mt-30">
+            <div className="title row ">
+              <h2 className="title-popular col-sm-6">최신 리뷰</h2>
+              <div className="title-sub col-sm-6">더보기 {'>'}</div>
+            </div>
+
+
+            {/* 슬라이딩 */}
+            <div className="slider">
+              {/* <div>I am a slide.</div>
+            <div>I am another slide.</div> */}
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                </div>
               </div>
-              <div className="perfume-popular-hashtag">
-                {/* 이부분에 해시태그 */}
-                <div className="product-hashtag">
-                  <ul>
-                    <li className="">#봄</li>
-                    <li className="">#여름</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                    <li className="">#20대</li>
-                    <li className="">#꽃향기나는</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                  </ul>
-                  <ul>
-                    <li className="">#봄</li>
-                    <li className="">#여름</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                    <li className="">#20대</li>
-                    <li className="">#꽃향기나는</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                  </ul>
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                </div>
+              </div>
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                </div>
+              </div>
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                </div>
+              </div>
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                </div>
+              </div>
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                </div>
+              </div>
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                </div>
+              </div>
+              <div class="slider-item">
+                {/* <div class="item-testimonials-stars">
+                            <span class="text-stars">MacAllister</span>
+                          </div> */}
+                <div className="review-card-title">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <div>
+                    <h4 class="item-testimonials-title">Perfume Name</h4>
+                    <div className="review-text-profile">
+                      {/* <span className="review-text-profile-img">
+                                  <img src="assets/img/testimonial/1.jpg" alt="" />
+                                </span> */}
+                      <div className="review-rating review-star">
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                        <i className="fa fa-star"></i>
+                      </div>
+                      <div>&nbsp; 닉네임 님</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-item-testimonials-text mt-10">
+                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
                 </div>
               </div>
             </div>
-
-            <div className="line"></div>
-            {/* 최신리뷰 */}
-            <div className="product-details-content mt-30">
-              <div className="title row ">
-                <h2 className="title-popular col-sm-6">최신 리뷰</h2>
-                <div className="title-sub col-sm-6">더보기 {'>'}</div>
-              </div>
-
-
-              {/* 슬라이딩 */}
-              <div className="slider">
-                {/* <div>I am a slide.</div>
-      <div>I am another slide.</div> */}
-                <div class="slider-item">
-                  {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                  <div className="review-card-title">
-                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                    <div>
-                      <h4 class="item-testimonials-title">Perfume Name</h4>
-                      <div className="review-text-profile">
-                        {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                        <span>&nbsp; 닉네임 님</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-item-testimonials-text mt-10">
-                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                  </div>
-                </div>
-                <div class="slider-item">
-                  {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                  <div className="review-card-title">
-                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                    <div>
-                      <h4 class="item-testimonials-title">Perfume Name</h4>
-                      <div className="review-text-profile">
-                        {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                        <span>&nbsp; 닉네임 님</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-item-testimonials-text mt-10">
-                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                  </div>
-                </div>
-                <div class="slider-item">
-                  {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                  <div className="review-card-title">
-                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                    <div>
-                      <h4 class="item-testimonials-title">Perfume Name</h4>
-                      <div className="review-text-profile">
-                        {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                        <span>&nbsp; 닉네임 님</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-item-testimonials-text mt-10">
-                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                  </div>
-                </div>
-                <div class="slider-item">
-                  {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                  <div className="review-card-title">
-                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                    <div>
-                      <h4 class="item-testimonials-title">Perfume Name</h4>
-                      <div className="review-text-profile">
-                        {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                        <span>&nbsp; 닉네임 님</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-item-testimonials-text mt-10">
-                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                  </div>
-                </div>
-                <div class="slider-item">
-                  {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                  <div className="review-card-title">
-                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                    <div>
-                      <h4 class="item-testimonials-title">Perfume Name</h4>
-                      <div className="review-text-profile">
-                        {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                        <span>&nbsp; 닉네임 님</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-item-testimonials-text mt-10">
-                    <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                  </div>
-                </div>
-              </div>
-              {/* 슬라이딩끝 */}
+            {/* 슬라이딩끝 */}
 
 
 
-
-              <div class="mt-20">
-                <div class="col-testimonials-list aos-init aos-animate" data-aos="fade-in" data-aos-easing="linear" data-aos-duration="500" data-aos-delay="200">
-                  <div class="box-slider-testimonials">
-                    <div class="box-slider-testimonials1">
-                      <div class="slider-testimonials slider-testimonials1 clone">
-                        <div class="item-testimonials">
-                          {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                          <div className="review-card-title">
-                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                            <div>
-                              <h4 class="item-testimonials-title">Perfume Name</h4>
-                              <div className="review-text-profile">
-                                {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                                <span>&nbsp; 닉네임 님</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="box-item-testimonials-text mt-10">
-                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                          </div>
-                        </div>
-
-                        <div class="item-testimonials">
-                          {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                          <div className="review-card-title">
-                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                            <div>
-                              <h4 class="item-testimonials-title">Perfume Name</h4>
-                              <div className="review-text-profile">
-                                {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                                <span>&nbsp; 닉네임 님</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="box-item-testimonials-text mt-10">
-                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                          <div className="review-card-title">
-                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                            <div>
-                              <h4 class="item-testimonials-title">Perfume Name</h4>
-                              <div className="review-text-profile">
-                                {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                                <span>&nbsp; 닉네임 님</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="box-item-testimonials-text mt-10">
-                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                          </div>
-                        </div>
-                        <div class="item-testimonials">
-                          {/* <div class="item-testimonials-stars">
-                            <span class="text-stars">MacAllister</span>
-                          </div> */}
-                          <div className="review-card-title">
-                            <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                            <div>
-                              <h4 class="item-testimonials-title">Perfume Name</h4>
-                              <div className="review-text-profile">
-                                {/* <span className="review-text-profile-img">
-                                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                                </span> */}
-                                <span>&nbsp; 닉네임 님</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="box-item-testimonials-text mt-10">
-                            <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-
-
-
-            </div>
           </div>
         </div>
       </div>
@@ -921,5 +987,6 @@ function perfumeMain() {
     </div >
 
   );
-}
+};
+
 export default perfumeMain;

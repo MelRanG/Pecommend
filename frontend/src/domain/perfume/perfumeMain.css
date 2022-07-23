@@ -1,22 +1,122 @@
+
+/* 해시태그 */
+
+.product-hashtag ul{
+  margin-left: auto;
+  margin-right: auto;
+  /* display: table; */
+}
+
+.product-hashtag ul:nth-child(2){
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+  /* justify-content: flex-start; */
+}
+
+
+.product-hashtag ul li{
+  float: left;
+  margin: 8px 8px 0 0;
+  padding: 7px 15px 9px 15px;
+  border-radius: 16px;
+  color: #373f57;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+  line-height: 16px;
+  background-color: #f4f6fa;
+}
+
+.product-hashtag{
+  display: flex;
+  /* padding: 10px 0 10px; */
+  /* margin: 8px 0; */
+  margin: auto;
+  cursor: pointer;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.product-hashtag div{
+  float: left;
+  margin: 16px 8px 0 0;
+  padding: 7px 15px 9px 15px;
+  border-radius: 16px;
+  color: #373f57;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+  line-height: 16px;
+  background-color: #f4f6fa;
+
+  /* flex box 속성값 */
+  /* flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto; */
+  flex: none;
+
+}
+
+/* .product-hashtag ul li:nth-child(3n+1){
+  background-color: #acffbe79;
+} */
+
+.product-hashtag ul li:nth-child(3n+2){
+  background-color: #fffed3ad;
+}
+
+.product-hashtag ul li:nth-child(3n+3){
+  background-color: #ffb4db49;
+}
+
+
+
+.pro-details-likeDislike{
+  padding: 30px;
+  text-align: center;
+  width: 90%;
+}
+
+
+
+
+
 /* 원그래프 */
 .pie-chart2 {
   display:inline-block;
-  position:relative;
-  width: 300px;
-  height: 300px;
+  position: relative;
+  width: 150px;
+  height: 150px;
   background: conic-gradient(#8b22ff 0% 25%, #ffc33b 25% 56%, #21f3d6 56% 100%);
   border-radius: 50%;
-  /* visibility: hidden; */
 }
 .pie-chart2  .center{
   position:absolute;
-  width:200px; 
-  height: 200px;
+  width: 120px; 
+  height: 120px;
   background :#fff;
   border-radius: 50%;
-  top: 50px;
-  left:50px;
-  
+  top: 15px;
+  left: 15px;
+}
+
+.popular-img{
+  position: absolute;
+}
+.popular-chart{
+  /* display: none; */
+  position: absolute;
+}
+.perfume-popular-item p{
+  /* position: relative; */
+  /* 모두 차트 쓰면 위에거 풀어주기 */
+  top: 85%;
+}
+
+.perfume-popular-item div img{
+  /* width: 90%; */
+  height: 150px;
+  object-fit: cover;
 }
 
 
@@ -33,16 +133,28 @@
   font-size: 15px;
   height: 44px;
   vertical-align: middle;
-  padding-right: 70px;
+  /* padding-right: 70px; */
   text-align: center;
 }
 
 
+
+
 /* 인기향수리스트 */
+.popular-container{
+  background-color: #f4f6fa;
+  margin: 50px auto;
+
+}
+.product-details-content{
+margin-top: 20px;
+margin-bottom: 50px
+}
 .title-popular{
   font-weight: bold;
   padding: 10px;
-  padding-left: 70px;
+  /* padding-left: 70px; */
+  text-align: center;
   display: inline;
   /* color: #fff; */
 }
@@ -56,6 +168,7 @@
   padding-top: 10px;
   justify-content: center;
   /* margin-bottom: 20px; */
+  position: relative;
 }
 
 .perfume-popular-item{
@@ -73,66 +186,13 @@
   /* content: url(".\assets\tempImg\123359405127241D28.jpg"); */
 }
 
+
 .perfume-popular-item img:hover{
   /* background: '.\assets\tempImg\다운로드 (2).jpg'; */
   /* content: url("./public\assets\tempImg\다운로드 (2).jpg"); */
   /* content: url("../../../public/assets/tempImg/다운로드\ \(2\).jpg"); */
   /* content: url(""); */
   opacity: 0.3;
-}
-
-
-
-/* 해시태그 */
-.product-hashtag{
-  display: block;
-  /* padding: 10px 0 10px; */
-  margin: 8px 0;
-  cursor: pointer;
-}
-.product-hashtag ul{
-  margin-left: auto;
-  margin-right: auto;
-  /* display: table; */
-}
-
-.product-hashtag ul:nth-child(2){
-  margin-left: auto;
-  margin-right: auto;
-  display: table;
-  /* justify-content: flex-start; */
-}
-
-.product-hashtag ul li{
-  float: left;
-  color: #5a4366;
-  /* float: left; */
-  margin-left: 0;
-  margin-right: 10px;
-  min-width: 70px;
-  height: 28px;
-  line-height: 26px;
-  background-color: #F2F2F2;
-  border: 1px solid #ffffff;
-  border-radius: 10px;
-  text-align: center;
-}
-/* .product-hashtag ul li:nth-child(3n+1){
-  background-color: #acffbe79;
-} */
-/* 
-.product-hashtag ul li:nth-child(3n+2){
-  background-color: #fffeacad;
-}
-
-.product-hashtag ul li:nth-child(3n+3){
-  background-color: #ffacf849;
-} */
-
-.pro-details-likeDislike{
-  padding: 30px;
-  text-align: center;
-  width: 90%;
 }
 
 
@@ -166,7 +226,7 @@ padding: 20px 20px;
 }
 .box-item-testimonials-text{
   border-radius: 12px;
-  background-color: #f4f0ffa3;
+  background-color: #f4f6fa;
   padding: 10px;
   max-height: 160px;
   overflow: hidden;
@@ -198,11 +258,16 @@ padding: 20px 20px;
   margin-top: 24px;
   padding-right: 44px;
   text-align: right; */
+  text-align: right;
 }
 
 .review-text-profile img{
   height: 50px;
   width: 45px;
+}
+
+.review-star{
+
 }
 
 /* 슬라이드 */
@@ -211,9 +276,32 @@ padding: 20px 20px;
   height: 300px;
   margin: 0 10px;
   background: #ffffff;
-  border: 1px solid #CCBDFF;
+  border: 1px solid #bdbdbd;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 25px;
   padding: 20px 20px;
   }
+
+  .bx-wrapper {
+    -moz-box-shadow: 0;
+    -webkit-box-shadow: 0;
+    box-shadow: 0;
+    border: 0;
+    background: 0;
+}
+.bx-wrapper .bx-prev {
+  left: 10px;
+  /* background: url("https://img.icons8.com/ios/100/000000/circled-chevron-right.png") 0 -32px no-repeat; */
+}
+.slider-item {
+  margin: 0 15px;
+}
+.bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default-pager a:focus, .bx-wrapper .bx-pager.bx-default-pager a:hover {
+  background: #a081ff;
+}
+.bx-wrapper .bx-pager.bx-default-pager a {
+  background: #d3d3d3;
+
+}
+
