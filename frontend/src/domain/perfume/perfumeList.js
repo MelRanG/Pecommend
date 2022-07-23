@@ -7,32 +7,29 @@ function perfumeList () {
     return (
         <div className="perfumeList">
             <Nav />
-<div className="breadcrumb-area pt-50 pb-50 bg-gray-3">
+<div className="breadcrumb-area pt-50 pb-50 perfume_nav">
     <div className="container">
         <div className="breadcrumb-content text-center">
             <ul>
-                <li className="active">PERFUME </li>
+                <li className="active">PERFUME</li>
             </ul>
         </div>
     </div>
 </div>
 
-<div className="breadcrumb-area bg-dark">
-    <div className="container">
-        <div className="breadcrumb-content text-center">
-            <nav className="nav nav-pills flex-column flex-sm-row bg-purple">
-                <span className="border border-secondary"></span>
-                <a className="flex-sm-fill text-sm-center nav-link active bg-info" aria-current="page" href="#">List</a>
-                <span className="border border-secondary"></span>
-                <a className="flex-sm-fill text-sm-center nav-link link-dark text-decoration-none" href="#">Regist</a>
-                <span className="border border-secondary"></span>
-                <a className="flex-sm-fill text-sm-center nav-link" href="#">Test</a>
-                <span className="border border-secondary"></span>
-            </nav>
-        </div>
-    </div>
+<div className="perfume-topbar">
+    <ul className="nav nav-tabs justify-content-center">
+        <li className="nav-item">
+            <a className="nav-link active" aria-current="page" href="#">List</a>
+        </li>
+        <li className="nav-item">
+            <a className="nav-link" href="#">Regist</a>
+        </li>
+        <li className="nav-item">
+            <a className="nav-link" href="#">Test</a>
+        </li>
+    </ul>
 </div>
-
 
 <div className="shop-area pt-95 pb-100">
     <div className="container">
@@ -55,13 +52,19 @@ function perfumeList () {
                         <div id="shop-1" className="tab-pane active">
                             <div className="row">
                                 <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    {/* 데이터 개수만큼 받아와서 나오게 하기 */}
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                {/* hover 때 해시태그 텍스트 띄우기 */}
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
@@ -71,16 +74,19 @@ function perfumeList () {
                                     </div>
                                 </div>
                                 <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    {/* 데이터 개수만큼 받아와서 나오게 하기 */}
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
-
-                                                {/* hover 때 해시태그 텍스트 띄우기 */}
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
@@ -93,24 +99,13 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="assets/img/product/pro-1.jpg" alt="" />
-                                                <img className="hover-img" src="assets/img/product/pro-1-1.jpg" alt="" />
-                                                <span className="purple">New</span>
+                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                             </a>
-                                            <div className="product-action">
-                                                <div className="pro-same-action pro-wishlist">
-                                                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                                                </div>
-                                                <div className="pro-same-action pro-cart">
-                                                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                                                </div>
-                                                <div className="pro-same-action pro-quickview">
-                                                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                                                </div>
-                                            </div>
+                                            <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명2</a></h3>
+                                            <h3><a href="product-details.html">향수명</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -118,96 +113,195 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="assets/img/product/pro-1.jpg" alt="" />
-                                                <img className="hover-img" src="assets/img/product/pro-1-1.jpg" alt="" />
-                                            </a>
-                                            <div className="product-action">
-                                                <div className="pro-same-action pro-wishlist">
-                                                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
+                                                <div className="text_photo"> 
+                                                    <p id = 'explain'>여행</p> 
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
-                                                <div className="pro-same-action pro-cart">
-                                                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                                                </div>
-                                                <div className="pro-same-action pro-quickview">
-                                                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명3</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-4 col-lg-4 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <img className="default-img" src="assets/img/product/pro-1.jpg" alt="" />
-                                                <img className="hover-img" src="assets/img/product/pro-1-1.jpg" alt="" />
                                             </a>
                                             <span className="purple">New</span>
-                                            <div className="product-action">
-                                                <div className="pro-same-action pro-wishlist">
-                                                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                                                </div>
-                                                <div className="pro-same-action pro-cart">
-                                                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                                                </div>
-                                                <div className="pro-same-action pro-quickview">
-                                                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명4</a></h3>
+                                            <h3><a href="product-details.html">향수명</a></h3>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-xl-3 col-md-4 col-lg-4 col-sm-6">
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="assets/img/product/pro-1.jpg" alt="" />
-                                                <img className="hover-img" src="assets/img/product/pro-1-1.jpg" alt="" />
+                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                             </a>
-                                            <div className="product-action">
-                                                <div className="pro-same-action pro-wishlist">
-                                                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                                                </div>
-                                                <div className="pro-same-action pro-cart">
-                                                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                                                </div>
-                                                <div className="pro-same-action pro-quickview">
-                                                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                                                </div>
-                                            </div>
+                                            <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명5</a></h3>
+                                            <h3><a href="product-details.html">향수명</a></h3>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-xl-3 col-md-4 col-lg-4 col-sm-6">
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="assets/img/product/pro-1.jpg" alt="" />
-                                                <img className="hover-img" src="assets/img/product/pro-1-1.jpg" alt="" />
+                                                <div className="text_photo"> 
+                                                    <p id = 'explain'>여행</p> 
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
                                             </a>
-                                            <div className="product-action">
-                                                <div className="pro-same-action pro-wishlist">
-                                                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                                                </div>
-                                                <div className="pro-same-action pro-cart">
-                                                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                                                </div>
-                                                <div className="pro-same-action pro-quickview">
-                                                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                                                </div>
-                                            </div>
+                                            <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명6</a></h3>
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo"> 
+                                                    <p id = 'explain'>여행</p> 
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo"> 
+                                                    <p id = 'explain'>여행</p> 
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo"> 
+                                                    <p id = 'explain'>여행</p> 
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo"> 
+                                                    <p id = 'explain'>여행</p> 
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo"> 
+                                                    <p id = 'explain'>여행</p> 
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -222,7 +316,6 @@ function perfumeList () {
                             <li><a className="next" href="#"><i className="fa fa-angle-double-right"></i></a></li>
                         </ul>
                     </div>
-                    {/* state를 활용해서 그에 맞게 pagination 나오도록 */}
                 </div>
             </div>
 
@@ -239,28 +332,80 @@ function perfumeList () {
                             </form>
                         </div>
                     </div>
-                    {/* <div className="sidebar-widget mt-45">
-                        <h4 className="pro-sidebar-title">Filter By Price </h4>
-                        <div className="price-filter mt-10">
-                            <div className="price-slider-amount">
-                                <input type="text" id="amount" name="price"  placeholder="Add Your Price" />
-                            </div>
-                            <div id="slider-range"></div>
-                        </div>
-                    </div> */}
+                    <div className="sidebar-widget text-center">
+                        <h4>유저의 선호 </h4><br></br>
+                    </div>
+
+
                     <div className="sidebar-widget">
-                        <h4 className="pro-sidebar-title">성별 </h4>
-                        <div className="sidebar-widget-list mt-30">
+                        <h4 className="pro-sidebar-title">성별</h4>
+
+
+
+                        <p>
+                            <a className="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">1</a>
+                            <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">2</button>
+                        </p>
+                        <div className="row">
+                            <div className="col">
+                                <div className="collapse multi-collapse" id="multiCollapseExample1">
+                                    <div className="card card-body">
+                                        내용1
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="collapse multi-collapse" id="multiCollapseExample2">
+                                    <div className="card card-body">
+                                        내용2
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Link with href
+                        </a>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Button with data-bs-target
+                        </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                        </div>
+                        </div>
+
+
+                        <ul className="list-group list-group-horizontal">
+                            <li className="list-group-item border-0">
+                                <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                남성
+                            </li>
+                            <li class="list-group-item border-0">
+                                <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                여성
+                            </li>
+                        </ul>
+
+
+                    
+
+
+
+
+                        <div className="sidebar-widget-list mt-30" id="collapsegender">
                             <ul>
-                            <li>
+                                <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">남성 <span>num</span></a> 
+                                        <input type="checkbox" value="" /> <a href="#">남성<span>num</span></a> 
                                         <span className="checkmark"></span>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">여성 <span>num</span></a> 
+                                        <input type="checkbox" value="" /> <a href="#">여성<span>num</span></a> 
                                         <span className="checkmark"></span>
                                     </div>
                                 </li>
@@ -273,25 +418,25 @@ function perfumeList () {
                             <ul>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">10대 <span>num</span> </a>
+                                        <input type="checkbox" value="" /> <a href="#">10대<span>num</span> </a>
                                         <span className="checkmark"></span> 
                                     </div>
                                 </li>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">20대 <span>num</span> </a>
+                                        <input type="checkbox" value="" /> <a href="#">20대<span>num</span> </a>
                                         <span className="checkmark"></span> 
                                     </div>
                                 </li>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">30대 <span>num</span> </a>
+                                        <input type="checkbox" value="" /> <a href="#">30대<span>num</span> </a>
                                         <span className="checkmark"></span> 
                                     </div>
                                 </li>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">40대~ <span>num</span> </a>
+                                        <input type="checkbox" value="" /> <a href="#">40대이상<span>num</span> </a>
                                         <span className="checkmark"></span> 
                                     </div>
                                 </li>
@@ -304,104 +449,136 @@ function perfumeList () {
                             <ul>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ISTJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left display-inline-block">
-                                        <input type="checkbox" value="" /> <a href="#">ISTP</a>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ISTJ
                                         <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ISTP
+                                            <span className="checkmark"></span>
+                                        </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ISFJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ISFP</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">INFJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">INFP</a>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ISFJ
                                         <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ISFP
+                                            <span className="checkmark"></span>
+                                        </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">INTJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">INTP</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ESTP</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ESTJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ESFP</a>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> INFJ
                                         <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> INFP
+                                            <span className="checkmark"></span>
+                                        </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ESFJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ENFP</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ENFJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ENTP</a>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> INTJ
                                         <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> INTP
+                                            <span className="checkmark"></span>
+                                        </label>
                                     </div>
                                 </li>
                                 <li>
+                                    <div className="sidebar-widget-list-left">
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ESTJ
+                                        <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ESTP
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="sidebar-widget-list-left">
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ESFJ
+                                        <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ESFP
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="sidebar-widget-list-left">
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ENFJ
+                                        <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ENFP
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="sidebar-widget-list-left">
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ENTJ
+                                        <span className="checkmark"></span>
+                                        </label>
+                                        <label className="checkbox-inline px-5">
+                                            <input type="checkbox" value="" /> ENTP
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                                {/* <li>
                                     <div className="sidebar-widget-list-left">
                                         <input type="checkbox" value="" /> <a href="#">ENTJ</a>
                                         <span className="checkmark"></span> 
                                     </div>
-                                </li>
-
+                                </li> */}
                             </ul>
                         </div>
                     </div>
+
+                    <div className="sidebar-widget mt-50">
+                        <h4 className="pro-sidebar-title">사용해보신 향수의 수 </h4>
+                        <div className="sidebar-widget-list mt-20">
+                            <ul>
+                                <li>
+                                    <div className="sidebar-widget-list-left">
+                                        <input type="checkbox" value="" /> <a href="#">1 ~ 3 <span>num</span> </a>
+                                        <span className="checkmark"></span> 
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="sidebar-widget-list-left">
+                                        <input type="checkbox" value="" /> <a href="#">4 ~ 5 <span>num</span> </a>
+                                        <span className="checkmark"></span> 
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="sidebar-widget-list-left">
+                                        <input type="checkbox" value="" /> <a href="#">5 ~ <span>num</span> </a>
+                                        <span className="checkmark"></span> 
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div className="sidebar-widget mt-50">
                         <h4 className="pro-sidebar-title">해시태그 </h4>
                         <div className="sidebar-widget-tag mt-25">
@@ -410,7 +587,6 @@ function perfumeList () {
                                 <li><a href="#"># 여름</a></li>
                                 <li><a href="#"># 가을</a></li>
                                 <li><a href="#"># 겨울</a></li>
-                                <li><a href="#">#Fashion</a></li>
                             </ul>
                         </div>
                     </div>
