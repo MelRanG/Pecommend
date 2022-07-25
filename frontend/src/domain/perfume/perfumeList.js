@@ -3,7 +3,10 @@ import Nav from '../../components/nav';
 import Footer from '../../components/footer';
 import "./perfumeList.css"
 
+
+
 function perfumeList () {
+    
     return (
         <div className="perfumeList">
             <Nav />
@@ -69,7 +72,7 @@ function perfumeList () {
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명0</a></h3>
+                                            <h3><a href="product-details.html">향수명1</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -99,29 +102,21 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                            </a>
-                                            <span className="purple">New</span>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
+                                            <h3><a href="product-details.html">향수명1</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -129,29 +124,21 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                            </a>
-                                            <span className="purple">New</span>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
+                                            <h3><a href="product-details.html">향수명1</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -159,29 +146,21 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                            </a>
-                                            <span className="purple">New</span>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
+                                            <h3><a href="product-details.html">향수명2</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -189,29 +168,21 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                            </a>
-                                            <span className="purple">New</span>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
+                                            <h3><a href="product-details.html">향수명2</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -219,29 +190,21 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                            </a>
-                                            <span className="purple">New</span>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
+                                            <h3><a href="product-details.html">향수명2</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -249,29 +212,21 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                            </a>
-                                            <span className="purple">New</span>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
+                                            <h3><a href="product-details.html">향수명2</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -279,29 +234,175 @@ function perfumeList () {
                                     <div className="product-wrap mb-25 scroll-zoom">
                                         <div className="product-img">
                                             <a href="product-details.html">
-                                                <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                                <img className="hover-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
-                                            </a>
-                                            <span className="purple">New</span>
-                                        </div>
-                                        <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                                    <div className="product-wrap mb-25 scroll-zoom">
-                                        <div className="product-img">
-                                            <a href="product-details.html">
-                                                <div className="text_photo"> 
-                                                    <p id = 'explain'>여행</p> 
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
                                                     <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                                                 </div>
                                             </a>
                                             <span className="purple">New</span>
                                         </div>
                                         <div className="product-content text-center">
-                                            <h3><a href="product-details.html">향수명</a></h3>
+                                            <h3><a href="product-details.html">향수명3</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명3</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명3</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명3</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명4</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명4</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명4</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                                    <div className="product-wrap mb-25 scroll-zoom">
+                                        <div className="product-img">
+                                            <a href="product-details.html">
+                                                <div className="text_photo">
+                                                    <div className = 'explain'>
+                                                        <div className="list-hashtag">
+                                                            <div className="">#장미</div>
+                                                            <div className="">#해시태그가어디까지길어지는거죠?</div>
+                                                            <div className="">#복숭아</div>
+                                                        </div>
+                                                    </div>
+                                                    <img className="default-img" src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
+                                                </div>
+                                            </a>
+                                            <span className="purple">New</span>
+                                        </div>
+                                        <div className="product-content text-center">
+                                            <h3><a href="product-details.html">향수명4</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -333,262 +434,185 @@ function perfumeList () {
                         </div>
                     </div>
                     <div className="sidebar-widget text-center">
-                        <h4>유저의 선호 </h4><br></br>
+                        <h4>유저의 선호 Filter</h4><br></br>
                     </div>
 
 
                     <div className="sidebar-widget">
-                        <h4 className="pro-sidebar-title">성별</h4>
+                        <div className="side_button">
+                            <span className="pro-sidebar-title">성별</span>
+                            <button className="btn side_in_button side_btn collapsed"
+                            type="button"
+                            data-bs-toggle="collapse" data-bs-target="#Collapse1"
+                            aria-expanded="true" aria-controls="Collapse1">
+                                {/* <i class="bi bi-chevron-down"></i> */}
+                            </button>
+                        </div>
 
-
-
-                        <p>
-                            <a className="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">1</a>
-                            <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">2</button>
-                        </p>
                         <div className="row">
                             <div className="col">
-                                <div className="collapse multi-collapse" id="multiCollapseExample1">
-                                    <div className="card card-body">
-                                        내용1
-                                    </div>
+                                <div className="collapse" id="Collapse1">
+                                    <ul className="list-group list-group-horizontal">
+                                        <li className="list-group-item border-0">
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            남성
+                                        </li>
+                                        <li class="list-group-item border-0">
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            여성
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                        </div>
+
+
+                        <div className="side_button">
+                            <span className="pro-sidebar-title">연령대</span>
+                            <button className="btn side_in_button side_btn collapsed"
+                            type="button"
+                            data-bs-toggle="collapse" data-bs-target="#Collapse2"
+                            aria-expanded="false" aria-controls="Collapse2">
+                                {/* <i class="bi bi-chevron-down"></i> */}
+                            </button>
+                        </div>
+
+                        <div className="row">
                             <div className="col">
-                                <div className="collapse multi-collapse" id="multiCollapseExample2">
-                                    <div className="card card-body">
-                                        내용2
-                                    </div>
+                                <div className="collapse" id="Collapse2">
+                                    <ul className="list-group list-group">
+                                        <li className="list-group-item border-0">
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            10대
+                                        </li>
+                                        <li class="list-group-item border-0">
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            20대
+                                        </li>
+                                        <li class="list-group-item border-0">
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            30대
+                                        </li>
+                                        <li class="list-group-item border-0">
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            40대 이상
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
 
-                        <p>
-                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            Link with href
-                        </a>
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            Button with data-bs-target
-                        </button>
-                        </p>
-                        <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                        </div>
+
+                        <div className="side_button">
+                            <span className="pro-sidebar-title">MBTI</span>
+                            <button className="btn side_in_button side_btn collapsed"
+                            type="button"
+                            data-bs-toggle="collapse" data-bs-target="#Collapse3"
+                            aria-expanded="false" aria-controls="Collapse3">
+                                {/* <i class="bi bi-chevron-down"></i> */}
+                            </button>
                         </div>
 
-
-                        <ul className="list-group list-group-horizontal">
-                            <li className="list-group-item border-0">
-                                <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
-                                남성
-                            </li>
-                            <li class="list-group-item border-0">
-                                <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
-                                여성
-                            </li>
+                        <div className="row">
+                            <div className="col">
+                                <div className="collapse" id="Collapse3">
+                                    <ul className="list-group list-group">
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ISTJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ISTP
+                                            </div>
+                                        </li>
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ISFJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ISFP
+                                            </div>
+                                        </li>
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            INTJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            INTP
+                                            </div>
+                                        </li>
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            INFJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            INFP
+                                            </div>
+                                        </li>
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ESTJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ESTP
+                                            </div>
+                                        </li>
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ESFJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ESFP
+                                            </div>
+                                        </li>
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ENTJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ENTP
+                                            </div>
+                                        </li>
+                                        <li className="list-group-item border-0 d-flex justify-content-between">
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ENFJ
+                                            </div>
+                                            <div style={{width:"50%"}}>
+                                            <input className="form-check-input me-2" type="checkbox" value="" aria-label="..."/>
+                                            ENFP
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="sidebar-widget mt-50">
+                    <h4 className="pro-sidebar-title">해시태그 </h4>
+                    <div className="sidebar-widget-tag mt-25">
+                        <ul>
+                            <li><a href="#"># 봄</a></li>
+                            <li><a href="#"># 여름</a></li>
+                            <li><a href="#"># 가을</a></li>
+                            <li><a href="#"># 겨울</a></li>
+                            <li><a href="#"># 해시태그가어디까지길어지는거죠?</a></li>
                         </ul>
-
-
-                    
-
-
-
-
-                        <div className="sidebar-widget-list mt-30" id="collapsegender">
-                            <ul>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">남성<span>num</span></a> 
-                                        <span className="checkmark"></span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">여성<span>num</span></a> 
-                                        <span className="checkmark"></span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="sidebar-widget mt-50">
-                        <h4 className="pro-sidebar-title">연령대 </h4>
-                        <div className="sidebar-widget-list mt-20">
-                            <ul>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">10대<span>num</span> </a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">20대<span>num</span> </a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">30대<span>num</span> </a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">40대이상<span>num</span> </a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="sidebar-widget mt-40">
-                        <h4 className="pro-sidebar-title">MBTI </h4>
-                        <div className="sidebar-widget-list mt-20">
-                            <ul>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ISTJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ISTP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ISFJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ISFP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> INFJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> INFP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> INTJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> INTP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ESTJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ESTP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ESFJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ESFP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ENFJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ENFP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ENTJ
-                                        <span className="checkmark"></span>
-                                        </label>
-                                        <label className="checkbox-inline px-5">
-                                            <input type="checkbox" value="" /> ENTP
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                {/* <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">ENTJ</a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li> */}
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="sidebar-widget mt-50">
-                        <h4 className="pro-sidebar-title">사용해보신 향수의 수 </h4>
-                        <div className="sidebar-widget-list mt-20">
-                            <ul>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">1 ~ 3 <span>num</span> </a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">4 ~ 5 <span>num</span> </a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="sidebar-widget-list-left">
-                                        <input type="checkbox" value="" /> <a href="#">5 ~ <span>num</span> </a>
-                                        <span className="checkmark"></span> 
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="sidebar-widget mt-50">
-                        <h4 className="pro-sidebar-title">해시태그 </h4>
-                        <div className="sidebar-widget-tag mt-25">
-                            <ul>
-                                <li><a href="#"># 봄</a></li>
-                                <li><a href="#"># 여름</a></li>
-                                <li><a href="#"># 가을</a></li>
-                                <li><a href="#"># 겨울</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
