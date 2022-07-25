@@ -46,7 +46,30 @@
   flex: none;
 }
 
+.side_button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.side_in_button{
+  border: 0;
+}
+
+.side_btn {
+  content: "\e080";
+}
+
+/* Icon when the collapsible content is shown */
+.side_btn:after {
+    font-family: "Glyphicons Halflings";
+    content: "\e114";
+}
+
+/* Icon when the collapsible content is hidden */
+.side_btn.collapsed:after {
+    content: "\e080";
+}
 
 
 .perfume_nav{
