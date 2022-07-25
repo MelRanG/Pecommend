@@ -7,22 +7,49 @@ function nav() {
       <div class="header-bottom sticky-bar header-res-padding header-padding-2">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-xl-2 col-lg-2 d-none d-lg-block"></div>
+            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+              <div class="main-menu">
+                <nav>
+                  <ul style={{ textAlign: "right" }}>
+                    <li>
+                      <a href="about.html" style={{ fontSize: "25px" }}>
+                        {" "}
+                        Perfume
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
             <div class="col-xl-2 col-lg-2 col-md-6 col-4">
-              <div class="logo">
-                <a href="index.html">
-                  <img alt="" src="assets/img/logo/logo.png" />
+              <div class="logo" style={{ textAlign: "center", marginTop: "0" }}>
+                <a
+                  href="index.html"
+                  // style={{
+                  //   textAlign: "center",
+                  //   fontFamily: "GmarketSansBold",
+                  //   fontSize: "40px",
+                  // }}
+                >
+                  {/* <img alt="" src="assets/img/logo/logo.png" /> */}
+                  <img
+                    alt=""
+                    src="assets/tempImg/로고.PNG"
+                    style={{ height: "94px" }}
+                  />
                 </a>
               </div>
             </div>
-            <div class="col-xl-8 col-lg-8 d-none d-lg-block">
+            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
               <div class="main-menu">
                 <nav>
-                  <ul>
+                  <ul style={{ textAlign: "left" }}>
                     <li>
-                      <a href="about.html"> Perfume</a>
-                    </li>
-                    <li>
-                      <a href="contact.html"> Community</a>
+                      <a href="contact.html" style={{ fontSize: "25px" }}>
+                        {" "}
+                        Community
+                      </a>
                     </li>
                   </ul>
                 </nav>
@@ -55,9 +82,9 @@ function nav() {
                       <li>
                         <a href="login-register.html">Register</a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href="wishlist.html">Wishlist </a>
-                      </li>
+                      </li> */}
                       <li>
                         <a href="my-account.html">my account</a>
                       </li>
@@ -69,7 +96,7 @@ function nav() {
                     <i class="pe-7s-like"></i>
                   </a>
                 </div>
-                <div class="same-style cart-wrap">
+                {/* <div class="same-style cart-wrap">
                   <button class="icon-cart">
                     <i class="pe-7s-shopbag"></i>
                     <span class="count-style">02</span>
@@ -132,7 +159,7 @@ function nav() {
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
