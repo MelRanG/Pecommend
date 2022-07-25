@@ -118,7 +118,8 @@
     /* margin-left: 15%; */
     font-size: 18px;
 }
-.banner-total{
 
+.banner-total button{
+    font-family: 'GmarketSansBold';
+    font-size: 20px;
 }
-
