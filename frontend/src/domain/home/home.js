@@ -62,6 +62,9 @@ const home = () => {
                   simply random text. Contrary to popular belief, Lorem Ipsum is
                   not simply random text.
                 </div>
+                <button type="button" class="btn btn-outline-light">
+                  &nbsp;바로가기&nbsp;
+                </button>
               </div>
             </div>
           </div>
@@ -95,6 +98,8 @@ const home = () => {
           </div>
         </div>
       </div>
+
+      <div className="container">asdf</div>
 
       <Footer />
     </div>
