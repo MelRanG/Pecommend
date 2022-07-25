@@ -415,7 +415,7 @@ margin-top: 10px;
 }
 
 .review-text-profile{
-  /* text-align: right; */
+  text-align: left;
   display: inline;
   height: 50px;
   float: right;
