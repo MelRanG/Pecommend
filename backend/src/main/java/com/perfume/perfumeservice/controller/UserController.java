@@ -3,6 +3,8 @@ package com.perfume.perfumeservice.controller;
 import com.perfume.perfumeservice.dto.jwt.TokenDto;
 import com.perfume.perfumeservice.dto.jwt.TokenRequestDto;
 import com.perfume.perfumeservice.dto.user.*;
+import com.perfume.perfumeservice.exception.DuplicateEmailException;
+import com.perfume.perfumeservice.exception.UserNotFoundException;
 import com.perfume.perfumeservice.service.user.MailService;
 import com.perfume.perfumeservice.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -23,13 +25,6 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private MailService mailService;
 
-//    @GetMapping("/check.do/email/{email}")
-//    @ApiOperation(value = "이메일 중복 검사")
-//    public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
-//        // 이미 있으면 true, 없으면 false
-//        return new ResponseEntity<>(userService.checkEmail(email), HttpStatus.OK);
-//    }
-
     @GetMapping("/check.do/nickname/{nickname}")
     @ApiOperation(value = "닉네임 중복 검사")
     public ResponseEntity<Boolean> checkNickName(@PathVariable String nickname){
@@ -48,7 +43,7 @@ public class UserController {
     public ResponseEntity<String> confirmEmail(@RequestBody String email){
         // 이미 존재하는 이메일이면
         if(userService.checkEmail(email)){
-            return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+            throw new DuplicateEmailException();
         }
 
         try {
@@ -71,41 +66,23 @@ public class UserController {
     @GetMapping("/info/{email}")
     @ApiOperation(value = "회원 정보 조회")
     public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable String email){
-
-        try {
-            return new ResponseEntity<>(userService.getUserInfo(email), HttpStatus.OK);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(userService.getUserInfo(email), HttpStatus.OK);
     }
     
     @PutMapping("/update")
     @ApiOperation(value = "회원 정보 수정")
     public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequestDto requestDto){
         String email = userService.getMyInfo().getEmail();
-        try {
-            userService.updateUser(email, requestDto);
-            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        userService.updateUser(email, requestDto);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
     
     @DeleteMapping("/delete")
     @ApiOperation(value = "회원 탈퇴")
     public ResponseEntity<String> deleteUser(){
         String email = userService.getMyInfo().getEmail();
-        try {
-            userService.deleteUser(email);
-            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        userService.deleteUser(email);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
     
     @PostMapping("/findpw.do")
@@ -113,8 +90,7 @@ public class UserController {
     public ResponseEntity<String> findPW(String email){
         try {
             if(!userService.checkEmail(email)){
-                System.out.print("없는 이메일");
-                return new ResponseEntity<>("Fail", HttpStatus.NO_CONTENT);
+                throw new UserNotFoundException();
             }
 
             String newPW = mailService.sendSimpleMessage(email, "changePW");
@@ -142,21 +118,8 @@ public class UserController {
     @PatchMapping("/logout")
     @ApiOperation(value = "로그아웃")
     public ResponseEntity<String> logout(){
-
-        try{
-            userService.logout();
-            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+        userService.logout();
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    @GetMapping("/profile/{id}")
-    @ApiOperation(value = "회원 프로필 보기")
-    public ResponseEntity<?> getProfile(){
-        // 보류
-        return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
-    }
 }

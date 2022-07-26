@@ -6,6 +6,8 @@ import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.jwt.TokenDto;
 import com.perfume.perfumeservice.dto.jwt.TokenRequestDto;
 import com.perfume.perfumeservice.dto.user.*;
+import com.perfume.perfumeservice.exception.DuplicateEmailException;
+import com.perfume.perfumeservice.exception.UserNotFoundException;
 import com.perfume.perfumeservice.jwt.TokenProvider;
 import com.perfume.perfumeservice.util.SecurityUtil;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,7 @@ public class UserServiceImpl implements UserService{
     public boolean checkNickName(String nickname) {
         // 이미 있으면 true, 없으면 false
         Optional<UserEntity> entity = userRepository.findByNickname(nickname);
+
         return entity.isPresent();
     }
 
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserService{
     public UserResponseDto doSignUp(SignUpRequestDto requestDto) {
 
         if(userRepository.findByEmail(requestDto.getEmail()).orElse(null)!=null){
-            throw new RuntimeException("이미 가입된 유저입니다.");
+            throw new DuplicateEmailException();
         }
 
         Role role = Role.ROLE_USER;
@@ -96,16 +99,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserResponseDto getMyInfo(){
-        return UserResponseDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findByEmail).orElse(null));
+        return UserResponseDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findByEmail).orElseThrow(UserNotFoundException::new));
     }
 
     @Override
     public UserResponseDto getUserInfo(String email){
-        return UserResponseDto.from(userRepository.findByEmail(email).orElse(null));
+        return UserResponseDto.from(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
     }
 
     @Override
-    public void updateUser(String email, UpdateUserRequestDto requestDto) throws Exception {
+    public void updateUser(String email, UpdateUserRequestDto requestDto){
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
@@ -113,11 +116,11 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new UserNotFoundException();
     }
 
     @Override
-    public void deleteUser(String email) throws Exception{
+    public void deleteUser(String email){
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
@@ -125,11 +128,11 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new UserNotFoundException();
     }
 
     @Override
-    public void changePW(String email, String newPW) throws Exception {
+    public void changePW(String email, String newPW) {
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
@@ -137,7 +140,7 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new UserNotFoundException();
     }
 
     @Override
@@ -172,7 +175,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void logout() throws Exception{
+    public void logout(){
         Optional<UserEntity> entity = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByEmail);
 
         if(entity.isPresent()){
@@ -180,6 +183,6 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new RuntimeException("로그아웃에 실패했습니다.");
     }
 }

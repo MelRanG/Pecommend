@@ -19,9 +19,7 @@ public class MailServiceImpl implements MailService{
 
     public static final String ePw = createKey();
 
-    private MimeMessage createMessage(String to)throws Exception{
-        //System.out.println("보내는 대상 : "+ to);
-        //System.out.println("인증 번호 : "+ePw);
+    private MimeMessage createMessage(String to) throws Exception{
         MimeMessage message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
@@ -47,9 +45,7 @@ public class MailServiceImpl implements MailService{
         return message;
     }
 
-    private MimeMessage changePasswordMessage(String to)throws Exception{
-        //System.out.println("보내는 대상 : "+ to);
-        //System.out.println("인증 번호 : "+ePw);
+    private MimeMessage changePasswordMessage(String to) throws Exception{
         MimeMessage message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
@@ -101,7 +97,7 @@ public class MailServiceImpl implements MailService{
         return key.toString();
     }
     @Override
-    public String sendSimpleMessage(String to, String cmd)throws Exception {
+    public String sendSimpleMessage(String to, String cmd) throws Exception {
         MimeMessage message;
         if(cmd.equals("certification")) {
             message = createMessage(to);
