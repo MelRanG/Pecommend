@@ -23,12 +23,12 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private MailService mailService;
 
-    @GetMapping("/check.do/email/{email}")
-    @ApiOperation(value = "이메일 중복 검사")
-    public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
-        // 이미 있으면 true, 없으면 false
-        return new ResponseEntity<>(userService.checkEmail(email), HttpStatus.OK);
-    }
+//    @GetMapping("/check.do/email/{email}")
+//    @ApiOperation(value = "이메일 중복 검사")
+//    public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
+//        // 이미 있으면 true, 없으면 false
+//        return new ResponseEntity<>(userService.checkEmail(email), HttpStatus.OK);
+//    }
 
     @GetMapping("/check.do/nickname/{nickname}")
     @ApiOperation(value = "닉네임 중복 검사")
@@ -46,13 +46,18 @@ public class UserController {
     @PostMapping("/email-confirm.do")
     @ApiOperation(value = "이메일 인증")
     public ResponseEntity<String> confirmEmail(@RequestBody String email){
+        // 이미 존재하는 이메일이면
+        if(userService.checkEmail(email)){
+            return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+        }
+
         try {
             String confirm = mailService.sendSimpleMessage(email, "certification");
             return new ResponseEntity<>(confirm, HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
         }
-        return new ResponseEntity<>("Fail", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/login.do")

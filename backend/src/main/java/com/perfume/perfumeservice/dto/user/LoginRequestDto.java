@@ -1,6 +1,5 @@
 package com.perfume.perfumeservice.dto.user;
 
-import com.perfume.perfumeservice.domain.user.UserEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
