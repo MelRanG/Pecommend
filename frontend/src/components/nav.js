@@ -11,11 +11,11 @@ function nav() {
             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
               <div class="main-menu">
                 <nav>
-                  <ul style={{ textAlign: "right" }}>
+                  <ul style={{ textAlign: "right", marginBottom: "0px", marginTop: "0px" }}>
                     <li>
-                      <a href="about.html" style={{ fontSize: "25px" }}>
+                      <a href="about.html" style={{ fontSize: "35px", fontFamily: 'EarlyFontDiary', marginRight: "20px" }}>
                         {" "}
-                        Perfume
+                        PERFUME
                       </a>
                     </li>
                   </ul>
@@ -26,11 +26,11 @@ function nav() {
               <div class="logo" style={{ textAlign: "center", marginTop: "0" }}>
                 <a
                   href="index.html"
-                  // style={{
-                  //   textAlign: "center",
-                  //   fontFamily: "GmarketSansBold",
-                  //   fontSize: "40px",
-                  // }}
+                // style={{
+                //   textAlign: "center",
+                //   fontFamily: "GmarketSansBold",
+                //   fontSize: "40px",
+                // }}
                 >
                   {/* <img alt="" src="assets/img/logo/logo.png" /> */}
                   <img
@@ -44,11 +44,11 @@ function nav() {
             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
               <div class="main-menu">
                 <nav>
-                  <ul style={{ textAlign: "left" }}>
+                  <ul style={{ textAlign: "left", marginBottom: "0px", marginTop: "0px" }}>
                     <li>
-                      <a href="contact.html" style={{ fontSize: "25px" }}>
+                      <a href="contact.html" style={{ fontSize: "35px", fontFamily: 'EarlyFontDiary' }}>
                         {" "}
-                        Community
+                        COMMUNITY
                       </a>
                     </li>
                   </ul>
