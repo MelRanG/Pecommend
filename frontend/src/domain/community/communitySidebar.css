@@ -1,12 +1,18 @@
-.sidebar-widget{
-    align-items: center;
+.community-topbar {
+    text-align: center;
+    justify-content: center;
+    /* border-bottom: 1px solid black; */
+    margin-top: 10px;
+    position: relative;
 }
 
-.sidebar-widget a {
-    color: black;
+.community-topbar > ul > li > a {
     text-decoration: none;
+    color: #000;
 }
 
-.sidebar-widget a:hover{
-    color: purple;
+.searchbar {
+    margin-bottom: -1px;
+    position: absolute;
+    right:5%
 }

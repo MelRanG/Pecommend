@@ -377,17 +377,34 @@ function perfumeDetail() {
         <div className="container">
           <div className="row">
             <div className="col-lg-4 col-md-6">
-              <div className="product-details dec-img-wrap">
+              <div className="detail-product-details dec-img-wrap">
                 <img src="./assets\tempImg\style_5ea644901486c-534x700.jpg" alt="" />
                 {/* <span>-29%</span> */}
                 <span>new</span>
               </div>
             </div>
             <div className="col-lg-8 col-md-6">
-              <div className="product-details-content ml-70">
-                <h2>Perfume Name Here</h2>
+              <div className="detail-product-details-content ml-70">
+                <h2 className="detail-product-title">Perfume Name Here</h2>
+                <div className="pro-details-rating-wrap ">
+                  <div className="pro-details-rating">
+                    <i className="fa fa-star-o yellow"></i>
+                    <i className="fa fa-star-o yellow"></i>
+                    <i className="fa fa-star-o yellow"></i>
+                    <i className="fa fa-star-o"></i>
+                    <i className="fa fa-star-o"></i>
+                  </div>
+                  <div className="review-rating">
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                  </div>
+                  <span><a href="#">3 Reviews</a></span>
+                </div>
                 {/* 이부분에 해시태그 */}
-                <div className="product-hashtag">
+                <div className="detail-product-hashtag">
                   {/* <span>$18.00 </span>
                   <span className="old">$20.00 </span> */}
                   <ul>
@@ -399,21 +416,30 @@ function perfumeDetail() {
                     <li className="">#꽃향기나는</li>
                   </ul>
                 </div>
-                <div className="pro-details-rating-wrap">
-                  <div className="pro-details-rating">
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o"></i>
-                    <i className="fa fa-star-o"></i>
-                  </div>
-                  <span><a href="#">3 Reviews</a></span>
-                </div>
+
                 <p>향수 설명 Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
-                <div className="row pro-details-list-row">
+                {/* <div className="row detail-pro-details-list-row">
+                  <div className="detail-pro-details-list col-lg-5">
+                    <ul>
+                      <li>탑노트 : </li>
+                      <li>미들노트 : </li>
+                      <li>베이스노트 : </li>
+                    </ul>
+                  </div>
+                  <div className="detail-pro-details-list col-lg-5">
+                    <ul>
+                      <li>향료 설명 </li>
+
+                    </ul>
+                  </div>
+
+                </div> */}
+
+
+                <div className="detail-pro-details-list-row">
                   {/* <div className="col-lg-1">
                   </div> */}
-                  <div className="pro-details-list col-lg-5">
+                  <div className="detail-pro-details-list">
                     <ul>
                       {/* 탑노트/미들노트 설명 */}
                       <li>탑노트 : </li>
@@ -421,73 +447,14 @@ function perfumeDetail() {
                       <li>베이스노트 : </li>
                     </ul>
                   </div>
-                  <div className="pro-details-list col-lg-5">
+                  <div className="detail-pro-details-list">
                     <ul>
-                      {/* 향료같은것 설명 */}
+                      {/* 탑노트/미들노트 설명 */}
                       <li>향료 설명 </li>
-                      {/* <li>미들노트 : </li>
-                      <li>베이스노트 : </li> */}
                     </ul>
                   </div>
-                  {/* <div className="col-lg-1">
-                  </div> */}
                 </div>
-                {/* <div className="pro-details-size-color">
-                  <div className="pro-details-color-wrap">
-                    <span>Color</span>
-                    <div className="pro-details-color-content">
-                      <ul>
-                        <li className="blue"></li>
-                        <li className="maroon active"></li>
-                        <li className="gray"></li>
-                        <li className="green"></li>
-                        <li className="yellow"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="pro-details-size">
-                    <span>Size</span>
-                    <div className="pro-details-size-content">
-                      <ul>
-                        <li><a href="#">s</a></li>
-                        <li><a href="#">m</a></li>
-                        <li><a href="#">l</a></li>
-                        <li><a href="#">xl</a></li>
-                        <li><a href="#">xxl</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div> */}
-                {/* <div className="pro-details-quality">
-                  <div className="cart-plus-minus">
-                    <input className="cart-plus-minus-box" type="text" name="qtybutton" value="2" />
-                  </div>
-                  <div className="pro-details-cart btn-hover">
-                    <a href="#">Add To Cart</a>
-                  </div>
-                  <div className="pro-details-wishlist">
-                    <a href="#"><i className="fa fa-heart-o"></i></a>
-                  </div>
-                  <div className="pro-details-compare">
-                    <a href="#"><i className="pe-7s-shuffle"></i></a>
-                  </div>
-                </div> */}
-                {/* <div className="pro-details-meta">
-                  <span>Categories :</span>
-                  <ul>
-                    <li><a href="#">Minimal,</a></li>
-                    <li><a href="#">Furniture,</a></li>
-                    <li><a href="#">Fashion</a></li>
-                  </ul>
-                </div>
-                <div className="pro-details-meta">
-                  <span>Tag :</span>
-                  <ul>
-                    <li><a href="#">Fashion, </a></li>
-                    <li><a href="#">Furniture,</a></li>
-                    <li><a href="#">Electronic</a></li>
-                  </ul>
-                </div> */}
+
 
                 {/* 좋아요 싫어요 */}
                 <div className="pro-details-likeDislike row">
@@ -496,200 +463,84 @@ function perfumeDetail() {
                     <span className="glyphicon glyphicon-thumbs-up"></span>
                   </div>
                   <div className="col-lg-8 ">
-                    <div className="likeDislikeGraph"><span className="">75%</span></div>
+                    <div className="detail-likeDislikeGraph"><span className="">75%</span></div>
                   </div>
                   <div className="col-lg-2">
                     <span className="glyphicon glyphicon-thumbs-down"></span>
                   </div>
                 </div>
-                <div className="pro-details-social">
-                  <ul>
-                    <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i className="fa fa-dribbble"></i></a></li>
-                    <li><a href="#"><i className="fa fa-pinterest-p"></i></a></li>
-                    <li><a href="#"><i className="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i className="fa fa-linkedin"></i></a></li>
-                  </ul>
-                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="description-review-area pb-90">
-        <div className="container">
-          <div className="description-review-wrapper">
-            <div className="description-review-topbar nav">
-              <a data-bs-toggle="tab" href="#des-details1">Additional information</a>
-              <a className="active" data-bs-toggle="tab" href="#des-details2">Description</a>
-              <a data-bs-toggle="tab" href="#des-details3">Reviews (2)</a>
-            </div>
-            <div className="tab-content description-review-bottom">
-              <div id="des-details2" className="tab-pane active">
-                <div className="product-description-wrapper">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
-                  <p>ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commo consequat. Duis aute irure dolor in reprehend in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt </p>
-                </div>
-              </div>
-              <div id="des-details1" className="tab-pane ">
-                <div className="product-anotherinfo-wrapper">
-                  <ul>
-                    <li><span>Weight</span> 400 g</li>
-                    <li><span>Dimensions</span>10 x 10 x 15 cm </li>
-                    <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                    <li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
-                  </ul>
-                </div>
-              </div>
-              <div id="des-details3" className="tab-pane">
-                <div className="row">
-                  <div className="col-lg-7">
-                    <div className="review-wrapper">
-                      <div className="single-review">
-                        <div className="review-img">
-                          <img src="assets/img/testimonial/1.jpg" alt="" />
-                        </div>
-                        <div className="review-content">
-                          <div className="review-top-wrap">
-                            <div className="review-left">
-                              <div className="review-name">
-                                <h4>White Lewis</h4>
-                              </div>
-                              <div className="review-rating">
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                              </div>
-                            </div>
-                            <div className="review-left">
-                              <a href="#">Reply</a>
-                            </div>
-                          </div>
-                          <div className="review-bottom">
-                            <p>Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Suspendisse viverra ed viverra. Mauris ullarper euismod vehicula. Phasellus quam nisi, congue id nulla.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="single-review child-review">
-                        <div className="review-img">
-                          <img src="assets/img/testimonial/2.jpg" alt="" />
-                        </div>
-                        <div className="review-content">
-                          <div className="review-top-wrap">
-                            <div className="review-left">
-                              <div className="review-name">
-                                <h4>White Lewis</h4>
-                              </div>
-                              <div className="review-rating">
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                              </div>
-                            </div>
-                            <div className="review-left">
-                              <a href="#">Reply</a>
-                            </div>
-                          </div>
-                          <div className="review-bottom">
-                            <p>Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Sus pen disse viverra ed viverra. Mauris ullarper euismod vehicula. </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-5">
-                    <div className="ratting-form-wrapper pl-50">
-                      <h3>Add a Review</h3>
-                      <div className="ratting-form">
-                        <form action="#">
-                          <div className="star-box">
-                            <span>Your rating:</span>
-                            <div className="ratting-star">
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-6">
-                              <div className="rating-form-style mb-10">
-                                <input placeholder="Name" type="text" />
-                              </div>
-                            </div>
-                            <div className="col-md-6">
-                              <div className="rating-form-style mb-10">
-                                <input placeholder="Email" type="email" />
-                              </div>
-                            </div>
-                            <div className="col-md-12">
-                              <div className="rating-form-style form-submit">
-                                <textarea name="Your Review" placeholder="Message"></textarea>
-                                <input type="submit" value="Submit" />
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
+
 
       {/* 2개용 */}
-      <div className="description-likeDislike pb-90">
-        <div className="container">
-          <div className="likeDislikeList">
-            <div className="section-title text-center mb-50">
+      <div className="description-likeDislike mb-80 pt-50 pb-50">
+        <div className="container-fluid">
+          <div className="detail-likeDislikeList">
+            {/* <div className="section-title text-center mb-50">
               <h2>이 향수를 선호 / 비선호 하는 사람이 궁금해요</h2>
-            </div>
-            <div className="likeDislikeList-items row">
+            </div> */}
+
+
+            <ul class="nav nav-tabs detail-navtab mb-20">
+              <li class="nav-item">
+                <a class="nav-link disabled detail-navtab-disa" href="#" tabindex="-1" aria-disabled="true">이 향수를 </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active detail-nav-link" aria-current="page" href="#">좋아</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link detail-nav-link" href="#">싫어</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled detail-navtab-disa" href="#" tabindex="-1" aria-disabled="true">한다면?</a>
+              </li>
+            </ul>
+
+
+            <div className="detail-likeDislikeList-items detail-ldl-first row">
               <div className="col-lg-3">
-                <span className="glyphicon glyphicon-thumbs-up"></span>
+                <span className="glyphicon glyphicon-thumbs-up">추천해요</span>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
             </div>
-            <div className="likeDislikeList-items row">
+
+            <div className="detail-likeDislikeList-items row">
               <div className="col-lg-3">
-                <span className="glyphicon glyphicon-thumbs-down"></span>
+                <span className="glyphicon glyphicon-thumbs-down">비추천해요</span>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src="assets/img/testimonial/1.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src="assets/img/testimonial/1.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src="assets/img/testimonial/1.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2">
                 <img src="assets/img/testimonial/1.jpg" alt="" />
                 <p>향수명</p>
               </div>
@@ -698,114 +549,6 @@ function perfumeDetail() {
         </div>
       </div>
 
-
-      {/* 4개용
-      <div className="description-likeDislike pb-90">
-        <div className="container">
-          <div className="likeDislikeList">
-            <div className="section-title text-center mb-50">
-              <h2>이 향수를 선호 / 비선호 하는 사람이 궁금해요</h2>
-            </div>
-            <div className="emo row">
-              <div className="topList-emo col-lg-6">
-                <span className="glyphicon glyphicon-thumbs-up"> 선호한다면 추천</span>
-              </div>
-              <div className="topList-emo col-lg-6">
-                <span className="glyphicon glyphicon-thumbs-up"> 비선호한다면 추천</span>
-              </div>
-            </div>
-            <div className="topList row">
-              <div className="likeDislikeList-items row col-lg-6">
-
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-              </div>
-              <div className="likeDislikeList-items row col-lg-6">
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="emo row">
-              <div className="topList-emo col-lg-6">
-                <span className="glyphicon glyphicon-thumbs-down"> 선호한다면 비추천</span>
-              </div>
-              <div className="topList-emo col-lg-6">
-                <span className="glyphicon glyphicon-thumbs-down"> 비선호한다면 비추천</span>
-              </div>
-            </div>
-            <div className="topList row">
-              <div className="likeDislikeList-items row col-lg-6">
-
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-              </div>
-              <div className="likeDislikeList-items row col-lg-6">
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-                <div className="likeDislikeList-item col-lg-2">
-                  <img src="assets/img/testimonial/1.jpg" alt="" />
-                  <p>향수명</p>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </div> */}
 
 
 
@@ -850,7 +593,30 @@ function perfumeDetail() {
               </div> */}
 
               {/* 리뷰입력 */}
-              <div className="row">
+              <div class="comment_input_wrap" onclick="window.login();">
+                <div class="comment_input img_add">
+                  <textarea class="scrollbar" placeholder="향수에 대한 리뷰를 남겨주세요." disabled=""></textarea>
+                </div>
+                <div class="comment_input_bot">
+                  <div className="detail-comment review-rating">
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                  </div>
+                  <div class="image_add_wrap">
+                    <button type="button" class="btn_image_add" onclick="window.login();">해시태그 선택</button>
+                    *필수사항X
+                  </div>
+                  <span class="comment_count"> <em>0</em>/1000자 </span>
+                </div>
+                <button type="button" class="btnSizeL comment_submit" onclick="window.login();">댓글 등록</button>
+              </div>
+
+
+
+              {/* <div className="row">
                 <div className="ratting-form-wrapper">
                   <div className="ratting-form">
                     <form action="#">
@@ -875,8 +641,43 @@ function perfumeDetail() {
                     </form>
                   </div>
                 </div>
+              </div> */}
+              {/* 좋아요 / 싫어요 / 최신순 정렬 */}
+              <div className="detail-review-sort mt-10">
+                <div>
+                  <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked />
+                    <label className="form-check-label" for="flexRadioDefault1">
+                      전체
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                    <label className="form-check-label" for="flexRadioDefault2">
+                      좋아요
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                    <label className="form-check-label" for="flexRadioDefault1">
+                      싫어요
+                    </label>
+                  </div>
+                </div>
+
+                <div className="dropdown ml-10">
+                  <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    정렬
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a className="dropdown-item" href="#">최신순</a></li>
+                    <li><a className="dropdown-item" href="#">추천순</a></li>
+                    <li><a className="dropdown-item" href="#">오래된순</a></li>
+                  </ul>
+                </div>
               </div>
-              <div className="line"></div>
+
+              <div className="detail-line"></div>
 
 
               {/* 리뷰내용 */}
