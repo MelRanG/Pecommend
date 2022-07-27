@@ -1,6 +1,7 @@
 package com.perfume.perfumeservice.controller;
 
 import com.perfume.perfumeservice.exception.*;
+import com.perfume.perfumeservice.exception.common.InvalidParameterException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

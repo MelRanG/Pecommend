@@ -21,7 +21,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long user_id;
+    private long id;
     @NotBlank(message = "이메일은 필수입니다.")
     @Column(name = "email")
     private String email;

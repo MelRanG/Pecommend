@@ -2,10 +2,10 @@ import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
 import './communityMain.css'
 
-function communityMain () {
+function communityMain() {
     return (
         <div className="communityMain">
-            <Nav/>
+
             <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
                 <div class="container">
                     <div class="breadcrumb-content text-center">
@@ -59,7 +59,7 @@ function communityMain () {
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-12">

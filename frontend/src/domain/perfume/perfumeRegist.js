@@ -1,10 +1,9 @@
 import "./perfumeRegist.css"
 import Nav from "../../components/nav"
 
-function perfumeRegist () {
+function perfumeRegist() {
     return (
         <div className="perfumeRegist">
-            <Nav/>
             <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
                 <div className="container">
                     <div className="breadcrumb-content text-center">
@@ -21,11 +20,11 @@ function perfumeRegist () {
                 <div className="container perfumeRegistBox">
                     <div className="NameBox">
                         <label for="name" className="name-label">이름</label>
-                        <input id="name" className="name-input" type="text" placeholder="필수 항목 입니다."/>
+                        <input id="name" className="name-input" type="text" placeholder="필수 항목 입니다." />
                     </div>
                     <div className="MakerBox">
                         <label for="maker" className="maker-label">제조사</label>
-                        <input id="maker" className="maker-input" type="text"/>
+                        <input id="maker" className="maker-input" type="text" />
                     </div>
                     <div className="DescriptionBox">
                         <label for="description" className="description-label">설명</label>
@@ -41,7 +40,7 @@ function perfumeRegist () {
                     </div>
                 </div>
             </form>
-            
+
         </div>
     );
 }

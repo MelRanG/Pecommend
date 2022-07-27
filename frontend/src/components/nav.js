@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function nav() {
   return (
     <header class="header-area clearfix">
@@ -17,6 +19,7 @@ function nav() {
                         {" "}
                         PERFUME
                       </a>
+                      {/* <Link to='/perfume'>PERFUME</Link> */}
                     </li>
                   </ul>
                 </nav>
@@ -50,6 +53,7 @@ function nav() {
                         {" "}
                         COMMUNITY
                       </a>
+                      {/* <Link to='/commu'>COMMUNITY</Link> */}
                     </li>
                   </ul>
                 </nav>

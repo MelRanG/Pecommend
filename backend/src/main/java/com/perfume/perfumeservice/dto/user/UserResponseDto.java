@@ -31,7 +31,7 @@ public class UserResponseDto {
         if(entity == null) return null;
 
         return UserResponseDto.builder()
-                .user_id(entity.getUser_id())
+                .user_id(entity.getId())
                 .email(entity.getEmail())
                 .birthday(entity.getBirthday())
                 .gender(entity.getGender())
