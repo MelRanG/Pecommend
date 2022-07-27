@@ -1,8 +1,7 @@
 // import logo from './logo.svg';
-import Nav from '../../components/nav';
-import Footer from '../../components/footer';
 import React, { useState } from "react";
-import ".//perfumeList.css"
+import "./perfumeList.css";
+// import "./perfumeList.scss";
 
 
 function perfumeList() {
@@ -10,7 +9,7 @@ function perfumeList() {
     return (
         <div className="perfumeList">
 
-            <div className="breadcrumb-area pt-50 pb-50 perfume_nav">
+            {/* <div className="breadcrumb-area pt-50 pb-50 perfume_nav">
                 <div className="container">
                     <div className="breadcrumb-content text-center">
                         <ul>
@@ -32,7 +31,28 @@ function perfumeList() {
                         <a className="nav-link" href="#">Test</a>
                     </li>
                 </ul>
-            </div>
+            </div> */}
+
+            {/* <div className="container-temp">
+                <div className="pernav">
+                    <div className="pernav-header">
+                        <div className="pernav-header-title tac">
+                            <span>PERFUME</span>
+                        </div>
+                    </div>
+                    <div className="pernav-header-menu">
+                        <div className="per-nav n3">
+                            <ul className="mb-0">
+                                <li className="is-active"><a href="/edu/board/free/list.do">LIST</a>
+                                <Link to="perfume"></Link></li>
+                                <li><a href="/edu/board/anonymity/list.do">REGIST</a></li>
+                                <li><a href="/edu/community/search/searchStudentList.do">TEST</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> */}
+
 
             <div className="shop-area pt-95 pb-100">
                 <div className="container">

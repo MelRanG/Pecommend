@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useState } from "react";
-// import { Routes, Route } from "react-router-dom";
 import "./perfumeMain.css"
 
 
@@ -11,6 +10,7 @@ const perfumeMain = () => {
 
   return (
     <div className="perfumeMain">
+
       {/* <Outlet /> */}
       {/* <Routes>
         <Route path="/perfume/list" element={<PerfumeList />} />
@@ -18,22 +18,21 @@ const perfumeMain = () => {
         <Route path="/perfume/reglist" element={<PerfumeRegistList />} />
         <Route path="/perfume/regist" element={<PerfumeRegist />} />
       </Routes> */}
-
+      {/* 
       <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
         <div className="container">
-          {/* 여기부분에 향수헤더 */}
+
           <div className="breadcrumb-content text-center">
             <ul>
-              {/* <li>
-                <a href="index.html">Home</a>
-              </li> */}
+
               <li className="active">PERFUME</li>
             </ul>
           </div>
         </div>
-      </div>
-      <div className="perfume-popular-area pt-100 pb-100">
+      </div> */}
+      <div className="perfume-popular-area pt-50 pb-100">
         <div className="container">
+
 
 
           {/* 해시태그 */}
@@ -415,7 +414,7 @@ const perfumeMain = () => {
 
           </div>
         </div>
-      </div>
+      </div >
 
 
 
@@ -423,7 +422,7 @@ const perfumeMain = () => {
 
 
       {/* <!-- Modal --> */}
-      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+      <div div div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -553,7 +552,7 @@ const perfumeMain = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
       {/* <!-- Modal end --> */}
     </div >
 
