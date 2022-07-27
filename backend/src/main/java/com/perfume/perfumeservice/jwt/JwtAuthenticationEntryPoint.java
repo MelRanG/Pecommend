@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.jwt;
 
+import com.perfume.perfumeservice.exception.UserNotFoundException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

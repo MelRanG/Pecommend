@@ -7,15 +7,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @Builder
 @AllArgsConstructor
 @ApiModel(value = "SignUpRequestDto", description = "회원가입 요청 Dto")
 public class SignUpRequestDto {
+    @NotBlank
     @ApiModelProperty(value = "이메일")
     private String email;
+    @NotBlank
     @ApiModelProperty(value = "비밀번호")
     private String password;
+    @NotBlank
     @ApiModelProperty(value = "닉네임")
     private String nickname;
     @ApiModelProperty(value = "생일")
@@ -24,8 +29,6 @@ public class SignUpRequestDto {
     private String gender;
     @ApiModelProperty(value = "MBTI")
     private String mbti;
-    @ApiModelProperty(value = "향수 사용 경험")
-    private int experience;
     @ApiModelProperty(value = "자기 소개")
     private String introduction;
 
@@ -38,7 +41,6 @@ public class SignUpRequestDto {
                 .birthday(birthday)
                 .gender(gender)
                 .mbti(mbti)
-                .experience(experience)
                 .introduction(introduction)
                 .build();
     }

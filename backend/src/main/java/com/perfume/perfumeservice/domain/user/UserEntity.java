@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 
 @Entity
@@ -21,18 +22,29 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long user_id;
+    @NotBlank(message = "이메일은 필수입니다.")
+    @Column(name = "email")
     private String email;
+    @NotBlank(message = "닉네임은 필수입니다.")
+    @Column(name = "nickname", unique = true)
     private String nickname;
+    @NotBlank(message = "비밀번호는 필수입니다.")
+    @Column(name = "password")
     private String password;
+    @Column(name = "birthday")
     private String birthday;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "mbti")
     private String mbti;
-    private int experience;
+    @Column(name = "introduction")
     private String introduction;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
+    @Column(name = "token")
     private String token;
 
     public void saveToken(String token){
@@ -45,7 +57,6 @@ public class UserEntity {
         this.birthday = dto.getBirthday();
         this.gender = dto.getGender();
         this.mbti = dto.getMbti();
-        this.experience = dto.getExperience();
         this.introduction = dto.getIntroduction();
     }
 

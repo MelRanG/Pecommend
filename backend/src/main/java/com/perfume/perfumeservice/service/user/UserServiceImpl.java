@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public TokenDto doLogin(LoginRequestDto requestDto){
+    public TokenDto doLogin(LoginRequestDto requestDto) {
         // Login id/pw로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword());
@@ -85,7 +85,6 @@ public class UserServiceImpl implements UserService{
         UserEntity entity = UserEntity.builder()
                 .email(requestDto.getEmail())
                 .birthday(requestDto.getBirthday())
-                .experience(requestDto.getExperience())
                 .introduction(requestDto.getIntroduction())
                 .mbti(requestDto.getMbti())
                 .gender(requestDto.getGender())

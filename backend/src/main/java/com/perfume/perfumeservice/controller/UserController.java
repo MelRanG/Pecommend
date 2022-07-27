@@ -4,6 +4,7 @@ import com.perfume.perfumeservice.dto.jwt.TokenDto;
 import com.perfume.perfumeservice.dto.jwt.TokenRequestDto;
 import com.perfume.perfumeservice.dto.user.*;
 import com.perfume.perfumeservice.exception.DuplicateEmailException;
+import com.perfume.perfumeservice.exception.InvalidParameterException;
 import com.perfume.perfumeservice.exception.UserNotFoundException;
 import com.perfume.perfumeservice.service.user.MailService;
 import com.perfume.perfumeservice.service.user.UserService;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,7 +36,10 @@ public class UserController {
 
     @PostMapping("/signup.do")
     @ApiOperation(value = "회원 가입")
-    public ResponseEntity<UserResponseDto> doSignUp(@Valid @RequestBody SignUpRequestDto requestDto){
+    public ResponseEntity<UserResponseDto> doSignUp(@Valid @RequestBody SignUpRequestDto requestDto, BindingResult result){
+        if(result.hasErrors()){
+            throw new InvalidParameterException(result);
+        }
         return new ResponseEntity<>(userService.doSignUp(requestDto), HttpStatus.OK);
     }
 
@@ -57,7 +62,10 @@ public class UserController {
 
     @PostMapping("/login.do")
     @ApiOperation(value = "로그인")
-    public ResponseEntity<TokenDto> doLogin(@Valid @RequestBody LoginRequestDto requestDto){
+    public ResponseEntity<TokenDto> doLogin(@Valid @RequestBody LoginRequestDto requestDto, BindingResult result){
+        if(result.hasErrors()){
+            throw new InvalidParameterException(result);
+        }
         TokenDto tokenDto = userService.doLogin(requestDto);
 
         return new ResponseEntity<>(tokenDto, HttpStatus.OK);
@@ -71,7 +79,10 @@ public class UserController {
     
     @PutMapping("/update")
     @ApiOperation(value = "회원 정보 수정")
-    public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequestDto requestDto){
+    public ResponseEntity<String> updateUser(@Valid @RequestBody UpdateUserRequestDto requestDto, BindingResult result){
+        if(result.hasErrors()){
+            throw new InvalidParameterException(result);
+        }
         String email = userService.getMyInfo().getEmail();
         userService.updateUser(email, requestDto);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
@@ -88,6 +99,7 @@ public class UserController {
     @PostMapping("/findpw.do")
     @ApiOperation(value = "비밀번호 찾기")
     public ResponseEntity<String> findPW(String email){
+
         try {
             if(!userService.checkEmail(email)){
                 throw new UserNotFoundException();
@@ -97,10 +109,12 @@ public class UserController {
             userService.changePW(email, passwordEncoder.encode(newPW));
 
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }catch(UserNotFoundException e){
+            throw new UserNotFoundException();
         }catch(Exception e){
             e.printStackTrace();
         }
-        return new ResponseEntity<>("Fail", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/myinfo")

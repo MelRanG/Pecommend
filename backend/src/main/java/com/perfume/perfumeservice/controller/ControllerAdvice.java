@@ -9,8 +9,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    @ExceptionHandler(InvalidParameterException.class)
+    protected ResponseEntity<ErrorResponse> handleInvalidParameterException(InvalidParameterException e){
+
+        ErrorCode errorCode = e.getErrorCode();
+        final ErrorResponse response = ErrorResponse.builder()
+                .status(errorCode.getStatus())
+                .code(errorCode.getCode())
+                .message(e.toString()).build();
+
+        response.setCustomFieldErrors(e.getErrors().getFieldErrors());
+
+        return new ResponseEntity<>(response, HttpStatus.resolve(errorCode.getStatus()));
+    }
+
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(CustomException e){
+    protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e){
 
         ErrorCode errorCode = e.getErrorCode();
         final ErrorResponse response = ErrorResponse.builder()
@@ -22,7 +36,7 @@ public class ControllerAdvice {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(RuntimeException e){
+    protected ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e){
 
         final ErrorResponse response = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -33,7 +47,7 @@ public class ControllerAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(Exception e){
+    protected ResponseEntity<ErrorResponse> handleException(Exception e){
 
         final ErrorResponse response = ErrorResponse.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())

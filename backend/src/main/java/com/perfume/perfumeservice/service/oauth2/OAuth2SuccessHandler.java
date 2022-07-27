@@ -37,6 +37,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         UserEntity entity = userRepository.findByEmail(email)
                 .orElse(UserEntity.builder()
                         .email((String)attributes.get("email"))
+                        .nickname(passwordMaker.make())
                         .role(Role.ROLE_USER)
                         .password(passwordMaker.make())
                         .build());
