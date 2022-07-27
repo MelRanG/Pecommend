@@ -6,6 +6,7 @@ import Footer from './components/footer';
 import CommunityList from "./domain/community/communityList";
 import CommunityDetail from "./domain/community/communityDetail";
 import CommunityMain from "./domain/community/communityMain";
+import CommunityRegist from "./domain/community/communityRegist";
 import PerfumeList from "./domain/perfume/perfumeList";
 import PerfumeDetail from "./domain/perfume/perfumeDetail";
 import PerfumeMain from "./domain/perfume/perfumeMain";
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/commu" element={<CommunityMain />} />
                 <Route path="/commu/list" element={<CommunityList />} />
                 <Route path="/commu/detail" element={<CommunityDetail />} />
+                <Route path="/commu/regist" element={<CommunityRegist />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/login" element={<Login />} />
             </Routes>
