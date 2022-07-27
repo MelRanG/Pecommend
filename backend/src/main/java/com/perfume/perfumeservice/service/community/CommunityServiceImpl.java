@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,8 +21,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -106,7 +109,9 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<PostsDto> getList(int category) {
-        return communityRepository.findByCategory(category);
+        List<Community> communities = communityRepository.findByCategory(category);
+        List<PostsDto> postsDtos = communities.stream().map(community -> community.createPostsDto(community)).collect(Collectors.toList());
+        return postsDtos;
     }
 
     @Override
@@ -114,6 +119,13 @@ public class CommunityServiceImpl implements CommunityService {
         CommunityImage communityImage = communityImageRepository.findById(id).orElse(null);
         return communityImage.getImage().getFilePath();
 
+    }
+
+    @Override
+    public int deletePost(Long id) {
+        Community community = communityRepository.findById(id).orElse(null);
+        communityRepository.delete(community);
+        return 1;
     }
 
     //    public ImageDto updateImage(MultipartFile[] uploadFile) {

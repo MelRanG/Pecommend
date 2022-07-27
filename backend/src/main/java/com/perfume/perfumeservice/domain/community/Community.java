@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.domain.community;
 
+import com.perfume.perfumeservice.dto.posts.PostsDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +37,16 @@ public class Community {
             this.content = community.content;
         if(community.category != 0)
             this.category = community.category;
+    }
+
+    public PostsDto createPostsDto(Community community) {
+        return new PostsDto(
+                community.getId(),
+                community.getCategory(),
+                community.getWriter(),
+                community.getTitle(),
+                community.getContent(),
+                community.getCommunityLike()
+        );
     }
 }

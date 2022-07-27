@@ -13,4 +13,6 @@ public interface CommunityService {
     Community updatePost(Long id, PostsDto dto);
     List<PostsDto> getList(int category);
     String getImagePath(Long id);
+
+    int deletePost(Long id);
 }

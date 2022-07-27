@@ -44,6 +44,7 @@ public class CommunityController {
 
     @GetMapping("/list/{category}")
     public ResponseEntity<List<PostsDto>> getList(@PathVariable int category){
+        System.out.println(category);
         List<PostsDto> postsDtoList = service.getList(category);
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
@@ -54,8 +55,9 @@ public class CommunityController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/test.do")
-    public ResponseEntity<String> test(){
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Integer> deletePost(@PathVariable Long id){
+        service.deletePost(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
