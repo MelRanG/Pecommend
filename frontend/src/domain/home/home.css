@@ -22,7 +22,7 @@
     left: 300px;
     width: 10% ;
     height: 40px; */
-    padding-right: 15%;
+    padding-right: 10%;
     
 }
 .home-title p{
@@ -49,17 +49,23 @@
     /* background-color: aquamarine; */
     padding: 10px 40px;
     word-break: break-all;
-
+    font-family: 'S-CoreDream-6Bold';
+}
+.feature-box p {
+    font-family: 'S-CoreDream-4Regular';
+    font-size: 20px;
 }
 .home-feature div img{
     width: 200px;
+    height: 200px;
     border-radius: 12px;
     border: 1px solid #ffffff;
+    object-fit: scale-down;
 }
 
 /*  */
 .home-banner{
-    background-image: url("../../../public/assets/tempImg/banner1.jpg");
+    background-image: url("../../../public/assets/img/home/banner1.jpg");
     width: 100%;
     height: 500px;
     background-position: center !important;
@@ -68,7 +74,17 @@
     margin-bottom: 50px;
 }
 .home-banner2{
-    background-image: url("../../../public/assets/tempImg/banner2.jpg");
+    background-image: url("../../../public/assets/img/home/banner2.jpg");
+    width: 100%;
+    height: 500px;
+    background-position: center !important;
+	background-repeat: no-repeat;
+    background-size: cover; 
+    margin-bottom: 50px;
+}
+
+.home-banner3{
+    background-image: url("../../../public/assets/img/home/banner3.jpg");
     width: 100%;
     height: 500px;
     background-position: center !important;
@@ -112,14 +128,45 @@
     /* border: 1px solid #ffffff; */
     border-radius: 12px;
     /* border-color: #765c4b; */
-    background-color: rgba(255 , 255,255, 0.6);
+    background-color: rgb(247 247 247 / 73%);
     /* width: 30%; */
-    padding: 10px;    
+    padding: 10px 30px;    
     /* margin-left: 15%; */
-    font-size: 18px;
+    font-size: 25px;
+    line-height: 38px;
+    /* font-family: 'NanumBarunGothic'; */
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    color:#72706e;
 }
+
+
 
 .banner-total button{
     font-family: 'GmarketSansBold';
     font-size: 20px;
 }
+
+.home-product-hashtag{
+    display: flex;
+    /* padding: 10px 0 10px; */
+    /* margin: 8px 0; */
+    /* margin: auto; */
+    cursor: pointer;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+.home-product-hashtag div{
+    float: left;
+    margin: 16px 15px 0 0;
+    padding: 7px 15px 9px 15px;
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    line-height: 16px;
+    font-family: 'S-CoreDream-6Bold';
+    flex: none;
+  
+  }
