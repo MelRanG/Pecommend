@@ -37,6 +37,7 @@ public class CommunityController {
 
     @GetMapping("/list/{category}")
     public ResponseEntity<List<PostsDto>> getList(@PathVariable int category){
+        System.out.println(category);
         List<PostsDto> postsDtoList = service.getList(category);
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }

@@ -1,9 +1,14 @@
 package com.perfume.perfumeservice.dto.posts;
 
 import com.perfume.perfumeservice.domain.community.Community;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class PostsDto {
     private Long id;
     private int category;
@@ -11,6 +16,7 @@ public class PostsDto {
     private String title;
     private String content;
     private int communityLike;
+
 
     public Community toEntity(){
         return Community.builder()
@@ -21,4 +27,5 @@ public class PostsDto {
                 .communityLike(communityLike)
                 .build();
     }
+
 }
