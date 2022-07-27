@@ -13,6 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/community")
+@CrossOrigin(
+           // localhost:5500 과 127.0.0.1 구분
+           origins = "http://localhost:3000/", // allowCredentials = "true" 일 경우, orogins="" 는 X
+           allowCredentials = "true",
+           allowedHeaders = "",
+           methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.HEAD,RequestMethod.OPTIONS}
+       )
 public class CommunityController {
 
     @Autowired
@@ -43,7 +50,7 @@ public class CommunityController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Integer> updatePost(@PathVariable Long id, @RequestBody PostsDto dto){
+    public ResponseEntity<Integer> updatePost(@PathVariable Long id, @RequestBody PostsDto dto) {
         service.updatePost(id, dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -53,5 +60,4 @@ public class CommunityController {
         service.deletePost(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

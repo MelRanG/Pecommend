@@ -71,7 +71,7 @@ function Login() {
     }
     console.log('회원가입')
     console.log(body)
-    axios.post("/api/v1/users/signup.do", body)
+    axios.post("localhost:8081/api/v1/users/signup.do", body)
       .then(function (response) {
         if (response.data.code == 0) {
           console.log('!!regist!!')
