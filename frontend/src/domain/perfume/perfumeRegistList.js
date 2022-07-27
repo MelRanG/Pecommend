@@ -5,19 +5,19 @@ function perfumeRegistList() {
     return (
         <div className="perfumeRegistList">
 
-            <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
-                <div class="container">
-                    <div class="breadcrumb-content text-center">
+            <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
+                <div className="container">
+                    <div className="breadcrumb-content text-center">
                         <ul>
                             <li>
                                 <a href="index.html">Home</a>
                             </li>
-                            <li class="active">Shop </li>
+                            <li className="active">Shop </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div className="container">
                 <div className="top-bar">
                     <h4>향수 등록 신청 목록</h4>
                     <button>신청하기</button>
@@ -28,7 +28,7 @@ function perfumeRegistList() {
                         {/* 하나의 카드 세트입니다. */}
                         <div className="row perfume">
                             <div className="col-md-3 perfumeBox">
-                                <img class="perfumeImg" alt="?" src="./assets/tempImg/280 (1).jpg" />
+                                <img className="perfumeImg" alt="?" src="./assets/tempImg/280 (1).jpg" />
                             </div>
                             <div className="col-md-7 perfumeText d-flex flex-column justify-content-center align-items-start">
                                 <h4>향수 이름</h4>
@@ -44,7 +44,7 @@ function perfumeRegistList() {
                         </div>
                         <div className="row perfume">
                             <div className="col-md-3 perfumeBox">
-                                <img class="perfumeImg" alt="?" src="./assets/tempImg/280 (1).jpg" />
+                                <img className="perfumeImg" alt="?" src="./assets/tempImg/280 (1).jpg" />
                             </div>
                             <div className="col-md-7 perfumeText d-flex flex-column justify-content-center align-items-start">
                                 <h4>향수 이름</h4>
@@ -60,7 +60,7 @@ function perfumeRegistList() {
                         </div>
                         <div className="row perfume">
                             <div className="col-md-3 perfumeBox">
-                                <img class="perfumeImg" alt="?" src="./assets/tempImg/280 (1).jpg" />
+                                <img className="perfumeImg" alt="?" src="./assets/tempImg/280 (1).jpg" />
                             </div>
                             <div className="col-md-7 perfumeText d-flex flex-column justify-content-center align-items-start">
                                 <h4>향수 이름</h4>
@@ -77,18 +77,18 @@ function perfumeRegistList() {
                     </div>
                 </div>
 
-                <div class="pro-pagination-style text-center mt-15">
+                <div className="pro-pagination-style text-center mt-15">
                     <ul>
-                        <li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                        <li><a class="active" href="#">1</a></li>
+                        <li><a className="prev" href="#"><i className="fa fa-angle-double-left"></i></a></li>
+                        <li><a className="active" href="#">1</a></li>
                         <li><a href="#">2</a></li>
-                        <li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                        <li><a className="next" href="#"><i className="fa fa-angle-double-right"></i></a></li>
                     </ul>
                 </div>
-                <form action="#" class="searchform">
-                    <input type="text" name="search" id="error_search" placeholder="Search..." class="searchform__input" />
-                    <button type="submit" class="searchform__submit">
-                        <i class="fa fa-search"></i>
+                <form action="#" className="searchform">
+                    <input type="text" name="search" id="error_search" placeholder="Search..." className="searchform__input" />
+                    <button type="submit" className="searchform__submit">
+                        <i className="fa fa-search"></i>
                     </button>
                 </form>
             </div>

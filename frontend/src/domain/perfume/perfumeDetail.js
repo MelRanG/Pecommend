@@ -486,18 +486,18 @@ function perfumeDetail() {
             </div> */}
 
 
-            <ul class="nav nav-tabs detail-navtab mb-20">
-              <li class="nav-item">
-                <a class="nav-link disabled detail-navtab-disa" href="#" tabindex="-1" aria-disabled="true">이 향수를 </a>
+            <ul className="nav nav-tabs detail-navtab mb-20">
+              <li className="nav-item">
+                <a className="nav-link disabled detail-navtab-disa" href="#" tabindex="-1" aria-disabled="true">이 향수를 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active detail-nav-link" aria-current="page" href="#">좋아</a>
+              <li className="nav-item">
+                <a className="nav-link active detail-nav-link" aria-current="page" href="#">좋아</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link detail-nav-link" href="#">싫어</a>
+              <li className="nav-item">
+                <a className="nav-link detail-nav-link" href="#">싫어</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link disabled detail-navtab-disa" href="#" tabindex="-1" aria-disabled="true">한다면?</a>
+              <li className="nav-item">
+                <a className="nav-link disabled detail-navtab-disa" href="#" tabindex="-1" aria-disabled="true">한다면?</a>
               </li>
             </ul>
 
@@ -556,7 +556,7 @@ function perfumeDetail() {
 
       {/* 리뷰 */}
       {/* 게시글 상세의 댓글과 유사하게 */}
-      <div class="description-review-area pb-90">
+      <div className="description-review-area pb-90">
         <div className="container">
           <div className="section-title text-center mb-50">
             <h2>Review</h2>
@@ -593,11 +593,11 @@ function perfumeDetail() {
               </div> */}
 
               {/* 리뷰입력 */}
-              <div class="comment_input_wrap" onclick="window.login();">
-                <div class="comment_input img_add">
-                  <textarea class="scrollbar" placeholder="향수에 대한 리뷰를 남겨주세요." disabled=""></textarea>
+              <div className="comment_input_wrap" onclick="window.login();">
+                <div className="comment_input img_add">
+                  <textarea className="scrollbar" placeholder="향수에 대한 리뷰를 남겨주세요." disabled=""></textarea>
                 </div>
-                <div class="comment_input_bot">
+                <div className="comment_input_bot">
                   <div className="detail-comment review-rating">
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
@@ -605,13 +605,13 @@ function perfumeDetail() {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
-                  <div class="image_add_wrap">
-                    <button type="button" class="btn_image_add" onclick="window.login();">해시태그 선택</button>
+                  <div className="image_add_wrap">
+                    <button type="button" className="btn_image_add" onclick="window.login();">해시태그 선택</button>
                     *필수사항X
                   </div>
-                  <span class="comment_count"> <em>0</em>/1000자 </span>
+                  <span className="comment_count"> <em>0</em>/1000자 </span>
                 </div>
-                <button type="button" class="btnSizeL comment_submit" onclick="window.login();">댓글 등록</button>
+                <button type="button" className="btnSizeL comment_submit" onclick="window.login();">댓글 등록</button>
               </div>
 
 

@@ -2,9 +2,9 @@ import './profile.css'
 import Nav from '../../components/nav'
 import { useState } from 'react';
 
-function profile () {
+function profile() {
 
-    let hashtag_list = ['따뜻한','봄','가을'];
+    let hashtag_list = ['따뜻한', '봄', '가을'];
 
     return (
         <div className="profile">
@@ -23,9 +23,9 @@ function profile () {
                         </div>
                         <div className="hashtag-list">
                             {
-                                hashtag_list.map((n,i) => {
+                                hashtag_list.map((n, i) => {
                                     return (
-                                        <TagSpawn tagname={hashtag_list[i]} count={i}/>
+                                        <TagSpawn tagname={hashtag_list[i]} count={i} />
                                     )
                                 })
                             }
@@ -38,21 +38,21 @@ function profile () {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="col-md-8 row mt-25 mb-25">
                     <div className="profile-topbar">
-                        <ul class="nav nav-tabs justify-content-center">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">선호 향수</a>
+                        <ul className="nav nav-tabs justify-content-center">
+                            <li className="nav-item">
+                                <a className="nav-link active" aria-current="page" href="#">선호 향수</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">비선호 향수</a>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">비선호 향수</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">작성 게시글</a>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">작성 게시글</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">작성 댓글</a>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">작성 댓글</a>
                             </li>
                         </ul>
                         <div className="row profile-maindiv">
@@ -127,7 +127,7 @@ function profile () {
                                 <div className="col-sm-6">
                                     <h4>불가리 뿌르옴므</h4>
                                     <h5>불가리</h5>
-                                    <h5 style={{marginBottom:"0px"}}>4.0</h5>
+                                    <h5 style={{ marginBottom: "0px" }}>4.0</h5>
                                     <div className=" review-rating">
                                         <i className="fa fa-star"></i>
                                         <i className="fa fa-star"></i>
@@ -185,9 +185,9 @@ function profile () {
     );
 }
 
-function TagSpawn (props) {
+function TagSpawn(props) {
     return (
-        <button className={"hashtag" + (props.count % 3)} >#{ props.tagname }</button>
+        <button className={"hashtag" + (props.count % 3)} >#{props.tagname}</button>
     );
 }
 

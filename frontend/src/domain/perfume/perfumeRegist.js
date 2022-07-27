@@ -32,7 +32,7 @@ function perfumeRegist() {
                     </div>
                     <div className="FileBox">
                         <label for="file" className="form-label">이미지</label>
-                        <input class="form-control form-control-sm" id="file" type="file" />
+                        <input className="form-control form-control-sm" id="file" type="file" />
                     </div>
                     <div className="ButtonArea">
                         <button className="BackButton">뒤로</button>

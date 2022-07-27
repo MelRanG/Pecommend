@@ -1,8 +1,8 @@
 // import logo from './logo.svg';
 import Nav from '../../components/nav';
 import Footer from '../../components/footer';
-import "./perfumeList.css"
-
+import React, { useState } from "react";
+import ".//perfumeList.css"
 
 
 function perfumeList() {
@@ -445,7 +445,7 @@ function perfumeList() {
                                             type="button"
                                             data-bs-toggle="collapse" data-bs-target="#Collapse1"
                                             aria-expanded="true" aria-controls="Collapse1">
-                                            {/* <i class="bi bi-chevron-down"></i> */}
+                                            {/* <i className="bi bi-chevron-down"></i> */}
                                         </button>
                                     </div>
 
@@ -457,7 +457,7 @@ function perfumeList() {
                                                         <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." />
                                                         남성
                                                     </li>
-                                                    <li class="list-group-item border-0">
+                                                    <li className="list-group-item border-0">
                                                         <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." />
                                                         여성
                                                     </li>
@@ -473,7 +473,7 @@ function perfumeList() {
                                             type="button"
                                             data-bs-toggle="collapse" data-bs-target="#Collapse2"
                                             aria-expanded="false" aria-controls="Collapse2">
-                                            {/* <i class="bi bi-chevron-down"></i> */}
+                                            {/* <i className="bi bi-chevron-down"></i> */}
                                         </button>
                                     </div>
 
@@ -485,15 +485,15 @@ function perfumeList() {
                                                         <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." />
                                                         10대
                                                     </li>
-                                                    <li class="list-group-item border-0">
+                                                    <li className="list-group-item border-0">
                                                         <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." />
                                                         20대
                                                     </li>
-                                                    <li class="list-group-item border-0">
+                                                    <li className="list-group-item border-0">
                                                         <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." />
                                                         30대
                                                     </li>
-                                                    <li class="list-group-item border-0">
+                                                    <li className="list-group-item border-0">
                                                         <input className="form-check-input me-2" type="checkbox" value="" aria-label="..." />
                                                         40대 이상
                                                     </li>
@@ -509,7 +509,7 @@ function perfumeList() {
                                             type="button"
                                             data-bs-toggle="collapse" data-bs-target="#Collapse3"
                                             aria-expanded="false" aria-controls="Collapse3">
-                                            {/* <i class="bi bi-chevron-down"></i> */}
+                                            {/* <i className="bi bi-chevron-down"></i> */}
                                         </button>
                                     </div>
 
