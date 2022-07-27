@@ -4,8 +4,86 @@
 import "./Login.css";
 import Nav from '../../components/nav';
 import Footer from '../../components/footer';
+import axios from "axios";
+import React , { useState } from "react";
+import {useDispatch} from "react-redux"
 
 function Login() {
+  const [id, setId] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [regist_pwd, setRpwd] = React.useState("");
+  const [birth, setBirth] = React.useState("");
+  const [nick, setNick] = React.useState("");
+
+  const onIDhandler = (event) => {
+    setId(event.currentTarget.value)
+  }
+
+  const onPWDhandler = (event) => {
+    setPwd(event.currentTarget.value)
+  }
+
+  const onEmailhandler = (event) => {
+    setEmail(event.currentTarget.value)
+  }
+
+  const onRPWDhandler = (event) => {
+    setRpwd(event.currentTarget.value)
+  }
+
+  const onBirthhandler = (event) => {
+    setBirth(event.currentTarget.value)
+  }
+
+  const onNicknamehandler = (event) => {
+    setNick(event.currentTarget.value)
+  }
+
+  const onSubmithandler = (event) => {
+    event.preventDefault()
+    let body = {
+      email: id,
+      password: pwd
+    }
+    console.log('시작')
+    console.log(body)
+    axios.post("/api/v1/users/login.do", body)
+      .then(function (response) {
+        if (response.data.code == 0){
+          console.log('!!login!!')
+        }
+        else {
+          console.log(response.data)
+        }
+      }) .catch(function (error) {
+        console.log(error)
+      })
+  }
+
+  const onRegisthandler = (event) => {
+    event.preventDefault()
+    let body = {
+      email: email,
+      password: regist_pwd,
+      nickname: nick,
+      birth: birth,
+    }
+    console.log('회원가입')
+    console.log(body)
+    axios.post("/api/v1/users/signup.do", body)
+      .then(function (response) {
+        if (response.data.code == 0){
+          console.log('!!regist!!')
+        }
+        else {
+          console.log(response.data)
+        }
+      }) .catch(function (error) {
+        console.log(error)
+      })
+  }
+
   return (
     <div className="Login">
             <Nav />
@@ -39,16 +117,18 @@ function Login() {
                   <div id="lg1" class="tab-pane active">
                     <div class="login-form-container">
                       <div class="login-register-form">
-                        <form action="#" method="post">
+                        <form onSubmit={onSubmithandler}>
                           <input
                             type="text"
                             name="lg-user-email"
                             placeholder="Email"
+                            onChange={onIDhandler}
                           />
                           <input
                             type="password"
                             name="lg-user-password"
                             placeholder="Password"
+                            onChange={onPWDhandler}
                           />
                           <div class="button-box">
                             <div class="login-toggle-btn">
@@ -78,7 +158,7 @@ function Login() {
                   <div id="lg2" class="tab-pane">
                     <div class="login-form-container">
                       <div class="login-register-form">
-                        <form action="#" method="post">
+                        <form onSubmit={onRegisthandler}>
                           <label>이메일</label>
                           <button class='btn' style={{ float: "right" }}>인증번호 받기</button>
                           <input
