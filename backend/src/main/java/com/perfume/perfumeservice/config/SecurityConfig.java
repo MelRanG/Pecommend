@@ -96,10 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web){
         web
                 .httpFirewall(new DefaultHttpFirewall())
-
                 .ignoring()
                 .antMatchers("/**", "/h2-console/**", "/swagger-ui/**");
-
     }
 
     @Bean

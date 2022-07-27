@@ -29,6 +29,7 @@ public class CommunityController {
     @PostMapping
     public ResponseEntity<Community> writePost(@RequestBody PostsDto dto){
         Community community = service.writePost(dto);
+        System.out.println(community);
         return (community != null) ?
                 ResponseEntity.status(HttpStatus.OK).body(community) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -48,7 +49,8 @@ public class CommunityController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deletePost(@PathVariable Long id){
-
+        service.deletePost(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

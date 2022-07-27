@@ -116,6 +116,13 @@ public class CommunityServiceImpl implements CommunityService {
 
     }
 
+    @Override
+    public int deletePost(Long id) {
+        Community community = communityRepository.findById(id).orElse(null);
+        communityRepository.delete(community);
+        return 1;
+    }
+
     //    public ImageDto updateImage(MultipartFile[] uploadFile) {
 //        for (MultipartFile file : uploadFile) {
 //        try {
