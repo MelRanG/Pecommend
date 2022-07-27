@@ -6,7 +6,7 @@ import "./home.css";
 const home = () => {
   return (
     <div className="home">
-      <Nav />
+
       <div className="home1 mb-50">
         <div className="container">
           <div className="row home-parent">
@@ -105,9 +105,6 @@ const home = () => {
         </div>
       </div>
 
-
-
-      <Footer />
     </div>
   );
 };
