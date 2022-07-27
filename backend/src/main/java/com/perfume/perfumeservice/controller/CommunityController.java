@@ -46,4 +46,9 @@ public class CommunityController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Integer> deletePost(@PathVariable Long id){
+
+    }
+
 }
