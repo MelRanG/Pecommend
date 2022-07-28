@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel(value = "UserResponseRequestDto", description = "회원 정보 응답 Dto")
 public class UserResponseDto {
+    private long user_id;
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -23,7 +24,6 @@ public class UserResponseDto {
     private String birthday;
     private String gender;
     private String mbti;
-    private int experience;
     private String introduction;
     private Role role;
 
@@ -31,12 +31,12 @@ public class UserResponseDto {
         if(entity == null) return null;
 
         return UserResponseDto.builder()
+                .user_id(entity.getId())
                 .email(entity.getEmail())
                 .birthday(entity.getBirthday())
                 .gender(entity.getGender())
                 .mbti(entity.getMbti())
                 .nickname(entity.getNickname())
-                .experience(entity.getExperience())
                 .introduction(entity.getIntroduction())
                 .role(entity.getRole())
                         .build();

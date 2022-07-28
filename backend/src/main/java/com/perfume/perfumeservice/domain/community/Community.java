@@ -1,14 +1,18 @@
 package com.perfume.perfumeservice.domain.community;
-
-import com.perfume.perfumeservice.dto.posts.PostsDto;
+import com.perfume.perfumeservice.domain.user.UserEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Getter
 public class Community {
     @Id
@@ -16,19 +20,14 @@ public class Community {
     @Column(name = "community_id")
     private Long id;
     private int category;
-    private int writer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity writer;
     private String title;
     private String content;
-    private int communityLike;
-
-    @Builder
-    public Community(int category, int writer, String title, String content, int communityLike){
-        this.category = category;
-        this.writer = writer;
-        this.title = title;
-        this.content = content;
-        this.communityLike = communityLike;
-    }
+   // private int communityLike;
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CommunityLike> likes = new LinkedHashSet<>();
 
     public void patch(Community community){
         if(community.title != null)
@@ -37,16 +36,5 @@ public class Community {
             this.content = community.content;
         if(community.category != 0)
             this.category = community.category;
-    }
-
-    public PostsDto createPostsDto(Community community) {
-        return new PostsDto(
-                community.getId(),
-                community.getCategory(),
-                community.getWriter(),
-                community.getTitle(),
-                community.getContent(),
-                community.getCommunityLike()
-        );
     }
 }

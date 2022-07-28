@@ -41,9 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // cors
                 .cors().configurationSource(corsConfigurationSource())
+
                 // csrf
                 .and()
-                // csrf
                 .csrf().disable()
 
                 // exception handling
@@ -97,7 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .httpFirewall(new DefaultHttpFirewall())
                 .ignoring()
-                .antMatchers("/**", "/h2-console/**", "/swagger-ui/**");
+                .antMatchers( "/h2-console/**", "/swagger-ui/**");
     }
 
     @Bean
@@ -114,5 +114,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return source;
     }
-
 }
