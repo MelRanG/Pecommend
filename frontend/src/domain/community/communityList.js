@@ -72,7 +72,7 @@ function CommunityList() {
                                                 <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", textAlign: "center" }}>글 제목</th>
                                                 <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "150px", textAlign: "center" }}>작성자</th>
                                                 <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "100px", textAlign: "center" }}>작성일</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "70px", textAlign: "center" }}>조회수</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "70px", textAlign: "center" }}>추천수</th>
                                             </tr>
                                         </thead>
                                         <tbody className="table-group-divider" style={{ textAlign: "center" }}>
@@ -107,7 +107,7 @@ function CommunityList() {
                                             {dataList.map(data => 
                                             <tr>
                                                 <th scope="row" style={{ textAlign: "center" }}>{data.id}</th>
-                                                <td><Link to ={`/commu/detail/${data.id}`} style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>{data.title}</Link></td>
+                                                <td><Link class="community-list-titlebox" to ={`/commu/detail/${data.id}`} style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>{data.title}</Link></td>
                                                 {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
                                                 <td>{data.writer}</td>
                                                 <td>{data.date}</td>
