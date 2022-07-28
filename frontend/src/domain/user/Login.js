@@ -7,6 +7,7 @@ import Footer from '../../components/footer';
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux"
+import { createStore } from 'redux';
 
 function Login() {
   const [id, setId] = React.useState("");
@@ -46,15 +47,12 @@ function Login() {
       email: id,
       password: pwd
     }
-    console.log('시작')
     console.log(body)
-    axios.post("/api/v1/users/login.do", body)
+    axios.post("/api/v1/user/login.do", body)
       .then(function (response) {
-        if (response.data.code == 0) {
-          console.log('!!login!!')
-        }
-        else {
-          console.log(response.data)
+        if (response.status == 200) {
+          localStorage.setItem("Auth", response.data.accessToken);
+          localStorage.setItem("Refresh",response.data.refreshToken);
         }
       }).catch(function (error) {
         console.log(error)
