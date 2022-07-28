@@ -3,9 +3,10 @@ import Nav from "../../components/nav";
 import './communityDetail.css'
 import React , { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function CommunityDetail () {
+    let navigate = useNavigate();
     let useParam = useParams();
     let number = parseInt(useParam.num)
     const [pageDetail,setPageDetail] = useState({});
@@ -37,12 +38,10 @@ function CommunityDetail () {
     const clickRemove = async () => {
         var result = window.confirm("삭제하시겠습니까?");
         if(result){
-            let deletedata = useParam
-            console.log(deletedata);
             try {
                 const response = await axios({
                     method: "delete",
-                    url: "/api/v1/community/"+deletedata,
+                    url: "/api/v1/community/"+number,
                     // data: registwrite,
                     headers: { "Content-Type": "multipart/form-data" },
                     // headers: { "Content-Type" : ""}
@@ -50,8 +49,8 @@ function CommunityDetail () {
                 });
                 console.log(response);
                 if (response.status === 200) {
-                    console.log("!!!");
                     alert("삭제했습니다!");
+                    navigate("/commu/list", { replace: true });
                 }
             } catch (error) {
             console.log(error);
@@ -59,6 +58,10 @@ function CommunityDetail () {
         }else{
             
         }
+    }
+    
+    const goback = () => {
+        // history.push();
     }
 
     const clickEdit = () => {
@@ -154,7 +157,7 @@ function CommunityDetail () {
                                 </div>
                             </div>
                             <div class="community-button-set d-flex justify-content-center">
-                                <button class="community-button">목록으로</button>
+                                <button class="community-button" onClick={goback}>목록으로</button>
                             </div>
                         </div>
                     </div>
