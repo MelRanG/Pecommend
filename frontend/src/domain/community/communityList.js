@@ -1,5 +1,4 @@
-// import './community.css';
-import CommunitySidebar from "./communitySidebar";
+import './communityRegist.css'
 import Nav from "../../components/nav";
 import './communityList.css'
 import { Component, useEffect, useState } from "react";
@@ -34,19 +33,10 @@ function CommunityList() {
         getArticleList()
     }, [])
     return (
-        <div className="community">
-
-            <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
-                <div class="container">
-                    <div class="breadcrumb-content text-center">
-                        <ul>
-                            <li>
-                                <a href="index.html">Home</a>
-                            </li>
-                            <li class="active">Shop </li>
-                        </ul>
-                    </div>
-                </div>
+        <div className="communityRegist">
+            <Nav />
+            <div className='community-regist-head'>
+                <span>글쓰기</span>
             </div>
             <CommunitySidebar />
             <div class="pb-100">

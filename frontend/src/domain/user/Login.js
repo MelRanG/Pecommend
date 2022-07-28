@@ -8,13 +8,18 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+
 function Login() {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [regist_pwd, setRpwd] = React.useState("");
+  const [pwdRe, setPwdRe] = React.useState("");
   const [birth, setBirth] = React.useState("");
   const [nick, setNick] = React.useState("");
+  const [gender, setGender] = React.useState("");
+  const [mbti, setMbti] = React.useState("");
+
 
   const onIDhandler = (event) => {
     setId(event.currentTarget.value);
@@ -24,6 +29,7 @@ function Login() {
     setPwd(event.currentTarget.value);
   };
 
+
   const onEmailhandler = (event) => {
     setEmail(event.currentTarget.value);
   };
@@ -31,6 +37,10 @@ function Login() {
   const onRPWDhandler = (event) => {
     setRpwd(event.currentTarget.value);
   };
+
+  const onPWDReHandler = (event) => {
+    setPwdRe(event.currentTarget.value);
+  }
 
   const onBirthhandler = (event) => {
     setBirth(event.currentTarget.value);
@@ -40,22 +50,36 @@ function Login() {
     setNick(event.currentTarget.value);
   };
 
+  const onGenderHandler = (event) => {
+    setGender(event.currentTarget.value)
+  }
+
+  const onMbtiHandler = (event) => {
+    setMbti(event.currentTarget.value)
+  }
+
   const onSubmithandler = (event) => {
     event.preventDefault();
     let body = {
       email: id,
-      password: pwd,
-    };
-    console.log("시작");
-    console.log(body);
-    axios
-      .post("/api/v1/users/login.do", body)
+      password: pwd
+    }
+    console.log(body)
+    axios.post("/api/v1/user/login.do", body)
       .then(function (response) {
-        if (response.data.code == 0) {
-          console.log("!!login!!");
-        } else {
-          console.log(response.data);
+        console.log(response);
+        if (response.status == 200) {
+          localStorage.setItem("Auth", response.data.accessToken);
+          localStorage.setItem("Refresh",response.data.refreshToken);
+
+          // 회원 정보 저장하는 부분 구현필요
+
+          document.location.href='/';
         }
+        
+      }).catch(function (error) {
+        // alertify 로 꾸며주는 부분 필요
+        alert("틀렸습니다.");
       })
       .catch(function (error) {
         console.log(error);
@@ -72,7 +96,7 @@ function Login() {
     }
     console.log('회원가입')
     console.log(body)
-    axios.post("localhost:8081/api/v1/users/signup.do", body)
+    axios.post("/api/v1/user/signup.do", body)
       .then(function (response) {
         if (response.data.code == 0) {
           console.log("!!regist!!");
@@ -84,6 +108,23 @@ function Login() {
         console.log(error);
       });
   };
+
+  const checkNickname = (event) =>{
+    event.preventDefault();
+    console.log(nick)
+    axios.get("/api/v1/user/check.do/nickname/" + nick)
+    .then(function(response){
+      console.log(response);
+    }).catch(function(error){
+      console.log(error);
+    })
+  }
+
+  // 유효성 검사 필요
+  // const checkValid = () =>{
+  //   // 안맞으면( 트루면 ) alter로 띄우고
+  //   // 
+  // }
 
   return (
     <div className="Login">
@@ -190,13 +231,12 @@ function Login() {
                               type="password"
                             />
                             <label>닉네임</label>
-                            <button class="btn" style={{ float: "right" }}>
-                              중복 확인
-                            </button>
+                            <button class='btn' style={{ float: "right" }} onClick={checkNickname}>중복 확인</button>
                             <input
                               name="nickname"
                               placeholder="Nickname"
                               type="text"
+                              onChange={onNicknamehandler}
                             />
                             <label>생일</label>
                             <input

@@ -1,19 +1,21 @@
 package com.perfume.perfumeservice.service.community;
 
 import com.perfume.perfumeservice.domain.community.Community;
-import com.perfume.perfumeservice.dto.posts.PostsDto;
+import com.perfume.perfumeservice.dto.posts.PostsRequestDto;
+import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface CommunityService {
-    String writePostAndImage(PostsDto dto, MultipartFile[] file);
-    Community writePost(PostsDto dto);
+    String writePostAndImage(PostsRequestDto dto, MultipartFile[] file);
+    PostsResponseDto writePost(PostsRequestDto dto);
     String fileUpload(Community community, MultipartFile[] file);
-    Community updatePost(Long id, PostsDto dto);
-    List<PostsDto> getList(int category);
+    PostsResponseDto updatePost(Long id, PostsRequestDto dto);
+    List<PostsResponseDto> getList(int category);
     String getImagePath(Long id);
-
-    Community getPost(Long id);
-    int deletePost(Long id);
+    PostsResponseDto getPost(Long id);
+    public String addLike(Long userId, Long communityId);
+    List<PostsResponseDto> getListByUser(Long userId);
+    void deletePost(Long id);
 }

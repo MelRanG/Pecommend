@@ -1,17 +1,23 @@
 package com.perfume.perfumeservice.service.community;
 
+import com.perfume.perfumeservice.domain.community.*;
 import com.perfume.perfumeservice.domain.community.Community;
 import com.perfume.perfumeservice.domain.community.CommunityImage;
 import com.perfume.perfumeservice.domain.community.CommunityImageRepository;
 import com.perfume.perfumeservice.domain.community.CommunityRepository;
 import com.perfume.perfumeservice.domain.image.Image;
-import com.perfume.perfumeservice.dto.posts.PostsDto;
+import com.perfume.perfumeservice.domain.user.UserEntity;
+import com.perfume.perfumeservice.domain.user.UserRepository;
+import com.perfume.perfumeservice.dto.posts.PostsRequestDto;
+import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
+import com.perfume.perfumeservice.exception.community.NotImgException;
+import com.perfume.perfumeservice.exception.community.PostNotFoundException;
+import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +25,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
+
 
 @Slf4j
 @Transactional
@@ -30,24 +35,67 @@ import java.util.stream.Collectors;
 public class CommunityServiceImpl implements CommunityService {
     private final CommunityImageRepository communityImageRepository;
     private final CommunityRepository communityRepository;
+    private final UserRepository userRepository;
+    private final CommunityLikeRepository communityLikeRepository;
 
     @Value("${part4.upload.path}")
     private String uploadPath;
 
     @Override
-    public String writePostAndImage(PostsDto dto, MultipartFile[] uploadFile) {
-        if(dto.getId() != null || uploadFile.length == 0){
-            return null;
+    public String writePostAndImage(PostsRequestDto dto, MultipartFile[] uploadFile) {
+
+        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+        if(uploadFile == null || uploadFile.length == 0){
+            communityRepository.save(dto.toEntity(user));
+            return "SUCCESS";
         }
-        return fileUpload(dto.toEntity(), uploadFile);
+        return fileUpload(dto.toEntity(user), uploadFile);
     }
 
     @Override
-    public Community writePost(PostsDto dto) {
-        if(dto.getId() != null){
-            return null;
+    public String addLike(Long userId, Long communityId){
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        Community community = communityRepository.findById(communityId).orElseThrow(PostNotFoundException::new);
+
+        Optional<CommunityLike> like = communityLikeRepository.findByUserAndCommunity(user, community);
+
+        if(like.isPresent()){
+            communityLikeRepository.delete(like.get());
+            return "CANCLE";
+        }else{
+            communityLikeRepository.save(CommunityLike.builder()
+                    .user(user).community(community).build());
+            return "ADD";
         }
-        return communityRepository.save(dto.toEntity());
+    }
+
+    @Override
+    public List<PostsResponseDto> getListByUser(Long userId){
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        //List<Community> c_list = communityRepository.findByWriter(userId);
+        Set<Community> c_list = user.getPosts();
+        List<PostsResponseDto> p_list = new LinkedList<>();
+
+        for(Community c: c_list){
+            p_list.add(PostsResponseDto.from(c));
+        }
+
+        return p_list;
+    }
+
+    @Override
+    public PostsResponseDto writePost(PostsRequestDto dto) {
+        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+        userRepository.save(user);
+        return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
+    }
+
+    @Override
+    public PostsResponseDto getPost(Long id){
+        Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
+        return PostsResponseDto.from(community);
     }
 
     @Override
@@ -61,7 +109,7 @@ public class CommunityServiceImpl implements CommunityService {
         for (MultipartFile file: uploadFile) {
             if(!file.getContentType().startsWith("image")){
                 log.warn("this file is not image type"); //에러페이지 처리?
-                return null;
+                throw new NotImgException();
             }
 
             String originalName = file.getOriginalFilename();
@@ -89,48 +137,54 @@ public class CommunityServiceImpl implements CommunityService {
                 communityImageRepository.save(communityImage);
             }catch (IOException e){
                 e.printStackTrace();
-                return "Fail";
+                return "FAIL";
             }
         }
-        return "Success";
+        return "SUCCESS";
     }
 
     @Override
-    public Community updatePost(Long id, PostsDto dto) {
-        Community community = dto.toEntity();
+    public PostsResponseDto updatePost(Long id, PostsRequestDto dto) {
+        UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        Community community = dto.toEntity(user);
         log.info("id : {}, Community: {}", id, community.toString());
-        Community target = communityRepository.findById(id).orElse(null);
-
-        //잘못된 요청 처리
-        if(target == null || id != target.getId()){
-            //400에러
-            log.info("잘못된 요청!");
-            return null;
-        }
+        Community target = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
+//
+//        //잘못된 요청 처리
+//        if(target == null || id != target.getId()){
+//            //400에러
+//            log.info("잘못된 요청!");
+//            return null;
+//        }
         target.patch(community);
         Community updated = communityRepository.save(target);
-        return updated;
+        return PostsResponseDto.from(updated);
     }
 
     @Override
-    public List<PostsDto> getList(int category) {
-        List<Community> communities = communityRepository.findByCategory(category);
-        List<PostsDto> postsDtos = communities.stream().map(community -> community.createPostsDto(community)).collect(Collectors.toList());
-        return postsDtos;
+    public List<PostsResponseDto> getList(int category) {
+        List<Community> c_list = communityRepository.findByCategory(category);
+        List<PostsResponseDto> p_list = new LinkedList<>();
+
+        for(Community c: c_list){
+            p_list.add(PostsResponseDto.from(c));
+        }
+
+        return p_list;
     }
 
     @Override
     public String getImagePath(Long id) {
-        CommunityImage communityImage = communityImageRepository.findById(id).orElse(null);
+        CommunityImage communityImage = communityImageRepository.findById(id).orElseThrow(PostNotFoundException::new);
         return communityImage.getImage().getFilePath();
 
     }
 
     @Override
-    public int deletePost(Long id) {
-        Community community = communityRepository.findById(id).orElse(null);
+    public void deletePost(Long id) {
+        Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
         communityRepository.delete(community);
-        return 1;
+        return;
     }
 
     //    public ImageDto updateImage(MultipartFile[] uploadFile) {
