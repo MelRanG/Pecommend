@@ -170,10 +170,6 @@ function CommunityDetail () {
                 <button className="community-button">목록으로</button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 
