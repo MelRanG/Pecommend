@@ -1,6 +1,10 @@
 package com.perfume.perfumeservice.service.community;
 
 import com.perfume.perfumeservice.domain.community.*;
+import com.perfume.perfumeservice.domain.community.Community;
+import com.perfume.perfumeservice.domain.community.CommunityImage;
+import com.perfume.perfumeservice.domain.community.CommunityImageRepository;
+import com.perfume.perfumeservice.domain.community.CommunityRepository;
 import com.perfume.perfumeservice.domain.image.Image;
 import com.perfume.perfumeservice.domain.user.UserEntity;
 import com.perfume.perfumeservice.domain.user.UserRepository;
@@ -14,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,7 +27,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -37,8 +43,9 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public String writePostAndImage(PostsRequestDto dto, MultipartFile[] uploadFile) {
-        UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
 
+        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
         if(uploadFile == null || uploadFile.length == 0){
             communityRepository.save(dto.toEntity(user));
             return "SUCCESS";
@@ -79,7 +86,9 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public PostsResponseDto writePost(PostsRequestDto dto) {
-        UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+        userRepository.save(user);
         return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
     }
 

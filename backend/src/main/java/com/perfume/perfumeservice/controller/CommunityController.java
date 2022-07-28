@@ -1,11 +1,5 @@
 package com.perfume.perfumeservice.controller;
 
-import com.perfume.perfumeservice.domain.community.Community;
-import com.perfume.perfumeservice.domain.community.CommunityLike;
-import com.perfume.perfumeservice.domain.community.CommunityLikeRepository;
-import com.perfume.perfumeservice.domain.community.CommunityRepository;
-import com.perfume.perfumeservice.domain.user.UserEntity;
-import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.posts.PostsRequestDto;
 import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import com.perfume.perfumeservice.service.community.CommunityService;
@@ -23,8 +17,6 @@ import java.util.List;
 @RequestMapping("/api/v1/community")
 public class CommunityController {
     private final CommunityService communityService;
-
-    private final CommunityLikeRepository communityLikeRepository;
 
     @PostMapping("/like")
     public ResponseEntity<String> addLike(long userId, long postId){

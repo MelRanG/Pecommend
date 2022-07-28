@@ -4,7 +4,7 @@ import Nav from "../../components/nav";
 function perfumeRegistList() {
     return (
         <div className="perfumeRegistList">
-            <Nav/>
+
             <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
                 <div class="container">
                     <div class="breadcrumb-content text-center">
@@ -96,4 +96,4 @@ function perfumeRegistList() {
     );
 }
 
-export default perfumeRegistList
+export default perfumeRegistList;

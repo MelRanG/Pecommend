@@ -15,7 +15,7 @@ public interface CommunityService {
     List<PostsResponseDto> getList(int category);
     String getImagePath(Long id);
     PostsResponseDto getPost(Long id);
-    void deletePost(Long id);
     public String addLike(Long userId, Long communityId);
     List<PostsResponseDto> getListByUser(Long userId);
+    void deletePost(Long id);
 }

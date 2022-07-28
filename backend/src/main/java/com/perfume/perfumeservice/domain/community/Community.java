@@ -1,5 +1,4 @@
 package com.perfume.perfumeservice.domain.community;
-
 import com.perfume.perfumeservice.domain.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

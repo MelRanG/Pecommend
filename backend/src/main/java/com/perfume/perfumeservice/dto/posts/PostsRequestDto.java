@@ -8,18 +8,19 @@ import lombok.Data;
 public class PostsRequestDto {
     //private Long id;
     private int category;
-    private long writer_id;
+    private Long writer_id;
     private String title;
     private String content;
-    //private int communityLike;
+
 
     public Community toEntity(UserEntity user){
         return Community.builder()
-                .category(category)
+                .category(this.category)
                 .writer(user)
-                .title(title)
-                .content(content)
+                .title(this.title)
+                .content(this.content)
       //          .communityLike(communityLike)
                 .build();
     }
+
 }
