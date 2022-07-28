@@ -1,202 +1,137 @@
 // import './community.css';
 import CommunitySidebar from "./communitySidebar";
-import "./communityList.css";
-import React, { useState } from "react";
+import Nav from "../../components/nav";
+import './communityList.css'
+import { Component, useEffect, useState } from "react";
+import axios from "axios";
+import { Link, Route, Router } from "react-router-dom";
+import CommunityDetail from "./communityDetail";
 
-function communityList() {
-  return (
-    <div className="community">
-      <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
-        <div className="container">
-          <div className="breadcrumb-content text-center">
-            <ul>
-              <li>
-                <a href="index.html">Home</a>
-              </li>
-              <li className="active">Shop </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <CommunitySidebar />
-      <div className="pb-100">
-        <div className="container">
-          <div className="row flex-row-reverse">
-            <div className="col-lg-12">
-              <div>
-                <h4 className="mt-5" style={{ "text-align": "center" }}>
-                  카테고리 게시판
-                </h4>
-              </div>
-              <hr></hr>
-              <div className="community-top-box">
-                <button className="community-top-box-active">ㆍ최신</button>
-                <button className="community-top-box-wait">ㆍ추천</button>
-                <button className="community-top-box-wait">ㆍHOT</button>
-                <button className="community-top-box-wait">ㆍ베스트</button>
-              </div>
-              <div className="shop-bottom-area mt-15">
-                <div className="tab-content jump">
-                  <table
-                    className="table table-hover community-table table-responsive"
-                    style={{ width: "100%", marginBottom: "0px" }}
-                  >
-                    <thead className="">
-                      <tr style={{ textAlign: "center" }}>
-                        <th
-                          style={{
-                            color: "rgb(143,24,237)",
-                            width: "50px",
-                            textAlign: "center",
-                          }}
-                        >
-                          번호
-                        </th>
-                        <th
-                          style={{
-                            color: "rgb(143,24,237)",
-                            borderLeft: "1px solid rgb(143,24,237",
-                            textAlign: "center",
-                          }}
-                        >
-                          글 제목
-                        </th>
-                        <th
-                          style={{
-                            color: "rgb(143,24,237)",
-                            borderLeft: "1px solid rgb(143,24,237",
-                            width: "150px",
-                            textAlign: "center",
-                          }}
-                        >
-                          작성자
-                        </th>
-                        <th
-                          style={{
-                            color: "rgb(143,24,237)",
-                            borderLeft: "1px solid rgb(143,24,237",
-                            width: "100px",
-                            textAlign: "center",
-                          }}
-                        >
-                          작성일
-                        </th>
-                        <th
-                          style={{
-                            color: "rgb(143,24,237)",
-                            borderLeft: "1px solid rgb(143,24,237",
-                            width: "70px",
-                            textAlign: "center",
-                          }}
-                        >
-                          조회수
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody
-                      className="table-group-divider"
-                      style={{ textAlign: "center" }}
-                    >
-                      <tr style={{ height: "20px" }}>
-                        <th scope="row" style={{ textAlign: "center" }}>
-                          22542
-                        </th>
-                        <td
-                          style={{
-                            overflow: "hidden",
-                            height: "20px",
-                            textAlign: "left",
-                          }}
-                        >
-                          4번 글입니다.123213124124124
-                        </td>
-                        <td>DDD</td>
-                        <td>15:08</td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" style={{ textAlign: "center" }}>
-                          15
-                        </th>
-                        <td
-                          style={{
-                            overflow: "hidden",
-                            height: "20px",
-                            textAlign: "left",
-                          }}
-                        >
-                          3번 글입니다
-                        </td>
-                        <td>BBB</td>
-                        <td>12:14</td>
-                        <td>12</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" style={{ textAlign: "center" }}>
-                          2
-                        </th>
-                        <td
-                          style={{
-                            overflow: "hidden",
-                            height: "20px",
-                            textAlign: "left",
-                          }}
-                        >
-                          2번 글입니다
-                        </td>
-                        <td>AAA</td>
-                        <td>22.07.27</td>
-                        <td>1333</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" style={{ textAlign: "center" }}>
-                          1
-                        </th>
-                        <td
-                          style={{
-                            overflow: "hidden",
-                            height: "20px",
-                            textAlign: "left",
-                          }}
-                        >
-                          1번 글입니다
-                        </td>
-                        <td>DDD</td>
-                        <td>22.07.15</td>
-                        <td>14415</td>
-                      </tr>
-                    </tbody>
-                  </table>
+function CommunityList() {
+    const [dataList,setDataList] = useState([]);
+    const [callData,setCallData] = useState(2);
+    const getArticleList = async () => {
+        console.log(callData);
+        try {
+          const response = await axios({
+            method: "get",
+            url: "/api/v1/community/list/"+callData,
+            // data: registwrite,
+            headers: { "Content-Type": "multipart/form-data" },
+            // headers: { "Content-Type" : ""}
+            // JSON.stringify()
+          });
+          console.log(response);
+          if (response.status === 200) {
+            setDataList(response.data)
+            console.log(dataList)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getArticleList()
+    }, [])
+    return (
+        <div className="community">
+
+            <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
+                <div class="container">
+                    <div class="breadcrumb-content text-center">
+                        <ul>
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="active">Shop </li>
+                        </ul>
+                    </div>
                 </div>
-                <div className="d-flex flex-row-reverse">
-                  <button className="List-regist-button">글 작성</button>
-                </div>
-                <div className="pro-pagination-style text-center mt-10 mb-3">
-                  <ul>
-                    <li>
-                      <a className="prev" href="#">
-                        <i className="fa fa-angle-double-left"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a className="active" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">2</a>
-                    </li>
-                    <li>
-                      <a className="next" href="#">
-                        <i className="fa fa-angle-double-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="search d-flex flex-row justify-content-center align-items-center mb-5">
-                  {/* <div className="select-shoing-wrap mx-2">
-                            <div className="select-shoing-wrap">
-                                <div className="shop-select">
+            </div>
+            <CommunitySidebar />
+            <div class="pb-100">
+                <div class="container">
+                    <div class="row flex-row-reverse">
+                        <div class="col-lg-12" >
+                            <div>
+                                <h4 class="mt-5"  style={{  "text-align": "center"}}>카테고리 게시판</h4>
+                            </div>
+                            <hr></hr>
+                            <div className="community-top-box">
+                                <button className="community-top-box-active">ㆍ최신</button>
+                                <button className="community-top-box-wait">ㆍ추천</button>
+                                <button className="community-top-box-wait">ㆍHOT</button>
+                                <button className="community-top-box-wait">ㆍ베스트</button>
+                            </div>
+                            <div class="shop-bottom-area mt-15">
+                                <div class="tab-content jump">
+                                    <table className="table table-hover community-table table-responsive" style={{ width: "100%" ,marginBottom:"0px"}}>
+                                        <thead className="">
+                                            <tr style={{ textAlign: "center" }}>
+                                                <th style={{ color: "rgb(143,24,237)", width: "50px", textAlign: "center" }}>번호</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", textAlign: "center" }}>글 제목</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "150px", textAlign: "center" }}>작성자</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "100px", textAlign: "center" }}>작성일</th>
+                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "70px", textAlign: "center" }}>추천수</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="table-group-divider" style={{ textAlign: "center" }}>
+                                            {/* <tr style={{ height: "20px" }}>
+                                                <th scope="row" style={{ textAlign: "center" }}>22542</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>4번 글입니다.123213124124124</td>
+                                                <td>DDD</td>
+                                                <td>15:08</td>
+                                                <td>3</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style={{ textAlign: "center" }}>15</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>3번 글입니다</td>
+                                                <td>BBB</td>
+                                                <td>12:14</td>
+                                                <td>12</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style={{ textAlign: "center" }}>2</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>2번 글입니다</td>
+                                                <td>AAA</td>
+                                                <td>22.07.27</td>
+                                                <td>1333</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style={{ textAlign: "center" }}>1</th>
+                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>1번 글입니다</td>
+                                                <td>DDD</td>
+                                                <td>22.07.15</td>
+                                                <td>14415</td>
+                                            </tr> */}
+                                            {dataList.map(data => 
+                                            <tr>
+                                                <th scope="row" style={{ textAlign: "center" }}>{data.id}</th>
+                                                <td><Link class="community-list-titlebox" to ={`/commu/detail/${data.id}`} style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>{data.title}</Link></td>
+                                                {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
+                                                <td>{data.writer}</td>
+                                                <td>{data.date}</td>
+                                                <td>{data.communityLike}</td>
+                                            </tr>
+                                                )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="d-flex flex-row-reverse">
+                                    <button className="List-regist-button"><Link to = {`/commu/regist`}>글 작성</Link></button>
+                                </div>
+                                <div class="pro-pagination-style text-center mt-10 mb-3">
+                                    <ul>
+                                        <li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                        <li><a class="active" href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="search d-flex flex-row justify-content-center align-items-center mb-5">
+                                    {/* <div class="select-shoing-wrap mx-2">
+                            <div class="select-shoing-wrap">
+                                <div class="shop-select">
                                     <select>
                                         <option value="">제목</option>
                                         <option value="">제목 + 내용</option>
@@ -464,4 +399,4 @@ function communityList() {
   );
 }
 
-export default communityList;
+export default CommunityList;

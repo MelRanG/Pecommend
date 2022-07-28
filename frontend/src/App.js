@@ -8,8 +8,7 @@ import Layout from "./components/layout";
 import CommunityList from "./domain/community/communityList";
 import CommunityDetail from "./domain/community/communityDetail";
 import CommunityMain from "./domain/community/communityMain";
-//
-import Perfume from "./domain/perfume/perfume";
+import CommunityRegist from "./domain/community/communityRegist";
 import PerfumeList from "./domain/perfume/perfumeList";
 import PerfumeDetail from "./domain/perfume/perfumeDetail";
 import PerfumeMain from "./domain/perfume/perfumeMain";
