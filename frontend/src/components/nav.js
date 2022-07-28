@@ -63,7 +63,7 @@ function nav() {
                   {/* <img alt="" src="assets/img/logo/logo.png" /> */}
                   <img
                     alt=""
-                    src="assets/tempImg/로고.PNG"
+                    src="assets/tempImg/로고2.PNG"
                     style={{ height: "94px" }}
                   />
                 </a>

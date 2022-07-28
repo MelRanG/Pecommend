@@ -922,7 +922,7 @@ function perfumeDetail() {
                 <a
                   className="nav-link disabled detail-navtab-disa"
                   href="#"
-                  tabindex="-1"
+                  tabIndex="-1"
                   aria-disabled="true"
                 >
                   이 향수를{" "}
@@ -946,7 +946,7 @@ function perfumeDetail() {
                 <a
                   className="nav-link disabled detail-navtab-disa"
                   href="#"
-                  tabindex="-1"
+                  tabIndex="-1"
                   aria-disabled="true"
                 >
                   한다면?
@@ -1591,7 +1591,7 @@ function perfumeDetail() {
       </div> */}
 
       {/* <!-- Modal --> */}
-      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">

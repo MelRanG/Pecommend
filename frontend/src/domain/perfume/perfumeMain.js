@@ -7,11 +7,18 @@ import jQuery from "jquery";
 // import { Outlet } from 'react-router-dom';
 // 향수 메인 페이지
 const perfumeMain = () => {
-  useEffect(() => {
-    $(document).ready(function () {
-      $(".slider").bxSlider();
-    });
-  }, []);
+  // useEffect(() => {
+  //   $(document).ready(function () {
+  //     $(".bxslider").bxSlider({
+  //       mode: "vertical",
+  //       slideMargin: 5,
+  //       pager: false,
+  //       onSliderLoad: function () {
+  //         $("#edd").css("visibility", "visible").animate({ opacity: 1 });
+  //       },
+  //     });
+  //   });
+  // }, []);
 
   return (
     <div className="perfumeMain">
@@ -438,7 +445,7 @@ const perfumeMain = () => {
         div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
       >
         <div className="modal-dialog" role="document">

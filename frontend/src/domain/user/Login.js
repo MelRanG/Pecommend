@@ -2,11 +2,11 @@
 // import "./App.css";
 // import "./App.css";
 import "./Login.css";
-import Nav from '../../components/nav';
-import Footer from '../../components/footer';
+import Nav from "../../components/nav";
+import Footer from "../../components/footer";
 import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 
 function Login() {
   const [id, setId] = React.useState("");
@@ -17,76 +17,77 @@ function Login() {
   const [nick, setNick] = React.useState("");
 
   const onIDhandler = (event) => {
-    setId(event.currentTarget.value)
-  }
+    setId(event.currentTarget.value);
+  };
 
   const onPWDhandler = (event) => {
-    setPwd(event.currentTarget.value)
-  }
+    setPwd(event.currentTarget.value);
+  };
 
   const onEmailhandler = (event) => {
-    setEmail(event.currentTarget.value)
-  }
+    setEmail(event.currentTarget.value);
+  };
 
   const onRPWDhandler = (event) => {
-    setRpwd(event.currentTarget.value)
-  }
+    setRpwd(event.currentTarget.value);
+  };
 
   const onBirthhandler = (event) => {
-    setBirth(event.currentTarget.value)
-  }
+    setBirth(event.currentTarget.value);
+  };
 
   const onNicknamehandler = (event) => {
-    setNick(event.currentTarget.value)
-  }
+    setNick(event.currentTarget.value);
+  };
 
   const onSubmithandler = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     let body = {
       email: id,
-      password: pwd
-    }
-    console.log('시작')
-    console.log(body)
-    axios.post("/api/v1/users/login.do", body)
+      password: pwd,
+    };
+    console.log("시작");
+    console.log(body);
+    axios
+      .post("/api/v1/users/login.do", body)
       .then(function (response) {
         if (response.data.code == 0) {
-          console.log('!!login!!')
+          console.log("!!login!!");
+        } else {
+          console.log(response.data);
         }
-        else {
-          console.log(response.data)
-        }
-      }).catch(function (error) {
-        console.log(error)
       })
-  }
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const onRegisthandler = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     let body = {
       email: email,
       password: regist_pwd,
       nickname: nick,
       birth: birth,
-    }
-    console.log('회원가입')
-    console.log(body)
-    axios.post("/api/v1/users/signup.do", body)
+    };
+    console.log("회원가입");
+    console.log(body);
+    axios
+      .post("/api/v1/users/signup.do", body)
       .then(function (response) {
         if (response.data.code == 0) {
-          console.log('!!regist!!')
+          console.log("!!regist!!");
+        } else {
+          console.log(response.data);
         }
-        else {
-          console.log(response.data)
-        }
-      }).catch(function (error) {
-        console.log(error)
       })
-  }
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="Login">
-
       <div className="Login">
         <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
           <div className="container">
@@ -146,7 +147,10 @@ function Login() {
                           </form>
                         </div>
                         <div className="d-grid gap-2">
-                          <button type="submit" className="naver-login-btn mb-3">
+                          <button
+                            type="submit"
+                            className="naver-login-btn mb-3"
+                          >
                             <span>네이버 로그인</span>
                           </button>
                           <button type="submit" className="google-login-btn">
@@ -160,18 +164,19 @@ function Login() {
                         <div className="login-register-form">
                           <form onSubmit={onRegisthandler}>
                             <label>이메일</label>
-                            <button class='btn' style={{ float: "right" }}>인증번호 받기</button>
+                            <button class="btn" style={{ float: "right" }}>
+                              인증번호 받기
+                            </button>
                             <input
                               name="user-email"
                               placeholder="Email"
                               type="email"
                             />
                             <label>인증번호</label>
-                            <button class='btn' style={{ float: "right" }}>인증</button>
-                            <input
-                              name="user-email-confirm"
-                              type="text"
-                            />
+                            <button class="btn" style={{ float: "right" }}>
+                              인증
+                            </button>
+                            <input name="user-email-confirm" type="text" />
 
                             <label>비밀번호</label>
                             <input
@@ -186,7 +191,9 @@ function Login() {
                               type="password"
                             />
                             <label>닉네임</label>
-                            <button class='btn' style={{ float: "right" }}>중복 확인</button>
+                            <button class="btn" style={{ float: "right" }}>
+                              중복 확인
+                            </button>
                             <input
                               name="nickname"
                               placeholder="Nickname"
@@ -206,7 +213,10 @@ function Login() {
                               type="radio"
                               id="male-check"
                             />
-                            <label for="male-check" className="form-check-label">
+                            <label
+                              for="male-check"
+                              className="form-check-label"
+                            >
                               남성
                             </label>
                             <input
@@ -259,7 +269,12 @@ function Login() {
         </div>
 
         {/* <!-- Modal --> */}
-        <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+        <div
+          className="modal fade"
+          id="exampleModal"
+          tabIndex="-1"
+          role="dialog"
+        >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -294,17 +309,33 @@ function Login() {
                         className="quickview-slide-active owl-carousel nav nav-style-1"
                         role="tablist"
                       >
-                        <a className="active" data-bs-toggle="tab" href="#pro-1">
-                          <img src="assets/img/product/quickview-s1.jpg" alt="" />
+                        <a
+                          className="active"
+                          data-bs-toggle="tab"
+                          href="#pro-1"
+                        >
+                          <img
+                            src="assets/img/product/quickview-s1.jpg"
+                            alt=""
+                          />
                         </a>
                         <a data-bs-toggle="tab" href="#pro-2">
-                          <img src="assets/img/product/quickview-s2.jpg" alt="" />
+                          <img
+                            src="assets/img/product/quickview-s2.jpg"
+                            alt=""
+                          />
                         </a>
                         <a data-bs-toggle="tab" href="#pro-3">
-                          <img src="assets/img/product/quickview-s3.jpg" alt="" />
+                          <img
+                            src="assets/img/product/quickview-s3.jpg"
+                            alt=""
+                          />
                         </a>
                         <a data-bs-toggle="tab" href="#pro-4">
-                          <img src="assets/img/product/quickview-s2.jpg" alt="" />
+                          <img
+                            src="assets/img/product/quickview-s2.jpg"
+                            alt=""
+                          />
                         </a>
                       </div>
                     </div>
@@ -328,8 +359,9 @@ function Login() {
                       </div>
                       <p>
                         Lorem ipsum dolor sit amet, consectetur adipisic elit
-                        eiusm tempor incidid ut labore et dolore magna aliqua. Ut
-                        enim ad minim venialo quis nostrud exercitation ullamco
+                        eiusm tempor incidid ut labore et dolore magna aliqua.
+                        Ut enim ad minim venialo quis nostrud exercitation
+                        ullamco
                       </p>
                       <div className="pro-details-list">
                         <ul>

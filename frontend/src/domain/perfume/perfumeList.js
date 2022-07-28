@@ -103,7 +103,7 @@ function perfumeList() {
                               <input
                                 className="form-check-input me-2"
                                 type="checkbox"
-                                value=""
+                                defaultValue=""
                                 aria-label="..."
                               />
                               남성
@@ -112,7 +112,7 @@ function perfumeList() {
                               <input
                                 className="form-check-input me-2"
                                 type="checkbox"
-                                value=""
+                                defaultValue=""
                                 aria-label="..."
                               />
                               여성
@@ -144,7 +144,7 @@ function perfumeList() {
                               <input
                                 className="form-check-input me-2"
                                 type="checkbox"
-                                value=""
+                                defaultValue=""
                                 aria-label="..."
                               />
                               10대
@@ -153,7 +153,7 @@ function perfumeList() {
                               <input
                                 className="form-check-input me-2"
                                 type="checkbox"
-                                value=""
+                                defaultValue=""
                                 aria-label="..."
                               />
                               20대
@@ -162,7 +162,7 @@ function perfumeList() {
                               <input
                                 className="form-check-input me-2"
                                 type="checkbox"
-                                value=""
+                                defaultValue=""
                                 aria-label="..."
                               />
                               30대
@@ -171,7 +171,7 @@ function perfumeList() {
                               <input
                                 className="form-check-input me-2"
                                 type="checkbox"
-                                value=""
+                                defaultValue=""
                                 aria-label="..."
                               />
                               40대 이상
@@ -204,7 +204,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ISTJ
@@ -213,7 +213,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ISTP
@@ -224,7 +224,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ISFJ
@@ -233,7 +233,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ISFP
@@ -244,7 +244,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 INTJ
@@ -253,7 +253,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 INTP
@@ -264,7 +264,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 INFJ
@@ -273,7 +273,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 INFP
@@ -284,7 +284,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ESTJ
@@ -293,7 +293,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ESTP
@@ -304,7 +304,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ESFJ
@@ -313,7 +313,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ESFP
@@ -324,7 +324,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ENTJ
@@ -333,7 +333,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ENTP
@@ -344,7 +344,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ENFJ
@@ -353,7 +353,7 @@ function perfumeList() {
                                 <input
                                   className="form-check-input me-2"
                                   type="checkbox"
-                                  value=""
+                                  defaultValue=""
                                   aria-label="..."
                                 />
                                 ENFP
@@ -395,9 +395,9 @@ function perfumeList() {
                 <div className="select-shoing-wrap ml-20">
                   <div className="shop-select">
                     <select>
-                      <option value="">정렬</option>
-                      <option value="">추천순</option>
-                      <option value="">추천비율순</option>
+                      <option defaultValue="">정렬</option>
+                      <option defaultValue="">추천순</option>
+                      <option defaultValue="">추천비율순</option>
                     </select>
                   </div>
                   <p>0000개 (총 개수?)</p>
@@ -919,7 +919,7 @@ function perfumeList() {
       </div>
 
       {/* <!-- Modal --> */}
-      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -1041,7 +1041,7 @@ function perfumeList() {
                           className="cart-plus-minus-box"
                           type="text"
                           name="qtybutton"
-                          value="2"
+                          defaultValue="2"
                         />
                       </div>
                       <div className="pro-details-cart btn-hover">
