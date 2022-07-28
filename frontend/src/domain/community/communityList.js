@@ -2,8 +2,37 @@
 import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
 import './communityList.css'
+import { Component, useEffect, useState } from "react";
+import axios from "axios";
+import { Link, Route, Router } from "react-router-dom";
+import CommunityDetail from "./communityDetail";
 
-function communityList() {
+function CommunityList() {
+    const [dataList,setDataList] = useState([]);
+    const [callData,setCallData] = useState(2);
+    const getArticleList = async () => {
+        console.log(callData);
+        try {
+          const response = await axios({
+            method: "get",
+            url: "/api/v1/community/list/"+callData,
+            // data: registwrite,
+            headers: { "Content-Type": "multipart/form-data" },
+            // headers: { "Content-Type" : ""}
+            // JSON.stringify()
+          });
+          console.log(response);
+          if (response.status === 200) {
+            setDataList(response.data)
+            console.log(dataList)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getArticleList()
+    }, [])
     return (
         <div className="community">
 
@@ -47,7 +76,7 @@ function communityList() {
                                             </tr>
                                         </thead>
                                         <tbody className="table-group-divider" style={{ textAlign: "center" }}>
-                                            <tr style={{ height: "20px" }}>
+                                            {/* <tr style={{ height: "20px" }}>
                                                 <th scope="row" style={{ textAlign: "center" }}>22542</th>
                                                 <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>4번 글입니다.123213124124124</td>
                                                 <td>DDD</td>
@@ -74,12 +103,22 @@ function communityList() {
                                                 <td>DDD</td>
                                                 <td>22.07.15</td>
                                                 <td>14415</td>
+                                            </tr> */}
+                                            {dataList.map(data => 
+                                            <tr>
+                                                <th scope="row" style={{ textAlign: "center" }}>{data.id}</th>
+                                                <td><Link to ={`/commu/detail/${data.id}`} style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>{data.title}</Link></td>
+                                                {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
+                                                <td>{data.writer}</td>
+                                                <td>{data.date}</td>
+                                                <td>{data.communityLike}</td>
                                             </tr>
+                                                )}
                                         </tbody>
                                     </table>
                                 </div>
                                 <div className="d-flex flex-row-reverse">
-                                    <button className="List-regist-button">글 작성</button>
+                                    <button className="List-regist-button"><Link to = {`/commu/regist`}>글 작성</Link></button>
                                 </div>
                                 <div class="pro-pagination-style text-center mt-10 mb-3">
                                     <ul>
@@ -263,4 +302,4 @@ function communityList() {
     );
 }
 
-export default communityList;
+export default CommunityList;

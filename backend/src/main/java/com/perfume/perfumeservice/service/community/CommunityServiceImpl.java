@@ -51,6 +51,11 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public Community getPost(Long id){
+        return communityRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public String fileUpload(Community community, MultipartFile[] uploadFile) {
 
         for (MultipartFile file: uploadFile) {

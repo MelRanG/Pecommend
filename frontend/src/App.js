@@ -29,7 +29,7 @@ function App() {
                 <Route path="/perfume/regist" element={<PerfumeRegist />} />
                 <Route path="/commu" element={<CommunityMain />} />
                 <Route path="/commu/list" element={<CommunityList />} />
-                <Route path="/commu/detail" element={<CommunityDetail />} />
+                <Route path="/commu/detail/:num" element={<CommunityDetail />} />
                 <Route path="/commu/regist" element={<CommunityRegist />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/login" element={<Login />} />

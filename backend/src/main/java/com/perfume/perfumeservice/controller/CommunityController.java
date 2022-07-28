@@ -42,6 +42,15 @@ public class CommunityController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Community> getPost(@PathVariable long id){
+        Community community = service.getPost(id);
+
+        return (community != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(community) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
     @GetMapping("/list/{category}")
     public ResponseEntity<List<PostsDto>> getList(@PathVariable int category){
         System.out.println(category);

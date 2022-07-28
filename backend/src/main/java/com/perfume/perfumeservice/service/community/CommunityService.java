@@ -14,5 +14,6 @@ public interface CommunityService {
     List<PostsDto> getList(int category);
     String getImagePath(Long id);
 
+    Community getPost(Long id);
     int deletePost(Long id);
 }

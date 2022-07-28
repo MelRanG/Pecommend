@@ -1,10 +1,12 @@
-import "./perfumeRegist.css"
+// import "./perfumeRegist.css"
+// import "src/domain/perfume/perfumeRegist.css"
+import "domain/perfume/perfumeRegist.css"
 import Nav from "../../components/nav"
 
 function perfumeRegist() {
     return (
         <div className="perfumeRegist">
-            <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
+            <div className="breadcrumb-area pt-35 pb-35 bg-gray-3" style={{border:"1px solid #000000"}}>
                 <div className="container">
                     <div className="breadcrumb-content text-center">
                         <ul>
