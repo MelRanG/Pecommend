@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 function nav() {
   return (
@@ -14,27 +13,52 @@ function nav() {
             <div className="col-xl-3 col-lg-3 d-none d-lg-block">
               <div className="main-menu">
                 <nav>
-                  <ul style={{ textAlign: "right", marginBottom: "0px", marginTop: "0px" }}>
+                  <ul
+                    style={{
+                      textAlign: "right",
+                      marginBottom: "0px",
+                      marginTop: "0px",
+                    }}
+                  >
                     <li>
-                      <a href="about.html" style={{ fontSize: "35px", fontFamily: 'EarlyFontDiary', marginRight: "20px" }}>
+                      {/* <a
+                        href="about.html"
+                        style={{
+                          fontSize: "35px",
+                          fontFamily: "EarlyFontDiary",
+                          marginRight: "20px",
+                        }}
+                      >
                         {" "}
                         PERFUME
-                      </a>
-                      {/* <Link to='/perfume'>PERFUME</Link> */}
+                      </a> */}
+                      <Link
+                        to="/perfume"
+                        style={{
+                          fontSize: "35px",
+                          fontFamily: "EarlyFontDiary",
+                          marginRight: "20px",
+                        }}
+                      >
+                        PERFUME
+                      </Link>
                     </li>
                   </ul>
                 </nav>
               </div>
             </div>
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
-              <div className="logo" style={{ textAlign: "center", marginTop: "0" }}>
+              <div
+                className="logo"
+                style={{ textAlign: "center", marginTop: "0" }}
+              >
                 <a
-                  href="index.html"
-                // style={{
-                //   textAlign: "center",
-                //   fontFamily: "GmarketSansBold",
-                //   fontSize: "40px",
-                // }}
+                  href="/"
+                  // style={{
+                  //   textAlign: "center",
+                  //   fontFamily: "GmarketSansBold",
+                  //   fontSize: "40px",
+                  // }}
                 >
                   {/* <img alt="" src="assets/img/logo/logo.png" /> */}
                   <img
@@ -48,13 +72,34 @@ function nav() {
             <div className="col-xl-3 col-lg-3 d-none d-lg-block">
               <div className="main-menu">
                 <nav>
-                  <ul style={{ textAlign: "left", marginBottom: "0px", marginTop: "0px" }}>
+                  <ul
+                    style={{
+                      textAlign: "left",
+                      marginBottom: "0px",
+                      marginTop: "0px",
+                    }}
+                  >
                     <li>
-                      <a href="contact.html" style={{ fontSize: "35px", fontFamily: 'EarlyFontDiary' }}>
+                      {/* <a
+                        href="contact.html"
+                        style={{
+                          fontSize: "35px",
+                          fontFamily: "EarlyFontDiary",
+                        }}
+                      >
                         {" "}
                         COMMUNITY
-                      </a>
-                      {/* <Link to='/commu'>COMMUNITY</Link> */}
+                      </a> */}
+                      <Link
+                        to="/commu"
+                        style={{
+                          fontSize: "35px",
+                          fontFamily: "EarlyFontDiary",
+                          marginRight: "20px",
+                        }}
+                      >
+                        COMMUNITY
+                      </Link>
                     </li>
                   </ul>
                 </nav>

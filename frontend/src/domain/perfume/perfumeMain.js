@@ -1,16 +1,12 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import "./perfumeMain.css"
-
+import "./perfumeMain.css";
 
 // import { Outlet } from 'react-router-dom';
 // 향수 메인 페이지
 const perfumeMain = () => {
-
-
   return (
     <div className="perfumeMain">
-
       {/* <Outlet /> */}
       {/* <Routes>
         <Route path="/perfume/list" element={<PerfumeList />} />
@@ -32,15 +28,12 @@ const perfumeMain = () => {
       </div> */}
       <div className="perfume-popular-area pt-50 pb-100">
         <div className="container">
-
-
-
           {/* 해시태그 */}
           {/* ul li가아니라 div로 처리할지 고민중. */}
           <div className="product-details-content mt-30">
             <div className="title row">
               <h2 className="title-popular col-sm-6">인기 키워드</h2>
-              <div className="title-sub col-sm-6">더보기 {'>'}</div>
+              <div className="title-sub col-sm-6">더보기 {">"}</div>
             </div>
             <div className="perfume-popular-hashtag">
               {/* 이부분에 해시태그 */}
@@ -97,11 +90,9 @@ const perfumeMain = () => {
                 <div className="">#장미</div>
                 <div className="">#30대</div>
               </div>
-
             </div>
           </div>
           {/* <div className="line"></div> */}
-
         </div>
 
         {/* 인기향수 */}
@@ -110,7 +101,7 @@ const perfumeMain = () => {
             <div className="product-details-content">
               <div className="title row">
                 <h2 className="title-popular col-sm-6">인기 향수</h2>
-                <div className="title-sub col-sm-6">더보기 {'>'}</div>
+                <div className="title-sub col-sm-6">더보기 {">"}</div>
               </div>
               <div className="perfume-popular-items row pl-20 pr-20">
                 <div className="perfume-popular-item col-lg-2">
@@ -118,7 +109,9 @@ const perfumeMain = () => {
                     <img src=".\assets\tempImg\280 (1).jpg" alt="" />
                   </div>
                   <div className="popular-chart">
-                    <div className="pie-chart2"><span className="center"></span></div>
+                    <div className="pie-chart2">
+                      <span className="center"></span>
+                    </div>
                   </div>
                   <p>향수명</p>
                 </div>
@@ -183,9 +176,8 @@ const perfumeMain = () => {
           <div className="product-details-content mt-30">
             <div className="title row ">
               <h2 className="title-popular col-sm-6">최신 리뷰</h2>
-              <div className="title-sub col-sm-6">더보기 {'>'}</div>
+              <div className="title-sub col-sm-6">더보기 {">"}</div>
             </div>
-
 
             {/* 슬라이딩 */}
             <div className="slider">
@@ -215,7 +207,9 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
               <div className="slider-item">
@@ -242,7 +236,9 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
               <div className="slider-item">
@@ -269,7 +265,9 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
               <div className="slider-item">
@@ -296,7 +294,9 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
               <div className="slider-item">
@@ -323,7 +323,9 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
               <div className="slider-item">
@@ -350,7 +352,9 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
               <div className="slider-item">
@@ -377,7 +381,9 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
               <div className="slider-item">
@@ -404,29 +410,34 @@ const perfumeMain = () => {
                   </div>
                 </div>
                 <div className="box-item-testimonials-text mt-10">
-                  <p>리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                  <p>
+                    리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구
+                  </p>
                 </div>
               </div>
             </div>
             {/* 슬라이딩끝 */}
-
-
-
           </div>
         </div>
-      </div >
-
-
-
-
-
+      </div>
 
       {/* <!-- Modal --> */}
-      <div div div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" >
+      <div
+        div
+        className="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+      >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body">
               <div className="row">
@@ -448,11 +459,22 @@ const perfumeMain = () => {
                   {/* <!-- Thumbnail Large Image End --> */}
                   {/* <!-- Thumbnail Image End --> */}
                   <div className="quickview-wrap mt-15">
-                    <div className="quickview-slide-active owl-carousel nav nav-style-1" role="tablist">
-                      <a className="active" data-bs-toggle="tab" href="#pro-1"><img src="assets/img/product/quickview-s1.jpg" alt="" /></a>
-                      <a data-bs-toggle="tab" href="#pro-2"><img src="assets/img/product/quickview-s2.jpg" alt="" /></a>
-                      <a data-bs-toggle="tab" href="#pro-3"><img src="assets/img/product/quickview-s3.jpg" alt="" /></a>
-                      <a data-bs-toggle="tab" href="#pro-4"><img src="assets/img/product/quickview-s2.jpg" alt="" /></a>
+                    <div
+                      className="quickview-slide-active owl-carousel nav nav-style-1"
+                      role="tablist"
+                    >
+                      <a className="active" data-bs-toggle="tab" href="#pro-1">
+                        <img src="assets/img/product/quickview-s1.jpg" alt="" />
+                      </a>
+                      <a data-bs-toggle="tab" href="#pro-2">
+                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
+                      </a>
+                      <a data-bs-toggle="tab" href="#pro-3">
+                        <img src="assets/img/product/quickview-s3.jpg" alt="" />
+                      </a>
+                      <a data-bs-toggle="tab" href="#pro-4">
+                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -473,12 +495,16 @@ const perfumeMain = () => {
                       </div>
                       <span>3 Reviews</span>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisic elit
+                      eiusm tempor incidid ut labore et dolore magna aliqua. Ut
+                      enim ad minim venialo quis nostrud exercitation ullamco
+                    </p>
                     <div className="pro-details-list">
                       <ul>
                         <li>- 0.5 mm Dail</li>
                         <li>- Inspired vector icons</li>
-                        <li>- Very modern style  </li>
+                        <li>- Very modern style </li>
                       </ul>
                     </div>
                     <div className="pro-details-size-color">
@@ -498,52 +524,103 @@ const perfumeMain = () => {
                         <span>Size</span>
                         <div className="pro-details-size-content">
                           <ul>
-                            <li><a href="#">s</a></li>
-                            <li><a href="#">m</a></li>
-                            <li><a href="#">l</a></li>
-                            <li><a href="#">xl</a></li>
-                            <li><a href="#">xxl</a></li>
+                            <li>
+                              <a href="#">s</a>
+                            </li>
+                            <li>
+                              <a href="#">m</a>
+                            </li>
+                            <li>
+                              <a href="#">l</a>
+                            </li>
+                            <li>
+                              <a href="#">xl</a>
+                            </li>
+                            <li>
+                              <a href="#">xxl</a>
+                            </li>
                           </ul>
                         </div>
                       </div>
                     </div>
                     <div className="pro-details-quality">
                       <div className="cart-plus-minus">
-                        <input className="cart-plus-minus-box" type="text" name="qtybutton" value="2" />
+                        <input
+                          className="cart-plus-minus-box"
+                          type="text"
+                          name="qtybutton"
+                          value="2"
+                        />
                       </div>
                       <div className="pro-details-cart btn-hover">
                         <a href="#">Add To Cart</a>
                       </div>
                       <div className="pro-details-wishlist">
-                        <a href="#"><i className="fa fa-heart-o"></i></a>
+                        <a href="#">
+                          <i className="fa fa-heart-o"></i>
+                        </a>
                       </div>
                       <div className="pro-details-compare">
-                        <a href="#"><i className="pe-7s-shuffle"></i></a>
+                        <a href="#">
+                          <i className="pe-7s-shuffle"></i>
+                        </a>
                       </div>
                     </div>
                     <div className="pro-details-meta">
                       <span>Categories :</span>
                       <ul>
-                        <li><a href="#">Minimal,</a></li>
-                        <li><a href="#">Furniture,</a></li>
-                        <li><a href="#">Electronic</a></li>
+                        <li>
+                          <a href="#">Minimal,</a>
+                        </li>
+                        <li>
+                          <a href="#">Furniture,</a>
+                        </li>
+                        <li>
+                          <a href="#">Electronic</a>
+                        </li>
                       </ul>
                     </div>
                     <div className="pro-details-meta">
                       <span>Tag :</span>
                       <ul>
-                        <li><a href="#">Fashion, </a></li>
-                        <li><a href="#">Furniture,</a></li>
-                        <li><a href="#">Electronic</a></li>
+                        <li>
+                          <a href="#">Fashion, </a>
+                        </li>
+                        <li>
+                          <a href="#">Furniture,</a>
+                        </li>
+                        <li>
+                          <a href="#">Electronic</a>
+                        </li>
                       </ul>
                     </div>
                     <div className="pro-details-social">
                       <ul>
-                        <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i className="fa fa-dribbble"></i></a></li>
-                        <li><a href="#"><i className="fa fa-pinterest-p"></i></a></li>
-                        <li><a href="#"><i className="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i className="fa fa-linkedin"></i></a></li>
+                        <li>
+                          <a href="#">
+                            <i className="fa fa-facebook"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i className="fa fa-dribbble"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i className="fa fa-pinterest-p"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i className="fa fa-twitter"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i className="fa fa-linkedin"></i>
+                          </a>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -552,10 +629,9 @@ const perfumeMain = () => {
             </div>
           </div>
         </div>
-      </div >
+      </div>
       {/* <!-- Modal end --> */}
-    </div >
-
+    </div>
   );
 };
 

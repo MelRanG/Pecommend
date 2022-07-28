@@ -1,10 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 import { Link, Routes, Route } from "react-router-dom";
 import PerfumeList from "./perfumeList";
 import PerfumeDetail from "./perfumeDetail";
 import PerfumeMain from "./perfumeMain";
 import PerfumeRegistList from "./perfumeRegistList";
 import PerfumeRegist from "./perfumeRegist";
+import React, { useState } from "react";
 import "./perfume.css";
 // import "./perfumeList.scss";
 
@@ -23,15 +24,20 @@ const perfume = () => {
           <div className="pernav-header-menu">
             <div className="per-nav n3">
               <ul className="mb-0">
-                <li className="is-active"><Link to="">MAIN</Link></li>
-                <li><Link to="list">LIST</Link></li>
-                <li><Link to="reglist">REGIST</Link></li>
+                <li className="is-active">
+                  <Link to="">MAIN</Link>
+                </li>
+                <li>
+                  <Link to="list">LIST</Link>
+                </li>
+                <li>
+                  <Link to="reglist">REGIST</Link>
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-
 
       <Routes>
         <Route index element={<PerfumeMain />} />
@@ -41,6 +47,6 @@ const perfume = () => {
       </Routes>
     </div>
   );
-}
+};
 
 export default perfume;
