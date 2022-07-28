@@ -127,14 +127,17 @@ function CommunityDetail () {
                                     </form>
                                 </div>
 
-                                <div class="shop-select comment-select" style={{border:"1px solid rgb(30,30,30)"}}>
-                                    <select>
-                                        <option value="">최근</option>
-                                        <option value="">추천</option>
-                                        <option value="">?</option>
-                                        <option value="">?</option>
-                                    </select>
-                                </div>
+                <div
+                  className="shop-select comment-select"
+                  style={{ border: "1px solid rgb(30,30,30)" }}
+                >
+                  <select>
+                    <option value="">최근</option>
+                    <option value="">추천</option>
+                    <option value="">?</option>
+                    <option value="">?</option>
+                  </select>
+                </div>
 
                                 <hr></hr>
                                 {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
@@ -162,9 +165,16 @@ function CommunityDetail () {
                         </div>
                     </div>
                 </div>
+              </div>
+              <div className="community-button-set d-flex justify-content-center">
+                <button className="community-button">목록으로</button>
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default CommunityDetail;

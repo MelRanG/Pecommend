@@ -10,7 +10,7 @@
     /* Cart dropdown */
     var iconCart = $('.icon-cart');
     iconCart.on('click', function() {
-        $('.shopping-cart-content').toggleClass('cart-visible');
+        $('.shopping-cart-content').toggleclassName('cart-visible');
     })
     
     /* Slider active */
@@ -18,7 +18,7 @@
         loop: true,
         nav: true,
         autoplay: false,
-        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+        navText: ['<i className="fa fa-chevron-left"></i>', '<i className="fa fa-chevron-right"></i>'],
         autoplayTimeout: 5000,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
@@ -42,7 +42,7 @@
         loop: true,
         nav: true,
         autoplay: false,
-        navText: ['<i class="pe-7s-angle-left"></i>', '<i class="pe-7s-angle-right"></i>'],
+        navText: ['<i className="pe-7s-angle-left"></i>', '<i className="pe-7s-angle-right"></i>'],
         autoplayTimeout: 5000,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
@@ -162,7 +162,7 @@
         loop: true,
         nav: true,
         autoplay: false,
-        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+        navText: ['<i className="fa fa-angle-left"></i>', '<i className="fa fa-angle-right"></i>'],
         autoplayTimeout: 5000,
         item: 4,
         margin: 30,
@@ -219,7 +219,7 @@
         loop: true,
         nav: true,
         autoplay: false,
-        navText: ['<i class="fa fa-long-arrow-left"></i>', '<i class="fa fa-long-arrow-right"></i>'],
+        navText: ['<i className="fa fa-long-arrow-left"></i>', '<i className="fa fa-long-arrow-right"></i>'],
         autoplayTimeout: 5000,
         item: 4,
         margin: 30,
@@ -248,7 +248,7 @@
         loop: true,
         nav: true,
         autoplay: false,
-        navText: ['<i class="pe-7s-angle-left"></i>', '<i class="pe-7s-angle-right"></i>'],
+        navText: ['<i className="pe-7s-angle-left"></i>', '<i className="pe-7s-angle-right"></i>'],
         autoplayTimeout: 5000,
         item: 1,
         margin: 30,
@@ -273,7 +273,7 @@
         loop: true,
         nav: false,
         autoplay: false,
-        navText: ['<i class="pe-7s-angle-left"></i>', '<i class="pe-7s-angle-right"></i>'],
+        navText: ['<i className="pe-7s-angle-left"></i>', '<i className="pe-7s-angle-right"></i>'],
         autoplayTimeout: 5000,
         item: 1,
         responsive: {
@@ -380,7 +380,7 @@
     /*--- Quickview-slide-active ---*/
     $('.quickview-slide-active').owlCarousel({
         loop: true,
-        navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+        navText: ["<i className='fa fa-angle-left'></i>", "<i className='fa fa-angle-right'></i>"],
         margin: 15,
         smartSpeed: 1000,
         nav: true,
@@ -405,7 +405,7 @@
     
     
     $('.quickview-slide-active a').on('click', function() {
-        $('.quickview-slide-active a').removeClass('active');
+        $('.quickview-slide-active a').removeclassName('active');
     })
     
     
@@ -413,8 +413,8 @@
     	Cart Plus Minus Button
     ------------------------------ */
     var CartPlusMinus = $('.cart-plus-minus');
-    CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
-    CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+    CartPlusMinus.prepend('<div className="dec qtybutton">-</div>');
+    CartPlusMinus.append('<div className="inc qtybutton">+</div>');
     $(".qtybutton").on("click", function() {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
@@ -440,9 +440,9 @@
     win.on('scroll', function() {
         var scroll = win.scrollTop();
         if (scroll < 200) {
-            header.removeClass('stick');
+            header.removeclassName('stick');
         } else {
-            header.addClass('stick');
+            header.addclassName('stick');
         }
     });
     
@@ -552,7 +552,7 @@
         ScrollUp
     ---------------------------- */
     $.scrollUp({
-        scrollText: '<i class="fa fa-angle-double-up"></i>',
+        scrollText: '<i className="fa fa-angle-double-up"></i>',
         easingType: 'linear',
         scrollSpeed: 900,
         animation: 'fade'
@@ -587,10 +587,10 @@
             container = $('.clickable-mainmenu');
         menuTrigger.on('click', function(e) {
             e.preventDefault();
-            container.addClass('inside');
+            container.addclassName('inside');
         });
         endTrigger.on('click', function() {
-            container.removeClass('inside');
+            container.removeclassName('inside');
         });
     };
     sidebarMainmenu();
@@ -643,7 +643,7 @@
         var $this = $(this),
             finalDate = $(this).data('countdown');
         $this.countdown(finalDate, function(event) {
-            $this.html(event.strftime('<span class="cdown day">%-D <p>Days</p></span> <span class="cdown hour">%-H <p>Hours</p></span> <span class="cdown minutes">%M <p>Minutes</p></span class="cdown second"> <span>%S <p>Second</p></span>'));
+            $this.html(event.strftime('<span className="cdown day">%-D <p>Days</p></span> <span className="cdown hour">%-H <p>Hours</p></span> <span className="cdown minutes">%M <p>Minutes</p></span className="cdown second"> <span>%S <p>Second</p></span>'));
         });
     });
     
@@ -653,7 +653,7 @@
 	---------------------------- */
     $(".zoompro").elevateZoom({
         gallery: "gallery",
-        galleryActiveClass: "active",
+        galleryActiveclassName: "active",
         zoomWindowWidth: 300,
         zoomWindowHeight: 100,
         scrollZoom: false,
@@ -671,8 +671,8 @@
         vertical: true,
         slidesToScroll: 1,
         centerPadding: '60px',
-        prevArrow: '<span class="product-dec-icon product-dec-prev"><i class="fa fa-angle-up"></i></span>',
-        nextArrow: '<span class="product-dec-icon product-dec-next"><i class="fa fa-angle-down"></i></span>',
+        prevArrow: '<span className="product-dec-icon product-dec-prev"><i className="fa fa-angle-up"></i></span>',
+        nextArrow: '<span className="product-dec-icon product-dec-next"><i className="fa fa-angle-down"></i></span>',
         responsive: [{
                 breakpoint: 992,
                 settings: {
@@ -703,7 +703,7 @@
     --------------------- */
     $('.video-popup').magnificPopup({
         type: 'iframe',
-        mainClass: 'mfp-fade',
+        mainclassName: 'mfp-fade',
         removalDelay: 160,
         preloader: false,
         zoom: {
@@ -730,7 +730,7 @@
         autoplayTimeout: 5000,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
-        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+        navText: ['<i className="fa fa-chevron-left"></i>', '<i className="fa fa-chevron-right"></i>'],
         item: 3,
         margin: 30,
         responsive: {
@@ -786,7 +786,7 @@
         autoplayTimeout: 5000,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
-        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+        navText: ['<i className="fa fa-angle-left"></i>', '<i className="fa fa-angle-right"></i>'],
         item: 1,
         margin: 30,
         responsive: {

@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <base href="/" />
+    <!-- for local host -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -52,12 +54,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-    <script>
-      $(document).ready(function () {
-        $(".slider").bxSlider();
-      });
-    </script>
-
     <!-- Bootstrap CSS -->
     <!-- <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
@@ -83,14 +79,24 @@
     ></script> -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/public/assets/css/bootstrap.min.css" /> -->
+
     <!-- Icon Font CSS -->
     <link rel="stylesheet" href="assets/css/icons.min.css" />
+    <!-- <link rel="stylesheet" href="/public/assets/css/icons.min.css" /> -->
+
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/css/plugins.css" />
+    <!-- <link rel="stylesheet" href="/public/assets/css/plugins.css" /> -->
+
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- <link rel="stylesheet" href="/public/assets/css/style.css" /> -->
+
     <!-- fonts CSS -->
     <link rel="stylesheet" href="assets/css/fonts.css" />
+    <!-- <link rel="stylesheet" href="/public/assets/css/fonts.css" /> -->
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
@@ -122,5 +128,17 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $(document).ready(function () {
+        $(".bxslider").bxSlider({
+          mode: "vertical",
+          slideMargin: 5,
+          pager: false,
+          onSliderLoad: function () {
+            $("#edd").css("visibility", "visible").animate({ opacity: 1 });
+          },
+        });
+      });
+    </script>
   </body>
 </html>
