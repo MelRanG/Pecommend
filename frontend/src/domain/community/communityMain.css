@@ -1,0 +1,44 @@
+.community-main-box {
+    border: 2px solid gray;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px;
+    min-height: 50px;
+}
+
+.community-main > div {
+    padding: 0px;
+}
+
+.community-long-box {
+    margin: 10px;
+}
+
+.long-item-box {
+    background-color: blanchedalmond;
+    border-radius: 12px;
+    padding-left: 15%;
+    padding-right: 15%
+}
+
+.long-item-article {
+    background-color: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.long-item-title {
+    color: #000;
+}
+
+.long-item-name {
+    margin : 3px 0px 5px 0px;
+}
+
+.long-item-text {
+    margin : 2px 0px 3px 0px;
+}
+
+.long-item-icon {
+    color: black
+}

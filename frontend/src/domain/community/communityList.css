@@ -1,0 +1,27 @@
+.community-top-box-active {
+    text-decoration: none;
+    background-color: rgba(255,255,255,0);
+    border:none;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #8e795c
+}
+
+.community-top-box-wait {
+    text-decoration: none;
+    background-color: rgba(255,255,255,0);
+    border:none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.searchtable {
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+}
+
+.List-regist-button {
+    border: none;
+    margin: 3px 10px 0px 10px;
+    padding: 2px 5px 2px 5px;
+}
