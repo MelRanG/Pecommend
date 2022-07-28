@@ -1,10 +1,18 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./perfumeMain.css";
+import $ from "jquery";
+import jQuery from "jquery";
 
 // import { Outlet } from 'react-router-dom';
 // 향수 메인 페이지
 const perfumeMain = () => {
+  useEffect(() => {
+    $(document).ready(function () {
+      $(".slider").bxSlider();
+    });
+  }, []);
+
   return (
     <div className="perfumeMain">
       {/* <Outlet /> */}
@@ -180,7 +188,11 @@ const perfumeMain = () => {
             </div>
 
             {/* 슬라이딩 */}
-            <div className="slider">
+            <div
+              className="slider"
+              id="edd"
+              style={{ visibility: "hidden", opacity: "0" }}
+            >
               {/* <div>I am a slide.</div>
             <div>I am another slide.</div> */}
               <div className="slider-item">
