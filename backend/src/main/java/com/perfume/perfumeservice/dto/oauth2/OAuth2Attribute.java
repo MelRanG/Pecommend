@@ -33,11 +33,4 @@ public class OAuth2Attribute {
                 .attributeKey(attributeKey)
                 .build();
     }
-
-    public UserEntity toEntity(){
-        return UserEntity.builder()
-                .email(email)
-                .role(Role.ROLE_USER)
-                .build();
-    }
 }
