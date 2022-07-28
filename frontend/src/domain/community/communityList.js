@@ -5,6 +5,7 @@ import { Component, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, Route, Router } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
+import CommunitySidebar from './communitySidebar';
 
 function CommunityList() {
     const [dataList,setDataList] = useState([]);
@@ -34,10 +35,10 @@ function CommunityList() {
     }, [])
     return (
         <div className="communityRegist">
-            <Nav />
             <div className='community-regist-head'>
                 <span>글쓰기</span>
             </div>
+            
             <CommunitySidebar />
             <div class="pb-100">
                 <div class="container">
