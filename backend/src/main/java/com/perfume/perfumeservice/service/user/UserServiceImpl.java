@@ -6,15 +6,11 @@ import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.jwt.TokenDto;
 import com.perfume.perfumeservice.dto.jwt.TokenRequestDto;
 import com.perfume.perfumeservice.dto.user.*;
-import com.perfume.perfumeservice.dto.jwt.TokenDto;
-import com.perfume.perfumeservice.dto.jwt.TokenRequestDto;
-import com.perfume.perfumeservice.jwt.JwtFilter;
+import com.perfume.perfumeservice.exception.user.DuplicateEmailException;
+import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import com.perfume.perfumeservice.jwt.TokenProvider;
 import com.perfume.perfumeservice.util.SecurityUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -46,11 +42,12 @@ public class UserServiceImpl implements UserService{
     public boolean checkNickName(String nickname) {
         // 이미 있으면 true, 없으면 false
         Optional<UserEntity> entity = userRepository.findByNickname(nickname);
+
         return entity.isPresent();
     }
 
     @Override
-    public TokenDto doLogin(LoginRequestDto requestDto){
+    public TokenDto doLogin(LoginRequestDto requestDto) {
         // Login id/pw로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword());
@@ -80,7 +77,7 @@ public class UserServiceImpl implements UserService{
     public UserResponseDto doSignUp(SignUpRequestDto requestDto) {
 
         if(userRepository.findByEmail(requestDto.getEmail()).orElse(null)!=null){
-            throw new RuntimeException("이미 가입된 유저입니다.");
+            throw new DuplicateEmailException();
         }
 
         Role role = Role.ROLE_USER;
@@ -88,7 +85,6 @@ public class UserServiceImpl implements UserService{
         UserEntity entity = UserEntity.builder()
                 .email(requestDto.getEmail())
                 .birthday(requestDto.getBirthday())
-                .experience(requestDto.getExperience())
                 .introduction(requestDto.getIntroduction())
                 .mbti(requestDto.getMbti())
                 .gender(requestDto.getGender())
@@ -102,16 +98,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserResponseDto getMyInfo(){
-        return UserResponseDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findByEmail).orElse(null));
+        return UserResponseDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findByEmail).orElseThrow(UserNotFoundException::new));
     }
 
     @Override
     public UserResponseDto getUserInfo(String email){
-        return UserResponseDto.from(userRepository.findByEmail(email).orElse(null));
+        return UserResponseDto.from(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
     }
 
     @Override
-    public void updateUser(String email, UpdateUserRequestDto requestDto) throws Exception {
+    public void updateUser(String email, UpdateUserRequestDto requestDto){
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
@@ -119,11 +115,11 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new UserNotFoundException();
     }
 
     @Override
-    public void deleteUser(String email) throws Exception{
+    public void deleteUser(String email){
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
@@ -131,11 +127,11 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new UserNotFoundException();
     }
 
     @Override
-    public void changePW(String email, String newPW) throws Exception {
+    public void changePW(String email, String newPW) {
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
@@ -143,7 +139,7 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new UserNotFoundException();
     }
 
     @Override
@@ -178,7 +174,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void logout() throws Exception{
+    public void logout(){
         Optional<UserEntity> entity = SecurityUtil.getCurrentUsername().flatMap(userRepository::findByEmail);
 
         if(entity.isPresent()){
@@ -186,6 +182,6 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
-        throw new Exception();
+        throw new RuntimeException("로그아웃에 실패했습니다.");
     }
 }
