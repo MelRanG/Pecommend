@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 import { Link, Routes, Route } from "react-router-dom";
 import PerfumeList from "./perfumeList";
 import PerfumeDetail from "./perfumeDetail";
@@ -11,7 +11,7 @@ import "./perfume.css";
 
 // 향수nav 구현한곳 / main, list, reglist를 중첩라우트중
 
-const perfume = () => {
+const Perfume = () => {
   return (
     <div>
       <div className="container-temp">
@@ -38,15 +38,15 @@ const perfume = () => {
           </div>
         </div>
       </div>
-
       <Routes>
         <Route index element={<PerfumeMain />} />
-        <Route children path="list" element={<PerfumeList />} />
+        <Route path="list" element={<PerfumeList />} />
+        <Route path="detail" element={<PerfumeDetail />} />
         <Route path="reglist" element={<PerfumeRegistList />} />
-        {/* <Route path="others" element={<Others />} /> */}
+        <Route path="reg" element={<PerfumeRegist />} />
       </Routes>
     </div>
   );
 };
 
-export default perfume;
+export default Perfume;

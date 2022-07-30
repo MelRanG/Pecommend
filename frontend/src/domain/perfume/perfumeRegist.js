@@ -5,20 +5,8 @@ import "./perfumeRegist.css";
 function perfumeRegist() {
   return (
     <div className="perfumeRegist">
-      <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
-        <div className="container">
-          <div className="breadcrumb-content text-center">
-            <ul>
-              <li>
-                <a href="index.html">Home</a>
-              </li>
-              <li className="active">Shop </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <form>
-        <div className="container perfumeRegistBox">
+      <form className="mt-80 mb-100">
+        <div className="container perfumeRegistBox" style={{ width: "60%" }}>
           <div className="NameBox">
             <label for="name" className="name-label">
               이름

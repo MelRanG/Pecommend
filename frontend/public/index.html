@@ -129,15 +129,18 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      // $(document).ready(function () {
+      //   $(".bxslider").bxSlider({
+      //     mode: "vertical",
+      //     slideMargin: 5,
+      //     pager: false,
+      //     onSliderLoad: function () {
+      //       $("#edd").css("visibility", "visible").animate({ opacity: 1 });
+      //     },
+      //   });
+      // });
       $(document).ready(function () {
-        $(".bxslider").bxSlider({
-          mode: "vertical",
-          slideMargin: 5,
-          pager: false,
-          onSliderLoad: function () {
-            $("#edd").css("visibility", "visible").animate({ opacity: 1 });
-          },
-        });
+        $(".slider").bxSlider();
       });
     </script>
   </body>

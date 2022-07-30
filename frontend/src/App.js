@@ -37,7 +37,8 @@ function App() {
           children: [
             { path: "list", element: <PerfumeList /> },
             { path: "detail", element: <PerfumeDetail /> },
-            { path: "regist", element: <PerfumeRegistList /> },
+            { path: "reglist", element: <PerfumeRegistList /> },
+            { path: "reg", element: <PerfumeRegist /> },
           ],
         },
         {
@@ -51,16 +52,16 @@ function App() {
           ],
         },
         {
-            path: "commu/list",
-            element: <CommunityList />,
+          path: "commu/list",
+          element: <CommunityList />,
         },
         {
-            path: "commu/detail/:num",
-            element: <CommunityDetail />,
+          path: "commu/detail/:num",
+          element: <CommunityDetail />,
         },
         {
-            path: "commu/regist/",
-            element: <CommunityRegist />,
+          path: "commu/regist",
+          element: <CommunityRegist />,
         },
         {
           path: "profile",
@@ -78,39 +79,39 @@ function App() {
     },
   ]);
   return element;
-//   return (
-//       <div className="App">
-//           {/* <Nav /> */}
+  //   return (
+  //       <div className="App">
+  //           {/* <Nav /> */}
 
-//           <Routes>
-//               <Route path="/" element={<Layout />}>
-//                   <Route index element={<Home />} />
-//                   <Route path="/perfume/*" element={<Perfume />} >
-//                       {/* <Route index element={<PerfumeMain />} />
-//                       <Route path="list" element={<PerfumeList />} />
-//                       <Route path="detail" element={<PerfumeDetail />} />
-//                       <Route path="reglist" element={<PerfumeRegistList />} />
-//                       <Route path="regist" element={<PerfumeRegist />} /> */}
-//                   </Route>
-//                   {/* <Route index element={<PerfumeMain />} /> */}
-//                   <Route path="/perfumelist" element={<PerfumeList />} />
-//                   <Route path="/perfumedetail" element={<PerfumeDetail />} />
-//                   <Route path="/perfumereglist" element={<PerfumeRegistList />} />
-//                   <Route path="/perfumeregist" element={<PerfumeRegist />} />
-//                   {/* <Route path="/perfume/list" element={<PerfumeList />} /> */}
+  //           <Routes>
+  //               <Route path="/" element={<Layout />}>
+  //                   <Route index element={<Home />} />
+  //                   <Route path="/perfume/*" element={<Perfume />} >
+  //                       {/* <Route index element={<PerfumeMain />} />
+  //                       <Route path="list" element={<PerfumeList />} />
+  //                       <Route path="detail" element={<PerfumeDetail />} />
+  //                       <Route path="reglist" element={<PerfumeRegistList />} />
+  //                       <Route path="regist" element={<PerfumeRegist />} /> */}
+  //                   </Route>
+  //                   {/* <Route index element={<PerfumeMain />} /> */}
+  //                   <Route path="/perfumelist" element={<PerfumeList />} />
+  //                   <Route path="/perfumedetail" element={<PerfumeDetail />} />
+  //                   <Route path="/perfumereglist" element={<PerfumeRegistList />} />
+  //                   <Route path="/perfumeregist" element={<PerfumeRegist />} />
+  //                   {/* <Route path="/perfume/list" element={<PerfumeList />} /> */}
 
-//                   <Route path="/commu" element={<CommunityMain />} />
-//                   <Route path="/commulist" element={<CommunityList />} />
-//                   <Route path="/commudetail" element={<CommunityDetail />} />
-//                   <Route path="/profile" element={<Profile />} />
-//                   <Route path="/login" element={<Login />} />
-//                   <Route path="*" element={<NotFound />} />
-//               </Route>
-//           </Routes>
+  //                   <Route path="/commu" element={<CommunityMain />} />
+  //                   <Route path="/commulist" element={<CommunityList />} />
+  //                   <Route path="/commudetail" element={<CommunityDetail />} />
+  //                   <Route path="/profile" element={<Profile />} />
+  //                   <Route path="/login" element={<Login />} />
+  //                   <Route path="*" element={<NotFound />} />
+  //               </Route>
+  //           </Routes>
 
-//           {/* <Footer /> */}
-//       </div>
-//   );
+  //           {/* <Footer /> */}
+  //       </div>
+  //   );
 }
 
 export default App;
