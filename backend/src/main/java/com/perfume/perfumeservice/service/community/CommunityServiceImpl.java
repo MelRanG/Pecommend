@@ -44,8 +44,8 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public String writePostAndImage(PostsRequestDto dto, MultipartFile[] uploadFile) {
 
-        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
-        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+        UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
+        //UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
         if(uploadFile == null || uploadFile.length == 0){
             communityRepository.save(dto.toEntity(user));
             return "SUCCESS";
@@ -86,8 +86,8 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public PostsResponseDto writePost(PostsRequestDto dto) {
-        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
-        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+        UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
+        //UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
         userRepository.save(user);
         return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
     }
@@ -96,11 +96,6 @@ public class CommunityServiceImpl implements CommunityService {
     public PostsResponseDto getPost(Long id){
         Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
         return PostsResponseDto.from(community);
-    }
-
-    @Override
-    public Community getPost(Long id){
-        return communityRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -145,7 +140,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public PostsResponseDto updatePost(Long id, PostsRequestDto dto) {
-        UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
         Community community = dto.toEntity(user);
         log.info("id : {}, Community: {}", id, community.toString());
         Community target = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
