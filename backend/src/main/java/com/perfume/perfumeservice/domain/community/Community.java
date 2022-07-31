@@ -2,6 +2,7 @@ package com.perfume.perfumeservice.domain.community;
 import com.perfume.perfumeservice.domain.comment.Comment;
 import com.perfume.perfumeservice.domain.image.Image;
 import com.perfume.perfumeservice.domain.user.UserEntity;
+import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,5 +42,4 @@ public class Community {
         if(community.category != 0)
             this.category = community.category;
     }
-
 }

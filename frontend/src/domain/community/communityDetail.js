@@ -1,8 +1,72 @@
 import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
 import './communityDetail.css'
+import React , { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-function communityDetail () {
+function CommunityDetail () {
+    let navigate = useNavigate();
+    let useParam = useParams();
+    let number = parseInt(useParam.num)
+    const [pageDetail,setPageDetail] = useState({});
+    const getArticleDetail = async () => {
+        try {
+            console.log(number);
+          const response = await axios({
+            method: "get",
+            url: "/api/v1/community/"+number,
+            // data: registwrite,
+            headers: { "Content-Type": "multipart/form-data" },
+            // headers: { "Content-Type" : ""}
+            // JSON.stringify()
+          });
+          console.log(response);
+          if (response.status === 200) {
+            console.log(response.data)
+            setPageDetail(response.data)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getArticleDetail()
+        console.log(pageDetail)
+    }, [])
+
+    const clickRemove = async () => {
+        var result = window.confirm("삭제하시겠습니까?");
+        if(result){
+            try {
+                const response = await axios({
+                    method: "delete",
+                    url: "/api/v1/community/"+number,
+                    // data: registwrite,
+                    headers: { "Content-Type": "multipart/form-data" },
+                    // headers: { "Content-Type" : ""}
+                    // JSON.stringify()
+                });
+                console.log(response);
+                if (response.status === 200) {
+                    alert("삭제했습니다!");
+                    navigate("/commu/list", { replace: true });
+                }
+            } catch (error) {
+            console.log(error);
+            }
+        }else{
+            
+        }
+    }
+    
+    const goback = () => {
+        // history.push();
+    }
+
+    const clickEdit = () => {
+        alert("수정버튼 누름!")
+    }
     return (
         <div className="communityDetail">
 
@@ -25,11 +89,11 @@ function communityDetail () {
                         <div class="col-lg-9 community-detail-box">
                             <div class="community-detail">
                                 <div class="community-detail-title">
-                                    <h4 class="ms-5 mt-3">글 제목</h4>
+                                    {/* <h4 class="ms-5 mt-3">{{ num }}</h4> */}
                                 </div>
                                 <div class="community-detail-user d-flex flex-row justify-content-between align-items-center mx-2">
                                     <div>
-                                        <img alt="?" src="" class="me-3"/><span>닉네임</span>
+                                        <img alt="?" src="" class="me-3"/><span>{pageDetail.writer}</span>
                                     </div>
                                     <div>
                                         <h5 style={{margin:"0"}}>조회 20</h5>
@@ -38,7 +102,7 @@ function communityDetail () {
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-maintextbox">
-                                    <h5>여기에 메인 내용이 들어갑니다 글 내용이 이렇고 저렇고 어쩌고 저쩌고</h5>
+                                    <h5>{pageDetail.content}</h5>
                                 </div>
                                 <div className="community-detail-artiblebox d-flex justify-content-center">
                                     <a href="#"><img alt="" src="" class="articleButton" /></a>
@@ -50,6 +114,8 @@ function communityDetail () {
                                 <div className="community-detail-subtextbox">
                                     <h5>2022.07.15 14:35 작성됨</h5>
                                     <h5>2022.07.17 12:12 수정됨</h5>
+                                    <button class="community-button-remove" onClick={clickRemove}>삭제</button>
+                                    <button class="community-button-edit" onClick={clickEdit}>수정</button>
                                 </div>
                             </div>
                             <div id="communityComment">
@@ -61,14 +127,17 @@ function communityDetail () {
                                     </form>
                                 </div>
 
-                                <div class="shop-select comment-select" style={{border:"1px solid rgb(30,30,30)"}}>
-                                    <select>
-                                        <option value="">최근</option>
-                                        <option value="">추천</option>
-                                        <option value="">?</option>
-                                        <option value="">?</option>
-                                    </select>
-                                </div>
+                <div
+                  className="shop-select comment-select"
+                  style={{ border: "1px solid rgb(30,30,30)" }}
+                >
+                  <select>
+                    <option value="">최근</option>
+                    <option value="">추천</option>
+                    <option value="">?</option>
+                    <option value="">?</option>
+                  </select>
+                </div>
 
                                 <hr></hr>
                                 {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
@@ -91,14 +160,17 @@ function communityDetail () {
                                 </div>
                             </div>
                             <div class="community-button-set d-flex justify-content-center">
-                                <button class="community-button">목록으로</button>
+                                <button class="community-button" onClick={goback}>목록으로</button>
                             </div>
                         </div>
                     </div>
                 </div>
+              </div>
+              <div className="community-button-set d-flex justify-content-center">
+                <button className="community-button">목록으로</button>
+              </div>
             </div>
-        </div>
-    );
+  );
 }
 
-export default communityDetail;
+export default CommunityDetail;

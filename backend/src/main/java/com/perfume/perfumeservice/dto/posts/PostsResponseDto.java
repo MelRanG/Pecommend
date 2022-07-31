@@ -1,9 +1,11 @@
 package com.perfume.perfumeservice.dto.posts;
 
 import com.perfume.perfumeservice.domain.community.Community;
+import com.perfume.perfumeservice.domain.community.CommunityLike;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import java.util.Set;
 
 @Getter
 @Builder
@@ -18,6 +20,10 @@ public class PostsResponseDto {
     private int communityLike;
 
     public static PostsResponseDto from(Community community){
+        Set<CommunityLike> set = community.getLikes();
+        int likes = set == null ? 0 : set.size();
+
+
         return PostsResponseDto.builder()
                 .id(community.getId())
                 .category(community.getCategory())
@@ -25,7 +31,8 @@ public class PostsResponseDto {
                 .writer(community.getWriter().getNickname())
                 .title(community.getTitle())
                 .content(community.getContent())
-                .communityLike(community.getCommunityLike())
+                .communityLike(likes)
+                //.communityLike(community.getCommunityLike())
                 .build();
     }
 }

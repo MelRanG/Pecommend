@@ -1,11 +1,15 @@
-import { Routes, Route } from "react-router-dom";
-import logo from './logo.svg';
-import './App.css';
-import Nav from './components/nav';
-import Footer from './components/footer';
+import { Routes, Route, useRoutes } from "react-router-dom";
+import logo from "./logo.svg";
+import "./App.css";
+// import Nav from './components/nav';
+// import Footer from './components/footer';
+import Layout from "./components/layout";
+//
 import CommunityList from "./domain/community/communityList";
 import CommunityDetail from "./domain/community/communityDetail";
 import CommunityMain from "./domain/community/communityMain";
+import CommunityRegist from "./domain/community/communityRegist";
+import Perfume from "./domain/perfume/perfume";
 import PerfumeList from "./domain/perfume/perfumeList";
 import PerfumeDetail from "./domain/perfume/perfumeDetail";
 import PerfumeMain from "./domain/perfume/perfumeMain";
@@ -13,28 +17,100 @@ import PerfumeRegistList from "./domain/perfume/perfumeRegistList";
 import PerfumeRegist from "./domain/perfume/perfumeRegist";
 import Login from "./domain/user/Login";
 import Profile from "./domain/user/profile";
+//
 import Home from "./domain/home/home";
+import NotFound from "./domain/error/NotFound";
+
+// import "./domain/perfume/perfumeList.css";
+// import "./domain/perfume/perfumeList.scss";
 
 function App() {
-    return (
-        <div className="App">
-            <Nav />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/perfume" element={<PerfumeMain />} />
-                <Route path="/perfume/list" element={<PerfumeList />} />
-                <Route path="/perfume/detail" element={<PerfumeDetail />} />
-                <Route path="/perfume/reglist" element={<PerfumeRegistList />} />
-                <Route path="/perfume/regist" element={<PerfumeRegist />} />
-                <Route path="/commu" element={<CommunityMain />} />
-                <Route path="/commu/list" element={<CommunityList />} />
-                <Route path="/commu/detail" element={<CommunityDetail />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/login" element={<Login />} />
-            </Routes>
-            <Footer />
-        </div>
-    );
+  const element = useRoutes([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { index: true, element: <Home /> },
+        {
+          path: "perfume/*",
+          element: <Perfume />,
+          children: [
+            { path: "list", element: <PerfumeList /> },
+            { path: "detail", element: <PerfumeDetail /> },
+            { path: "regist", element: <PerfumeRegistList /> },
+          ],
+        },
+        {
+          path: "commu/*",
+          element: <CommunityMain />,
+          children: [
+            //commu
+            // { path: "list", element: <CommunityList />},
+            // { path: "detail/:num", element: <CommunityDetail />},
+            // { path: "regist", element: <CommunityRegist />}
+          ],
+        },
+        {
+            path: "commu/list",
+            element: <CommunityList />,
+        },
+        {
+            path: "commu/detail/:num",
+            element: <CommunityDetail />,
+        },
+        {
+            path: "commu/regist/",
+            element: <CommunityRegist />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ],
+    },
+  ]);
+  return element;
+//   return (
+//       <div className="App">
+//           {/* <Nav /> */}
+
+//           <Routes>
+//               <Route path="/" element={<Layout />}>
+//                   <Route index element={<Home />} />
+//                   <Route path="/perfume/*" element={<Perfume />} >
+//                       {/* <Route index element={<PerfumeMain />} />
+//                       <Route path="list" element={<PerfumeList />} />
+//                       <Route path="detail" element={<PerfumeDetail />} />
+//                       <Route path="reglist" element={<PerfumeRegistList />} />
+//                       <Route path="regist" element={<PerfumeRegist />} /> */}
+//                   </Route>
+//                   {/* <Route index element={<PerfumeMain />} /> */}
+//                   <Route path="/perfumelist" element={<PerfumeList />} />
+//                   <Route path="/perfumedetail" element={<PerfumeDetail />} />
+//                   <Route path="/perfumereglist" element={<PerfumeRegistList />} />
+//                   <Route path="/perfumeregist" element={<PerfumeRegist />} />
+//                   {/* <Route path="/perfume/list" element={<PerfumeList />} /> */}
+
+//                   <Route path="/commu" element={<CommunityMain />} />
+//                   <Route path="/commulist" element={<CommunityList />} />
+//                   <Route path="/commudetail" element={<CommunityDetail />} />
+//                   <Route path="/profile" element={<Profile />} />
+//                   <Route path="/login" element={<Login />} />
+//                   <Route path="*" element={<NotFound />} />
+//               </Route>
+//           </Routes>
+
+//           {/* <Footer /> */}
+//       </div>
+//   );
 }
 
 export default App;

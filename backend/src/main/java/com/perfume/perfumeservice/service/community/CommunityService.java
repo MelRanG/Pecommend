@@ -14,6 +14,10 @@ public interface CommunityService {
     PostsResponseDto updatePost(Long id, PostsRequestDto dto);
     List<PostsResponseDto> getList(int category);
     String getImagePath(Long id);
-    PostsResponseDto getPost(long id);
+    PostsResponseDto getPost(Long id);
+    public String addLike(Long userId, Long communityId);
+    List<PostsResponseDto> getListByUser(Long userId);
     void deletePost(Long id);
+
+    List<PostsResponseDto> getListAll();
 }

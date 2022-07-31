@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.domain.user;
 
+import com.perfume.perfumeservice.domain.community.Community;
 import com.perfume.perfumeservice.dto.user.UpdateUserRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 @Entity
@@ -21,7 +24,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long id;
+    private Long id;
     @NotBlank(message = "이메일은 필수입니다.")
     @Column(name = "email")
     private String email;
@@ -43,6 +46,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Community> posts = new LinkedHashSet<>();
 
     @Column(name = "token")
     private String token;

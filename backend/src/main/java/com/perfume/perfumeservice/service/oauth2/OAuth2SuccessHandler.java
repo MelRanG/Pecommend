@@ -30,13 +30,18 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Map<String, Object> attributes = oAuth2User.getAttributes();
+
+        if(attributes.get("response")!=null){
+            attributes = (Map<String, Object>) attributes.get("response");
+        }
+        System.out.println(attributes);
         String email = (String) attributes.get("email");
 
         // db 확인
         // 새로운 유저 -> 회원가입
         UserEntity entity = userRepository.findByEmail(email)
                 .orElse(UserEntity.builder()
-                        .email((String)attributes.get("email"))
+                        .email(email)
                         .nickname(passwordMaker.make())
                         .role(Role.ROLE_USER)
                         .password(passwordMaker.make())
@@ -54,7 +59,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         response.setContentType("application/json;charset=UTF-8");
 
         // 리다이렉트
-        String target = "http://localhost:3000";
+        String target = "http://localhost:3000/oauth";
         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
         redirectStrategy.sendRedirect(request, response, target);
     }

@@ -1,7 +1,6 @@
 package com.perfume.perfumeservice.dto.posts;
 
 import com.perfume.perfumeservice.domain.community.Community;
-
 import com.perfume.perfumeservice.domain.user.UserEntity;
 import lombok.Data;
 
@@ -9,7 +8,7 @@ import lombok.Data;
 public class PostsRequestDto {
     //private Long id;
     private int category;
-    private Long writer_id;
+    private Long writer;
     private String title;
     private String content;
 

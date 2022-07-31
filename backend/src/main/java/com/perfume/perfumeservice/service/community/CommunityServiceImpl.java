@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.service.community;
 
+import com.perfume.perfumeservice.domain.community.*;
 import com.perfume.perfumeservice.domain.community.Community;
 import com.perfume.perfumeservice.domain.community.CommunityImage;
 import com.perfume.perfumeservice.domain.community.CommunityImageRepository;
@@ -17,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
@@ -25,10 +25,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
+
 
 @Slf4j
 @Transactional
@@ -38,14 +37,16 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityImageRepository communityImageRepository;
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
+    private final CommunityLikeRepository communityLikeRepository;
 
     @Value("${part4.upload.path}")
     private String uploadPath;
 
     @Override
     public String writePostAndImage(PostsRequestDto dto, MultipartFile[] uploadFile) {
-        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
-        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+
+        UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
+        //UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
         if(uploadFile == null || uploadFile.length == 0){
             communityRepository.save(dto.toEntity(user));
             return "SUCCESS";
@@ -54,15 +55,48 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public String addLike(Long userId, Long communityId){
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        Community community = communityRepository.findById(communityId).orElseThrow(PostNotFoundException::new);
+
+        Optional<CommunityLike> like = communityLikeRepository.findByUserAndCommunity(user, community);
+
+        if(like.isPresent()){
+            communityLikeRepository.delete(like.get());
+            return "CANCLE";
+        }else{
+            communityLikeRepository.save(CommunityLike.builder()
+                    .user(user).community(community).build());
+            return "ADD";
+        }
+    }
+
+    @Override
+    public List<PostsResponseDto> getListByUser(Long userId){
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        //List<Community> c_list = communityRepository.findByWriter(userId);
+        Set<Community> c_list = user.getPosts();
+        List<PostsResponseDto> p_list = new LinkedList<>();
+
+        for(Community c: c_list){
+            p_list.add(PostsResponseDto.from(c));
+        }
+
+        return p_list;
+    }
+
+    @Override
     public PostsResponseDto writePost(PostsRequestDto dto) {
         //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
-        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+        UUID uuid = UUID.randomUUID();
+        UserEntity user = UserEntity.builder().email("avc" + uuid).nickname("123" + uuid).password("123").build();
+
         userRepository.save(user);
         return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
     }
 
     @Override
-    public PostsResponseDto getPost(long id){
+    public PostsResponseDto getPost(Long id){
         Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
         return PostsResponseDto.from(community);
     }
@@ -109,7 +143,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public PostsResponseDto updatePost(Long id, PostsRequestDto dto) {
-        UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
+        UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
         Community community = dto.toEntity(user);
         log.info("id : {}, Community: {}", id, community.toString());
         Community target = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
@@ -149,6 +183,13 @@ public class CommunityServiceImpl implements CommunityService {
         Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
         communityRepository.delete(community);
         return;
+    }
+
+    @Override
+    public List<PostsResponseDto> getListAll() {
+        return communityRepository.findAll().stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
     }
 
     //    public ImageDto updateImage(MultipartFile[] uploadFile) {
