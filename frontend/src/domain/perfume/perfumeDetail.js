@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./perfumeDetail.css";
 
 // 향수 상세 페이지
- const PerfumeDetail = () => {
+const PerfumeDetail = () => {
   return (
     <div className="perfumeDetail">
       <div className="shop-area pt-100 pb-100">
@@ -164,7 +164,8 @@ import "./perfumeDetail.css";
 
             <div className="detail-likeDislikeList-items detail-ldl-first row">
               <div className="col-lg-3">
-                <span className="glyphicon glyphicon-thumbs-up">추천해요</span>
+                <span className="glyphicon glyphicon-thumbs-up"></span>
+                <span className="ldltext">추천해요</span>
               </div>
               <div className="detail-likeDislikeList-item col-lg-2">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
@@ -187,23 +188,24 @@ import "./perfumeDetail.css";
             <div className="detail-likeDislikeList-items row">
               <div className="col-lg-3">
                 <span className="glyphicon glyphicon-thumbs-down">
-                  비추천해요
+
                 </span>
+                <span className="ldltext"> 비추천해요</span>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
+              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+                <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
+              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+                <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
+              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+                <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
-                <img src="assets/img/testimonial/1.jpg" alt="" />
+              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+                <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
             </div>
