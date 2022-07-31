@@ -69,6 +69,13 @@ public class CommunityController {
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/list")
+    @ApiOperation(value = "전체게시글 목록 가져오기")
+    public ResponseEntity<List<PostsResponseDto>> getListAll(){
+        List<PostsResponseDto> postsDtoList = communityService.getListAll();
+        return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<Integer> updatePost(@PathVariable Long id, @RequestBody PostsRequestDto dto){
         communityService.updatePost(id, dto);

@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.domain.community;
 import com.perfume.perfumeservice.domain.user.UserEntity;
+import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

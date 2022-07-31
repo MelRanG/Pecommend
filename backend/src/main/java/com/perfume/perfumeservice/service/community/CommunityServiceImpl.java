@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -87,7 +88,8 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public PostsResponseDto writePost(PostsRequestDto dto) {
         //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
-        UserEntity user = UserEntity.builder().email("avc").nickname("123").password("123").build();
+        UUID uuid = UUID.randomUUID();
+        UserEntity user = UserEntity.builder().email("avc" + uuid).nickname("123" + uuid).password("123").build();
         userRepository.save(user);
         return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
     }
@@ -180,6 +182,13 @@ public class CommunityServiceImpl implements CommunityService {
         Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
         communityRepository.delete(community);
         return;
+    }
+
+    @Override
+    public List<PostsResponseDto> getListAll() {
+        return communityRepository.findAll().stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
     }
 
     //    public ImageDto updateImage(MultipartFile[] uploadFile) {
