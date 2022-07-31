@@ -8,7 +8,7 @@
 .container-temp .pernav {
   position: relative;
 }
-.pernav .pernav-header-title {
+.pernav-header-title {
   background: url("/public/assets/img/nav/perfumeNav.jpg") center bottom no-repeat;
   background-size: cover;
 }

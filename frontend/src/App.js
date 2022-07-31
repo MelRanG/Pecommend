@@ -9,6 +9,7 @@ import CommunityList from "./domain/community/communityList";
 import CommunityDetail from "./domain/community/communityDetail";
 import CommunityMain from "./domain/community/communityMain";
 import CommunityRegist from "./domain/community/communityRegist";
+import Community from "domain/community/community";
 import Perfume from "./domain/perfume/perfume";
 import PerfumeList from "./domain/perfume/perfumeList";
 import PerfumeDetail from "./domain/perfume/perfumeDetail";
@@ -74,6 +75,10 @@ function App() {
         {
           path: "*",
           element: <NotFound />,
+        },
+        {
+          path: "commutest",
+          element: <Community />,
         },
       ],
     },
