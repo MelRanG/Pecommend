@@ -1,8 +1,9 @@
-import './communityRegist.css'
+import './communityEdit.css'
 import Nav from "../../components/nav";
 import axios from 'axios';
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { data } from 'jquery';
 
 // async function handleSubmit(e) {
 //     e.preventDefault()
@@ -17,40 +18,60 @@ import { useNavigate } from 'react-router-dom';
 //     }
 // }
 
-function CommunityRegist ()  {
-    let navigate = useNavigate()
+function CommunityEdit ()  {
+    let navigate = useNavigate();
+    let useParam = useParams();
+    let number = parseInt(useParam.num)
+    const [pageDetail,setPageDetail] = useState({});
     const [formValue, setForm] = useState({
-        writer: 1,
-        title: '',
-        content: '',
-        category: 0,
+        writer: '4',
+        title: '타이틀',
+        content: '내용',
+        category: 1,
     });
+
+    const getArticleDetail = async () => {
+        try {
+            console.log(number);
+          const response = await axios({
+            method: "get",
+            url: "/api/v1/community/"+number,
+            // data: registwrite,
+            headers: { "Content-Type": "multipart/form-data" },
+            // headers: { "Content-Type" : ""}
+            // JSON.stringify()
+          });
+          console.log(response);
+          if (response.status === 200) {
+            console.log(response.data)
+            let readData = {
+                writer: response.data.writer_id,
+                title: response.data.title,
+                category: response.data.category,
+                content: response.data.content,
+            }
+            setPageDetail(readData)
+            console.log(readData)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getArticleDetail()
+        console.log(pageDetail)
+    }, [])
 
     const [imageFile, setImgFile] = useState([])
 
     const handleChange = (e) => {
-        const { value, name } = e.target;
-        console.log(value,name)
+        const { name, value } = e.target;
         setForm({
             ...formValue,
             [name]: value
         })
-        console.log(formValue)
     }
 
-    const categoryChangehandler = (e) => {
-        const item = document.getElementById("dropdownMenuButton1")
-        // item.value = e.target.id
-        item.innerText = e.target.innerText
-        const { id, name } = e.target;
-        console.log(id,name)
-        setForm({
-            ...formValue,
-            [name]: id
-        })
-        
-        console.log(formValue)
-    }
     const imgChange = (e) => {
         setImgFile([]);
         for(var i=0;i<e.target.files.length;i++){
@@ -79,63 +100,40 @@ function CommunityRegist ()  {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let registwrite = new FormData();
-        // let datas =
-        // {
-        //     writer: 1,
-        //     title: "string",
-        //     content: "string",
-        //     category: 2,
-        // };
-        // let inputdata = document.getElementById("titleinput").value
-        // const { value, name } = e.target;
-        // setForm({
-        //     ...formValue,
-        //     [name]: value
-        // })
-        console.log("formvalue is...")
-        console.log(formValue)
-        let datas = formValue
+        let datas =
+        {
+            writer: 1,
+            title: "string",
+            content: "string",
+            category: 2,
+        };
         let jsond = JSON.stringify(datas);
-        console.log("json is ", jsond)
         let file = document.getElementById("img").files[0];
         let blob = new Blob([jsond], { type: "application/json"});
-        console.log("blob is ",blob)
         registwrite.append("file", file)
         registwrite.append("dto",blob)
-        // let NAME = JSON.stringify(formValue.writer);
-        // let TITLE = JSON.stringify(formValue.title);
-        // let CONTENT = JSON.stringify(formValue.content);
-        // let CATEGORY = JSON.stringify(formValue.category);
-        // registwrite.append("name", formValue.name);
-        // registwrite.append("content", formValue.content);
-        // registwrite.append("writer", NAME);
-        // registwrite.append("title", TITLE);
-        // registwrite.append("content", CONTENT);
-        // registwrite.append("category", CATEGORY);
         
-        console.log("registwrite is...")
         console.log(registwrite);
-        console.log("then try")
         try {
           const response = await axios({
-            method: "post",
-            url: "/api/v1/community",
-            // data: registwrite,
-            data:{
-                writer: 1,
-                title: formValue.title,
-                content: formValue.content,
-                category: formValue.category,
-            },
+            method: "put",
+            url: "/api/v1/community/" + number,
+            data: registwrite,
+            // data:{
+            //     writer: formValue.writer,
+            //     title: formValue.title,
+            //     content: formValue.content,
+            //     category: formValue.category,
+            // }
             // headers: { "Content-Type": "multipart/form-data" },
             // headers: { "Content-Type" : ""}
             // JSON.stringify()
           });
           console.log(response);
           if (response.status === 200) {
-            console.log(response.data);
-            alert("작성 완료되었습니다.")
-            navigate(`/commu/detail/${response.data.id}`, { replace: true });
+            console.log("!!!");
+            alert("수정되었습니다");
+            navigate("/commu/detail/" + number, { replace: true });
           }
         } catch (error) {
           console.log(error);
@@ -146,7 +144,7 @@ function CommunityRegist ()  {
         <div className="communityRegist">
             <Nav />
             <div className='community-regist-head'>
-                <span>글쓰기</span>
+                <span>글수정</span>
             </div>
             <form onSubmit={handleSubmit}>
             <div className='community-regist-topbar'>
@@ -157,24 +155,23 @@ function CommunityRegist ()  {
                     <div className="regist-topbar-item-context">
                         <div className="dropdown">
                             <button className="regist-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                카테고리
+                                Dropdown button
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a className="" name="category" onClick={categoryChangehandler} id="1">자유</a></li>
-                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="2">향수</a></li>
-                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="3">질문</a></li>
-                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
+                                <li><a className="" href="#">Action</a></li>
+                                <li><a className="dropdown-item" href="#">Another action</a></li>
+                                <li><a className="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <hr className="hrtag"></hr>
                 <div className="regist-topbar-item">
-                    <div className="regist-topbar-item-name" >
+                    <div className="regist-topbar-item-name" onChange={handleChange}>
                         <span>제목</span>
                     </div>
                     <div className="regist-topbar-item-context context-title">
-                        <input type="text" className='regist-topbar-title' name="title" onChange={handleChange} id="titleinput"/>
+                        <input type="text" className='regist-topbar-title'/>
                     </div>
                 </div>
                 <hr className='hrtag'></hr>
@@ -189,7 +186,7 @@ function CommunityRegist ()  {
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-                <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea>
+                <textarea className="regist-textarea" rows="15" onChange={ handleChange }></textarea>
             </div>
             <input type="file" accept="image/*" id="img" onChange={imgChange}/>
             {imageFile.map((item) => {
@@ -215,4 +212,4 @@ function CommunityRegist ()  {
     );
 }
 
-export default CommunityRegist;
+export default CommunityEdit;

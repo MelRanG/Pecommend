@@ -66,6 +66,7 @@ function CommunityDetail () {
 
     const clickEdit = () => {
         alert("수정버튼 누름!")
+        navigate("/commu/edit/" + number, { replace: true });
     }
     return (
         <div className="communityDetail">
@@ -86,17 +87,17 @@ function CommunityDetail () {
             <div class="pt-95 pb-100">
                 <div class="container">
                     <div class="row flex-row-reverse">
-                        <div class="col-lg-9 community-detail-box">
+                        <div class="col-lg-12 community-detail-box">
                             <div class="community-detail">
                                 <div class="community-detail-title">
-                                    {/* <h4 class="ms-5 mt-3">{{ num }}</h4> */}
+                                    <h4 class="ms-5 mt-3">{pageDetail.title}</h4>
                                 </div>
                                 <div class="community-detail-user d-flex flex-row justify-content-between align-items-center mx-2">
                                     <div>
                                         <img alt="?" src="" class="me-3"/><span>{pageDetail.writer}</span>
                                     </div>
                                     <div>
-                                        <h5 style={{margin:"0"}}>조회 20</h5>
+                                        <h5 style={{margin:"0"}}>추천 {pageDetail.communityLike}</h5>
                                         <h5 style={{margin:"0"}}>2022.07.15</h5>
                                     </div>
                                 </div>
@@ -159,15 +160,9 @@ function CommunityDetail () {
                                     <hr></hr>
                                 </div>
                             </div>
-                            <div class="community-button-set d-flex justify-content-center">
-                                <button class="community-button" onClick={goback}>목록으로</button>
-                            </div>
                         </div>
                     </div>
                 </div>
-              </div>
-              <div className="community-button-set d-flex justify-content-center">
-                <button className="community-button">목록으로</button>
               </div>
             </div>
   );

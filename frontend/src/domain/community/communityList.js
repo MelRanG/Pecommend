@@ -9,7 +9,7 @@ import CommunitySidebar from './communitySidebar';
 
 function CommunityList() {
     const [dataList,setDataList] = useState([]);
-    const [callData,setCallData] = useState(2);
+    const [callData,setCallData] = useState(1);
     const getArticleList = async () => {
         console.log(callData);
         try {
@@ -98,9 +98,10 @@ function CommunityList() {
                                             {dataList.map(data => 
                                             <tr>
                                                 <th scope="row" style={{ textAlign: "center" }}>{data.id}</th>
-                                                <td><Link class="community-list-titlebox" to ={`/commu/detail/${data.id}`} style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>{data.title}</Link></td>
+                                                <td className="community-list-titletd"><Link class="community-list-titlebox" to ={`/commu/detail/${data.id}`}>{data.title}</Link></td>
                                                 {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
-                                                <td>{data.writer}</td>
+                                                {/* <td>{data.writer}</td> */}
+                                                <td className="community-list-writertd"><Link class="community-list-writerbox" to ={`/profile/${data.writer}`}>{data.writer}</Link></td>
                                                 <td>{data.date}</td>
                                                 <td>{data.communityLike}</td>
                                             </tr>

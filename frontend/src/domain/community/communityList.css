@@ -25,3 +25,17 @@
     margin: 3px 10px 0px 10px;
     padding: 2px 5px 2px 5px;
 }
+
+.community-list-titlebox {
+    /* style={{ overflow: "hidden", height: "20px", textAlign:"left" }} */
+    overflow: hidden;
+    height: 20px;
+    text-align: left;
+    color: black;
+}
+
+.community-list-titletd {
+    /* style={{ overflow: "hidden", height: "20px", textAlign:"left" }} */
+    display: flex;
+    padding-left: 17px !important;
+}

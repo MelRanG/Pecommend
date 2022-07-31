@@ -10,8 +10,20 @@
     min-height: 400px;
 }
 
-.community-detail-articlebox {
+.community-button-remove {
+    color: red;
+    border: 1px solid red;
+    width: 40px;
+    background-color: white;
+    margin: 0px 3px 0px 3px;
+}
 
+.community-button-edit {
+    color: blue;
+    border: 1px solid blue;
+    width: 40px;
+    background-color: white;
+    margin: 0px 3px 0px 3px;
 }
 
 .articleButton {
