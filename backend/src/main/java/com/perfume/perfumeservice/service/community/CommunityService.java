@@ -18,4 +18,6 @@ public interface CommunityService {
     public String addLike(Long userId, Long communityId);
     List<PostsResponseDto> getListByUser(Long userId);
     void deletePost(Long id);
+
+    List<PostsResponseDto> getListAll();
 }

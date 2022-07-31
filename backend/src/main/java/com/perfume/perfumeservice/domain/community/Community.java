@@ -1,12 +1,17 @@
 package com.perfume.perfumeservice.domain.community;
+import com.perfume.perfumeservice.domain.comment.Comment;
+import com.perfume.perfumeservice.domain.image.Image;
 import com.perfume.perfumeservice.domain.user.UserEntity;
+import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,9 +30,11 @@ public class Community {
     private UserEntity writer;
     private String title;
     private String content;
-   // private int communityLike;
-    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CommunityLike> likes = new LinkedHashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    List<Comment> comments = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    List<CommunityImage> images = new ArrayList<>();
 
     public void patch(Community community){
         if(community.title != null)
@@ -37,4 +44,7 @@ public class Community {
         if(community.category != 0)
             this.category = community.category;
     }
+
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CommunityLike> likes = new LinkedHashSet<>();
 }

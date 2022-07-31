@@ -15,13 +15,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/community")
-@CrossOrigin(
-           // localhost:5500 과 127.0.0.1 구분
-           origins = "http://localhost:3000/", // allowCredentials = "true" 일 경우, orogins="" 는 X
-           allowCredentials = "true",
-           allowedHeaders = "",
-           methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.HEAD,RequestMethod.OPTIONS}
-       )
 public class CommunityController {
     private final CommunityService communityService;
 
@@ -66,6 +59,13 @@ public class CommunityController {
     @ApiOperation(value = "게시글 목록 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getList(@PathVariable int category){
         List<PostsResponseDto> postsDtoList = communityService.getList(category);
+        return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    @ApiOperation(value = "전체게시글 목록 가져오기")
+    public ResponseEntity<List<PostsResponseDto>> getListAll(){
+        List<PostsResponseDto> postsDtoList = communityService.getListAll();
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
 
