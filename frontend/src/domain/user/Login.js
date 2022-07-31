@@ -8,7 +8,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-
 function Login() {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
@@ -20,7 +19,6 @@ function Login() {
   const [gender, setGender] = React.useState("");
   const [mbti, setMbti] = React.useState("");
 
-
   const onIDhandler = (event) => {
     setId(event.currentTarget.value);
   };
@@ -28,7 +26,6 @@ function Login() {
   const onPWDhandler = (event) => {
     setPwd(event.currentTarget.value);
   };
-
 
   const onEmailhandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -40,7 +37,7 @@ function Login() {
 
   const onPWDReHandler = (event) => {
     setPwdRe(event.currentTarget.value);
-  }
+  };
 
   const onBirthhandler = (event) => {
     setBirth(event.currentTarget.value);
@@ -51,33 +48,34 @@ function Login() {
   };
 
   const onGenderHandler = (event) => {
-    setGender(event.currentTarget.value)
-  }
+    setGender(event.currentTarget.value);
+  };
 
   const onMbtiHandler = (event) => {
-    setMbti(event.currentTarget.value)
-  }
+    setMbti(event.currentTarget.value);
+  };
 
   const onSubmithandler = (event) => {
     event.preventDefault();
     let body = {
       email: id,
-      password: pwd
-    }
-    console.log(body)
-    axios.post("/api/v1/user/login.do", body)
+      password: pwd,
+    };
+    console.log(body);
+    axios
+      .post("/api/v1/user/login.do", body)
       .then(function (response) {
         console.log(response);
         if (response.status == 200) {
           localStorage.setItem("Auth", response.data.accessToken);
-          localStorage.setItem("Refresh",response.data.refreshToken);
+          localStorage.setItem("Refresh", response.data.refreshToken);
 
           // 회원 정보 저장하는 부분 구현필요
 
-          document.location.href='/';
+          document.location.href = "/";
         }
-        
-      }).catch(function (error) {
+      })
+      .catch(function (error) {
         // alertify 로 꾸며주는 부분 필요
         alert("틀렸습니다.");
       })
@@ -93,10 +91,11 @@ function Login() {
       password: regist_pwd,
       nickname: nick,
       birth: birth,
-    }
-    console.log('회원가입')
-    console.log(body)
-    axios.post("/api/v1/user/signup.do", body)
+    };
+    console.log("회원가입");
+    console.log(body);
+    axios
+      .post("/api/v1/user/signup.do", body)
       .then(function (response) {
         if (response.data.code == 0) {
           console.log("!!regist!!");
@@ -109,21 +108,23 @@ function Login() {
       });
   };
 
-  const checkNickname = (event) =>{
+  const checkNickname = (event) => {
     event.preventDefault();
-    console.log(nick)
-    axios.get("/api/v1/user/check.do/nickname/" + nick)
-    .then(function(response){
-      console.log(response);
-    }).catch(function(error){
-      console.log(error);
-    })
-  }
+    console.log(nick);
+    axios
+      .get("/api/v1/user/check.do/nickname/" + nick)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   // 유효성 검사 필요
   // const checkValid = () =>{
   //   // 안맞으면( 트루면 ) alter로 띄우고
-  //   // 
+  //   //
   // }
 
   return (
@@ -191,10 +192,18 @@ function Login() {
                             type="submit"
                             className="naver-login-btn mb-3"
                           >
-                            <span>네이버 로그인</span>
+                            <span>
+                              <a href="http://localhost:8081/oauth2/authorization/naver">
+                                네이버 로그인
+                              </a>
+                            </span>
                           </button>
                           <button type="submit" className="google-login-btn">
-                            <span>구글 로그인</span>
+                            <span>
+                              <a href="http://localhost:8081/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com">
+                                구글 로그인
+                              </a>
+                            </span>
                           </button>
                         </div>
                       </div>
@@ -231,7 +240,13 @@ function Login() {
                               type="password"
                             />
                             <label>닉네임</label>
-                            <button class='btn' style={{ float: "right" }} onClick={checkNickname}>중복 확인</button>
+                            <button
+                              class="btn"
+                              style={{ float: "right" }}
+                              onClick={checkNickname}
+                            >
+                              중복 확인
+                            </button>
                             <input
                               name="nickname"
                               placeholder="Nickname"

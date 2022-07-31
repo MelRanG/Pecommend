@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -28,11 +30,12 @@ public class Community {
     private UserEntity writer;
     private String title;
     private String content;
-    private int communityLike;
     @OneToMany(fetch = FetchType.LAZY)
     List<Comment> comments = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY)
     List<CommunityImage> images = new ArrayList<>();
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CommunityLike> likes = new LinkedHashSet<>();
 
     public void patch(Community community){
         if(community.title != null)

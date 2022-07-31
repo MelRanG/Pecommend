@@ -52,14 +52,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         entity.saveToken(tokenDto.getRefreshToken());
         userRepository.save(entity);
 
-        // 토큰 정보 삽입
-        response.setContentType("text/html;charset=UTF-8");
-        response.addHeader("Auth", tokenDto.getAccessToken());
-        response.addHeader("Refresh", tokenDto.getRefreshToken());
-        response.setContentType("application/json;charset=UTF-8");
-
         // 리다이렉트
-        String target = "http://localhost:3000/oauth";
+        String target = "http://localhost:3000/oauth?Auth=" + tokenDto.getAccessToken() + "&Refresh=" + tokenDto.getRefreshToken();
         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
         redirectStrategy.sendRedirect(request, response, target);
     }
