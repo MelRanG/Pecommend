@@ -8,7 +8,7 @@ import lombok.Data;
 public class PostsRequestDto {
     //private Long id;
     private int category;
-    private Long writer_id;
+    private Long writer;
     private String title;
     private String content;
 

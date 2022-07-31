@@ -89,9 +89,15 @@ function CommunityRegist ()  {
         try {
           const response = await axios({
             method: "post",
-            url: "/api/v1/community/upload",
-            data: registwrite,
-            headers: { "Content-Type": "multipart/form-data" },
+            url: "/api/v1/community",
+            //data: registwrite,
+            data:{
+                writer: 1,
+                title: "string",
+                content: "string",
+                category: 2,
+            }
+            // headers: { "Content-Type": "multipart/form-data" },
             // headers: { "Content-Type" : ""}
             // JSON.stringify()
           });

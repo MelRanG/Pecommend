@@ -100,8 +100,9 @@
     align-items: center;
     display: flex;
     /* justify-content: center; */
-    margin-left: 15%;
-    width: 40%;
+    margin-right: 55%;
+    width: 35%;
+    float: right;
 }
 .banner-box2{
     background-color: #ffffff 0.3;
@@ -110,18 +111,18 @@
     align-items: center;
     display: flex;
     /* justify-content: center; */
-    margin-left: 45%;
-    width: 38%;
+    margin-left: 55%;
+    width: 35%;
 }
 .banner-title{
-    font-size: 40px;
-    font-family: 'Recipekorea';
+    font-size: 45px;
+    font-family: 'EliceDigitalBaeum-Bd';
     color: #ffffff;
     /* vertical-align: middle; */
     /* margin-left: 15%; */
     /* width: 30%; */
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .banner-text{
     /* margin: auto; */
@@ -158,8 +159,8 @@
   }
 
 .home-product-hashtag div{
-    float: left;
-    margin: 16px 15px 0 0;
+
+    margin: 16px 7px 0 7px;
     padding: 7px 15px 9px 15px;
     border-radius: 16px;
     color: #ffffff;
