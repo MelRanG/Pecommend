@@ -32,7 +32,6 @@ public class PostsResponseDto {
                 .title(community.getTitle())
                 .content(community.getContent())
                 .communityLike(likes)
-                //.communityLike(community.getCommunityLike())
                 .build();
     }
 }
