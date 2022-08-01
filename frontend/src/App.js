@@ -46,30 +46,30 @@ function App() {
         },
         {
           path: "commu/*",
-          element: <CommunityMain />,
+          element: <Community />,
           children: [
-            //commu
-            // { path: "list", element: <CommunityList />},
-            // { path: "detail/:num", element: <CommunityDetail />},
-            // { path: "regist", element: <CommunityRegist />}
+            { path: "list", element: <CommunityList /> },
+            { path: "detail/:num", element: <CommunityDetail /> },
+            { path: "regist", element: <CommunityRegist /> },
+            { path: "commu/edit/:num", element: <CommunityEdit /> },
           ],
         },
-        {
-          path: "commu/list",
-          element: <CommunityList />,
-        },
-        {
-          path: "commu/detail/:num",
-          element: <CommunityDetail />,
-        },
-        {
-          path: "commu/regist",
-          element: <CommunityRegist />,
-        },
-        {
-          path: "commu/edit/:num",
-          element: <CommunityEdit />,
-        },
+        // {
+        //   path: "commu/list",
+        //   element: <CommunityList />,
+        // },
+        // {
+        //   path: "commu/detail/:num",
+        //   element: <CommunityDetail />,
+        // },
+        // {
+        //   path: "commu/regist",
+        //   element: <CommunityRegist />,
+        // },
+        // {
+        //   path: "commu/edit/:num",
+        //   element: <CommunityEdit />,
+        // },
         {
           path: "profile",
           element: <Profile />,
@@ -82,10 +82,10 @@ function App() {
           path: "*",
           element: <NotFound />,
         },
-        {
-          path: "commutest",
-          element: <Community />,
-        },
+        // {
+        //   path: "commutest",
+        //   element: <Community />,
+        // },
       ],
     },
   ]);

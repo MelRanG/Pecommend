@@ -1,99 +1,184 @@
-import './communityRegist.css'
+import "./communityRegist.css";
 import Nav from "../../components/nav";
-import './communityList.css'
+import "./communityList.css";
 import { Component, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, Route, Router } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
-import CommunitySidebar from './communitySidebar';
+import CommunitySidebar from "./communitySidebar";
 
 function CommunityList() {
-    const [dataList,setDataList] = useState([]);
-    const [callData,setCallData] = useState(1);
-    const getArticleList = async () => {
-        console.log(callData);
-        try {
-          const response = await axios({
-            method: "get",
-            url: "/api/v1/community/list/"+callData,
-            // data: registwrite,
-            headers: { "Content-Type": "multipart/form-data" },
-            // headers: { "Content-Type" : ""}
-            // JSON.stringify()
-          });
-          console.log(response);
-          if (response.status === 200) {
-            setDataList(response.data)
-            console.log(dataList)
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      };
-    useEffect(() => {
-        getArticleList()
-    }, [])
-    return (
-        <div className="communityRegist">
-            <div className='community-regist-head'>
-                <span>글쓰기</span>
-            </div>
-            
-            <CommunitySidebar />
-            <div class="pb-100">
-                <div class="container">
-                    <div class="row flex-row-reverse">
-                        <div class="col-lg-12" >
-                            <div>
-                                <h4 class="mt-5"  style={{  "text-align": "center"}}>카테고리 게시판</h4>
-                            </div>
-                            <hr></hr>
-                            <div className="community-top-box">
-                                <button className="community-top-box-active">ㆍ최신</button>
-                                <button className="community-top-box-wait">ㆍ추천</button>
-                                <button className="community-top-box-wait">ㆍHOT</button>
-                                <button className="community-top-box-wait">ㆍ베스트</button>
-                            </div>
-                            <div class="shop-bottom-area mt-15">
-                                <div class="tab-content jump">
-                                    <table className="table table-hover community-table table-responsive" style={{ width: "100%" ,marginBottom:"0px"}}>
-                                        <thead className="">
-                                            <tr style={{ textAlign: "center" }}>
-                                                <th style={{ color: "rgb(143,24,237)", width: "50px", textAlign: "center" }}>번호</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", textAlign: "center" }}>글 제목</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "150px", textAlign: "center" }}>작성자</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "100px", textAlign: "center" }}>작성일</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "70px", textAlign: "center" }}>추천수</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="table-group-divider" style={{ textAlign: "center" }}>
-                                            {dataList.map(data => 
-                                            <tr>
-                                                <th scope="row" style={{ textAlign: "center" }}>{data.id}</th>
-                                                <td className="community-list-titletd"><Link class="community-list-titlebox" to ={`/commu/detail/${data.id}`}>{data.title}</Link></td>
-                                                {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
-                                                {/* <td>{data.writer}</td> */}
-                                                <td className="community-list-writertd"><Link class="community-list-writerbox" to ={`/profile/${data.writer_id}`}>{data.writer}</Link></td>
-                                                <td>{data.date}</td>
-                                                <td>{data.communityLike}</td>
-                                            </tr>
-                                                )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="d-flex flex-row-reverse">
-                                    <button className="List-regist-button"><Link to = {`/commu/regist`}>글 작성</Link></button>
-                                </div>
-                                <div class="pro-pagination-style text-center mt-10 mb-3">
-                                    <ul>
-                                        <li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                        <li><a class="active" href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="search d-flex flex-row justify-content-center align-items-center mb-5">
-                                    {/* <div class="select-shoing-wrap mx-2">
+  const [dataList, setDataList] = useState([]);
+  const [callData, setCallData] = useState(1);
+  const getArticleList = async () => {
+    console.log(callData);
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/community/list/" + callData,
+        // data: registwrite,
+        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type" : ""}
+        // JSON.stringify()
+      });
+      console.log(response);
+      if (response.status === 200) {
+        setDataList(response.data);
+        console.log(dataList);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getArticleList();
+  }, []);
+  return (
+    <div className="communityRegist">
+      {/* <CommunitySidebar /> */}
+      <div class="pb-100">
+        <div class="container">
+          <div class="row flex-row-reverse">
+            <div class="col-lg-12">
+              <div>
+                <h4 class="mt-5" style={{ "text-align": "center" }}>
+                  "카테고리" 게시판
+                </h4>
+              </div>
+              <hr></hr>
+              <div className="community-top-box">
+                <button className="community-top-box-active">ㆍ최신</button>
+                <button className="community-top-box-wait">ㆍ추천</button>
+                <button className="community-top-box-wait">ㆍHOT</button>
+                <button className="community-top-box-wait">ㆍ베스트</button>
+              </div>
+              <div class="shop-bottom-area mt-15">
+                <div class="tab-content jump">
+                  <table
+                    className="table table-hover community-table table-responsive"
+                    style={{ width: "100%", marginBottom: "0px" }}
+                  >
+                    <thead className="">
+                      <tr style={{ textAlign: "center" }}>
+                        <th
+                          style={{
+                            color: "rgb(143,24,237)",
+                            width: "50px",
+                            textAlign: "center",
+                          }}
+                        >
+                          번호
+                        </th>
+                        <th
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            textAlign: "center",
+                          }}
+                        >
+                          글 제목
+                        </th>
+                        <th
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            width: "150px",
+                            textAlign: "center",
+                          }}
+                        >
+                          작성자
+                        </th>
+                        <th
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            width: "100px",
+                            textAlign: "center",
+                          }}
+                        >
+                          작성일
+                        </th>
+                        <th
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            width: "70px",
+                            textAlign: "center",
+                          }}
+                        >
+                          추천수
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      className="table-group-divider"
+                      style={{ textAlign: "center" }}
+                    >
+                      {dataList.map((data) => (
+                        <tr>
+                          <th scope="row" style={{ textAlign: "center" }}>
+                            {data.id}
+                          </th>
+                          <td className="community-list-titletd">
+                            <Link
+                              class="community-list-titlebox"
+                              to={`/commu/detail/${data.id}`}
+                            >
+                              {data.title}
+                            </Link>
+                          </td>
+                          {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
+                          {/* <td>{data.writer}</td> */}
+                          <td className="community-list-writertd">
+                            <Link
+                              class="community-list-writerbox"
+                              to={`/profile/${data.writer_id}`}
+                            >
+                              {data.writer}
+                            </Link>
+                          </td>
+                          <td>{data.date}</td>
+                          <td>{data.communityLike}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="d-flex flex-row-reverse">
+                  <button className="List-regist-button">
+                    <Link to={`/commu/regist`}>글 작성</Link>
+                  </button>
+                  <button type="button" class="btn btn-outline-dark">
+                    <Link to={`/commu/regist`}>글 작성</Link>
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary">
+                    Secondary
+                  </button>
+                </div>
+                <div class="pro-pagination-style text-center mt-10 mb-3">
+                  <ul>
+                    <li>
+                      <a class="prev" href="#">
+                        <i class="fa fa-angle-double-left"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="active" href="#">
+                        1
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">2</a>
+                    </li>
+                    <li>
+                      <a class="next" href="#">
+                        <i class="fa fa-angle-double-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="search d-flex flex-row justify-content-center align-items-center mb-5">
+                  {/* <div class="select-shoing-wrap mx-2">
                             <div class="select-shoing-wrap">
                                 <div class="shop-select">
                                     <select>

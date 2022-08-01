@@ -2,7 +2,7 @@
 import { Link, Routes, Route } from "react-router-dom";
 import React, { useState } from "react";
 import CommunityDetail from "./communityDetail";
-import communityMain from "./communityMain";
+import CommunityMain from "./communityMain";
 import CommunityList from "./communityList";
 import CommunityRegist from "./communityRegist";
 import "./community.css";
@@ -27,19 +27,19 @@ const Community = () => {
                   <Link to="list">자유</Link>
                 </li>
                 <li>
-                  <Link to="reglist">향수</Link>
+                  <Link to="list/">향수</Link>
                 </li>
                 <li>
-                  <Link to="reglist">인기</Link>
+                  <Link to="list/">인기</Link>
                 </li>
                 <li>
-                  <Link to="reglist">베스트</Link>
+                  <Link to="list/">베스트</Link>
                 </li>
                 <li>
-                  <Link to="reglist">질문</Link>
+                  <Link to="list/">질문</Link>
                 </li>
                 <li>
-                  <Link to="reglist">공지</Link>
+                  <Link to="list/">공지</Link>
                 </li>
               </ul>
             </div>
@@ -47,7 +47,7 @@ const Community = () => {
         </div>
       </div>
       <Routes>
-        <Route index element={<communityMain />} />
+        <Route index element={<CommunityMain />} />
         <Route path="list" element={<CommunityList />} />
         <Route path="detail" element={<CommunityDetail />} />
         <Route path="regist" element={<CommunityRegist />} />

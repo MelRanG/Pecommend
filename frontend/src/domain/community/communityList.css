@@ -53,3 +53,7 @@
     white-space:nowrap;
     text-overflow: ellipsis;
 }
+
+.btn-outline-dark {
+    border-color: #212529 !important;
+}
