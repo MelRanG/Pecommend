@@ -30,7 +30,7 @@ function CommunityDetail () {
             // console.log(parse(response.data.content))
             const parsedata = parse(response.data.content)
             setParseContent(parsedata)
-            console.log(parseContent)
+            console.log("pC", parseContent)
           }
         } catch (error) {
           console.log(error);
@@ -41,8 +41,40 @@ function CommunityDetail () {
         console.log(pageDetail)
     }, [])
 
-    const recommend = () => {
-
+    const recommend = async () => {
+        try {
+            let data = {
+                userId: 1,
+                postId: pageDetail.id,
+            }
+            console.log(data)
+            const response = await axios({
+                method: "post",
+                url: "/api/v1/community/like",
+                data: data
+            });
+            console.log(response)
+            if (response.status === 200) {
+                console.log("완료")
+                if (response.data == "ADD") {
+                    // setPageDetail(communityLike) += 1
+                    setPageDetail({
+                        ...pageDetail,
+                        communityLike : pageDetail.communityLike + 1
+                    })
+                    console.log("like up", pageDetail.communityLike)
+                }
+                if (response.data == "CANCLE") {
+                    setPageDetail({
+                        ...pageDetail,
+                        communityLike : pageDetail.communityLike - 1
+                    })
+                    console.log("like down",pageDetail.communityLike)
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const clickRemove = async () => {
@@ -71,7 +103,6 @@ function CommunityDetail () {
     }
 
     const clickEdit = () => {
-        alert("수정버튼 누름!")
         navigate("/commu/edit/" + number, { replace: true });
     }
     return (
@@ -108,14 +139,18 @@ function CommunityDetail () {
                                     </div>
                                 </div>
                                 <hr></hr>
-                                <div className="community-detail-maintextbox">
-                                    <h5>{ parseContent }</h5>
+                                <div className="community-detail-maintextbox" dangerouslySetInnerHTML={ {__html: pageDetail.content} }>
+                                    {/* <h5>{ parseContent }</h5> */}
+                                    {/* <h5>{pageDetail.content}</h5> */}
+                                    {/* {parseContent} */}
+                                    {/* {renderHTML(pageDetail.content)} */}
+                                    {/* dangerouslySetInnerHTML={{__html: this.state.actions}} */}
                                 </div>
                                 <div className="community-detail-artiblebox d-flex justify-content-center">
-                                    <a className="detail-button" onClick={recommend}><span className="glyphicon glyphicon-thumbs-up"></span></a>
-                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
+                                    <a className="articleButton" onClick={recommend}><span className="glyphicon glyphicon-thumbs-up"></span></a>
+                                    <a className="articleButton" href="#"><img alt="" src="" /></a>
+                                    <a className="articleButton" href="#"><img alt="" src="" /></a>
+                                    <a className="articleButton" href="#"><img alt="" src="" /></a>
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-subtextbox">
