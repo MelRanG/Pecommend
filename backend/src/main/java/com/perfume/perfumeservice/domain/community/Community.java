@@ -30,9 +30,9 @@ public class Community {
     private UserEntity writer;
     private String title;
     private String content;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
     List<Comment> comments = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
     List<CommunityImage> images = new ArrayList<>();
     @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CommunityLike> likes = new LinkedHashSet<>();
