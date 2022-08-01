@@ -39,3 +39,17 @@
     display: flex;
     padding-left: 17px !important;
 }
+
+.community-list-writertd {
+    text-overflow: ellipsis;
+    width: 30px;
+    color: black;
+    overflow: hidden;
+    white-space:nowrap;
+}
+
+.community-list-writerbox {
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}

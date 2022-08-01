@@ -22,12 +22,12 @@ function CommunityEdit ()  {
     let navigate = useNavigate();
     let useParam = useParams();
     let number = parseInt(useParam.num)
-    const [pageDetail,setPageDetail] = useState({});
+    // const [pageDetail,setPageDetail] = useState({});
     const [formValue, setForm] = useState({
-        writer: '4',
-        title: '타이틀',
-        content: '내용',
-        category: 1,
+        writer: '',
+        title: '',
+        content: '',
+        category: 0,
     });
 
     const getArticleDetail = async () => {
@@ -38,20 +38,16 @@ function CommunityEdit ()  {
             url: "/api/v1/community/"+number,
             // data: registwrite,
             headers: { "Content-Type": "multipart/form-data" },
-            // headers: { "Content-Type" : ""}
-            // JSON.stringify()
           });
           console.log(response);
           if (response.status === 200) {
             console.log(response.data)
-            let readData = {
-                writer: response.data.writer_id,
-                title: response.data.title,
-                category: response.data.category,
-                content: response.data.content,
-            }
-            setPageDetail(readData)
-            console.log(readData)
+            setForm(response.data)
+            console.log("form value", formValue)
+            const item = document.getElementById("dropdownMenuButton1")
+            let text = document.getElementById(response.data.category)
+            console.log(text)
+            item.innerText = text.innerText
           }
         } catch (error) {
           console.log(error);
@@ -59,8 +55,21 @@ function CommunityEdit ()  {
       };
     useEffect(() => {
         getArticleDetail()
-        console.log(pageDetail)
     }, [])
+
+    const categoryChangehandler = (e) => {
+        const item = document.getElementById("dropdownMenuButton1")
+        // item.value = e.target.id
+        item.innerText = e.target.innerText
+        const { id, name } = e.target;
+        console.log(id,name)
+        setForm({
+            ...formValue,
+            [name]: id
+        })
+        
+        console.log(formValue)
+    }
 
     const [imageFile, setImgFile] = useState([])
 
@@ -116,15 +125,15 @@ function CommunityEdit ()  {
         console.log(registwrite);
         try {
           const response = await axios({
-            method: "put",
+            method: "patch",
             url: "/api/v1/community/" + number,
-            data: registwrite,
-            // data:{
-            //     writer: formValue.writer,
-            //     title: formValue.title,
-            //     content: formValue.content,
-            //     category: formValue.category,
-            // }
+            // data: registwrite,
+            data:{
+                writer: formValue.writer_id,
+                title: formValue.title,
+                content: formValue.content,
+                category: formValue.category,
+            }
             // headers: { "Content-Type": "multipart/form-data" },
             // headers: { "Content-Type" : ""}
             // JSON.stringify()
@@ -146,7 +155,7 @@ function CommunityEdit ()  {
             <div className='community-regist-head'>
                 <span>글수정</span>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={() => handleSubmit}>
             <div className='community-regist-topbar'>
                 <div className="regist-topbar-item">
                     <div className="regist-topbar-item-name">
@@ -158,20 +167,21 @@ function CommunityEdit ()  {
                                 Dropdown button
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a className="" href="#">Action</a></li>
-                                <li><a className="dropdown-item" href="#">Another action</a></li>
-                                <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                <li><a className="" name="category" onClick={categoryChangehandler} id="1">자유</a></li>
+                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="2">향수</a></li>
+                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="3">질문</a></li>
+                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <hr className="hrtag"></hr>
                 <div className="regist-topbar-item">
-                    <div className="regist-topbar-item-name" onChange={handleChange}>
+                    <div className="regist-topbar-item-name">
                         <span>제목</span>
                     </div>
                     <div className="regist-topbar-item-context context-title">
-                        <input type="text" className='regist-topbar-title'/>
+                        <input type="text" className='regist-topbar-title' name="title" value={ formValue.title } onChange={handleChange}/>
                     </div>
                 </div>
                 <hr className='hrtag'></hr>
@@ -180,13 +190,13 @@ function CommunityEdit ()  {
                         <span>작성자</span>
                     </div>
                     <div className="regist-topbar-item-context">
-                        <span>작성자 이름이 들어갑니다</span>
+                        <span>{formValue.writer}</span>
                     </div>
                 </div>
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-                <textarea className="regist-textarea" rows="15" onChange={ handleChange }></textarea>
+                <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" value={ formValue.content }></textarea>
             </div>
             <input type="file" accept="image/*" id="img" onChange={imgChange}/>
             {imageFile.map((item) => {

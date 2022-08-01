@@ -67,41 +67,13 @@ function CommunityList() {
                                             </tr>
                                         </thead>
                                         <tbody className="table-group-divider" style={{ textAlign: "center" }}>
-                                            {/* <tr style={{ height: "20px" }}>
-                                                <th scope="row" style={{ textAlign: "center" }}>22542</th>
-                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>4번 글입니다.123213124124124</td>
-                                                <td>DDD</td>
-                                                <td>15:08</td>
-                                                <td>3</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style={{ textAlign: "center" }}>15</th>
-                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>3번 글입니다</td>
-                                                <td>BBB</td>
-                                                <td>12:14</td>
-                                                <td>12</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style={{ textAlign: "center" }}>2</th>
-                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>2번 글입니다</td>
-                                                <td>AAA</td>
-                                                <td>22.07.27</td>
-                                                <td>1333</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style={{ textAlign: "center" }}>1</th>
-                                                <td style={{ overflow: "hidden", height: "20px", textAlign:"left" }}>1번 글입니다</td>
-                                                <td>DDD</td>
-                                                <td>22.07.15</td>
-                                                <td>14415</td>
-                                            </tr> */}
                                             {dataList.map(data => 
                                             <tr>
                                                 <th scope="row" style={{ textAlign: "center" }}>{data.id}</th>
                                                 <td className="community-list-titletd"><Link class="community-list-titlebox" to ={`/commu/detail/${data.id}`}>{data.title}</Link></td>
                                                 {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
                                                 {/* <td>{data.writer}</td> */}
-                                                <td className="community-list-writertd"><Link class="community-list-writerbox" to ={`/profile/${data.writer}`}>{data.writer}</Link></td>
+                                                <td className="community-list-writertd"><Link class="community-list-writerbox" to ={`/profile/${data.writer_id}`}>{data.writer}</Link></td>
                                                 <td>{data.date}</td>
                                                 <td>{data.communityLike}</td>
                                             </tr>

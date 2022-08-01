@@ -3,6 +3,8 @@ import Nav from "../../components/nav";
 import axios from 'axios';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 // async function handleSubmit(e) {
 //     e.preventDefault()
@@ -78,20 +80,8 @@ function CommunityRegist ()  {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        e.target.setAttribute("disabled",'true')
         let registwrite = new FormData();
-        // let datas =
-        // {
-        //     writer: 1,
-        //     title: "string",
-        //     content: "string",
-        //     category: 2,
-        // };
-        // let inputdata = document.getElementById("titleinput").value
-        // const { value, name } = e.target;
-        // setForm({
-        //     ...formValue,
-        //     [name]: value
-        // })
         console.log("formvalue is...")
         console.log(formValue)
         let datas = formValue
@@ -102,16 +92,6 @@ function CommunityRegist ()  {
         console.log("blob is ",blob)
         registwrite.append("file", file)
         registwrite.append("dto",blob)
-        // let NAME = JSON.stringify(formValue.writer);
-        // let TITLE = JSON.stringify(formValue.title);
-        // let CONTENT = JSON.stringify(formValue.content);
-        // let CATEGORY = JSON.stringify(formValue.category);
-        // registwrite.append("name", formValue.name);
-        // registwrite.append("content", formValue.content);
-        // registwrite.append("writer", NAME);
-        // registwrite.append("title", TITLE);
-        // registwrite.append("content", CONTENT);
-        // registwrite.append("category", CATEGORY);
         
         console.log("registwrite is...")
         console.log(registwrite);
@@ -127,9 +107,6 @@ function CommunityRegist ()  {
                 content: formValue.content,
                 category: formValue.category,
             },
-            // headers: { "Content-Type": "multipart/form-data" },
-            // headers: { "Content-Type" : ""}
-            // JSON.stringify()
           });
           console.log(response);
           if (response.status === 200) {
@@ -137,8 +114,12 @@ function CommunityRegist ()  {
             alert("작성 완료되었습니다.")
             navigate(`/commu/detail/${response.data.id}`, { replace: true });
           }
+          else {
+            e.target.setAttribute("disabled",'false')
+          }
         } catch (error) {
           console.log(error);
+          e.target.setAttribute("disabled",'false')
         }
       };
 
@@ -189,7 +170,30 @@ function CommunityRegist ()  {
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-                <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea>
+                {/* <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea> */}
+                <CKEditor
+                    editor={ ClassicEditor }
+                    data="<p>Hello from CKEditor 5!</p>"
+                    onReady={ editor => {
+                        // You can store the "editor" and use when it is needed.
+                        console.log( 'Editor is ready to use!', editor );
+                    } }
+                    onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+                        setForm({
+                            ...formValue,
+                            content: data
+                        })
+                        console.log( { event, editor, data } );
+                        console.log(formValue)
+                    } }
+                    onBlur={ ( event, editor ) => {
+                        console.log( 'Blur.', editor );
+                    } }
+                    onFocus={ ( event, editor ) => {
+                        console.log( 'Focus.', editor );
+                    } }
+                />
             </div>
             <input type="file" accept="image/*" id="img" onChange={imgChange}/>
             {imageFile.map((item) => {

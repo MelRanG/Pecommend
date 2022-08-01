@@ -4,12 +4,14 @@ import './communityDetail.css'
 import React , { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import parse from 'html-react-parser';
 
 function CommunityDetail () {
     let navigate = useNavigate();
     let useParam = useParams();
     let number = parseInt(useParam.num)
     const [pageDetail,setPageDetail] = useState({});
+    const [parseContent,setParseContent] = useState({});
     const getArticleDetail = async () => {
         try {
             console.log(number);
@@ -25,6 +27,10 @@ function CommunityDetail () {
           if (response.status === 200) {
             console.log(response.data)
             setPageDetail(response.data)
+            // console.log(parse(response.data.content))
+            const parsedata = parse(response.data.content)
+            setParseContent(parsedata)
+            console.log(parseContent)
           }
         } catch (error) {
           console.log(error);
@@ -34,6 +40,10 @@ function CommunityDetail () {
         getArticleDetail()
         console.log(pageDetail)
     }, [])
+
+    const recommend = () => {
+
+    }
 
     const clickRemove = async () => {
         var result = window.confirm("삭제하시겠습니까?");
@@ -58,10 +68,6 @@ function CommunityDetail () {
         }else{
             
         }
-    }
-    
-    const goback = () => {
-        // history.push();
     }
 
     const clickEdit = () => {
@@ -103,13 +109,13 @@ function CommunityDetail () {
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-maintextbox">
-                                    <h5>{pageDetail.content}</h5>
+                                    <h5>{ parseContent }</h5>
                                 </div>
                                 <div className="community-detail-artiblebox d-flex justify-content-center">
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
+                                    <a className="detail-button" onClick={recommend}><span className="glyphicon glyphicon-thumbs-up"></span></a>
+                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
+                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
+                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-subtextbox">
