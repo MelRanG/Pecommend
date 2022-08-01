@@ -1,10 +1,9 @@
-import './communityRegist.css'
+import './communityEdit.css'
 import Nav from "../../components/nav";
 import axios from 'axios';
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, {useEffect, useState} from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { data } from 'jquery';
 
 // async function handleSubmit(e) {
 //     e.preventDefault()
@@ -19,26 +18,44 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //     }
 // }
 
-function CommunityRegist ()  {
-    let navigate = useNavigate()
+function CommunityEdit ()  {
+    let navigate = useNavigate();
+    let useParam = useParams();
+    let number = parseInt(useParam.num)
+    // const [pageDetail,setPageDetail] = useState({});
     const [formValue, setForm] = useState({
-        writer: 1,
+        writer: '',
         title: '',
         content: '',
         category: 0,
     });
 
-    const [imageFile, setImgFile] = useState([])
-
-    const handleChange = (e) => {
-        const { value, name } = e.target;
-        console.log(value,name)
-        setForm({
-            ...formValue,
-            [name]: value
-        })
-        console.log(formValue)
-    }
+    const getArticleDetail = async () => {
+        try {
+            console.log(number);
+          const response = await axios({
+            method: "get",
+            url: "/api/v1/community/"+number,
+            // data: registwrite,
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+          console.log(response);
+          if (response.status === 200) {
+            console.log(response.data)
+            setForm(response.data)
+            console.log("form value", formValue)
+            const item = document.getElementById("dropdownMenuButton1")
+            let text = document.getElementById(response.data.category)
+            console.log(text)
+            item.innerText = text.innerText
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getArticleDetail()
+    }, [])
 
     const categoryChangehandler = (e) => {
         const item = document.getElementById("dropdownMenuButton1")
@@ -53,6 +70,17 @@ function CommunityRegist ()  {
         
         console.log(formValue)
     }
+
+    const [imageFile, setImgFile] = useState([])
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            ...formValue,
+            [name]: value
+        })
+    }
+
     const imgChange = (e) => {
         setImgFile([]);
         for(var i=0;i<e.target.files.length;i++){
@@ -80,46 +108,44 @@ function CommunityRegist ()  {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        e.target.setAttribute("disabled",'true')
         let registwrite = new FormData();
-        console.log("formvalue is...")
-        console.log(formValue)
-        let datas = formValue
+        let datas =
+        {
+            writer: 1,
+            title: "string",
+            content: "string",
+            category: 2,
+        };
         let jsond = JSON.stringify(datas);
-        console.log("json is ", jsond)
         let file = document.getElementById("img").files[0];
         let blob = new Blob([jsond], { type: "application/json"});
-        console.log("blob is ",blob)
         registwrite.append("file", file)
         registwrite.append("dto",blob)
         
-        console.log("registwrite is...")
         console.log(registwrite);
-        console.log("then try")
         try {
           const response = await axios({
-            method: "post",
-            url: "/api/v1/community",
+            method: "patch",
+            url: "/api/v1/community/" + number,
             // data: registwrite,
             data:{
-                writer: 1,
+                writer: formValue.writer_id,
                 title: formValue.title,
                 content: formValue.content,
                 category: formValue.category,
-            },
+            }
+            // headers: { "Content-Type": "multipart/form-data" },
+            // headers: { "Content-Type" : ""}
+            // JSON.stringify()
           });
           console.log(response);
           if (response.status === 200) {
-            console.log(response.data);
-            alert("작성 완료되었습니다.")
-            navigate(`/commu/detail/${response.data.id}`, { replace: true });
-          }
-          else {
-            e.target.setAttribute("disabled",'false')
+            console.log("!!!");
+            alert("수정되었습니다");
+            navigate("/commu/detail/" + number, { replace: true });
           }
         } catch (error) {
           console.log(error);
-          e.target.setAttribute("disabled",'false')
         }
       };
 
@@ -127,9 +153,9 @@ function CommunityRegist ()  {
         <div className="communityRegist">
             <Nav />
             <div className='community-regist-head'>
-                <span>글쓰기</span>
+                <span>글수정</span>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={() => handleSubmit}>
             <div className='community-regist-topbar'>
                 <div className="regist-topbar-item">
                     <div className="regist-topbar-item-name">
@@ -138,7 +164,7 @@ function CommunityRegist ()  {
                     <div className="regist-topbar-item-context">
                         <div className="dropdown">
                             <button className="regist-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                카테고리
+                                Dropdown button
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a className="" name="category" onClick={categoryChangehandler} id="1">자유</a></li>
@@ -151,11 +177,11 @@ function CommunityRegist ()  {
                 </div>
                 <hr className="hrtag"></hr>
                 <div className="regist-topbar-item">
-                    <div className="regist-topbar-item-name" >
+                    <div className="regist-topbar-item-name">
                         <span>제목</span>
                     </div>
                     <div className="regist-topbar-item-context context-title">
-                        <input type="text" className='regist-topbar-title' name="title" onChange={handleChange} id="titleinput"/>
+                        <input type="text" className='regist-topbar-title' name="title" value={ formValue.title } onChange={handleChange}/>
                     </div>
                 </div>
                 <hr className='hrtag'></hr>
@@ -164,36 +190,13 @@ function CommunityRegist ()  {
                         <span>작성자</span>
                     </div>
                     <div className="regist-topbar-item-context">
-                        <span>작성자 이름이 들어갑니다</span>
+                        <span>{formValue.writer}</span>
                     </div>
                 </div>
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-                {/* <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea> */}
-                <CKEditor
-                    editor={ ClassicEditor }
-                    data="<p>Hello from CKEditor 5!</p>"
-                    onReady={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        setForm({
-                            ...formValue,
-                            content: data
-                        })
-                        console.log( { event, editor, data } );
-                        console.log(formValue)
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                />
+                <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" value={ formValue.content }></textarea>
             </div>
             <input type="file" accept="image/*" id="img" onChange={imgChange}/>
             {imageFile.map((item) => {
@@ -219,4 +222,4 @@ function CommunityRegist ()  {
     );
 }
 
-export default CommunityRegist;
+export default CommunityEdit;

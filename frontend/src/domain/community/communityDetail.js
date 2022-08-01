@@ -4,12 +4,14 @@ import './communityDetail.css'
 import React , { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import parse from 'html-react-parser';
 
 function CommunityDetail () {
     let navigate = useNavigate();
     let useParam = useParams();
     let number = parseInt(useParam.num)
     const [pageDetail,setPageDetail] = useState({});
+    const [parseContent,setParseContent] = useState({});
     const getArticleDetail = async () => {
         try {
             console.log(number);
@@ -25,6 +27,10 @@ function CommunityDetail () {
           if (response.status === 200) {
             console.log(response.data)
             setPageDetail(response.data)
+            // console.log(parse(response.data.content))
+            const parsedata = parse(response.data.content)
+            setParseContent(parsedata)
+            console.log(parseContent)
           }
         } catch (error) {
           console.log(error);
@@ -34,6 +40,10 @@ function CommunityDetail () {
         getArticleDetail()
         console.log(pageDetail)
     }, [])
+
+    const recommend = () => {
+
+    }
 
     const clickRemove = async () => {
         var result = window.confirm("삭제하시겠습니까?");
@@ -59,13 +69,10 @@ function CommunityDetail () {
             
         }
     }
-    
-    const goback = () => {
-        // history.push();
-    }
 
     const clickEdit = () => {
         alert("수정버튼 누름!")
+        navigate("/commu/edit/" + number, { replace: true });
     }
     return (
         <div className="communityDetail">
@@ -86,29 +93,29 @@ function CommunityDetail () {
             <div class="pt-95 pb-100">
                 <div class="container">
                     <div class="row flex-row-reverse">
-                        <div class="col-lg-9 community-detail-box">
+                        <div class="col-lg-12 community-detail-box">
                             <div class="community-detail">
                                 <div class="community-detail-title">
-                                    {/* <h4 class="ms-5 mt-3">{{ num }}</h4> */}
+                                    <h4 class="ms-5 mt-3">{pageDetail.title}</h4>
                                 </div>
                                 <div class="community-detail-user d-flex flex-row justify-content-between align-items-center mx-2">
                                     <div>
                                         <img alt="?" src="" class="me-3"/><span>{pageDetail.writer}</span>
                                     </div>
                                     <div>
-                                        <h5 style={{margin:"0"}}>조회 20</h5>
+                                        <h5 style={{margin:"0"}}>추천 {pageDetail.communityLike}</h5>
                                         <h5 style={{margin:"0"}}>2022.07.15</h5>
                                     </div>
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-maintextbox">
-                                    <h5>{pageDetail.content}</h5>
+                                    <h5>{ parseContent }</h5>
                                 </div>
                                 <div className="community-detail-artiblebox d-flex justify-content-center">
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
-                                    <a href="#"><img alt="" src="" class="articleButton" /></a>
+                                    <a className="detail-button" onClick={recommend}><span className="glyphicon glyphicon-thumbs-up"></span></a>
+                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
+                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
+                                    <a className="detail-button" href="#"><img alt="" src="" class="articleButton" /></a>
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-subtextbox">
@@ -159,15 +166,9 @@ function CommunityDetail () {
                                     <hr></hr>
                                 </div>
                             </div>
-                            <div class="community-button-set d-flex justify-content-center">
-                                <button class="community-button" onClick={goback}>목록으로</button>
-                            </div>
                         </div>
                     </div>
                 </div>
-              </div>
-              <div className="community-button-set d-flex justify-content-center">
-                <button className="community-button">목록으로</button>
               </div>
             </div>
   );
