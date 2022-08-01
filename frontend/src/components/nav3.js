@@ -1,0 +1,51 @@
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import "./nav3.css";
+
+function Nav3() {
+
+  useEffect(() => {
+    const toggleBtn = document.querySelector('.navbar__toogleBtn');
+    const menu = document.querySelector('.navbar__menu');
+    const icons = document.querySelector('.navbar__icons');
+
+    toggleBtn.addEventListener('click', () => {
+      menu.classList.toggle('active');
+      icons.classList.toggle('active');
+    });
+  })
+
+
+  return (
+    <nav className="navbar">
+      <div className="navbar__logo">
+        <Link to={"/"}>
+          <img
+            alt="?"
+            src="assets/tempImg/logo2.PNG"
+            style={{ height: "80px" }}
+          />
+        </Link>
+      </div>
+      <ul className="navbar__menu">
+        <li>
+          <Link to="/perfume">PERFUME</Link>
+        </li>
+        <li>
+          <Link to="/commu">COMMUNITY</Link>
+        </li>
+        <li>
+          <Link to="/test">TEST</Link>
+        </li>
+      </ul>
+      <ul className="navbar__icons">
+        <li>
+          <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
+        </li>
+      </ul>
+      <a href="#" className="navbar__toogleBtn"><i class="fa-solid fa-bars"></i></a>
+    </nav>
+  );
+}
+
+export default Nav3;
