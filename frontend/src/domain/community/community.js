@@ -5,35 +5,45 @@ import CommunityDetail from "./communityDetail";
 import communityMain from "./communityMain";
 import CommunityList from "./communityList";
 import CommunityRegist from "./communityRegist";
-// import "./community.css"; 이거 적용안되고 perfume.css 적용중
-
+import "./community.css";
 
 const Community = () => {
-
   return (
     <div>
       <div className="container-temp">
-        <div className="pernav" >
+        <div className="pernav">
           <div className="pernav-header">
             <div className="pernav-header-title tac">
               <span>COMMUNITY</span>
             </div>
           </div>
-          {/* <div className="pernav-header-menu">
-            <div className="per-nav n3">
+          <div className="pernav-header-menu">
+            <div className="per-nav n7">
               <ul className="mb-0">
                 <li className="is-active">
-                  <Link to="">MAIN</Link>
+                  <Link to="">전체</Link>
                 </li>
                 <li>
-                  <Link to="list">LIST</Link>
+                  <Link to="list">자유</Link>
                 </li>
                 <li>
-                  <Link to="reglist">REGIST</Link>
+                  <Link to="reglist">향수</Link>
+                </li>
+                <li>
+                  <Link to="reglist">인기</Link>
+                </li>
+                <li>
+                  <Link to="reglist">베스트</Link>
+                </li>
+                <li>
+                  <Link to="reglist">질문</Link>
+                </li>
+                <li>
+                  <Link to="reglist">공지</Link>
                 </li>
               </ul>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
       <Routes>
