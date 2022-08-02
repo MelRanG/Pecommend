@@ -53,6 +53,10 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/86b0f3c460.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Bootstrap CSS -->
     <!-- <script
@@ -128,16 +132,28 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
     <script>
+      ClassicEditor
+          .create( document.querySelector( '#editor' ) )
+          .catch( error => {
+              console.error( error );
+          } );
+  </script> -->
+  
+    <script>
+      // $(document).ready(function () {
+      //   $(".bxslider").bxSlider({
+      //     mode: "vertical",
+      //     slideMargin: 5,
+      //     pager: false,
+      //     onSliderLoad: function () {
+      //       $("#edd").css("visibility", "visible").animate({ opacity: 1 });
+      //     },
+      //   });
+      // });
       $(document).ready(function () {
-        $(".bxslider").bxSlider({
-          mode: "vertical",
-          slideMargin: 5,
-          pager: false,
-          onSliderLoad: function () {
-            $("#edd").css("visibility", "visible").animate({ opacity: 1 });
-          },
-        });
+        $(".slider").bxSlider();
       });
     </script>
   </body>

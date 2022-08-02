@@ -1,9 +1,12 @@
 // import logo from './logo.svg';
 import React, { useState } from "react";
+import { Link, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./perfumeList.css";
 // import "./perfumeList.scss";
 
-function perfumeList() {
+function PerfumeList() {
+
   return (
     <div className="perfumeList">
       {/* <div className="breadcrumb-area pt-50 pb-50 perfume_nav">
@@ -410,7 +413,8 @@ function perfumeList() {
                       <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                         <div className="product-wrap mb-25 scroll-zoom">
                           <div className="product-img">
-                            <a href="product-details.html">
+                            {/* <a href="product-details.html"> */}
+                            <Link to="../detail">
                               <div className="text_photo">
                                 <div className="explain">
                                   <div className="list-hashtag">
@@ -427,12 +431,13 @@ function perfumeList() {
                                   alt=""
                                 />
                               </div>
-                            </a>
+                              {/* </a> */}
+                            </Link>
                             <span className="purple">New</span>
                           </div>
                           <div className="product-content text-center">
                             <h3>
-                              <a href="product-details.html">향수명1</a>
+                              향수명1
                             </h3>
                           </div>
                         </div>
@@ -1126,4 +1131,4 @@ function perfumeList() {
   );
 }
 
-export default perfumeList;
+export default PerfumeList;

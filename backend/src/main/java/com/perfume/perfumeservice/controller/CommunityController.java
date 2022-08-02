@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +21,9 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @PostMapping("/like")
-    public ResponseEntity<String> addLike(long userId, long postId){
+    public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
+        Long userId = map.get("userId");
+        Long postId = map.get("postId");
         String result = communityService.addLike(userId, postId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

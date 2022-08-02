@@ -195,10 +195,28 @@ color: #b3b3b3;
   height: 170px;
   line-height: 170px;
 }
-.detail-likeDislikeList-item img{
-  height: 150px;
+
+.ldltext{
+  font-family: 'NanumBarunGothic';
+  height: 170px;
+  line-height: 170px;
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
 }
 
+
+.detail-likeDislikeList-item img{
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
+  background-color: #fff;
+  border: 2px solid #774af173;
+}
+.dontlike img{
+  border: 2px solid #ff616186;
+}
 
 /* 4개용
 .topList {
