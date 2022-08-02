@@ -21,6 +21,8 @@ import { Provider } from "react-redux";
 import store from "redux/store";
 import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 {
@@ -32,16 +34,19 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 ></link>; */
 }
 
-const reduxStore = createStore(store, composeWithDevTools);
+const rootReduce = createStore(store, composeWithDevTools);
+const persistor = persistStore(rootReduce);
 
 root.render(
-  <Provider store={reduxStore}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
-    ,
+  <Provider store={rootReduce}>
+    <PersistGate loading={null} persistor={persistor}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
+      ,
+    </PersistGate>
   </Provider>,
 );
 

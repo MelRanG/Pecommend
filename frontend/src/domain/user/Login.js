@@ -67,8 +67,8 @@ function Login() {
       .then(function (response) {
         console.log(response);
         if (response.status == 200) {
-          localStorage.setItem("Auth", response.data.accessToken);
-          localStorage.setItem("Refresh", response.data.refreshToken);
+          sessionStorage.setItem("Auth", response.data.accessToken);
+          sessionStorage.setItem("Refresh", response.data.refreshToken);
 
           // 회원 정보 저장하는 부분 구현필요
 

@@ -16,13 +16,18 @@ function Oauth() {
         method: "get",
         url: "/api/v1/user/myinfo",
         headers: {
-          Authorization: "Bearer" + localStorage.getItem("Auth"),
+          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
         },
       });
 
-      saveUser(response.data);
+      const saveInfo = {
+        user_id: response.data.user_id,
+        email: response.data.email,
+        nickname: response.data.nickname,
+      };
+
+      saveUser(saveInfo);
       console.log(response.data);
-      console.log(user);
     } catch (error) {
       console.log(error);
     }
@@ -31,12 +36,13 @@ function Oauth() {
   useEffect(() => {
     var tokens = queryString.parse(window.location.search);
 
-    localStorage.setItem("Auth", tokens.Auth);
-    localStorage.setItem("Refresh", tokens.Refresh);
+    sessionStorage.setItem("Auth", tokens.Auth);
+    sessionStorage.setItem("Refresh", tokens.Refresh);
 
     // 받아온 토큰으로 유저 정보 가져와 저장하는 로직 필요
-    getUserInfo();
-    //document.location.href = "/";
+    getUserInfo().then(() => {
+      document.location.href = "/";
+    });
   }, []);
 }
 
