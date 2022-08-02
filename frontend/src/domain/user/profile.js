@@ -1,9 +1,51 @@
 import "./profile.css";
-import Nav from "../../components/nav";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
-function profile() {
+function Profile() {
   let hashtag_list = ["따뜻한", "봄", "가을"];
+
+  const [userprofile, setUserProfile] = useState([]);
+  const [age, setAge] = useState(0);
+
+  const getUserInfo = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/user/myinfo",
+        headers: {
+          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
+        },
+      });
+      if (response.status === 200) {
+        setUserProfile(response.data);
+      }
+
+      setAge(getAge(response.data.birthday));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const getGender = (data) => {
+    let gender = (data === 'male') ? '남성' : '여성';
+    return gender;
+  }
+
+  const getAge = (data) => {
+    const nums = data.split("-");
+    const today = new Date();
+    const birthDate = new Date(nums[0], nums[1], nums[2]);
+
+    let age = today.getFullYear() - birthDate.getFullYear() + 1;
+
+    return parseInt(age / 10) * 10;
+  };
 
   return (
     <div className="profile">
@@ -11,14 +53,14 @@ function profile() {
         <div className="col-md-4 profile-top">
           <div className="profileBox">
             <div>
-              <img
+              {/* <img
                 className="profile-img"
                 src="./assets/tempImg/다운로드 (1).jpg"
                 alt="?"
-              />
-              <h4>닉네임</h4>
+              /> */}
+              <h4>{userprofile.nickname}</h4>
               <button className="profile-edit-button" type="button">
-                수정하기
+                <Link to="/profile/update">수정하기</Link>
               </button>
             </div>
           </div>
@@ -32,10 +74,9 @@ function profile() {
               })}
             </div>
             <div className="profileDataLine">
-              <h5>성별 : 비공개</h5>
-              <h5>나이 : 90년대생</h5>
-              <h5>MBTI : 비공개</h5>
-              <h5>써본 향수 개수 : 비공개</h5>
+              <h5>성별 : {getGender(userprofile.gender)}</h5>
+              <h5>나이 : {age}대</h5>
+              <h5>MBTI : {userprofile.mbti}</h5>
             </div>
           </div>
         </div>
@@ -232,4 +273,4 @@ function TagSpawn(props) {
   );
 }
 
-export default profile;
+export default Profile;
