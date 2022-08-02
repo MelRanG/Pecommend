@@ -7,17 +7,23 @@ import Footer from "../../components/footer";
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { ajaxPrefilter } from "jquery";
 
 function Login() {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [cnum, setCnum] = React.useState("");
   const [regist_pwd, setRpwd] = React.useState("");
   const [pwdRe, setPwdRe] = React.useState("");
   const [birth, setBirth] = React.useState("");
   const [nick, setNick] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [mbti, setMbti] = React.useState("");
+  const [match, setMatch] = React.useState("");
+  const [email_disabled, setEmailDisabled] = React.useState(false);
+  const [check_disabled, setCheckDisabled] = React.useState(false);
+  const [nick_check, setNickCheck] = React.useState(false);
 
   const onIDhandler = (event) => {
     setId(event.currentTarget.value);
@@ -29,6 +35,10 @@ function Login() {
 
   const onEmailhandler = (event) => {
     setEmail(event.currentTarget.value);
+  };
+
+  const onCnumhandler = (event) => {
+    setCnum(event.currentTarget.value);
   };
 
   const onRPWDhandler = (event) => {
@@ -45,6 +55,7 @@ function Login() {
 
   const onNicknamehandler = (event) => {
     setNick(event.currentTarget.value);
+    setNickCheck(false);
   };
 
   const onGenderHandler = (event) => {
@@ -76,31 +87,91 @@ function Login() {
         }
       })
       .catch(function (error) {
-        // alertify 로 꾸며주는 부분 필요
-        alert("틀렸습니다.");
+        // 1. alertify 로 꾸며주는 부분 필요
+        alert("ID, Password를 다시 확인해주세요.");
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const onRegisthandler = (event) => {
+  const getFormatDate = (birth) => {
+    var year = new Date(birth).getFullYear(); //yyyy
+    var month = 1 + new Date(birth).getMonth(); //M
+    month = month >= 10 ? month : "0" + month; //month 두자리로 저장
+    var day = new Date(birth).getDate(); //d
+    day = day >= 10 ? day : "0" + day; //day 두자리로 저장
+    return year + "-" + month + "-" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+  };
+
+  // 이메일 유효성, 인증번호 받기
+  const sendMail = (event) => {
     event.preventDefault();
-    let body = {
-      email: email,
-      password: regist_pwd,
-      nickname: nick,
-      birth: birth,
-    };
-    console.log("회원가입");
-    console.log(body);
+    console.log(email);
+    const regExp =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    if (regExp.test(email) === false) {
+      alert("이메일의 형식이 맞지 않습니다.");
+    } else {
+      axios
+        .post("/api/v1/user/email-confirm.do", email)
+        .then(function (response) {
+          if (response.status == 200) {
+            alert("전송 완료!");
+            setMatch(response.data);
+            setEmailDisabled(true);
+          } else {
+            alert("Error");
+          }
+          console.log(match);
+        })
+        .catch(function (error) {
+          alert("이미 가입된 메일입니다.");
+          console.log(error);
+        });
+    }
+  };
+
+  // 이메일 인증번호 인증
+  const sendMailMatch = (event) => {
+    event.preventDefault();
+    console.log(match);
+    console.log(cnum);
+    if (cnum === match) {
+      alert("인증 완료");
+      setCheckDisabled(true);
+    } else {
+      alert("인증 번호를 다시 확인해 주세요");
+    }
+  };
+
+  // 비밀번호 유효성 검사
+  const checkPassword = (password) => {
+    // 8~16자리 문자, 숫자, 특수문자 조합.
+    const regExp = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
+    if (regExp.test(password) === false) {
+      // alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  // 닉네임 중복검사
+  const checkNickname = (event) => {
+    event.preventDefault();
+    console.log(nick);
+    console.log(nick_check);
     axios
-      .post("/api/v1/user/signup.do", body)
+      .get("/api/v1/user/check.do/nickname/" + nick)
       .then(function (response) {
-        if (response.data.code == 0) {
-          console.log("!!regist!!");
+        // console.log(response.data);
+        if (response.data === true) {
+          alert("이미 존재하는 닉네임입니다.");
         } else {
-          console.log(response.data);
+          alert("사용 가능한 닉네임입니다.");
+          setNickCheck(true);
+          console.log(nick_check);
         }
       })
       .catch(function (error) {
@@ -108,24 +179,55 @@ function Login() {
       });
   };
 
-  const checkNickname = (event) => {
+  // 회원가입
+  const onRegisthandler = (event) => {
     event.preventDefault();
-    console.log(nick);
-    axios
-      .get("/api/v1/user/check.do/nickname/" + nick)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+    if (email_disabled === false) {
+      alert("이메일 인증번호 받기가 필요합니다.");
+    } else if (check_disabled === false) {
+      alert("인증번호 인증이 필요합니다.");
+    } else if (checkPassword(regist_pwd) === false) {
+      alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
+    } else if (regist_pwd !== pwdRe) {
+      alert("'비밀번호 확인'을 다시 해주세요.");
+    } else if (nick_check === false) {
+      alert("닉네임 중복확인이 필요합니다.");
+    } else if (birth === "") {
+      alert("생일을 선택해주세요.");
+    } else if (gender === "") {
+      alert("성별을 선택해주세요.");
+    } else if (mbti === "") {
+      alert("MBTI를 선택해주세요.");
+    } else {
+      let body = {
+        email: email,
+        password: regist_pwd,
+        nickname: nick,
+        // birth: getFormatDate(birth),
+        birth: birth,
+        gender: gender,
+        mbti: mbti,
+      };
+      console.log("회원가입");
+      console.log(body);
 
-  // 유효성 검사 필요
-  // const checkValid = () =>{
-  //   // 안맞으면( 트루면 ) alter로 띄우고
-  //   //
-  // }
+      axios
+        .post("/api/v1/user/signup.do", body)
+        .then(function (response) {
+          console.log(response.data.code);
+          console.log(response);
+          if (response.status == 200) {
+            console.log("!!regist!!");
+            document.location.href = "/";
+          } else {
+            console.log(response.data);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  };
 
   return (
     <div className="Login">
@@ -213,32 +315,49 @@ function Login() {
                         <div className="login-register-form">
                           <form onSubmit={onRegisthandler}>
                             <label>이메일</label>
-                            <button class="btn" style={{ float: "right" }}>
+                            <button
+                              class="btn"
+                              style={{ float: "right" }}
+                              onClick={sendMail}
+                            >
                               인증번호 받기
                             </button>
                             <input
                               name="user-email"
                               placeholder="Email"
                               type="email"
+                              onChange={onEmailhandler}
+                              disabled={email_disabled}
                             />
                             <label>인증번호</label>
-                            <button class="btn" style={{ float: "right" }}>
+                            <button
+                              class="btn"
+                              style={{ float: "right" }}
+                              onClick={sendMailMatch}
+                            >
                               인증
                             </button>
-                            <input name="user-email-confirm" type="text" />
-
+                            <input
+                              name="user-email-confirm"
+                              type="text"
+                              onChange={onCnumhandler}
+                              disabled={check_disabled}
+                            />
                             <label>비밀번호</label>
                             <input
                               type="password"
                               name="user-password"
-                              placeholder="Password"
+                              placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
+                              onChange={onRPWDhandler}
                             />
                             <label>비밀번호 확인</label>
                             <input
                               name="user-password-confirm"
                               placeholder="Password confirm"
                               type="password"
+                              onChange={onPWDReHandler}
                             />
+
                             <label>닉네임</label>
                             <button
                               class="btn"
@@ -258,6 +377,7 @@ function Login() {
                               name="birthday"
                               placeholder="birthday"
                               type="date"
+                              onChange={onBirthhandler}
                             />
                             <label>성별</label>
                             <br />
@@ -266,6 +386,7 @@ function Login() {
                               value="male"
                               type="radio"
                               id="male-check"
+                              onChange={onGenderHandler}
                             />
                             <label
                               for="male-check"
@@ -278,6 +399,7 @@ function Login() {
                               value="female"
                               type="radio"
                               id="female-check"
+                              onChange={onGenderHandler}
                             />
                             <label
                               for="female-check"
@@ -288,23 +410,28 @@ function Login() {
                             <br />
                             <br />
                             <label>MBTI</label>
-                            <select name="mbti" className="form-select">
-                              <option value="">ISTJ</option>
-                              <option value="">ISTP</option>
-                              <option value="">ISFJ</option>
-                              <option value="">ISFP</option>
-                              <option value="">INTJ</option>
-                              <option value="">INTP</option>
-                              <option value="">INFJ</option>
-                              <option value="">INFP</option>
-                              <option value="">ESTJ</option>
-                              <option value="">ESTP</option>
-                              <option value="">ESFJ</option>
-                              <option value="">ESFP</option>
-                              <option value="">ENTJ</option>
-                              <option value="">ENTP</option>
-                              <option value="">ENFJ</option>
-                              <option value="">ENFP</option>
+                            <select
+                              name="mbti"
+                              className="form-select"
+                              onChange={onMbtiHandler}
+                            >
+                              <option value="">선택</option>
+                              <option value="ISTJ">ISTJ</option>
+                              <option value="ISTP">ISTP</option>
+                              <option value="ISFJ">ISFJ</option>
+                              <option value="ISFP">ISFP</option>
+                              <option value="INTJ">INTJ</option>
+                              <option value="INTP">INTP</option>
+                              <option value="INFJ">INFJ</option>
+                              <option value="INFP">INFP</option>
+                              <option value="ESTJ">ESTJ</option>
+                              <option value="ESTP">ESTP</option>
+                              <option value="ESFJ">ESFJ</option>
+                              <option value="ESFP">ESFP</option>
+                              <option value="ENTJ">ENTJ</option>
+                              <option value="ENTP">ENTP</option>
+                              <option value="ENFJ">ENFJ</option>
+                              <option value="ENFP">ENFP</option>
                             </select>
                             <div className="button-box">
                               <button type="submit">
@@ -321,235 +448,7 @@ function Login() {
             </div>
           </div>
         </div>
-
-        {/* <!-- Modal --> */}
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          role="dialog"
-        >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div className="row">
-                  <div className="col-md-5 col-sm-12 col-xs-12">
-                    <div className="tab-content quickview-big-img">
-                      <div id="pro-1" className="tab-pane fade show active">
-                        <img src="assets/img/product/quickview-l1.jpg" alt="" />
-                      </div>
-                      <div id="pro-2" className="tab-pane fade">
-                        <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                      </div>
-                      <div id="pro-3" className="tab-pane fade">
-                        <img src="assets/img/product/quickview-l3.jpg" alt="" />
-                      </div>
-                      <div id="pro-4" className="tab-pane fade">
-                        <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                      </div>
-                    </div>
-                    {/* <!-- Thumbnail Large Image End --> */}
-                    {/* <!-- Thumbnail Image End --> */}
-                    <div className="quickview-wrap mt-15">
-                      <div
-                        className="quickview-slide-active owl-carousel nav nav-style-1"
-                        role="tablist"
-                      >
-                        <a
-                          className="active"
-                          data-bs-toggle="tab"
-                          href="#pro-1"
-                        >
-                          <img
-                            src="assets/img/product/quickview-s1.jpg"
-                            alt=""
-                          />
-                        </a>
-                        <a data-bs-toggle="tab" href="#pro-2">
-                          <img
-                            src="assets/img/product/quickview-s2.jpg"
-                            alt=""
-                          />
-                        </a>
-                        <a data-bs-toggle="tab" href="#pro-3">
-                          <img
-                            src="assets/img/product/quickview-s3.jpg"
-                            alt=""
-                          />
-                        </a>
-                        <a data-bs-toggle="tab" href="#pro-4">
-                          <img
-                            src="assets/img/product/quickview-s2.jpg"
-                            alt=""
-                          />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-7 col-sm-12 col-xs-12">
-                    <div className="product-details-content quickview-content">
-                      <h2>Products Name Here</h2>
-                      <div className="product-details-price">
-                        <span>$18.00 </span>
-                        <span className="old">$20.00 </span>
-                      </div>
-                      <div className="pro-details-rating-wrap">
-                        <div className="pro-details-rating">
-                          <i className="fa fa-star-o yellow"></i>
-                          <i className="fa fa-star-o yellow"></i>
-                          <i className="fa fa-star-o yellow"></i>
-                          <i className="fa fa-star-o"></i>
-                          <i className="fa fa-star-o"></i>
-                        </div>
-                        <span>3 Reviews</span>
-                      </div>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisic elit
-                        eiusm tempor incidid ut labore et dolore magna aliqua.
-                        Ut enim ad minim venialo quis nostrud exercitation
-                        ullamco
-                      </p>
-                      <div className="pro-details-list">
-                        <ul>
-                          <li>- 0.5 mm Dail</li>
-                          <li>- Inspired vector icons</li>
-                          <li>- Very modern style </li>
-                        </ul>
-                      </div>
-                      <div className="pro-details-size-color">
-                        <div className="pro-details-color-wrap">
-                          <span>Color</span>
-                          <div className="pro-details-color-content">
-                            <ul>
-                              <li className="blue"></li>
-                              <li className="maroon active"></li>
-                              <li className="gray"></li>
-                              <li className="green"></li>
-                              <li className="yellow"></li>
-                              <li className="white"></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="pro-details-size">
-                          <span>Size</span>
-                          <div className="pro-details-size-content">
-                            <ul>
-                              <li>
-                                <a href="#">s</a>
-                              </li>
-                              <li>
-                                <a href="#">m</a>
-                              </li>
-                              <li>
-                                <a href="#">l</a>
-                              </li>
-                              <li>
-                                <a href="#">xl</a>
-                              </li>
-                              <li>
-                                <a href="#">xxl</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="pro-details-quality">
-                        <div className="cart-plus-minus">
-                          <input
-                            className="cart-plus-minus-box"
-                            type="text"
-                            name="qtybutton"
-                            value="2"
-                          />
-                        </div>
-                        <div className="pro-details-cart btn-hover">
-                          <a href="#">Add To Cart</a>
-                        </div>
-                        <div className="pro-details-wishlist">
-                          <a href="#">
-                            <i className="fa fa-heart-o"></i>
-                          </a>
-                        </div>
-                        <div className="pro-details-compare">
-                          <a href="#">
-                            <i className="pe-7s-shuffle"></i>
-                          </a>
-                        </div>
-                      </div>
-                      <div className="pro-details-meta">
-                        <span>Categories :</span>
-                        <ul>
-                          <li>
-                            <a href="#">Minimal,</a>
-                          </li>
-                          <li>
-                            <a href="#">Furniture,</a>
-                          </li>
-                          <li>
-                            <a href="#">Electronic</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="pro-details-meta">
-                        <span>Tag :</span>
-                        <ul>
-                          <li>
-                            <a href="#">Fashion, </a>
-                          </li>
-                          <li>
-                            <a href="#">Furniture,</a>
-                          </li>
-                          <li>
-                            <a href="#">Electronic</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="pro-details-social">
-                        <ul>
-                          <li>
-                            <a href="#">
-                              <i className="fa fa-facebook"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fa fa-dribbble"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fa fa-pinterest-p"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fa fa-twitter"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fa fa-linkedin"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      {/* <!-- Modal end --> */}
     </div>
   );
 }
