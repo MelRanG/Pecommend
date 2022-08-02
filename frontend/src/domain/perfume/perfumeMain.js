@@ -1,12 +1,13 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
+import { Link, Routes, Route } from "react-router-dom";
 import "./perfumeMain.css";
-import $ from "jquery";
-import jQuery from "jquery";
+// import $ from "jquery";
+// import jQuery from "jquery";
 
 // import { Outlet } from 'react-router-dom';
 // 향수 메인 페이지
-const perfumeMain = () => {
+const PerfumeMain = () => {
   // useEffect(() => {
   //   $(document).ready(function () {
   //     $(".bxslider").bxSlider({
@@ -22,29 +23,10 @@ const perfumeMain = () => {
 
   return (
     <div className="perfumeMain">
-      {/* <Outlet /> */}
-      {/* <Routes>
-        <Route path="/perfume/list" element={<PerfumeList />} />
-        <Route path="/perfume/detail" element={<PerfumeDetail />} />
-        <Route path="/perfume/reglist" element={<PerfumeRegistList />} />
-        <Route path="/perfume/regist" element={<PerfumeRegist />} />
-      </Routes> */}
-      {/* 
-      <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
-        <div className="container">
 
-          <div className="breadcrumb-content text-center">
-            <ul>
-
-              <li className="active">PERFUME</li>
-            </ul>
-          </div>
-        </div>
-      </div> */}
       <div className="perfume-popular-area pt-50 pb-100">
         <div className="container">
           {/* 해시태그 */}
-          {/* ul li가아니라 div로 처리할지 고민중. */}
           <div className="product-details-content mt-30">
             <div className="title row">
               <h2 className="title-popular col-sm-6">인기 키워드</h2>
@@ -119,7 +101,7 @@ const perfumeMain = () => {
                 <div className="title-sub col-sm-6">더보기 {">"}</div>
               </div>
               <div className="perfume-popular-items row pl-20 pr-20">
-                <div className="perfume-popular-item col-lg-2">
+                {/* <div className="perfume-popular-item col-lg-2">
                   <div className="popular-img">
                     <img src=".\assets\tempImg\280 (1).jpg" alt="" />
                   </div>
@@ -134,6 +116,42 @@ const perfumeMain = () => {
                   <div className="popular-img">
                     <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                   </div>
+                  <p>향수명</p>
+                </div> */}
+                <div className="product-wrap perfume-popular-item mb-25 scroll-zoom col-lg-2">
+                  <div className="product-img">
+                    {/* <a href="product-details.html"> */}
+                    <Link to="../detail">
+                      <div className="text_photo">
+                        <div className="explain">
+                          <div className="list-hashtag">
+                            <div className="">#장미</div>
+                            <div className="">
+                              #해시태그가어디까지길어지는거죠?
+                            </div>
+                            <div className="">#복숭아</div>
+                          </div>
+                        </div>
+                        <img
+                          className="default-img"
+                          src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                          alt=""
+                        />
+                      </div>
+                      {/* </a> */}
+                    </Link>
+                    <span className="purple">New</span>
+                  </div>
+                  <div className="product-content text-center">
+                    <h3>
+                      향수명1
+                    </h3>
+                  </div>
+                </div>
+
+
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                   <p>향수명</p>
                 </div>
                 <div className="perfume-popular-item col-lg-2">
@@ -198,7 +216,7 @@ const perfumeMain = () => {
             <div
               className="slider"
               id="edd"
-              style={{ visibility: "hidden", opacity: "0" }}
+            // style={{ visibility: "hidden", opacity: "0" }}
             >
               {/* <div>I am a slide.</div>
             <div>I am another slide.</div> */}
@@ -654,4 +672,4 @@ const perfumeMain = () => {
   );
 };
 
-export default perfumeMain;
+export default PerfumeMain;

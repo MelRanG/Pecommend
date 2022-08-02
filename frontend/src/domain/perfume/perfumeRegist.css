@@ -7,8 +7,10 @@
     flex-direction: column !important;
 }
 
-.name-input {
-    width:50%;
+.name-input ,
+.maker-input{
+    width:60%;
+    min-width: 250px;
 }
 
 .name-input:focus {
@@ -24,9 +26,7 @@
     flex-direction: column !important;
 }
 
-.maker-input {
-    width:50%;
-}
+
 
 .maker-input:focus {
     background-color: #ffffff;

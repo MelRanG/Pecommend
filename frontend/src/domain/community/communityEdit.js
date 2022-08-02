@@ -1,30 +1,64 @@
-import './communityRegist.css'
+import './communityEdit.css'
 import Nav from "../../components/nav";
 import axios from 'axios';
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import Editor from "./editor"
+import React, {useEffect, useState} from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { data } from 'jquery';
+import Editor from './editor';
 
-function CommunityRegist ()  {
-    let navigate = useNavigate()
+// async function handleSubmit(e) {
+//     e.preventDefault()
+//     let registwrite = {writer : 1, title: "타이틀", content : "내용", category : 1};
+//     console.log(registwrite)
+//     try {
+//         // const response = await axios.post("/api/v1/community",registwrite);
+//         const response = await axios.get("/api/v1/community/test.do");
+//         console.log(response)
+//     } catch(error) {
+//         console.log(error)
+//     }
+// }
+
+function CommunityEdit ()  {
+    let navigate = useNavigate();
+    let useParam = useParams();
+    let number = parseInt(useParam.num)
+    // const [pageDetail,setPageDetail] = useState({});
     const [formValue, setForm] = useState({
-        writer: 1,
+        writer: '',
         title: '',
         category: 0,
     });
-    const[content,setContent] = useState("")
 
-    const handleChange = (e) => {
-        const { value, name } = e.target;
-        console.log(value,name)
-        setForm({
-            ...formValue,
-            [name]: value
-        })
-        console.log(formValue)
-    }
+    const [content,setContent] = useState("")
+
+    const getArticleDetail = async () => {
+        try {
+            console.log(number);
+          const response = await axios({
+            method: "get",
+            url: "/api/v1/community/"+number,
+            // data: registwrite,
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+          console.log(response);
+          if (response.status === 200) {
+            console.log(response.data)
+            setForm(response.data)
+            console.log("form value", formValue)
+            const item = document.getElementById("dropdownMenuButton1")
+            let text = document.getElementById(response.data.category)
+            // console.log(text)
+            item.innerText = text.innerText
+            setContent(response.data.content)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    useEffect(() => {
+        getArticleDetail()
+    }, [])
 
     const categoryChangehandler = (e) => {
         const item = document.getElementById("dropdownMenuButton1")
@@ -40,33 +74,38 @@ function CommunityRegist ()  {
         console.log(formValue)
     }
 
+    const [imageFile, setImgFile] = useState([])
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            ...formValue,
+            [name]: value
+        })
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        e.target.setAttribute("disabled",'true')
         try {
           const response = await axios({
-            method: "post",
-            url: "/api/v1/community",
+            method: "patch",
+            url: "/api/v1/community/" + number,
             // data: registwrite,
             data:{
-                writer: 1,
+                writer: formValue.writer_id,
                 title: formValue.title,
                 content: content,
                 category: formValue.category,
-            },
+            }
           });
           console.log(response);
           if (response.status === 200) {
-            console.log(response.data);
-            alert("작성 완료되었습니다.")
-            navigate(`/commu/detail/${response.data.id}`, { replace: true });
-          }
-          else {
-            e.target.setAttribute("disabled",'false')
+            console.log("!!!");
+            alert("수정되었습니다");
+            navigate("/commu/detail/" + number, { replace: true });
           }
         } catch (error) {
           console.log(error);
-          e.target.setAttribute("disabled",'false')
         }
       };
 
@@ -74,7 +113,7 @@ function CommunityRegist ()  {
         <div className="communityRegist">
             <Nav />
             <div className='community-regist-head'>
-                <span>글쓰기</span>
+                <span>글수정</span>
             </div>
             <form onSubmit={handleSubmit}>
             <div className='community-regist-topbar'>
@@ -98,11 +137,11 @@ function CommunityRegist ()  {
                 </div>
                 <hr className="hrtag"></hr>
                 <div className="regist-topbar-item">
-                    <div className="regist-topbar-item-name" >
+                    <div className="regist-topbar-item-name">
                         <span>제목</span>
                     </div>
                     <div className="regist-topbar-item-context context-title">
-                        <input type="text" className='regist-topbar-title' name="title" onChange={handleChange} id="titleinput"/>
+                        <input type="text" className='regist-topbar-title' name="title" value={ formValue.title } onChange={handleChange}/>
                     </div>
                 </div>
                 <hr className='hrtag'></hr>
@@ -111,17 +150,16 @@ function CommunityRegist ()  {
                         <span>작성자</span>
                     </div>
                     <div className="regist-topbar-item-context">
-                        <span>작성자 이름이 들어갑니다</span>
+                        <span>{formValue.writer}</span>
                     </div>
                 </div>
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-                {/* <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea> */}
                 <Editor
-                SetContent={setContent}
-                content={content}
-            />
+                    SetContent={setContent}
+                    content={content}
+                />
             </div>
             <div className='community-regist-bottombar'>
                 <button className="regist-submit">
@@ -136,4 +174,4 @@ function CommunityRegist ()  {
     );
 }
 
-export default CommunityRegist;
+export default CommunityEdit;

@@ -71,6 +71,9 @@
 }
 
 .searchform {
-    padding-left: 15%;
-    padding-right: 15%;
+    /* padding-left: 15%; */
+    /* padding-right: 15%; */
+    width: 40%;
+    min-width: 380px;
+    margin: auto;
 }

@@ -1,26 +1,15 @@
 import React, { useState } from "react";
+import { Link, Routes, Route } from "react-router-dom";
 import "./perfumeRegistList.css";
-import Nav from "../../components/nav";
 
-function perfumeRegistList() {
+function PerfumeRegistList() {
   return (
     <div className="perfumeRegistList">
-      <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
-        <div className="container">
-          <div className="breadcrumb-content text-center">
-            <ul>
-              <li>
-                <a href="index.html">Home</a>
-              </li>
-              <li className="active">Shop </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="container">
+
+      <div className="container mt-50 mb-100" style={{ width: "80%", minWidth: "500px" }}>
         <div className="top-bar">
           <h4>향수 등록 신청 목록</h4>
-          <button>신청하기</button>
+          <button><Link to={"../reg"}>신청하기</Link></button>
         </div>
 
         <div className="perfume-list">
@@ -125,4 +114,4 @@ function perfumeRegistList() {
   );
 }
 
-export default perfumeRegistList;
+export default PerfumeRegistList;
