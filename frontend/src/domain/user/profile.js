@@ -1,7 +1,7 @@
 import "./profile.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function Profile() {
   let hashtag_list = ["따뜻한", "봄", "가을"];
@@ -32,6 +32,11 @@ function Profile() {
     getUserInfo();
   }, []);
 
+  const getGender = (data) => {
+    let gender = data === "male" ? "남성" : "여성";
+    return gender;
+  };
+
   const getAge = (data) => {
     const nums = data.split("-");
     const today = new Date();
@@ -55,7 +60,7 @@ function Profile() {
               /> */}
               <h4>{userprofile.nickname}</h4>
               <button className="profile-edit-button" type="button">
-                수정하기
+                <Link to="/profile/update">수정하기</Link>
               </button>
             </div>
           </div>
@@ -69,7 +74,7 @@ function Profile() {
               })}
             </div>
             <div className="profileDataLine">
-              <h5>성별 : {userprofile.gender}</h5>
+              <h5>성별 : {getGender(userprofile.gender)}</h5>
               <h5>나이 : {age}대</h5>
               <h5>MBTI : {userprofile.mbti}</h5>
             </div>
