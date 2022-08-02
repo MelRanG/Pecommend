@@ -15,10 +15,10 @@ public class PostsRequestDto {
 
     public Community toEntity(UserEntity user){
         return Community.builder()
-                .category(this.category)
+                .category(category)
                 .writer(user)
-                .title(this.title)
-                .content(this.content)
+                .title(title)
+                .content(content)
       //          .communityLike(communityLike)
                 .build();
     }

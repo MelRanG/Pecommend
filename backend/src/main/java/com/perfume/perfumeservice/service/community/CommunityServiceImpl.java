@@ -147,13 +147,6 @@ public class CommunityServiceImpl implements CommunityService {
         Community community = dto.toEntity(user);
         log.info("id : {}, Community: {}", id, community.toString());
         Community target = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
-//
-//        //잘못된 요청 처리
-//        if(target == null || id != target.getId()){
-//            //400에러
-//            log.info("잘못된 요청!");
-//            return null;
-//        }
         target.patch(community);
         Community updated = communityRepository.save(target);
         return PostsResponseDto.from(updated);
@@ -187,7 +180,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<PostsResponseDto> getListAll() {
-        return communityRepository.findAll().stream()
+        return communityRepository.findAllByOrderByIdDesc().stream()
                 .map(community -> PostsResponseDto.from(community))
                 .collect(Collectors.toList());
     }
