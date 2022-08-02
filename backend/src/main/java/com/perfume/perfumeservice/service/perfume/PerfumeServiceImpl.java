@@ -38,8 +38,8 @@ public class PerfumeServiceImpl  implements PerfumeService {
 
     @Override
     public List<PerfumeResponseDto> getListKeyword(String keyword) {
-        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike(keyword);
-        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike(keyword);
+        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
+        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
         List<PerfumeResponseDto> dtoList = new LinkedList<>();
 
         for(Perfume p: perfumeListKo){

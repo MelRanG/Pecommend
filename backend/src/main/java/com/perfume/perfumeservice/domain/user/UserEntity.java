@@ -56,17 +56,17 @@ public class UserEntity {
     private Set<Community> posts = new LinkedHashSet<>();
 
     // preference
-    @OneToMany(mappedBy = "preference", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Preference> preference = new ArrayList<>();
+//    @OneToMany(mappedBy = "preference", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Preference> preference = new ArrayList<>();
 
     // perfume_review
     // 여기도 writer로 해도 되는겨?
-    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PerfumeReview> reviews = new ArrayList<>();
+//    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<PerfumeReview> reviews = new ArrayList<>();
 
     // review_like
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ReviewLike> reviewLikeList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
     @Column(name = "token")
     private String token;
