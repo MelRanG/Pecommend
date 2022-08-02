@@ -1,10 +1,10 @@
 import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
-import './communityDetail.css'
-import React , { useEffect, useState } from "react";
+import "./communityDetail.css";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 function CommunityDetail () {
     let navigate = useNavigate();
@@ -14,7 +14,7 @@ function CommunityDetail () {
     const [parseContent,setParseContent] = useState({});
     const getArticleDetail = async () => {
         try {
-            console.log(number);
+            console.log("number", number);
           const response = await axios({
             method: "get",
             url: "/api/v1/community/"+number,
@@ -181,31 +181,40 @@ function CommunityDetail () {
                   </select>
                 </div>
 
-                                <hr></hr>
-                                {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
-                                <div className="community-comment-list">
-                                    <div className="community-comment-card d-flex">
-                                        <img alt="?" src="" /><span>닉네임</span>
-                                        <textarea readOnly rows="3">댓글 내용이 들어갑니다.</textarea>
-                                    </div>
-                                    <hr></hr>
-                                    <div className="community-comment-card d-flex">
-                                        <img alt="?" src="" /><span>닉네임</span>
-                                        <textarea readOnly rows="3">댓글 내용이 들어갑니다.</textarea>
-                                    </div>
-                                    <hr></hr>
-                                    <div className="community-comment-card d-flex">
-                                        <img alt="?" src="" /><span>닉네임</span>
-                                        <textarea readOnly rows="3">댓글 내용이 들어갑니다.</textarea>
-                                    </div>
-                                    <hr></hr>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <hr></hr>
+                {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
+                <div className="community-comment-list">
+                  <div className="community-comment-card d-flex">
+                    <img alt="?" src="" />
+                    <span>닉네임</span>
+                    <textarea readOnly rows="3">
+                      댓글 내용이 들어갑니다.
+                    </textarea>
+                  </div>
+                  <hr></hr>
+                  <div className="community-comment-card d-flex">
+                    <img alt="?" src="" />
+                    <span>닉네임</span>
+                    <textarea readOnly rows="3">
+                      댓글 내용이 들어갑니다.
+                    </textarea>
+                  </div>
+                  <hr></hr>
+                  <div className="community-comment-card d-flex">
+                    <img alt="?" src="" />
+                    <span>닉네임</span>
+                    <textarea readOnly rows="3">
+                      댓글 내용이 들어갑니다.
+                    </textarea>
+                  </div>
+                  <hr></hr>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

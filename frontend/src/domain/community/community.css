@@ -54,7 +54,7 @@
     border-left: 1px solid #4b5766;
   }
   .per-nav.n7 li {
-    width: calc(100% / 7);
+    width: calc(100% / 8);
   }
   
   .per-nav li {
