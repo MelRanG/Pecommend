@@ -20,6 +20,7 @@ import PerfumeRegistList from "./domain/perfume/perfumeRegistList";
 import PerfumeRegist from "./domain/perfume/perfumeRegist";
 import Login from "./domain/user/Login";
 import Profile from "./domain/user/profile";
+import Oauth from "./domain/user/oauth";
 //
 import Home from "./domain/home/home";
 import NotFound from "./domain/error/NotFound";
@@ -85,6 +86,10 @@ function App() {
         {
           path: "commutest",
           element: <Community />,
+        },
+        {
+          path: "oauth",
+          element: <Oauth />,
         },
       ],
     },

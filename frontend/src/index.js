@@ -17,6 +17,10 @@ import App from "./App";
 // import Footer from "./components/footer";
 // import Home from "./domain/home/home";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "redux/store";
+import { createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 {
@@ -28,13 +32,17 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 ></link>; */
 }
 
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+const reduxStore = createStore(store, composeWithDevTools);
 
-  </React.StrictMode>
+root.render(
+  <Provider store={reduxStore}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+    ,
+  </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

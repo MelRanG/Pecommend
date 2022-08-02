@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URLDecoder;
 
 @RestController
 @AllArgsConstructor
@@ -47,13 +48,20 @@ public class UserController {
     @PostMapping("/email-confirm.do")
     @ApiOperation(value = "이메일 인증")
     public ResponseEntity<String> confirmEmail(@RequestBody String email){
+        String demail;
+
+        try{
+            demail = URLDecoder.decode(email, "UTF-8");
+        }catch(Exception e){
+            throw new RuntimeException("이메일 인증 중 에러가 발생했습니다.");
+        }
         // 이미 존재하는 이메일이면
-        if(userService.checkEmail(email)){
+        if(userService.checkEmail(demail)){
             throw new DuplicateEmailException();
         }
 
         try {
-            String confirm = mailService.sendSimpleMessage(email, "certification");
+            String confirm = mailService.sendSimpleMessage(demail, "certification");
             return new ResponseEntity<>(confirm, HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();

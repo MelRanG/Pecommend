@@ -3,7 +3,7 @@ import Nav from "../../components/nav";
 import Footer from "../../components/footer";
 import "./home.css";
 
-const home = () => {
+const Home = () => {
   return (
     <div className="home">
       <div className="home1 mb-50">
@@ -153,4 +153,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default Home;
