@@ -25,11 +25,11 @@ public class MailServiceImpl implements MailService{
         ePw.append(createKey());
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
-        message.setSubject("LikeDisLike 회원가입 이메일 인증");//제목
+        message.setSubject("Pecommend 회원가입 이메일 인증");//제목
 
         String msgg="";
         msgg+= "<div style='margin:100px;'>";
-        msgg+= "<h1> 안녕하세요 LikeDisLike입니다. </h1>";
+        msgg+= "<h1> 안녕하세요 Pecommend입니다. </h1>";
         msgg+= "<br>";
         msgg+= "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
         msgg+= "<br>";
@@ -53,11 +53,11 @@ public class MailServiceImpl implements MailService{
         ePw.append(createKey());
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
-        message.setSubject("LikeDisLike 새로운 비밀번호");//제목
+        message.setSubject("Pecommend 새로운 비밀번호");//제목
 
         String msgg="";
         msgg+= "<div style='margin:100px;'>";
-        msgg+= "<h1> 안녕하세요 LikeDisLike입니다. </h1>";
+        msgg+= "<h1> 안녕하세요 Pecommend입니다. </h1>";
         msgg+= "<br>";
         msgg+= "<p>비밀번호가 아래와 같이 변경되었습니다.<p>";
         msgg+= "<br>";

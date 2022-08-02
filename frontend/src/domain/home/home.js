@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
 import Nav from "../../components/nav";
 import Footer from "../../components/footer";
+import { useSelector } from "react-redux";
 import "./home.css";
 
 const Home = () => {
+  const user = useSelector((state) => state.userStore.nowLoginUser);
+
+  useEffect(() => {
+    console.log(user);
+  });
+
   return (
     <div className="home">
       <div className="home1 mb-50">

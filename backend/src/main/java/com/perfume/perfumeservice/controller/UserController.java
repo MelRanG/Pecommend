@@ -39,6 +39,7 @@ public class UserController {
     @PostMapping("/signup.do")
     @ApiOperation(value = "회원 가입")
     public ResponseEntity<UserResponseDto> doSignUp(@Valid @RequestBody SignUpRequestDto requestDto, BindingResult result){
+
         if(result.hasErrors()){
             throw new InvalidParameterException(result);
         }
@@ -48,10 +49,10 @@ public class UserController {
     @PostMapping("/email-confirm.do")
     @ApiOperation(value = "이메일 인증")
     public ResponseEntity<String> confirmEmail(@RequestBody String email){
-        String demail;
+        String demail = email.substring(0, email.length()-1);
 
         try{
-            demail = URLDecoder.decode(email, "UTF-8");
+            demail = URLDecoder.decode(demail, "UTF-8");
         }catch(Exception e){
             throw new RuntimeException("이메일 인증 중 에러가 발생했습니다.");
         }

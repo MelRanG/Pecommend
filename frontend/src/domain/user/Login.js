@@ -6,10 +6,16 @@ import Nav from "../../components/nav";
 import Footer from "../../components/footer";
 import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ajaxPrefilter } from "jquery";
+import { setUser } from "../../redux/user_reducer";
 
 function Login() {
+  const user = useSelector((state) => state.userStore.nowLoginUser);
+
+  const dispatch = useDispatch();
+  const saveUser = (data) => dispatch(setUser(data));
+
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -72,7 +78,6 @@ function Login() {
       email: id,
       password: pwd,
     };
-    console.log(body);
     axios
       .post("/api/v1/user/login.do", body)
       .then(function (response) {
@@ -81,10 +86,11 @@ function Login() {
           sessionStorage.setItem("Auth", response.data.accessToken);
           sessionStorage.setItem("Refresh", response.data.refreshToken);
 
-          // 회원 정보 저장하는 부분 구현필요
-
           document.location.href = "/";
         }
+      })
+      .then(function () {
+        getUserInfo();
       })
       .catch(function (error) {
         // 1. alertify 로 꾸며주는 부분 필요
@@ -95,13 +101,26 @@ function Login() {
       });
   };
 
-  const getFormatDate = (birth) => {
-    var year = new Date(birth).getFullYear(); //yyyy
-    var month = 1 + new Date(birth).getMonth(); //M
-    month = month >= 10 ? month : "0" + month; //month 두자리로 저장
-    var day = new Date(birth).getDate(); //d
-    day = day >= 10 ? day : "0" + day; //day 두자리로 저장
-    return year + "-" + month + "-" + day; //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+  const getUserInfo = async () => {
+    try {
+      const userInfo = await axios({
+        method: "get",
+        url: "/api/v1/user/myinfo",
+        headers: {
+          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
+        },
+      });
+
+      const saveInfo = {
+        user_id: userInfo.data.user_id,
+        email: userInfo.data.email,
+        nickname: userInfo.data.nickname,
+      };
+
+      saveUser(saveInfo);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // 이메일 유효성, 인증번호 받기
@@ -203,8 +222,7 @@ function Login() {
         email: email,
         password: regist_pwd,
         nickname: nick,
-        // birth: getFormatDate(birth),
-        birth: birth,
+        birthday: birth,
         gender: gender,
         mbti: mbti,
       };
