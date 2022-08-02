@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RequiredArgsConstructor
@@ -48,4 +49,11 @@ public class CommentController {
         commentService.deleteComment(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+//    @PostMapping("/like")
+//    @ApiOperation(value = "댓글 추천")
+//    public ResponseEntity<CommentsResponseDto> addLike(@RequestBody Map<String, Long> map){
+//        Long userId = map.get("userId");
+//        Long commentId = map.get("commentId");
+//    }
 }
