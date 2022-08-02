@@ -21,9 +21,10 @@ function Nav3() {
       <div className="navbar__logo">
         <Link to={"/"}>
           <img
+
             alt="?"
-            src="assets/tempImg/logo2.PNG"
-            style={{ height: "80px" }}
+            src="assets/img/logo/logo-3.PNG"
+            style={{ height: "60px", marginBottom: "5px", marginTop: "5px" }}
           />
         </Link>
       </div>

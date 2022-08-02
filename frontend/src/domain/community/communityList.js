@@ -36,73 +36,177 @@ function CommunityList() {
   return (
     <div className="communityRegist">
       {/* <CommunitySidebar /> */}
-      <div class="pb-100">
-        <div class="container">
-          <div class="row flex-row-reverse">
-            <div class="col-lg-12">
+      <div className="pb-100">
+        <div className="container">
+          <div className="row flex-row-reverse">
+            <div className="col-lg-12">
               <div>
-                <h4 class="mt-5" style={{ "text-align": "center" }}>
+                <h4 className="mt-5" style={{ "text-align": "center" }}>
                   "카테고리" 게시판
                 </h4>
               </div>
               <hr></hr>
-              <div className="community-top-box">
-                <button className="community-top-box-active">ㆍ최신</button>
-                <button className="community-top-box-wait">ㆍ추천</button>
-                <button className="community-top-box-wait">ㆍHOT</button>
-                <button className="community-top-box-wait">ㆍ베스트</button>
+              <div className="row">
+                <div className="community-top-box col-lg-6 col-sm-12">
+                  <button className="community-top-box-active">ㆍ최신</button>
+                  <button className="community-top-box-wait">ㆍ추천</button>
+                  <button className="community-top-box-wait">ㆍHOT</button>
+                  <button className="community-top-box-wait">ㆍ베스트</button>
+                </div>
+                <div className="col-lg-6 community-top-regist col-sm-12">
+                  <button type="button" className="btn btn-secondary">글 작성</button>
+                </div>
               </div>
-              <div class="shop-bottom-area mt-15">
-                <div class="tab-content jump">
+              <div className="shop-bottom-area mt-15">
+                <div className="tab-content jump">
+
+
+                  <table className="table table-hover">
+                    <thead>
+                      <tr className="table-top">
+                        <th scope="col">#</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성일</th>
+                        <th scope="col">추천수</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dataList.map((data) => (
+                        <tr className="table-bottom">
+                          <th scope="row" style={{ textAlign: "center" }}>
+                            {data.id}
+                          </th>
+                          <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                            <Link
+                              class="community-list-titlebox"
+                              to={`/commu/detail/${data.id}`}
+                            >
+                              {data.title}
+                            </Link>
+                          </td>
+                          {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
+                          {/* <td>{data.writer}</td> */}
+                          <td className="" style={{ textAlign: "left", paddingLeft: "15px" }}>
+                            <Link
+                              class=""
+                              to={`/profile/${data.writer_id}`}
+                            >
+                              {data.writer}
+                            </Link>
+                          </td>
+                          <td>{data.date}2022.08.20</td>
+                          <td>{data.communityLike}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="commu_list_pagenation">
+                    <nav aria-label="Page navigation example">
+                      <ul className="pagination">
+                        <li className="page-item">
+                          <a className="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li className="page-item"><a className="page-link" href="#">1</a></li>
+                        <li className="page-item"><a className="page-link" href="#">2</a></li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item">
+                          <a className="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+
+
+                  <div className="input-group mb-3 commu_list_search">
+                    <div className="input-group-text p-0">
+                      <div className="dropdown">
+                        <a className="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown link
+                        </a>
+
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <li><a className="dropdown-item" href="#">Action</a></li>
+                          <li><a className="dropdown-item" href="#">Another action</a></li>
+                          <li><a className="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="commu_list_search_text">
+                      <input type="text" className="form-control" placeholder="Search Here" />
+                    </div>
+                    <div>
+                      <button className="input-group-text commu_list_search_btn shadow-none px-4">
+                        <i className="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 기존 */}
                   <table
-                    className="table table-hover community-table table-responsive"
+                    className="table table-hover community-table table-responsive commu_list_table"
                     style={{ width: "100%", marginBottom: "0px" }}
                   >
-                    <thead className="">
+                    <thead className="table-top">
                       <tr style={{ textAlign: "center" }}>
                         <th
+                          className="table-top-1"
+                          scope="col"
                           style={{
                             color: "rgb(143,24,237)",
-                            width: "50px",
+                            // width: "10%",
                             textAlign: "center",
                           }}
                         >
                           번호
                         </th>
                         <th
+                          className="table-top-2"
+                          scope="col"
                           style={{
                             color: "rgb(143,24,237)",
                             borderLeft: "1px solid rgb(143,24,237",
                             textAlign: "center",
+                            // width: "30%",
                           }}
                         >
                           글 제목
                         </th>
                         <th
+                          className="table-top-3"
+                          scope="col"
                           style={{
                             color: "rgb(143,24,237)",
                             borderLeft: "1px solid rgb(143,24,237",
-                            width: "150px",
+                            // width: "150px",
                             textAlign: "center",
                           }}
                         >
                           작성자
                         </th>
                         <th
+                          className="table-top-4"
+                          scope="col"
                           style={{
                             color: "rgb(143,24,237)",
                             borderLeft: "1px solid rgb(143,24,237",
-                            width: "100px",
+                            // width: "25%",
                             textAlign: "center",
                           }}
                         >
                           작성일
                         </th>
                         <th
+                          className="table-top-5"
+                          scope="col"
                           style={{
                             color: "rgb(143,24,237)",
                             borderLeft: "1px solid rgb(143,24,237",
-                            width: "70px",
+                            // width: "15%",
                             textAlign: "center",
                           }}
                         >
@@ -137,7 +241,7 @@ function CommunityList() {
                               {data.writer}
                             </Link>
                           </td>
-                          <td>{data.date}</td>
+                          <td>{data.date}2022.08.20</td>
                           <td>{data.communityLike}</td>
                         </tr>
                       ))}

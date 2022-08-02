@@ -25,11 +25,12 @@ a{
   padding-left: 0;
   margin-bottom: 0px;
   height: 100%;
+  font-family: 'EarlyFontDiary';
 }
 
 .navbar__menu li {
   padding: 0 15px;
-  font-size: 30px;
+  font-size: 25px;
 }
 .navbar__menu li a{
   text-decoration: none;
