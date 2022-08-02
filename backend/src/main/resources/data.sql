@@ -14,3 +14,8 @@ INSERT into community(category, user_id, title, content) values (1,1, '제목5',
 INSERT into community(category, user_id, title, content) values (1,1, '제목6', '내용6');
 
 
+INSERT into comment(community_id, user_id, content) values (1,1, '내용1');
+INSERT into comment(community_id, user_id, content) values (2,2, '내용2');
+INSERT into comment(community_id, user_id, content) values (1,1, '내용3');
+INSERT into comment(community_id, user_id, content) values (2,2, '내용4');
+INSERT into comment(community_id, user_id, content) values (1,1, '내용5');
