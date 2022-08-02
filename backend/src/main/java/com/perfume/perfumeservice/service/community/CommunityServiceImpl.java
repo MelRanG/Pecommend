@@ -63,7 +63,7 @@ public class CommunityServiceImpl implements CommunityService {
 
         if(like.isPresent()){
             communityLikeRepository.delete(like.get());
-            return "CANCLE";
+            return "CANCEL";
         }else{
             communityLikeRepository.save(CommunityLike.builder()
                     .user(user).community(community).build());
