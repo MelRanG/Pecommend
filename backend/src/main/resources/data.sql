@@ -21,4 +21,8 @@ INSERT into comment(community_id, user_id, content) values (2,2, '내용4');
 INSERT into comment(community_id, user_id, content) values (1,1, '내용5');
 
 INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름1', 'perfume1',0,0);
+INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름2', 'perfume2',0,0);
+INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름3', 'perfume3',0,0);
+INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름4', 'perfume4',0,0);
+INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름5', 'perfume5',0,0);
 
