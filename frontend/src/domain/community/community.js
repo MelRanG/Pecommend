@@ -24,7 +24,7 @@ const Community = () => {
                   <Link to="">홈</Link>
                 </li>
                 <li>
-                  <Link to="liet/0">전체</Link>
+                  <Link to="list/0">전체</Link>
                 </li>
                 <li>
                   <Link to="list/1">자유</Link>
@@ -51,8 +51,8 @@ const Community = () => {
       </div>
       <Routes>
         <Route index element={<CommunityMain />} />
-        <Route path="list" element={<CommunityList />} />
-        <Route path="detail" element={<CommunityDetail />} />
+        <Route path="list/:num" element={<CommunityList />} />
+        <Route path="detail/:num" element={<CommunityDetail />} />
         <Route path="regist" element={<CommunityRegist />} />
       </Routes>
     </div>

@@ -1,7 +1,6 @@
 import "./communityRegist.css";
-import Nav from "../../components/nav";
 import "./communityList.css";
-import { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, Route, Router } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
@@ -13,7 +12,7 @@ function CommunityList() {
   const [callData, setCallData] = useState(1);
   const [limitData, setLimit] = useState(10);
   const [page, setPage] = useState(1);
-  const offset = (page-1) * limitData;
+  const offset = (page - 1) * limitData;
 
   const getArticleList = async () => {
     console.log(callData);
@@ -85,7 +84,7 @@ function CommunityList() {
                           </th>
                           <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
                             <Link
-                              class="community-list-titlebox"
+                              className="community-list-titlebox"
                               to={`/commu/detail/${data.id}`}
                             >
                               {data.title}
@@ -95,7 +94,7 @@ function CommunityList() {
                           {/* <td>{data.writer}</td> */}
                           <td className="" style={{ textAlign: "left", paddingLeft: "15px" }}>
                             <Link
-                              class=""
+                              className=""
                               to={`/profile/${data.writer_id}`}
                             >
                               {data.writer}
@@ -126,10 +125,10 @@ function CommunityList() {
 
                   <div>
                     <Pagination
-                    total={dataList.length}
-                    limit={limitData}
-                    page={page}
-                    setPage={setPage}
+                      total={dataList.length}
+                      limit={limitData}
+                      page={page}
+                      setPage={setPage}
                     />
                   </div>
 
@@ -257,7 +256,7 @@ function CommunityList() {
                           </th>
                           <td className="community-list-titletd">
                             <Link
-                              class="community-list-titlebox"
+                              className="community-list-titlebox"
                               to={`/commu/detail/${data.id}`}
                             >
                               {data.title}
@@ -267,7 +266,7 @@ function CommunityList() {
                           <td>{data.writer}</td>
                           <td className="community-list-writertd">
                             <Link
-                              class="community-list-writerbox"
+                              className="community-list-writerbox"
                               to={`/profile/${data.writer_id}`}
                             >
                               {data.writer}
@@ -284,22 +283,22 @@ function CommunityList() {
                   {/* <button className="List-regist-button">
                     <Link to={`/commu/regist`}>글 작성</Link>
                   </button> */}
-                  <button type="button" class="btn btn-outline-dark">
+                  <button type="button" className="btn btn-outline-dark">
                     <Link to={`/commu/regist`}>글 작성</Link>
                   </button>
-                  {/* <button type="button" class="btn btn-outline-secondary">
+                  {/* <button type="button" className="btn btn-outline-secondary">
                     Secondary
                   </button> */}
                 </div>
-                {/* <div class="pro-pagination-style text-center mt-10 mb-3">
+                {/* <div className="pro-pagination-style text-center mt-10 mb-3">
                   <ul>
                     <li>
-                      <a class="prev" href="#">
-                        <i class="fa fa-angle-double-left"></i>
+                      <a className="prev" href="#">
+                        <i className="fa fa-angle-double-left"></i>
                       </a>
                     </li>
                     <li>
-                      <a class="active" href="#">
+                      <a className="active" href="#">
                         1
                       </a>
                     </li>
@@ -307,16 +306,16 @@ function CommunityList() {
                       <a href="#">2</a>
                     </li>
                     <li>
-                      <a class="next" href="#">
-                        <i class="fa fa-angle-double-right"></i>
+                      <a className="next" href="#">
+                        <i className="fa fa-angle-double-right"></i>
                       </a>
                     </li>
                   </ul>
                 </div> */}
-                {/* <div class="search d-flex flex-row justify-content-center align-items-center mb-5"> */}
-                  {/* <div class="select-shoing-wrap mx-2">
-                            <div class="select-shoing-wrap">
-                                <div class="shop-select">
+                {/* <div className="search d-flex flex-row justify-content-center align-items-center mb-5"> */}
+                {/* <div className="select-shoing-wrap mx-2">
+                            <div className="select-shoing-wrap">
+                                <div className="shop-select">
                                     <select>
                                         <option value="">제목</option>
                                         <option value="">제목 + 내용</option>
@@ -326,7 +325,7 @@ function CommunityList() {
                                 </div>
                             </div>
                         </div> */}
-                  {/* <div className="dropdown" style={{ marginRight: "10px" }}>
+                {/* <div className="dropdown" style={{ marginRight: "10px" }}>
                     <button
                       className="btn btn-dropdown dropdown-toggle"
                       type="button"

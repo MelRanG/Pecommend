@@ -95,7 +95,7 @@ function Nav2() {
                 <a className="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> */}
             </ul>
-            {/* <span class="navbar-text">
+            {/* <span className="navbar-text">
               Navbar text with an inline element
             </span> */}
           </div>

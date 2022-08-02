@@ -28,6 +28,7 @@ import NotFound from "./domain/error/NotFound";
 // import "./domain/perfume/perfumeList.scss";
 
 function App() {
+
   const element = useRoutes([
     {
       path: "/",
@@ -39,7 +40,7 @@ function App() {
           element: <Perfume />,
           children: [
             { path: "list", element: <PerfumeList /> },
-            { path: "detail", element: <PerfumeDetail /> },
+            { path: "detail/:num", element: <PerfumeDetail /> },
             { path: "reglist", element: <PerfumeRegistList /> },
             { path: "reg", element: <PerfumeRegist /> },
           ],
@@ -49,7 +50,7 @@ function App() {
           element: <Community />,
           children: [
             { path: "list", element: <CommunityList /> },
-            { path: "detail/:num", element: <CommunityDetail />,  },
+            { path: "detail/:num", element: <CommunityDetail />, },
             { path: "regist", element: <CommunityRegist /> },
             { path: "commu/edit/:num", element: <CommunityEdit /> },
           ],
