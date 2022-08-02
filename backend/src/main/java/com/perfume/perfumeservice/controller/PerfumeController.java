@@ -34,11 +34,11 @@ public class PerfumeController {
         return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
     }
 
-//    @GetMapping("/{id}")
-//    @ApiOperation(value = "향수 디테일 가져오기(평점, 이미지, 해시태그, 선호도 없음)")
-//    public ResponseEntity<PerfumeResponseDto> getPerfume(@PathVariable Long id){
-//        return new ResponseEntity<>(PerfumeService.getPerfume(id), HttpStatus.OK);
-//    }
+    @GetMapping("/{id}")
+    @ApiOperation(value = "향수 디테일 가져오기(평점, 이미지, 해시태그, 선호도 없음)")
+    public ResponseEntity<PerfumeResponseDto> getPerfume(@PathVariable Long id){
+        return new ResponseEntity<>(perfumeService.getPerfume(id), HttpStatus.OK);
+    }
 
 
 

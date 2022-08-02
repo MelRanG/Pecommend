@@ -5,6 +5,7 @@ import com.perfume.perfumeservice.domain.perfume.NoteRepository;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
 import com.perfume.perfumeservice.domain.perfume.PerfumeRepository;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
+import com.perfume.perfumeservice.exception.perfume.PerfumeNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +52,12 @@ public class PerfumeServiceImpl  implements PerfumeService {
         // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
         return dtoList;
 
+    }
+
+    @Override
+    public PerfumeResponseDto getPerfume(Long id) {
+        Perfume perfume = perfumeRepository.findById(id).orElseThrow(PerfumeNotFoundException::new);
+        return PerfumeResponseDto.from(perfume);
     }
 
 
