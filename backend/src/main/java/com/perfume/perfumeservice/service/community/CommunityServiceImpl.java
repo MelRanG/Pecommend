@@ -97,11 +97,11 @@ public class CommunityServiceImpl implements CommunityService {
         Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
         return PostsResponseDto.from(community);
     }
-
-    @Override
-    public Community getPost(Long id){
-        return communityRepository.findById(id).orElse(null);
-    }
+//
+//    @Override
+//    public Community getPost(Long id){
+//        return communityRepository.findById(id).orElse(null);
+//    }
 
     @Override
     public String fileUpload(Community community, MultipartFile[] uploadFile) {
