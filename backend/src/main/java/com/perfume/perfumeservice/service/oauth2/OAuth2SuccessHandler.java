@@ -6,6 +6,7 @@ import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.jwt.TokenDto;
 import com.perfume.perfumeservice.jwt.TokenProvider;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -19,12 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
-    private TokenProvider tokenProvider;
-    private UserRepository userRepository;
-    private PasswordMaker passwordMaker;
+    private final TokenProvider tokenProvider;
+    private final UserRepository userRepository;
+    private final PasswordMaker passwordMaker;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

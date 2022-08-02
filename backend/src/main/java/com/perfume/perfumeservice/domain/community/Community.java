@@ -1,12 +1,8 @@
 package com.perfume.perfumeservice.domain.community;
+import com.perfume.perfumeservice.domain.baseTime.BaseTime;
 import com.perfume.perfumeservice.domain.comment.Comment;
-import com.perfume.perfumeservice.domain.image.Image;
 import com.perfume.perfumeservice.domain.user.UserEntity;
-import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +15,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @Getter
-public class Community {
+public class Community extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "community_id")

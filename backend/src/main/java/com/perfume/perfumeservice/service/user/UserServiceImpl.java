@@ -11,6 +11,7 @@ import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import com.perfume.perfumeservice.jwt.TokenProvider;
 import com.perfume.perfumeservice.util.SecurityUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -22,13 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService{
-    private TokenProvider tokenProvider;
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public boolean checkEmail(String email) {

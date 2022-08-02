@@ -85,12 +85,13 @@ function Login() {
         if (response.status == 200) {
           sessionStorage.setItem("Auth", response.data.accessToken);
           sessionStorage.setItem("Refresh", response.data.refreshToken);
-
-          document.location.href = "/";
         }
       })
       .then(function () {
         getUserInfo();
+      })
+      .then(function () {
+        window.location.href = "/";
       })
       .catch(function (error) {
         // 1. alertify 로 꾸며주는 부분 필요

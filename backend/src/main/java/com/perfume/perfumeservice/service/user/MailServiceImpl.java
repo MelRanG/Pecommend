@@ -7,15 +7,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService{
 
-    JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
     public static final StringBuilder ePw = new StringBuilder();
 

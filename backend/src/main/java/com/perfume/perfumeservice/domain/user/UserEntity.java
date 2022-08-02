@@ -1,6 +1,9 @@
 package com.perfume.perfumeservice.domain.user;
 
 import com.perfume.perfumeservice.domain.community.Community;
+import com.perfume.perfumeservice.domain.perfume.Preference;
+import com.perfume.perfumeservice.domain.review.PerfumeReview;
+import com.perfume.perfumeservice.domain.review.ReviewLike;
 import com.perfume.perfumeservice.dto.user.UpdateUserRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -49,6 +54,19 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Community> posts = new LinkedHashSet<>();
+
+    // preference
+    @OneToMany(mappedBy = "preference", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Preference> preference = new ArrayList<>();
+
+    // perfume_review
+    // 여기도 writer로 해도 되는겨?
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PerfumeReview> reviews = new ArrayList<>();
+
+    // review_like
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
     @Column(name = "token")
     private String token;
