@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
+import Pagination from "./pagination";
+
 
 function CommunityDetail () {
     let navigate = useNavigate();
@@ -12,32 +14,63 @@ function CommunityDetail () {
     let number = parseInt(useParam.num)
     const [pageDetail,setPageDetail] = useState({});
     const [parseContent,setParseContent] = useState({});
+    const [pageComment,setPageComment] = useState([]);
+    const [formValue, setForm] = useState({
+        writer: 1,
+        communityId: 0,
+        content: '',
+    });
+    const [limitData, setLimit] = useState(10);
+    const [page, setPage] = useState(1);
+    const offset = (page-1) * limitData;
+
+    const handleChange = (e) => {
+        const { value, name } = e.target;
+        console.log(value,name)
+        setForm({
+            ...formValue,
+            [name]: value
+        })
+        console.log(formValue)
+    }
+
     const getArticleDetail = async () => {
         try {
             console.log("number", number);
           const response = await axios({
             method: "get",
             url: "/api/v1/community/"+number,
-            // data: registwrite,
             headers: { "Content-Type": "multipart/form-data" },
-            // headers: { "Content-Type" : ""}
-            // JSON.stringify()
           });
           console.log(response);
           if (response.status === 200) {
-            console.log(response.data)
             setPageDetail(response.data)
-            // console.log(parse(response.data.content))
             const parsedata = parse(response.data.content)
             setParseContent(parsedata)
-            console.log("pC", parseContent)
           }
         } catch (error) {
           console.log(error);
         }
       };
+
+    const getArticleComment = async() => {
+        try {
+            const response = await axios ({
+                method: "get",
+                url: "/api/v1/comment/"+number,
+            });
+            // console.log("comment",response.data);
+            const commentdata = response.data
+            setPageComment(commentdata)
+            console.log(pageComment)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
     useEffect(() => {
         getArticleDetail()
+        getArticleComment()
         console.log(pageDetail)
     }, [])
 
@@ -92,7 +125,8 @@ function CommunityDetail () {
                 console.log(response);
                 if (response.status === 200) {
                     alert("삭제했습니다!");
-                    navigate("/commu/list", { replace: true });
+                    // navigate("/commu/list", { replace: true });
+                    getArticleComment();
                 }
             } catch (error) {
             console.log(error);
@@ -100,6 +134,67 @@ function CommunityDetail () {
         }else{
             
         }
+    }
+
+    const commentRegist = async (e) => {
+        e.preventDefault();
+        console.log(formValue.content)
+        if (formValue.content != '') {
+            try {
+                const response = await axios({
+                    method: "post",
+                    url: "/api/v1/comment",
+                    data: {
+                        writer: 1,
+                        content: formValue.content,
+                        communityId: number,
+                    },
+                    // headers: { "Content-Type": "multipart/form-data" },
+                    // headers: { "Content-Type" : ""}
+                    // JSON.stringify()
+                });
+                console.log(response);
+                if (response.status === 200) {
+                    alert("댓글을 작성했습니다!");
+                    // navigate("/commu/detail/" + number, { replace: true });
+                    getArticleComment();
+                }
+            } catch (error) {
+            console.log(error);
+            }
+        }
+    }
+
+    const clickCommentRemove = async (e) => {
+        var result = window.confirm("댓글을 삭제하시겠습니까?");
+        if(result){
+            console.log(e.target.id)
+            try {
+                const response = await axios({
+                    method: "delete",
+                    url: "/api/v1/comment/"+e.target.id,
+                    // data: registwrite,
+                    headers: { "Content-Type": "multipart/form-data" },
+                    // headers: { "Content-Type" : ""}
+                    // JSON.stringify()
+                });
+                console.log(response);
+                if (response.status === 200) {
+                    alert("삭제했습니다!");
+                    // navigate("/commu/detail/"+number, { replace: true });
+                    getArticleComment();
+                }
+            } catch (error) {
+            console.log(error);
+            }
+        }else{
+            
+        }
+    }
+
+    const clickCommentEdit = () => {
+        console.log()
+        alert("댓글 수정 누름!")
     }
 
     const clickEdit = () => {
@@ -162,14 +257,15 @@ function CommunityDetail () {
                             </div>
                             <div id="communityComment">
                                 <div className="community-write-box">
-                                    <h5>닉네임</h5>
-                                    <form action="#" class="d-flex justify-content-right align-items-end">
-                                        <textarea rows="3" name="comment" placeholder="댓글을 입력하세요."></textarea>
-                                        <input className="comment-submit" type="submit" value="Submit" />
+                                    <h5>{pageDetail.writer}</h5>
+                                    <form class="d-flex justify-content-right align-items-end" onSubmit={ commentRegist }>
+                                        <textarea rows="3" name="content" placeholder="댓글을 입력하세요." onChange={ handleChange } ></textarea>
+                                        {/* <input className="comment-submit" value="작성"/> */}
+                                        <button className="comment-submit">등록</button>
                                     </form>
                                 </div>
 
-                <div
+                {/* <div
                   className="shop-select comment-select"
                   style={{ border: "1px solid rgb(30,30,30)" }}
                 >
@@ -179,35 +275,19 @@ function CommunityDetail () {
                     <option value="">?</option>
                     <option value="">?</option>
                   </select>
-                </div>
+                </div> */}
 
                 <hr></hr>
                 {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
                 <div className="community-comment-list">
-                  <div className="community-comment-card d-flex">
-                    <img alt="?" src="" />
-                    <span>닉네임</span>
-                    <textarea readOnly rows="3">
-                      댓글 내용이 들어갑니다.
-                    </textarea>
-                  </div>
-                  <hr></hr>
-                  <div className="community-comment-card d-flex">
-                    <img alt="?" src="" />
-                    <span>닉네임</span>
-                    <textarea readOnly rows="3">
-                      댓글 내용이 들어갑니다.
-                    </textarea>
-                  </div>
-                  <hr></hr>
-                  <div className="community-comment-card d-flex">
-                    <img alt="?" src="" />
-                    <span>닉네임</span>
-                    <textarea readOnly rows="3">
-                      댓글 내용이 들어갑니다.
-                    </textarea>
-                  </div>
-                  <hr></hr>
+                    {pageComment.slice(offset, offset + limitData).map((data) => (
+                        <div className="community-comment-card d-flex">
+                            <span>{data.writer}</span>
+                            <textarea readOnly rows="3" id={`comment-content-${data.id}`}>{data.content}</textarea>
+                            <button className="comment-remove" onClick={clickCommentRemove} id={`${data.id}`}>삭제</button>
+                            <button className="comment-edit" onClick={clickCommentEdit} id={`${data.id}`}>수정</button>
+                        </div>
+                      ))}
                 </div>
               </div>
             </div>
