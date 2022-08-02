@@ -5,6 +5,7 @@ import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import com.perfume.perfumeservice.service.community.CommunityService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/community")
 public class CommunityController {
     private final CommunityService communityService;
@@ -26,7 +27,6 @@ public class CommunityController {
         String result = communityService.addLike(userId, postId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
 
     @PostMapping("/upload")
     @ApiOperation(value = "게시글 작성(이미지 포함)")
@@ -59,7 +59,7 @@ public class CommunityController {
     }
 
     @GetMapping("/list/{category}")
-    @ApiOperation(value = "게시글 목록 가져오기")
+    @ApiOperation(value = "해당 카테고리 게시글 목록 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getList(@PathVariable int category){
         List<PostsResponseDto> postsDtoList = communityService.getList(category);
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
@@ -73,9 +73,12 @@ public class CommunityController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Integer> updatePost(@PathVariable Long id, @RequestBody PostsRequestDto dto){
-        communityService.updatePost(id, dto);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @ApiOperation(value = "게시글 수정")
+    public ResponseEntity<PostsResponseDto> updatePost(@PathVariable Long id, @RequestBody PostsRequestDto dto){
+        PostsResponseDto result = communityService.updatePost(id, dto);
+        return result == null ?
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build() :
+                ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @DeleteMapping("/{id}")

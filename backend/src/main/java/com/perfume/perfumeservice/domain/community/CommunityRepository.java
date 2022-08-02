@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CommunityRepository extends JpaRepository<Community, Long> {
     List<Community> findByCategory(int category);
+    public List<Community> findAllByOrderByIdDesc();
 }
