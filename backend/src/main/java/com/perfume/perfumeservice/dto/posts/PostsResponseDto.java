@@ -20,7 +20,7 @@ public class PostsResponseDto {
     private int communityLike;
 
     public static PostsResponseDto from(Community community){
-        Set<CommunityLike> set = community.getLikes();
+        Set<CommunityLike> set = community.getCommunityLikes();
         int likes = set == null ? 0 : set.size();
 
 
