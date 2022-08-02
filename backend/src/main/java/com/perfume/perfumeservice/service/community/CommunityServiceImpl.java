@@ -185,6 +185,26 @@ public class CommunityServiceImpl implements CommunityService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<PostsResponseDto> searchPostTitle(String title) {
+        return communityRepository.findByTitleLike("%"+title+"%").stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> searchPostWriter(String writer) {
+        List<UserEntity>user = userRepository.findByNicknameLike("%"+writer+"%");
+        List<PostsResponseDto> result = new ArrayList<>();
+        for (UserEntity item: user) {
+            result.addAll(
+                    communityRepository.findByWriter(item).stream()
+                            .map(community -> PostsResponseDto.from(community))
+                            .collect(Collectors.toList())
+            );}
+        return result;
+    }
+
     //    public ImageDto updateImage(MultipartFile[] uploadFile) {
 //        for (MultipartFile file : uploadFile) {
 //        try {

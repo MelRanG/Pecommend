@@ -22,6 +22,6 @@ public class CommentLike {
     private Comment comment;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    private UserEntity user;
 
 }

@@ -77,7 +77,7 @@ public class CommentServiceImpl implements CommentService{
         else{
             commentLikeRepository.save(CommentLike.builder()
                             .comment(comment)
-                            .userEntity(user)
+                            .user(user)
                             .build());
             return "ADD";
         }
