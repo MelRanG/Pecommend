@@ -13,8 +13,7 @@ import org.hibernate.query.criteria.internal.predicate.LikePredicate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -39,9 +38,12 @@ public class PerfumeServiceImpl  implements PerfumeService {
 
     @Override
     public List<PerfumeResponseDto> getListKeyword(String keyword) {
+        // keyword가 한글인지 영어(숫자)인지 확인해서 검색하기
+
         List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
         List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
-        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+
+        Set<PerfumeResponseDto> dtoList = new LinkedHashSet<>();
 
         for(Perfume p: perfumeListKo){
             dtoList.add(PerfumeResponseDto.from(p));
@@ -49,8 +51,10 @@ public class PerfumeServiceImpl  implements PerfumeService {
         for(Perfume p: perfumeListEn){
             dtoList.add(PerfumeResponseDto.from(p));
         }
+
+        // 중복 제거
         // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
-        return dtoList;
+        return new ArrayList<>(dtoList);
 
     }
 
