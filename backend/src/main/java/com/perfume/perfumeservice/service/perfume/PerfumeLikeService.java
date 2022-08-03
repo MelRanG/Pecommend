@@ -10,4 +10,6 @@ public interface PerfumeLikeService {
     List<PerfumeLikeResponseDto> getLike(Long id);
     List<PerfumeDislikeResponseDto> getDislike(Long id);
 
+    String addLike(Long perfumeId, Long userId);
+
 }

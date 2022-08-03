@@ -26,6 +26,7 @@ public class PerfumeController {
 
     private final PerfumeLikeService perfumeLikeService;
 
+
     @GetMapping("/list")
     @ApiOperation(value = "전체 향수 목록 가져오기")
     public ResponseEntity<List<PerfumeResponseDto>> getListAll(){
@@ -112,10 +113,32 @@ public class PerfumeController {
 
     // 태그 등록(count 증가)은 review에서만
 
+    // 좋아요 등록 => 파라미터랑 url 맞는지 모르겠음
+    @PostMapping("/like")
+    @ApiOperation(value = "향수 좋아요 등록")
+    public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
+        Long perfumeId = map.get("perfumeId");
+        Long userId = map.get("userId");
 
+        String result = perfumeLikeService.addLike(perfumeId, userId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
 
+    }
 
+    @GetMapping("/likelist/{id}")
+    @ApiOperation(value = "향수 좋아요 목록")
+    public ResponseEntity<List<PerfumeLikeResponseDto>> getPerfumeLike(@PathVariable Long id){ // 일단 확인용으로 만들어 봄
+        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLike(id);
+        return new ResponseEntity<>(plDto, HttpStatus.OK);
 
+    }
 
+    @GetMapping("/dislikelist/{id}")
+    @ApiOperation(value = "향수 싫어요 목록")
+    public ResponseEntity<List<PerfumeDislikeResponseDto>> getPerfumeDislike(@PathVariable Long id){ // 일단 확인용으로 만들어 봄
+        List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislike(id);
+        return new ResponseEntity<>(pdDto, HttpStatus.OK);
+
+    }
 
 }

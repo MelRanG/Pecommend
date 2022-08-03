@@ -1,9 +1,8 @@
 package com.perfume.perfumeservice.service.perfume;
 
-import com.perfume.perfumeservice.domain.perfume.Perfume;
-import com.perfume.perfumeservice.domain.perfume.PerfumeDislike;
-import com.perfume.perfumeservice.domain.perfume.PerfumeLike;
-import com.perfume.perfumeservice.domain.perfume.PerfumeRepository;
+import com.perfume.perfumeservice.domain.perfume.*;
+import com.perfume.perfumeservice.domain.user.UserEntity;
+import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.perfume.PerfumeDislikeResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeLikeResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class PerfumeLikeServiceImpl implements PerfumeLikeService{
     private final PerfumeRepository perfumeRepository;
 
+    private final UserRepository userRepository;
+    private final PerfumeLikeRepository perfumeLikeRepository;
 
+    private final PerfumeDislikeRepository perfumeDislikeRepository;
 
     @Override
     public List<PerfumeLikeResponseDto> getLike(Long id) {
@@ -41,4 +45,26 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         }
         return dtoList;
     }
+
+    @Override
+    public String addLike(Long perfumeId, Long userId) {
+        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+
+        // insert
+        // like 체크
+        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+        // dislike 체크
+        Optional<PerfumeDislike> dislike = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
+
+        if(like.isPresent() || dislike.isPresent()) return "CANCEL";
+        else{
+            perfumeLikeRepository.save(PerfumeLike.builder()
+                    .perfume(perfume)
+                    .user(user)
+                    .build());
+            return "ADD";
+        }
+    }
+
 }
