@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-function Profile() {
+function MyProfile() {
   let hashtag_list = ["따뜻한", "봄", "가을"];
 
   const [userprofile, setUserProfile] = useState([]);
   const [age, setAge] = useState(0);
 
-  // 다른 유저 프로필 조회 기능 구현 필요
   const getUserInfo = async () => {
     try {
       const response = await axios({
@@ -60,6 +59,9 @@ function Profile() {
                 alt="?"
               /> */}
               <h4>{userprofile.nickname}</h4>
+              <button className="profile-edit-button" type="button">
+                <Link to="/profile/update">수정하기</Link>
+              </button>
             </div>
           </div>
           <div className="profileText">
@@ -271,4 +273,4 @@ function TagSpawn(props) {
   );
 }
 
-export default Profile;
+export default MyProfile;

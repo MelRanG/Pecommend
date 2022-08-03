@@ -3,14 +3,12 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user_reducer";
-import { logOut } from "../../redux/user_reducer";
 
-function Profile_update() {
+function OauthSignUp() {
   const user = useSelector((state) => state.userStore.nowLoginUser);
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
-  const logOutUser = () => dispatch(logOut());
 
   const [pwd, setPwd] = React.useState("");
   const [pwdRe, setPwdRe] = React.useState("");
@@ -20,36 +18,7 @@ function Profile_update() {
   const [mbti, setMbti] = React.useState("");
   const [pwd_check, setPwdCheck] = React.useState(true);
   const [nick_check, setNickCheck] = React.useState(true);
-  const [pwd_disabled, setPwdDisabled] = React.useState(true);
-  const [nick_disabled, setNickDisabled] = React.useState(true);
   const [userprofile, setUserProfile] = React.useState([]);
-  const [nick_change_msg, setNickChangeMsg] = React.useState("변경");
-  const [pwd_change_msg, setPwdChangeMsg] = React.useState("변경");
-
-  const getUserInfo = async () => {
-    try {
-      const response = await axios({
-        method: "get",
-        url: "/api/v1/user/myinfo",
-        headers: {
-          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-        },
-      });
-      if (response.status === 200) {
-        setUserProfile(response.data);
-        setBirth(response.data.birthday);
-        setGender(response.data.gender);
-        setNick(response.data.nickname);
-        setMbti(response.data.mbti);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
   const onRPWDhandler = (event) => {
     setPwd(event.currentTarget.value);
@@ -110,81 +79,10 @@ function Profile_update() {
       });
   };
 
-  const changeNickname = (event) => {
-    event.preventDefault();
-    if (nick_disabled) {
-      if (window.confirm("닉네임을 변경하시겠습니까?")) {
-        setNickDisabled(false);
-        setNickCheck(false);
-        setNickChangeMsg("변경 취소");
-      }
-    } else {
-      if (window.confirm("닉네임 변경을 취소하시겠습니까?")) {
-        setNickDisabled(true);
-        setNickCheck(true);
-        setNick(userprofile.nickname);
-        setNickChangeMsg("변경");
-      }
-    }
-  };
-
-  const changePassword = (event) => {
-    event.preventDefault();
-    if (pwd_disabled) {
-      if (window.confirm("비밀번호를 변경하시겠습니까?")) {
-        setPwdDisabled(false);
-        setPwdCheck(false);
-        setPwdChangeMsg("변경 취소");
-      }
-    } else {
-      if (window.confirm("비밀번호 변경을 취소하시겠습니까?")) {
-        setPwdDisabled(true);
-        setPwdCheck(true);
-        setPwd("");
-        setPwdRe("");
-        setPwdChangeMsg("변경");
-      }
-    }
-  };
-
-  const isMale = () => {
-    return gender == "male" ? "checked" : "";
-  };
-
-  const isFemale = () => {
-    return gender == "female" ? "checked" : "";
-  };
-
-  const deleteUser = (event) => {
-    event.preventDefault();
-
-    if (window.confirm("정말로 탈퇴하시겠습니까?")) {
-      const headers = {
-        Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-      };
-
-      axios
-        .delete("/api/v1/user/delete", { headers: headers })
-        .then((response) => {
-          alert("탈퇴가 완료되었습니다.");
-          sessionStorage.setItem("Auth", null);
-          sessionStorage.setItem("Refresh", null);
-
-          logOutUser();
-        })
-        .then(() => {
-          window.location.href = "/";
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
-
-  // 회원수정
+  // 정보 입력
   const onRegisthandler = (event) => {
     event.preventDefault();
-    if (!pwd_check && checkPassword(pwd) === false) {
+    if (checkPassword(pwd) === false) {
       alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
     } else if (pwd !== pwdRe) {
       alert("'비밀번호 확인'을 다시 해주세요.");
@@ -209,8 +107,6 @@ function Profile_update() {
       let headers = {
         Authorization: "Bearer" + sessionStorage.getItem("Auth"),
       };
-      console.log("회원수정");
-      console.log(body);
 
       axios
         .put("/api/v1/user/update", body, { headers: headers })
@@ -226,7 +122,8 @@ function Profile_update() {
           }
         })
         .then(() => {
-          document.location.href = "/myprofile";
+          alert("가입을 환영합니다!");
+          document.location.href = "/";
         })
         .catch(function (error) {
           console.log(error);
@@ -241,7 +138,7 @@ function Profile_update() {
           <div className="container">
             <div className="breadcrumb-content text-center">
               <ul>
-                <li className="active"> Update </li>
+                <li className="active"> login / Register </li>
               </ul>
             </div>
           </div>
@@ -253,7 +150,7 @@ function Profile_update() {
                 <div className="login-register-wrapper">
                   <div className="login-register-tab-list nav">
                     <a>
-                      <h4> Update </h4>
+                      <h4> 추가 정보 입력 </h4>
                     </a>
                   </div>
                   <div className="tab-content">
@@ -261,20 +158,13 @@ function Profile_update() {
                       <div className="login-form-container">
                         <div className="login-register-form">
                           <form onSubmit={onRegisthandler}>
-                            <label>새 비밀번호</label>
-                            <button
-                              class="btn"
-                              style={{ float: "right" }}
-                              onClick={changePassword}
-                            >
-                              {pwd_change_msg}
-                            </button>
+                            <label>비밀번호</label>
+
                             <input
                               type="password"
                               name="user-password"
                               placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
                               onChange={onRPWDhandler}
-                              disabled={pwd_disabled}
                             />
                             <label>비밀번호 확인</label>
                             <input
@@ -282,16 +172,8 @@ function Profile_update() {
                               placeholder="Password confirm"
                               type="password"
                               onChange={onPWDReHandler}
-                              disabled={pwd_disabled}
                             />
                             <label>닉네임</label>
-                            <button
-                              class="btn"
-                              style={{ float: "right" }}
-                              onClick={changeNickname}
-                            >
-                              {nick_change_msg}
-                            </button>
                             <button
                               class="btn"
                               style={{ float: "right" }}
@@ -304,8 +186,6 @@ function Profile_update() {
                               placeholder="Nickname"
                               type="text"
                               onChange={onNicknamehandler}
-                              value={nick}
-                              disabled={nick_disabled}
                             />
                             <label>생일</label>
                             <input
@@ -313,7 +193,6 @@ function Profile_update() {
                               placeholder="birthday"
                               type="date"
                               onChange={onBirthhandler}
-                              value={birth}
                             />
                             <label>성별</label>
                             <br />
@@ -323,7 +202,6 @@ function Profile_update() {
                               type="radio"
                               id="male-check"
                               onChange={onGenderHandler}
-                              checked={isMale()}
                             />
                             <label
                               for="male-check"
@@ -337,7 +215,6 @@ function Profile_update() {
                               type="radio"
                               id="female-check"
                               onChange={onGenderHandler}
-                              checked={isFemale()}
                             />
                             <label
                               for="female-check"
@@ -352,7 +229,6 @@ function Profile_update() {
                               name="mbti"
                               className="form-select"
                               onChange={onMbtiHandler}
-                              value={mbti}
                             >
                               <option value="">선택</option>
                               <option value="ISTJ">ISTJ</option>
@@ -374,12 +250,7 @@ function Profile_update() {
                             </select>
                             <div className="button-box">
                               <button type="submit">
-                                <span>Update</span>
-                              </button>
-                            </div>
-                            <div className="button-danger">
-                              <button onClick={deleteUser}>
-                                <span>Delete</span>
+                                <span>가입</span>
                               </button>
                             </div>
                           </form>
@@ -397,4 +268,4 @@ function Profile_update() {
   );
 }
 
-export default Profile_update;
+export default OauthSignUp;

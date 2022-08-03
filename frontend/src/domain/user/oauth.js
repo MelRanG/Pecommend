@@ -20,6 +20,14 @@ function Oauth() {
         },
       });
 
+      if (
+        response.data.birth == null &&
+        response.data.gender == null &&
+        response.data.mbti == null
+      ) {
+        return false;
+      }
+
       const saveInfo = {
         user_id: response.data.user_id,
         email: response.data.email,
@@ -28,6 +36,7 @@ function Oauth() {
 
       saveUser(saveInfo);
       console.log(response.data);
+      return true;
     } catch (error) {
       console.log(error);
     }
@@ -39,9 +48,12 @@ function Oauth() {
     sessionStorage.setItem("Auth", tokens.Auth);
     sessionStorage.setItem("Refresh", tokens.Refresh);
 
-    // 받아온 토큰으로 유저 정보 가져와 저장하는 로직 필요
-    getUserInfo().then(() => {
-      document.location.href = "/";
+    getUserInfo().then((response) => {
+      if (response) {
+        window.location.href = "/";
+      } else {
+        window.location.href = "/oauth/signup";
+      }
     });
   }, []);
 }

@@ -19,8 +19,10 @@ import PerfumeRegistList from "./domain/perfume/perfumeRegistList";
 import PerfumeRegist from "./domain/perfume/perfumeRegist";
 import Login from "./domain/user/Login";
 import Profile from "./domain/user/profile";
+import MyProfile from "./domain/user/myprofile";
 import Profile_update from "./domain/user/profile_update";
 import Oauth from "./domain/user/oauth";
+import OauthSignUp from "domain/user/oauthSignUp";
 //
 import Home from "./domain/home/home";
 import NotFound from "./domain/error/NotFound";
@@ -94,6 +96,14 @@ function App() {
         {
           path: "oauth",
           element: <Oauth />,
+        },
+        {
+          path: "oauth/signup",
+          element: <OauthSignUp />,
+        },
+        {
+          path: "myprofile",
+          element: <MyProfile />,
         },
       ],
     },
