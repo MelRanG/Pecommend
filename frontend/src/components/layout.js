@@ -5,6 +5,8 @@ import Footer from "./footer";
 
 
 function layout() {
+  const moveToTop = () => (document.documentElement.scrollTop = 0);
+
   return (
     <div>
       <Nav3 />
@@ -14,7 +16,7 @@ function layout() {
         </Outlet>
       </main>
       <Footer />
-
+      {/* <TopButton onClick={moveToTop} /> */}
     </div>
   );
 };

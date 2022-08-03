@@ -3,10 +3,10 @@ import Nav from "../../components/nav";
 import "./communityMain.css";
 import React, { useState } from "react";
 
-function communityMain() {
+function CommunityMain() {
   return (
     <div className="communityMain">
-      <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
+      {/* <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
         <div className="container">
           <div className="breadcrumb-content text-center">
             <ul>
@@ -17,10 +17,10 @@ function communityMain() {
             </ul>
           </div>
         </div>
-      </div>
-      <CommunitySidebar />
-      <div className="mt-15 pb-100">
-        <div className="container">
+      </div> */}
+      {/* <CommunitySidebar /> */}
+      <div className="mt-50 pb-100">
+        <div className="container commuMain_con">
           <div className="row flex-row-reverse">
             <div className="col-lg-12">
               <div className="community-long-box">
@@ -30,29 +30,57 @@ function communityMain() {
                   data-bs-ride="carousel"
                 >
                   <div className="carousel-inner long-item-box">
+                    {/* <img
+                      className="long-item-img"
+                      src="../assets\tempImg\laptop-g3b51ebe8f_1920.png"
+                      alt=""
+                    /> */}
                     <div className="carousel-item active long-item-article">
-                      <h4 className="long-item-title">인기 글 제목1</h4>
-                      <h5 className="long-item-name">작성자 : 닉네임</h5>
-                      <h5 className="long-item-text">내용이 들어가는데</h5>
-                      <h5 className="long-item-text">4줄 정도만?</h5>
-                      <h5 className="long-item-text">들어가는 느낌으로?</h5>
-                      <h5 className="long-item-text">할까요????</h5>
+                      <img
+                        className="long-item-img"
+                        src="../assets\tempImg\laptop-g3b51ebe8f_1920.png"
+                        alt=""
+                      />
+                      <div className="long-item-popular">인기게시글 HOT</div>
+                      <div className="long-item-title">
+                        싸피에서 간식허락 해준다면
+                      </div>
+                      {/* <div className="long-item-name">작성자 : 닉네임</div> */}
+                      <div className="long-item-text">
+                        두줄이 넘어가면 어떻게 표시될지 모르겠어서 길게길게
+                        적어보는중입니다. 여기는 2줄이상 표시하지않도록 hello
+                        apple peco
+                      </div>
                     </div>
                     <div className="carousel-item long-item-article">
-                      <h4 className="long-item-title">인기 글 제목2</h4>
-                      <h5 className="long-item-name">작성자 : 닉네임2</h5>
-                      <h5 className="long-item-text">내용이 들어가는데2</h5>
-                      <h5 className="long-item-text">4줄 정도만?2</h5>
-                      <h5 className="long-item-text">들어가는 느낌으로?2</h5>
-                      <h5 className="long-item-text">할까요????2</h5>
+                      <img
+                        className="long-item-img"
+                        src="../assets\tempImg\laptop-g3b51ebe8f_1920.png"
+                        alt=""
+                      />
+                      <div className="long-item-popular">인기게시글 HOT</div>
+                      <div className="long-item-title">
+                        집에 가고싶게 만드는 향수없나요
+                      </div>
+                      {/* <div className="long-item-name">작성자 : 닉네임</div> */}
+                      <div className="long-item-text">
+                        있다면 프로님한테 뿌리게,,
+                      </div>
                     </div>
                     <div className="carousel-item long-item-article">
-                      <h4 className="long-item-title">인기 글 제목3</h4>
-                      <h5 className="long-item-name">작성자 : 닉네임3</h5>
-                      <h5 className="long-item-text">내용이 들어가는데3</h5>
-                      <h5 className="long-item-text">4줄 정도만?3</h5>
-                      <h5 className="long-item-text">들어가는 느낌으로?3</h5>
-                      <h5 className="long-item-text">할까요????3</h5>
+                      <img
+                        className="long-item-img"
+                        src="../assets\tempImg\office-g89f42876b_1920.png"
+                        alt=""
+                      />
+                      <div className="long-item-popular">인기게시글 HOT</div>
+                      <div className="long-item-title">
+                        삼겹살냄새 향수가 나온다면
+                      </div>
+                      {/* <div className="long-item-name">작성자 : 닉네임</div> */}
+                      <div className="long-item-text">
+                        좋을까요 싫을까요 궁금해요
+                      </div>
                     </div>
                   </div>
                   <button
@@ -84,7 +112,7 @@ function communityMain() {
             </div>
             <div className="col-lg-12">
               <div className="community-main">
-                <div className="col-sm-6">
+                <div className="col-sm-6 col-xs-12">
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>전체글</h4>
@@ -100,7 +128,7 @@ function communityMain() {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-6 col-xs-12">
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>자유</h4>
@@ -116,7 +144,7 @@ function communityMain() {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-6 col-xs-12">
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>향수</h4>
@@ -132,7 +160,7 @@ function communityMain() {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-6 col-xs-12">
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>질문</h4>
@@ -148,7 +176,7 @@ function communityMain() {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-6 col-xs-12">
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>공지</h4>
@@ -164,7 +192,7 @@ function communityMain() {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-6 col-xs-12">
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>베스트</h4>
@@ -189,4 +217,4 @@ function communityMain() {
   );
 }
 
-export default communityMain;
+export default CommunityMain;

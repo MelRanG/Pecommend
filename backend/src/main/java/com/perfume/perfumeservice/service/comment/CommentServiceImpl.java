@@ -1,6 +1,8 @@
 package com.perfume.perfumeservice.service.comment;
 
 import com.perfume.perfumeservice.domain.comment.Comment;
+import com.perfume.perfumeservice.domain.comment.CommentLike;
+import com.perfume.perfumeservice.domain.comment.CommentLikeRepository;
 import com.perfume.perfumeservice.domain.comment.CommentRepository;
 import com.perfume.perfumeservice.domain.community.Community;
 import com.perfume.perfumeservice.domain.community.CommunityRepository;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
+    private final CommentLikeRepository commentLikeRepository;
 
     @Override
     public List<CommentsResponseDto> getList(Long id) {
@@ -61,5 +65,21 @@ public class CommentServiceImpl implements CommentService{
     public void deleteComment(Long id) {
         Comment comment = commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
         commentRepository.delete(comment);
+    }
+
+    @Override
+    public String addLike(Long userId, Long commentId) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
+
+        Optional<CommentLike> like = commentLikeRepository.findByUserAndComment(user, comment);
+        if(like.isPresent()) return "CANCEL";
+        else{
+            commentLikeRepository.save(CommentLike.builder()
+                            .comment(comment)
+                            .user(user)
+                            .build());
+            return "ADD";
+        }
     }
 }

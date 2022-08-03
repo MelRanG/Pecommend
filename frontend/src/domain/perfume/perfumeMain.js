@@ -30,7 +30,7 @@ const PerfumeMain = () => {
           <div className="product-details-content mt-30">
             <div className="title row">
               <h2 className="title-popular col-sm-6">인기 키워드</h2>
-              <div className="title-sub col-sm-6">더보기 {">"}</div>
+              {/* <div className="title-sub col-sm-6">더보기 {">"}</div> */}
             </div>
             <div className="perfume-popular-hashtag">
               {/* 이부분에 해시태그 */}
@@ -209,7 +209,7 @@ const PerfumeMain = () => {
           <div className="product-details-content mt-30">
             <div className="title row ">
               <h2 className="title-popular col-sm-6">최신 리뷰</h2>
-              <div className="title-sub col-sm-6">더보기 {">"}</div>
+              {/* <div className="title-sub col-sm-6">더보기 {">"}</div> */}
             </div>
 
             {/* 슬라이딩 */}
