@@ -2,41 +2,71 @@ import "./communityRegist.css";
 import "./communityList.css";
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
-import { Link, Route, Router } from "react-router-dom";
+import { useParams, Link, Route, Router } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
 import CommunitySidebar from "./communitySidebar";
 import Pagination from "./pagination";
 
 function CommunityList() {
+  let useParam = useParams();
+  let categorys = parseInt(useParam.num);
   const [dataList, setDataList] = useState([]);
-  const [callData, setCallData] = useState(1);
+  const titleName = [
+    '전체',
+    '자유',
+    '향수',
+    '인기',
+    '공지'
+  ]
   const [limitData, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limitData;
 
   const getArticleList = async () => {
-    console.log(callData);
-    try {
-      const response = await axios({
-        method: "get",
-        url: "/api/v1/community/list/" + callData,
-        // data: registwrite,
-        headers: { "Content-Type": "multipart/form-data" },
-        // headers: { "Content-Type" : ""}
-        // JSON.stringify()
-      });
-      console.log(response);
-      if (response.status === 200) {
-        setDataList(response.data);
-        console.log(dataList);
+    console.log(categorys);
+    if (categorys > 0) {
+      try {
+        const response = await axios({
+          method: "get",
+          url: "/api/v1/community/list/" + categorys,
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    }
+    else {
+      try {
+        const response = await axios({
+          method: "get",
+          url: "/api/v1/community/list",
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   useEffect(() => {
     getArticleList();
-  }, []);
+    console.log(useParam, "category", categorys)
+  }, [categorys]);
   return (
     <div className="communityRegist">
       {/* <CommunitySidebar /> */}
@@ -46,7 +76,7 @@ function CommunityList() {
             <div className="col-lg-12">
               <div>
                 <h4 className="mt-5" style={{ "text-align": "center" }}>
-                  "카테고리" 게시판
+                  {titleName[categorys]} 게시판
                 </h4>
               </div>
               <hr></hr>
@@ -92,7 +122,7 @@ function CommunityList() {
                           </td>
                           {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
                           {/* <td>{data.writer}</td> */}
-                          <td className="" style={{ textAlign: "left", paddingLeft: "15px" }}>
+                          <td className="" style={{ textAlign: "center", paddingLeft: "15px" }}>
                             <Link
                               className=""
                               to={`/profile/${data.writer_id}`}

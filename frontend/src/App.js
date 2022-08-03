@@ -49,8 +49,8 @@ function App() {
           path: "commu/*",
           element: <Community />,
           children: [
-            { path: "list", element: <CommunityList /> },
             { path: "detail/:num", element: <CommunityDetail />, },
+            { path: "list/:num", element: <CommunityList /> },
             { path: "regist", element: <CommunityRegist /> },
             { path: "commu/edit/:num", element: <CommunityEdit /> },
           ],
