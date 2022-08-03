@@ -43,6 +43,7 @@ public class PerfumeServiceImpl  implements PerfumeService {
         List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
         List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
 
+        // 중복 제거
         Set<PerfumeResponseDto> dtoList = new LinkedHashSet<>();
 
         for(Perfume p: perfumeListKo){

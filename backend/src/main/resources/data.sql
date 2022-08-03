@@ -26,3 +26,13 @@ INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('�
 INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름4', 'perfume4',0,0);
 INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름5', 'perfume5',0,0);
 
+INSERT into material(material_name) values ('향료1');
+INSERT into material(material_name) values ('향료2');
+INSERT into material(material_name) values ('향료3');
+INSERT into material(material_name) values ('향료4');
+
+INSERT into note(perfume_id, material_id, note) values (1, 1, 'single');
+INSERT into note(perfume_id, material_id, note) values (1, 2, 'top');
+INSERT into note(perfume_id, material_id, note) values (3, 1, 'base');
+INSERT into note(perfume_id, material_id, note) values (1, 4, 'single');
+INSERT into note(perfume_id, material_id, note) values (2, 2, 'base');

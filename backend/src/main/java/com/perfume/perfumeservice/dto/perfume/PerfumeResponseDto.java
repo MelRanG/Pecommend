@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ApiModel(value = "PerfumeResponseRequestDto", description = "향수 정보 응답 Dto")
 public class PerfumeResponseDto {
-    private long perfume_id;
+    private long perfumeId;
     private String koName;
     private String enName;
     // private Double score; // 평점
@@ -38,7 +38,7 @@ public class PerfumeResponseDto {
 //        }
 
         return PerfumeResponseDto.builder()
-                .perfume_id(perfume.getId())
+                .perfumeId(perfume.getId())
                 .koName(perfume.getKoName())
                 .enName(perfume.getEnName())
                 .perfumeLike(perfume.getPerfumeLike())

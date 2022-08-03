@@ -1,6 +1,10 @@
 package com.perfume.perfumeservice.controller;
 
+import com.perfume.perfumeservice.domain.perfume.Note;
+import com.perfume.perfumeservice.domain.perfume.Perfume;
+import com.perfume.perfumeservice.dto.perfume.NoteResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
+import com.perfume.perfumeservice.service.perfume.NoteService;
 import com.perfume.perfumeservice.service.perfume.PerfumeService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,8 @@ public class PerfumeController {
 
     private final PerfumeService perfumeService;
 
+    private final NoteService noteService;
+
     @GetMapping("/list")
     @ApiOperation(value = "전체 향수 목록 가져오기")
     public ResponseEntity<List<PerfumeResponseDto>> getListAll(){
@@ -34,12 +40,20 @@ public class PerfumeController {
         return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
     }
 
+    // 디테일은 param이 perfume?
+//    @GetMapping("/{id}")
+//    @ApiOperation(value = "향수 디테일 가져오기(노트, 평점, 이미지, 해시태그, 선호도 없음)")
+//    public ResponseEntity<PerfumeResponseDto> getPerfume(@PathVariable Long id){
+//        return new ResponseEntity<>(perfumeService.getPerfume(id), HttpStatus.OK);
+//    }
+
     @GetMapping("/{id}")
-    @ApiOperation(value = "향수 디테일 가져오기(평점, 이미지, 해시태그, 선호도 없음)")
-    public ResponseEntity<PerfumeResponseDto> getPerfume(@PathVariable Long id){
-        return new ResponseEntity<>(perfumeService.getPerfume(id), HttpStatus.OK);
+    @ApiOperation(value = "향수 디테일 가져오기(노트 테스트)")
+    public ResponseEntity<List<NoteResponseDto>> getgetPerfume(@PathVariable Long id){
+        return new ResponseEntity<>(noteService.getNotes(id), HttpStatus.OK);
     }
 
+    // 디테일은 param이 perfume?
 
 
 
