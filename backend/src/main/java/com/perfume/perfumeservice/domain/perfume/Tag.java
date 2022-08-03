@@ -25,9 +25,9 @@ public class Tag {
     private String tagName;
 
     // perfume_tag
-    // @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade =
-    // CascadeType.ALL)
-    // private List<Tag> tags = new ArrayList<>();
+     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade =
+     CascadeType.ALL)
+     private List<PerfumeTag> tags = new ArrayList<>();
 
     // perfume_review
 

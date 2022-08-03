@@ -20,7 +20,7 @@ public class Preference {
     @Column(name = "perference_id")
     private Long id;
 
-    @Column(name = "perference", columnDefinition = "TINYINT")
+    @Column(name = "perference")
     private int perference;
 
     // perfume
