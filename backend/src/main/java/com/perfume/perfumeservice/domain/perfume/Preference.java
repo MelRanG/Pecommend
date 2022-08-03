@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "preference")
 public class Preference {
     @Id
@@ -32,8 +32,4 @@ public class Preference {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-
-
-
 }

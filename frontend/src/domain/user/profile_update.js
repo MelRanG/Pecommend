@@ -1,54 +1,58 @@
-// import logo from "./logo.svg";
-// import "./App.css";
-// import "./App.css";
 import "./Login.css";
-import Nav from "../../components/nav";
-import Footer from "../../components/footer";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ajaxPrefilter } from "jquery";
 import { setUser } from "../../redux/user_reducer";
+import { logOut } from "../../redux/user_reducer";
 
-function Login() {
+function Profile_update() {
   const user = useSelector((state) => state.userStore.nowLoginUser);
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
+  const logOutUser = () => dispatch(logOut());
 
-  const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [cnum, setCnum] = React.useState("");
-  const [regist_pwd, setRpwd] = React.useState("");
   const [pwdRe, setPwdRe] = React.useState("");
   const [birth, setBirth] = React.useState("");
   const [nick, setNick] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [mbti, setMbti] = React.useState("");
-  const [match, setMatch] = React.useState("");
-  const [email_disabled, setEmailDisabled] = React.useState(false);
-  const [check_disabled, setCheckDisabled] = React.useState(false);
-  const [nick_check, setNickCheck] = React.useState(false);
+  const [pwd_check, setPwdCheck] = React.useState(true);
+  const [nick_check, setNickCheck] = React.useState(true);
+  const [pwd_disabled, setPwdDisabled] = React.useState(true);
+  const [nick_disabled, setNickDisabled] = React.useState(true);
+  const [userprofile, setUserProfile] = React.useState([]);
+  const [nick_change_msg, setNickChangeMsg] = React.useState("변경");
+  const [pwd_change_msg, setPwdChangeMsg] = React.useState("변경");
 
-  const onIDhandler = (event) => {
-    setId(event.currentTarget.value);
+  const getUserInfo = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/user/myinfo",
+        headers: {
+          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
+        },
+      });
+      if (response.status === 200) {
+        setUserProfile(response.data);
+        setBirth(response.data.birthday);
+        setGender(response.data.gender);
+        setNick(response.data.nickname);
+        setMbti(response.data.mbti);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const onPWDhandler = (event) => {
-    setPwd(event.currentTarget.value);
-  };
-
-  const onEmailhandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const onCnumhandler = (event) => {
-    setCnum(event.currentTarget.value);
-  };
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const onRPWDhandler = (event) => {
-    setRpwd(event.currentTarget.value);
+    setPwd(event.currentTarget.value);
   };
 
   const onPWDReHandler = (event) => {
@@ -70,99 +74,6 @@ function Login() {
 
   const onMbtiHandler = (event) => {
     setMbti(event.currentTarget.value);
-  };
-
-  const onSubmithandler = (event) => {
-    event.preventDefault();
-    let body = {
-      email: id,
-      password: pwd,
-    };
-    axios
-      .post("/api/v1/user/login.do", body)
-      .then(function (response) {
-        console.log(response);
-        if (response.status == 200) {
-          sessionStorage.setItem("Auth", response.data.accessToken);
-          sessionStorage.setItem("Refresh", response.data.refreshToken);
-        }
-      })
-      .then(function () {
-        getUserInfo();
-      })
-      .then(function () {
-        window.location.href = "/";
-      })
-      .catch(function (error) {
-        // 1. alertify 로 꾸며주는 부분 필요
-        alert("ID, Password를 다시 확인해주세요.");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const getUserInfo = async () => {
-    try {
-      const userInfo = await axios({
-        method: "get",
-        url: "/api/v1/user/myinfo",
-        headers: {
-          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-        },
-      });
-
-      const saveInfo = {
-        user_id: userInfo.data.user_id,
-        email: userInfo.data.email,
-        nickname: userInfo.data.nickname,
-      };
-
-      saveUser(saveInfo);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 이메일 유효성, 인증번호 받기
-  const sendMail = (event) => {
-    event.preventDefault();
-    console.log(email);
-    const regExp =
-      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    if (regExp.test(email) === false) {
-      alert("이메일의 형식이 맞지 않습니다.");
-    } else {
-      axios
-        .post("/api/v1/user/email-confirm.do", email)
-        .then(function (response) {
-          if (response.status == 200) {
-            alert("전송 완료!");
-            setMatch(response.data);
-            setEmailDisabled(true);
-          } else {
-            alert("Error");
-          }
-          console.log(match);
-        })
-        .catch(function (error) {
-          alert("이미 가입된 메일입니다.");
-          console.log(error);
-        });
-    }
-  };
-
-  // 이메일 인증번호 인증
-  const sendMailMatch = (event) => {
-    event.preventDefault();
-    console.log(match);
-    console.log(cnum);
-    if (cnum === match) {
-      alert("인증 완료");
-      setCheckDisabled(true);
-    } else {
-      alert("인증 번호를 다시 확인해 주세요");
-    }
   };
 
   // 비밀번호 유효성 검사
@@ -199,16 +110,83 @@ function Login() {
       });
   };
 
-  // 회원가입
+  const changeNickname = (event) => {
+    event.preventDefault();
+    if (nick_disabled) {
+      if (window.confirm("닉네임을 변경하시겠습니까?")) {
+        setNickDisabled(false);
+        setNickCheck(false);
+        setNickChangeMsg("변경 취소");
+      }
+    } else {
+      if (window.confirm("닉네임 변경을 취소하시겠습니까?")) {
+        setNickDisabled(true);
+        setNickCheck(true);
+        setNick(userprofile.nickname);
+        setNickChangeMsg("변경");
+      }
+    }
+  };
+
+  const changePassword = (event) => {
+    event.preventDefault();
+    if (pwd_disabled) {
+      if (window.confirm("비밀번호를 변경하시겠습니까?")) {
+        setPwdDisabled(false);
+        setPwdCheck(false);
+        setPwdChangeMsg("변경 취소");
+      }
+    } else {
+      if (window.confirm("비밀번호 변경을 취소하시겠습니까?")) {
+        setPwdDisabled(true);
+        setPwdCheck(true);
+        setPwd("");
+        setPwdRe("");
+        setPwdChangeMsg("변경");
+      }
+    }
+  };
+
+  const isMale = () => {
+    return gender == "male" ? "checked" : "";
+  };
+
+  const isFemale = () => {
+    return gender == "female" ? "checked" : "";
+  };
+
+  const deleteUser = (event) => {
+    event.preventDefault();
+
+    if (window.confirm("정말로 탈퇴하시겠습니까?")) {
+      const headers = {
+        Authorization: "Bearer" + sessionStorage.getItem("Auth"),
+      };
+
+      axios
+        .delete("/api/v1/user/delete", { headers: headers })
+        .then((response) => {
+          alert("탈퇴가 완료되었습니다.");
+          sessionStorage.setItem("Auth", null);
+          sessionStorage.setItem("Refresh", null);
+
+          logOutUser();
+        })
+        .then(() => {
+          window.location.href = "/";
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  // 회원수정
   const onRegisthandler = (event) => {
     event.preventDefault();
-    if (email_disabled === false) {
-      alert("이메일 인증번호 받기가 필요합니다.");
-    } else if (check_disabled === false) {
-      alert("인증번호 인증이 필요합니다.");
-    } else if (checkPassword(regist_pwd) === false) {
+    if (!pwd_check && checkPassword(pwd) === false) {
       alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
-    } else if (regist_pwd !== pwdRe) {
+    } else if (pwd !== pwdRe) {
       alert("'비밀번호 확인'을 다시 해주세요.");
     } else if (nick_check === false) {
       alert("닉네임 중복확인이 필요합니다.");
@@ -220,27 +198,35 @@ function Login() {
       alert("MBTI를 선택해주세요.");
     } else {
       let body = {
-        email: email,
-        password: regist_pwd,
+        password: pwd,
         nickname: nick,
         birthday: birth,
         gender: gender,
         mbti: mbti,
+        introduction: "",
       };
-      console.log("회원가입");
+
+      let headers = {
+        Authorization: "Bearer" + sessionStorage.getItem("Auth"),
+      };
+      console.log("회원수정");
       console.log(body);
 
       axios
-        .post("/api/v1/user/signup.do", body)
+        .put("/api/v1/user/update", body, { headers: headers })
         .then(function (response) {
-          console.log(response.data.code);
-          console.log(response);
           if (response.status == 200) {
-            console.log("!!regist!!");
-            document.location.href = "/";
-          } else {
-            console.log(response.data);
+            const saveInfo = {
+              user_id: userprofile.user_id,
+              email: userprofile.email,
+              nickname: nick,
+            };
+
+            saveUser(saveInfo);
           }
+        })
+        .then(() => {
+          document.location.href = "/profile";
         })
         .catch(function (error) {
           console.log(error);
@@ -255,10 +241,7 @@ function Login() {
           <div className="container">
             <div className="breadcrumb-content text-center">
               <ul>
-                <li>
-                  <a href="index.html">Home</a>
-                </li>
-                <li className="active">login / Register </li>
+                <li className="active"> Update </li>
               </ul>
             </div>
           </div>
@@ -269,105 +252,29 @@ function Login() {
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">
                   <div className="login-register-tab-list nav">
-                    <a className="active" data-bs-toggle="tab" href="#lg1">
-                      <h4> login </h4>
-                    </a>
-                    <a data-bs-toggle="tab" href="#lg2">
-                      <h4> register </h4>
+                    <a>
+                      <h4> Update </h4>
                     </a>
                   </div>
                   <div className="tab-content">
-                    <div id="lg1" className="tab-pane active">
-                      <div className="login-form-container">
-                        <div className="login-register-form">
-                          <form onSubmit={onSubmithandler}>
-                            <input
-                              type="text"
-                              name="lg-user-email"
-                              placeholder="Email"
-                              onChange={onIDhandler}
-                            />
-                            <input
-                              type="password"
-                              name="lg-user-password"
-                              placeholder="Password"
-                              onChange={onPWDhandler}
-                            />
-                            <div className="button-box">
-                              <div className="login-toggle-btn">
-                                <input type="checkbox" />
-                                <label>Remember me</label>
-                                <a href="#">Forgot Password?</a>
-                              </div>
-                              <div className="d-grid gap-2">
-                                <button type="submit" className="bbb">
-                                  <span>Login</span>
-                                </button>
-                                <div className="login_l m-4"></div>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                        <div className="d-grid gap-2">
-                          <button
-                            type="submit"
-                            className="naver-login-btn mb-3"
-                          >
-                            <span>
-                              <a href="http://localhost:8081/oauth2/authorization/naver">
-                                네이버 로그인
-                              </a>
-                            </span>
-                          </button>
-                          <button type="submit" className="google-login-btn">
-                            <span>
-                              <a href="http://localhost:8081/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com">
-                                구글 로그인
-                              </a>
-                            </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="lg2" className="tab-pane">
+                    <div id="lg2">
                       <div className="login-form-container">
                         <div className="login-register-form">
                           <form onSubmit={onRegisthandler}>
-                            <label>이메일</label>
+                            <label>새 비밀번호</label>
                             <button
                               class="btn"
                               style={{ float: "right" }}
-                              onClick={sendMail}
+                              onClick={changePassword}
                             >
-                              인증번호 받기
+                              {pwd_change_msg}
                             </button>
-                            <input
-                              name="user-email"
-                              placeholder="Email"
-                              type="email"
-                              onChange={onEmailhandler}
-                              disabled={email_disabled}
-                            />
-                            <label>인증번호</label>
-                            <button
-                              class="btn"
-                              style={{ float: "right" }}
-                              onClick={sendMailMatch}
-                            >
-                              인증
-                            </button>
-                            <input
-                              name="user-email-confirm"
-                              type="text"
-                              onChange={onCnumhandler}
-                              disabled={check_disabled}
-                            />
-                            <label>비밀번호</label>
                             <input
                               type="password"
                               name="user-password"
                               placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
                               onChange={onRPWDhandler}
+                              disabled={pwd_disabled}
                             />
                             <label>비밀번호 확인</label>
                             <input
@@ -375,9 +282,16 @@ function Login() {
                               placeholder="Password confirm"
                               type="password"
                               onChange={onPWDReHandler}
+                              disabled={pwd_disabled}
                             />
-
                             <label>닉네임</label>
+                            <button
+                              class="btn"
+                              style={{ float: "right" }}
+                              onClick={changeNickname}
+                            >
+                              {nick_change_msg}
+                            </button>
                             <button
                               class="btn"
                               style={{ float: "right" }}
@@ -390,6 +304,8 @@ function Login() {
                               placeholder="Nickname"
                               type="text"
                               onChange={onNicknamehandler}
+                              value={nick}
+                              disabled={nick_disabled}
                             />
                             <label>생일</label>
                             <input
@@ -397,6 +313,7 @@ function Login() {
                               placeholder="birthday"
                               type="date"
                               onChange={onBirthhandler}
+                              value={birth}
                             />
                             <label>성별</label>
                             <br />
@@ -406,6 +323,7 @@ function Login() {
                               type="radio"
                               id="male-check"
                               onChange={onGenderHandler}
+                              checked={isMale()}
                             />
                             <label
                               for="male-check"
@@ -419,6 +337,7 @@ function Login() {
                               type="radio"
                               id="female-check"
                               onChange={onGenderHandler}
+                              checked={isFemale()}
                             />
                             <label
                               for="female-check"
@@ -433,6 +352,7 @@ function Login() {
                               name="mbti"
                               className="form-select"
                               onChange={onMbtiHandler}
+                              value={mbti}
                             >
                               <option value="">선택</option>
                               <option value="ISTJ">ISTJ</option>
@@ -454,7 +374,12 @@ function Login() {
                             </select>
                             <div className="button-box">
                               <button type="submit">
-                                <span>Register</span>
+                                <span>Update</span>
+                              </button>
+                            </div>
+                            <div className="button-danger">
+                              <button onClick={deleteUser}>
+                                <span>Delete</span>
                               </button>
                             </div>
                           </form>
@@ -472,4 +397,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Profile_update;

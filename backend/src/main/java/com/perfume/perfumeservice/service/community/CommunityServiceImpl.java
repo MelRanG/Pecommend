@@ -63,7 +63,7 @@ public class CommunityServiceImpl implements CommunityService {
 
         if(like.isPresent()){
             communityLikeRepository.delete(like.get());
-            return "CANCLE";
+            return "CANCEL";
         }else{
             communityLikeRepository.save(CommunityLike.builder()
                     .user(user).community(community).build());
@@ -87,9 +87,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public PostsResponseDto writePost(PostsRequestDto dto) {
-        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
-        UUID uuid = UUID.randomUUID();
-        UserEntity user = UserEntity.builder().email("avc" + uuid).nickname("123" + uuid).password("123").build();
+        UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
 
         userRepository.save(user);
         return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
@@ -183,6 +181,26 @@ public class CommunityServiceImpl implements CommunityService {
         return communityRepository.findAllByOrderByIdDesc().stream()
                 .map(community -> PostsResponseDto.from(community))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> searchPostTitle(String title) {
+        return communityRepository.findByTitleLike("%"+title+"%").stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> searchPostWriter(String writer) {
+        List<UserEntity>user = userRepository.findByNicknameLike("%"+writer+"%");
+        List<PostsResponseDto> result = new ArrayList<>();
+        for (UserEntity item: user) {
+            result.addAll(
+                    communityRepository.findByWriter(item).stream()
+                            .map(community -> PostsResponseDto.from(community))
+                            .collect(Collectors.toList())
+            );}
+        return result;
     }
 
     //    public ImageDto updateImage(MultipartFile[] uploadFile) {

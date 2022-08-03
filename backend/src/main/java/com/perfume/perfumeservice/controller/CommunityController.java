@@ -43,6 +43,18 @@ public class CommunityController {
         return new ResponseEntity<>(communityService.getPost(id), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    @ApiOperation(value = "게시글 이름으로 검색하기")
+    public ResponseEntity<List<PostsResponseDto>> searchPostTitle(@RequestParam String type, @RequestParam String word){
+        if(type.equals("title"))
+            return new ResponseEntity<>(communityService.searchPostTitle(word), HttpStatus.OK);
+        else if(type.equals("writer")) {
+            return new ResponseEntity<>(communityService.searchPostWriter(word), HttpStatus.OK);
+        }
+        else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
     @PostMapping
     @ApiOperation(value = "게시글 작성")
     public ResponseEntity<PostsResponseDto> writePost(@RequestBody PostsRequestDto dto){

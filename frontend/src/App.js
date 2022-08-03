@@ -11,7 +11,6 @@ import CommunityMain from "./domain/community/communityMain";
 import CommunityRegist from "./domain/community/communityRegist";
 import CommunityEdit from "domain/community/communityEdit";
 import Community from "domain/community/community";
-
 import Perfume from "./domain/perfume/perfume";
 import PerfumeList from "./domain/perfume/perfumeList";
 import PerfumeDetail from "./domain/perfume/perfumeDetail";
@@ -20,6 +19,8 @@ import PerfumeRegistList from "./domain/perfume/perfumeRegistList";
 import PerfumeRegist from "./domain/perfume/perfumeRegist";
 import Login from "./domain/user/Login";
 import Profile from "./domain/user/profile";
+import Profile_update from "./domain/user/profile_update";
+import Oauth from "./domain/user/oauth";
 //
 import Home from "./domain/home/home";
 import NotFound from "./domain/error/NotFound";
@@ -39,40 +40,44 @@ function App() {
           element: <Perfume />,
           children: [
             { path: "list", element: <PerfumeList /> },
-            { path: "detail", element: <PerfumeDetail /> },
+            { path: "detail/:num", element: <PerfumeDetail /> },
             { path: "reglist", element: <PerfumeRegistList /> },
             { path: "reg", element: <PerfumeRegist /> },
           ],
         },
         {
           path: "commu/*",
-          element: <CommunityMain />,
+          element: <Community />,
           children: [
-            //commu
-            // { path: "list", element: <CommunityList />},
-            // { path: "detail/:num", element: <CommunityDetail />},
-            // { path: "regist", element: <CommunityRegist />}
+            { path: "detail/:num", element: <CommunityDetail /> },
+            { path: "list/:num", element: <CommunityList /> },
+            { path: "regist", element: <CommunityRegist /> },
+            { path: "commu/edit/:num", element: <CommunityEdit /> },
           ],
         },
+        // {
+        //   path: "commu/list",
+        //   element: <CommunityList />,
+        // },
+        // {
+        //   path: "commu/detail/:num",
+        //   element: <CommunityDetail />,
+        // },
+        // {
+        //   path: "commu/regist",
+        //   element: <CommunityRegist />,
+        // },
+        // {
+        //   path: "commu/edit/:num",
+        //   element: <CommunityEdit />,
+        // },
         {
-          path: "commu/list",
-          element: <CommunityList />,
-        },
-        {
-          path: "commu/detail/:num",
-          element: <CommunityDetail />,
-        },
-        {
-          path: "commu/regist",
-          element: <CommunityRegist />,
-        },
-        {
-          path: "commu/edit/:num",
-          element: <CommunityEdit />,
-        },
-        {
-          path: "profile",
+          path: "profile/:num",
           element: <Profile />,
+        },
+        {
+          path: "profile/update",
+          element: <Profile_update />,
         },
         {
           path: "login",
@@ -85,6 +90,10 @@ function App() {
         {
           path: "commutest",
           element: <Community />,
+        },
+        {
+          path: "oauth",
+          element: <Oauth />,
         },
       ],
     },

@@ -26,11 +26,12 @@ public class Community extends BaseTime {
     private UserEntity writer;
     private String title;
     private String content;
-
     @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
     List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
     List<CommunityImage> images = new ArrayList<>();
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CommunityLike> likes = new LinkedHashSet<>();
 
     public void patch(Community community){
         if(community.title != null)
@@ -40,7 +41,4 @@ public class Community extends BaseTime {
         if(community.category != 0)
             this.category = community.category;
     }
-
-    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CommunityLike> communityLikes = new LinkedHashSet<>();
 }

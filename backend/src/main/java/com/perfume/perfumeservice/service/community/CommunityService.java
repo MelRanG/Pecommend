@@ -20,4 +20,8 @@ public interface CommunityService {
     void deletePost(Long id);
 
     List<PostsResponseDto> getListAll();
+
+    List<PostsResponseDto> searchPostTitle(String title);
+
+    List<PostsResponseDto> searchPostWriter(String writer);
 }

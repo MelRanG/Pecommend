@@ -18,13 +18,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/file")
 public class fileController {
 
-    private ResourceLoader resLoader;
+    private final ResourceLoader resLoader;
 
     @PostMapping(value = "/upload")
     public ResponseEntity<String> upload(@RequestParam Map<String, Object> map, MultipartHttpServletRequest request) throws Exception{

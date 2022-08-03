@@ -1,57 +1,88 @@
 // import logo from './logo.svg';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./perfumeList.css";
 // import "./perfumeList.scss";
 
 function PerfumeList() {
+  const [dataList, setDataList] = useState([]); //향수리스트
+  // const [callData, setCallData] = useState(1);
+  const [limitData, setLimit] = useState(16); //한페이지당?
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limitData;
+  const dataSize = dataList.length;
+
+  const [keyWord, setKeyWord] = useState(""); //검색키워드
+  const [inputKeyWord, setInputKeyWord] = useState("");
+
+
+  const getPerfumeList = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/perfume/list/",
+        // data: registwrite,
+        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type" : ""}
+        // JSON.stringify()
+      });
+      console.log(response);
+      if (response.status === 200) {
+        setDataList(response.data);
+        console.log(dataList);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getPerfumeList();
+  }, []);
+
+
+  const getPerfumeSearchList = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/perfume/list/" + keyWord,
+        // data: registwrite,
+        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type" : ""}
+        // JSON.stringify()
+      });
+      console.log(response);
+      if (response.status === 200) {
+        setDataList(response.data);
+        console.log(dataList);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getPerfumeSearchList();
+  }, []);
+
+
+  const keywordSearch = (e) => {
+    e.preventDefault();
+    // setKeyWord(); 
+    console.log(keyWord);
+    getPerfumeSearchList();
+  }
+
+  const onKeyPress = (e) => {
+    if (e.key == 'Enter') {
+      keywordSearch();
+    }
+  }
+
+
 
   return (
     <div className="perfumeList">
-      {/* <div className="breadcrumb-area pt-50 pb-50 perfume_nav">
-                <div className="container">
-                    <div className="breadcrumb-content text-center">
-                        <ul>
-                            <li className="active">PERFUME</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div className="perfume-topbar">
-                <ul className="nav nav-tabs justify-content-center">
-                    <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href="#">List</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Regist</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Test</a>
-                    </li>
-                </ul>
-            </div> */}
-
-      {/* <div className="container-temp">
-                <div className="pernav">
-                    <div className="pernav-header">
-                        <div className="pernav-header-title tac">
-                            <span>PERFUME</span>
-                        </div>
-                    </div>
-                    <div className="pernav-header-menu">
-                        <div className="per-nav n3">
-                            <ul className="mb-0">
-                                <li className="is-active"><a href="/edu/board/free/list.do">LIST</a>
-                                <Link to="perfume"></Link></li>
-                                <li><a href="/edu/board/anonymity/list.do">REGIST</a></li>
-                                <li><a href="/edu/community/search/searchStudentList.do">TEST</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
       <div className="shop-area pt-95 pb-100">
         <div className="container">
@@ -70,9 +101,12 @@ function PerfumeList() {
                   <div className="sidebar-widget">
                     {/* <h4 className="pro-sidebar-title">Search </h4> */}
                     <div className="pro-sidebar-search mb-50 mt-25">
-                      <form className="pro-sidebar-search-form" action="#">
-                        <input type="text" placeholder="Search here..." />
-                        <button>
+                      <form className="pro-sidebar-search-form">
+                        <input type="text" placeholder="향수명 검색"
+                          onChange={(e) => setKeyWord(e.target.value)}
+                          onKeyPress={onKeyPress}
+                          defaultValue="" />
+                        <button onClick={keywordSearch}>
                           <i className="pe-7s-search"></i>
                         </button>
                       </form>
@@ -403,17 +437,52 @@ function PerfumeList() {
                       <option defaultValue="">추천비율순</option>
                     </select>
                   </div>
-                  <p>0000개 (총 개수?)</p>
+                  <p>총 {dataSize}개</p>
                 </div>
               </div>
               <div className="shop-bottom-area mt-35">
                 <div className="tab-content jump">
                   <div id="shop-1" className="tab-pane active">
                     <div className="row">
+
+                      {dataList.slice(offset, offset + limitData).map((data) => (
+                        <div key={data.perfumeId} className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                          <div className="product-wrap mb-25 scroll-zoom ">
+                            <div className="product-img">
+                              <Link to={`/perfume/detail/${data.perfumeId}`}>
+                                <div className="text_photo">
+                                  <div className="explain">
+                                    <div className="list-hashtag">
+                                      <div className="">#장미</div>
+                                      <div className="">
+                                        #해시태그가어디까지길어지는거죠?
+                                      </div>
+                                      <div className="">#복숭아</div>
+                                    </div>
+                                  </div>
+                                  <img
+                                    className="default-img"
+                                    src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                                    alt=""
+                                  />
+                                </div>
+                                {/* </a> */}
+                              </Link>
+                              {/* <span className="purple">New</span> */}
+                            </div>
+                            <div className="product-content text-center perfume_list_name">
+                              <div className="product-content-koName">
+                                {data.koName}
+                              </div>
+                              <div>({data.enName})</div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+
                       <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                         <div className="product-wrap mb-25 scroll-zoom">
                           <div className="product-img">
-                            {/* <a href="product-details.html"> */}
                             <Link to="../detail">
                               <div className="text_photo">
                                 <div className="explain">
@@ -433,465 +502,17 @@ function PerfumeList() {
                               </div>
                               {/* </a> */}
                             </Link>
-                            <span className="purple">New</span>
+                            {/* <span className="purple">New</span> */}
                           </div>
                           <div className="product-content text-center">
                             <h3>
-                              향수명1
+                              향수명
                             </h3>
                           </div>
                         </div>
                       </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명1</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명1</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명1</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명2</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명2</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명2</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명2</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명3</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명3</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명3</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명3</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명4</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명4</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명4</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <a href="product-details.html">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                            <span className="purple">New</span>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>
-                              <a href="product-details.html">향수명4</a>
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
+
+
                     </div>
                   </div>
                 </div>
@@ -923,210 +544,7 @@ function PerfumeList() {
         </div>
       </div>
 
-      {/* <!-- Modal --> */}
-      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="row">
-                <div className="col-md-5 col-sm-12 col-xs-12">
-                  <div className="tab-content quickview-big-img">
-                    <div id="pro-1" className="tab-pane fade show active">
-                      <img src="assets/img/product/quickview-l1.jpg" alt="" />
-                    </div>
-                    <div id="pro-2" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                    </div>
-                    <div id="pro-3" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l3.jpg" alt="" />
-                    </div>
-                    <div id="pro-4" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                    </div>
-                  </div>
-                  {/* <!-- Thumbnail Large Image End --> */}
-                  {/* <!-- Thumbnail Image End --> */}
-                  <div className="quickview-wrap mt-15">
-                    <div
-                      className="quickview-slide-active owl-carousel nav nav-style-1"
-                      role="tablist"
-                    >
-                      <a className="active" data-bs-toggle="tab" href="#pro-1">
-                        <img src="assets/img/product/quickview-s1.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-2">
-                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-3">
-                        <img src="assets/img/product/quickview-s3.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-4">
-                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-7 col-sm-12 col-xs-12">
-                  <div className="product-details-content quickview-content">
-                    <h2>Products Name Here</h2>
-                    <div className="product-details-price">
-                      <span>$18.00 </span>
-                      <span className="old">$20.00 </span>
-                    </div>
-                    <div className="pro-details-rating-wrap">
-                      <div className="pro-details-rating">
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o"></i>
-                        <i className="fa fa-star-o"></i>
-                      </div>
-                      <span>3 Reviews</span>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisic elit
-                      eiusm tempor incidid ut labore et dolore magna aliqua. Ut
-                      enim ad minim venialo quis nostrud exercitation ullamco
-                    </p>
-                    <div className="pro-details-list">
-                      <ul>
-                        <li>- 0.5 mm Dail</li>
-                        <li>- Inspired vector icons</li>
-                        <li>- Very modern style </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-size-color">
-                      <div className="pro-details-color-wrap">
-                        <span>Color</span>
-                        <div className="pro-details-color-content">
-                          <ul>
-                            <li className="blue"></li>
-                            <li className="maroon active"></li>
-                            <li className="gray"></li>
-                            <li className="green"></li>
-                            <li className="yellow"></li>
-                            <li className="white"></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="pro-details-size">
-                        <span>Size</span>
-                        <div className="pro-details-size-content">
-                          <ul>
-                            <li>
-                              <a href="#">s</a>
-                            </li>
-                            <li>
-                              <a href="#">m</a>
-                            </li>
-                            <li>
-                              <a href="#">l</a>
-                            </li>
-                            <li>
-                              <a href="#">xl</a>
-                            </li>
-                            <li>
-                              <a href="#">xxl</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pro-details-quality">
-                      <div className="cart-plus-minus">
-                        <input
-                          className="cart-plus-minus-box"
-                          type="text"
-                          name="qtybutton"
-                          defaultValue="2"
-                        />
-                      </div>
-                      <div className="pro-details-cart btn-hover">
-                        <a href="#">Add To Cart</a>
-                      </div>
-                      <div className="pro-details-wishlist">
-                        <a href="#">
-                          <i className="fa fa-heart-o"></i>
-                        </a>
-                      </div>
-                      <div className="pro-details-compare">
-                        <a href="#">
-                          <i className="pe-7s-shuffle"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="pro-details-meta">
-                      <span>Categories :</span>
-                      <ul>
-                        <li>
-                          <a href="#">Minimal,</a>
-                        </li>
-                        <li>
-                          <a href="#">Furniture,</a>
-                        </li>
-                        <li>
-                          <a href="#">Electronic</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-meta">
-                      <span>Tag :</span>
-                      <ul>
-                        <li>
-                          <a href="#">Fashion, </a>
-                        </li>
-                        <li>
-                          <a href="#">Furniture,</a>
-                        </li>
-                        <li>
-                          <a href="#">Electronic</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-social">
-                      <ul>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-facebook"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-dribbble"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-pinterest-p"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-linkedin"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }

@@ -1,101 +1,351 @@
-import './communityRegist.css'
-import Nav from "../../components/nav";
-import './communityList.css'
-import { Component, useEffect, useState } from "react";
+import "./communityRegist.css";
+import "./communityList.css";
+import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
-import { Link, Route, Router } from "react-router-dom";
+import { useParams, Link, Route, Router } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
-import CommunitySidebar from './communitySidebar';
+import CommunitySidebar from "./communitySidebar";
+import Pagination from "./pagination";
 
 function CommunityList() {
-    const [dataList,setDataList] = useState([]);
-    const [callData,setCallData] = useState(1);
-    const getArticleList = async () => {
-        console.log(callData);
-        try {
-          const response = await axios({
-            method: "get",
-            url: "/api/v1/community/list/"+callData,
-            // data: registwrite,
-            headers: { "Content-Type": "multipart/form-data" },
-            // headers: { "Content-Type" : ""}
-            // JSON.stringify()
-          });
-          console.log(response);
-          if (response.status === 200) {
-            setDataList(response.data)
-            console.log(dataList)
-          }
-        } catch (error) {
-          console.log(error);
+  let useParam = useParams();
+  let categorys = parseInt(useParam.num);
+  const [dataList, setDataList] = useState([]);
+  const titleName = [
+    '전체',
+    '자유',
+    '향수',
+    '인기',
+    '공지'
+  ]
+  const [limitData, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limitData;
+
+  const getArticleList = async () => {
+    console.log(categorys);
+    if (categorys > 0) {
+      try {
+        const response = await axios({
+          method: "get",
+          url: "/api/v1/community/list/" + categorys,
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
         }
-      };
-    useEffect(() => {
-        getArticleList()
-    }, [])
-    return (
-        <div className="communityRegist">
-            <div className='community-regist-head'>
-                <span>글쓰기</span>
-            </div>
-            
-            <CommunitySidebar />
-            <div class="pb-100">
-                <div class="container">
-                    <div class="row flex-row-reverse">
-                        <div class="col-lg-12" >
-                            <div>
-                                <h4 class="mt-5"  style={{  "text-align": "center"}}>카테고리 게시판</h4>
-                            </div>
-                            <hr></hr>
-                            <div className="community-top-box">
-                                <button className="community-top-box-active">ㆍ최신</button>
-                                <button className="community-top-box-wait">ㆍ추천</button>
-                                <button className="community-top-box-wait">ㆍHOT</button>
-                                <button className="community-top-box-wait">ㆍ베스트</button>
-                            </div>
-                            <div class="shop-bottom-area mt-15">
-                                <div class="tab-content jump">
-                                    <table className="table table-hover community-table table-responsive" style={{ width: "100%" ,marginBottom:"0px"}}>
-                                        <thead className="">
-                                            <tr style={{ textAlign: "center" }}>
-                                                <th style={{ color: "rgb(143,24,237)", width: "50px", textAlign: "center" }}>번호</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", textAlign: "center" }}>글 제목</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "150px", textAlign: "center" }}>작성자</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "100px", textAlign: "center" }}>작성일</th>
-                                                <th style={{ color: "rgb(143,24,237)", borderLeft: "1px solid rgb(143,24,237", width: "70px", textAlign: "center" }}>추천수</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="table-group-divider" style={{ textAlign: "center" }}>
-                                            {dataList.map(data => 
-                                            <tr>
-                                                <th scope="row" style={{ textAlign: "center" }}>{data.id}</th>
-                                                <td className="community-list-titletd"><Link class="community-list-titlebox" to ={`/commu/detail/${data.id}`}>{data.title}</Link></td>
-                                                {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
-                                                {/* <td>{data.writer}</td> */}
-                                                <td className="community-list-writertd"><Link class="community-list-writerbox" to ={`/profile/${data.writer_id}`}>{data.writer}</Link></td>
-                                                <td>{data.date}</td>
-                                                <td>{data.communityLike}</td>
-                                            </tr>
-                                                )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="d-flex flex-row-reverse">
-                                    <button className="List-regist-button"><Link to = {`/commu/regist`}>글 작성</Link></button>
-                                </div>
-                                <div class="pro-pagination-style text-center mt-10 mb-3">
-                                    <ul>
-                                        <li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                        <li><a class="active" href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="search d-flex flex-row justify-content-center align-items-center mb-5">
-                                    {/* <div class="select-shoing-wrap mx-2">
-                            <div class="select-shoing-wrap">
-                                <div class="shop-select">
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    else {
+      try {
+        const response = await axios({
+          method: "get",
+          url: "/api/v1/community/list",
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  useEffect(() => {
+    getArticleList();
+    console.log(useParam, "category", categorys)
+  }, [categorys]);
+  return (
+    <div className="communityRegist">
+      {/* <CommunitySidebar /> */}
+      <div className="pb-100">
+        <div className="container">
+          <div className="row flex-row-reverse">
+            <div className="col-lg-12">
+              <div>
+                <h4 className="mt-5" style={{ "text-align": "center" }}>
+                  {titleName[categorys]} 게시판
+                </h4>
+              </div>
+              <hr></hr>
+              <div className="row">
+                <div className="community-top-box col-lg-6 col-sm-12">
+                  <button className="community-top-box-active">ㆍ최신</button>
+                  <button className="community-top-box-wait">ㆍ추천</button>
+                  <button className="community-top-box-wait">ㆍHOT</button>
+                  <button className="community-top-box-wait">ㆍ베스트</button>
+                </div>
+                <div className="col-lg-6 community-top-regist col-sm-12">
+                  <button type="button" className="btn btn-secondary">글 작성</button>
+                </div>
+              </div>
+              <div className="shop-bottom-area mt-15">
+                <div className="tab-content jump">
+
+
+                  <table className="table table-hover">
+                    <thead>
+                      <tr className="table-top">
+                        <th scope="col">#</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성일</th>
+                        <th scope="col">추천수</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* {dataList.map((data) => ( */}
+                      {dataList.slice(offset, offset + limitData).map((data) => (
+                        <tr className="table-bottom">
+                          <th scope="row" style={{ textAlign: "center" }}>
+                            {data.id}
+                          </th>
+                          <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                            <Link
+                              className="community-list-titlebox"
+                              to={`/commu/detail/${data.id}`}
+                            >
+                              {data.title}
+                            </Link>
+                          </td>
+                          {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
+                          {/* <td>{data.writer}</td> */}
+                          <td className="" style={{ textAlign: "center", paddingLeft: "15px" }}>
+                            <Link
+                              className=""
+                              to={`/profile/${data.writer_id}`}
+                            >
+                              {data.writer}
+                            </Link>
+                          </td>
+                          <td>{data.date}2022.08.20</td>
+                          <td>{data.communityLike}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <div>
+                    <label>
+                      페이지 당 표시할 게시물 수:&nbsp;
+                      <select
+                        type="number"
+                        value={limitData}
+                        onChange={({ target: { value } }) => setLimit(Number(value))}
+                      >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                      </select>
+                    </label>
+                  </div>
+
+                  <div>
+                    <Pagination
+                      total={dataList.length}
+                      limit={limitData}
+                      page={page}
+                      setPage={setPage}
+                    />
+                  </div>
+
+                  {/* <div className="commu_list_pagenation">
+                    <nav aria-label="Page navigation example">
+                      <ul className="pagination">
+                        <li className="page-item">
+                          <a className="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li className="page-item"><a className="page-link" href="#">1</a></li>
+                        <li className="page-item"><a className="page-link" href="#">2</a></li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item">
+                          <a className="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div> */}
+
+
+                  <div className="input-group mb-3 commu_list_search">
+                    <div className="input-group-text p-0">
+                      <div className="dropdown">
+                        <a className="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                          제목
+                        </a>
+
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <li><a className="dropdown-item" id="filter:title">제목</a></li>
+                          <li><a className="dropdown-item" id="filter:writer">작성자</a></li>
+                          <li><a className="dropdown-item" id="filter:title_writer">제목 + 작성자</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="commu_list_search_text">
+                      <input type="text" className="form-control" placeholder="Search Here" />
+                    </div>
+                    <div>
+                      <button className="input-group-text commu_list_search_btn shadow-none px-4">
+                        <i className="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 기존 */}
+                  {/* <table
+                    className="table table-hover community-table table-responsive commu_list_table"
+                    style={{ width: "100%", marginBottom: "0px" }}
+                  >
+                    <thead className="table-top">
+                      <tr style={{ textAlign: "center" }}>
+                        <th
+                          className="table-top-1"
+                          scope="col"
+                          style={{
+                            color: "rgb(143,24,237)",
+                            // width: "10%",
+                            textAlign: "center",
+                          }}
+                        >
+                          번호
+                        </th>
+                        <th
+                          className="table-top-2"
+                          scope="col"
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            textAlign: "center",
+                            // width: "30%",
+                          }}
+                        >
+                          글 제목
+                        </th>
+                        <th
+                          className="table-top-3"
+                          scope="col"
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            // width: "150px",
+                            textAlign: "center",
+                          }}
+                        >
+                          작성자
+                        </th>
+                        <th
+                          className="table-top-4"
+                          scope="col"
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            // width: "25%",
+                            textAlign: "center",
+                          }}
+                        >
+                          작성일
+                        </th>
+                        <th
+                          className="table-top-5"
+                          scope="col"
+                          style={{
+                            color: "rgb(143,24,237)",
+                            borderLeft: "1px solid rgb(143,24,237",
+                            // width: "15%",
+                            textAlign: "center",
+                          }}
+                        >
+                          추천수
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      className="table-group-divider"
+                      style={{ textAlign: "center" }}
+                    >
+                      {dataList.map((data) => (
+                        <tr>
+                          <th scope="row" style={{ textAlign: "center" }}>
+                            {data.id}
+                          </th>
+                          <td className="community-list-titletd">
+                            <Link
+                              className="community-list-titlebox"
+                              to={`/commu/detail/${data.id}`}
+                            >
+                              {data.title}
+                            </Link>
+                          </td>
+                          <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td>
+                          <td>{data.writer}</td>
+                          <td className="community-list-writertd">
+                            <Link
+                              className="community-list-writerbox"
+                              to={`/profile/${data.writer_id}`}
+                            >
+                              {data.writer}
+                            </Link>
+                          </td>
+                          <td>{data.date}2022.08.20</td>
+                          <td>{data.communityLike}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table> */}
+                </div>
+                <div className="d-flex flex-row-reverse">
+                  {/* <button className="List-regist-button">
+                    <Link to={`/commu/regist`}>글 작성</Link>
+                  </button> */}
+                  <button type="button" className="btn btn-outline-dark">
+                    <Link to={`/commu/regist`}>글 작성</Link>
+                  </button>
+                  {/* <button type="button" className="btn btn-outline-secondary">
+                    Secondary
+                  </button> */}
+                </div>
+                {/* <div className="pro-pagination-style text-center mt-10 mb-3">
+                  <ul>
+                    <li>
+                      <a className="prev" href="#">
+                        <i className="fa fa-angle-double-left"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a className="active" href="#">
+                        1
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">2</a>
+                    </li>
+                    <li>
+                      <a className="next" href="#">
+                        <i className="fa fa-angle-double-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div> */}
+                {/* <div className="search d-flex flex-row justify-content-center align-items-center mb-5"> */}
+                {/* <div className="select-shoing-wrap mx-2">
+                            <div className="select-shoing-wrap">
+                                <div className="shop-select">
                                     <select>
                                         <option value="">제목</option>
                                         <option value="">제목 + 내용</option>
@@ -105,7 +355,7 @@ function CommunityList() {
                                 </div>
                             </div>
                         </div> */}
-                  <div className="dropdown" style={{ marginRight: "10px" }}>
+                {/* <div className="dropdown" style={{ marginRight: "10px" }}>
                     <button
                       className="btn btn-dropdown dropdown-toggle"
                       type="button"
@@ -148,7 +398,7 @@ function CommunityList() {
                       <i className="fa fa-search"></i>
                     </button>
                   </form>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

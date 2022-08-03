@@ -12,8 +12,8 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tag")
 public class Tag {
     @Id
@@ -25,12 +25,12 @@ public class Tag {
     private String tagName;
 
     // perfume_tag
-//    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Tag> tags = new ArrayList<>();
+    // @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade =
+    // CascadeType.ALL)
+    // private List<Tag> tags = new ArrayList<>();
 
     // perfume_review
 
     // user_tag
-
 
 }

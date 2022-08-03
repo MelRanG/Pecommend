@@ -17,6 +17,12 @@ import App from "./App";
 // import Footer from "./components/footer";
 // import Home from "./domain/home/home";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "redux/store";
+import { createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 {
@@ -28,13 +34,20 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 ></link>; */
 }
 
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+const rootReduce = createStore(store, composeWithDevTools);
+const persistor = persistStore(rootReduce);
 
-  </React.StrictMode>
+root.render(
+  <Provider store={rootReduce}>
+    <PersistGate loading={null} persistor={persistor}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
+      ,
+    </PersistGate>
+  </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
