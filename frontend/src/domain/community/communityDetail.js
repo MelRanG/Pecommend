@@ -76,7 +76,7 @@ function CommunityDetail() {
   const recommend = async () => {
     try {
       let data = {
-        userId: 1,
+        userId: 2,
         postId: pageDetail.id,
       };
       console.log(data);

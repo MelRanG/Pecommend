@@ -12,6 +12,8 @@ public enum ErrorCode {
     INVALID_PARAMETER(400, "U003", "잘못된 요청입니다."),
 
     POST_NOT_FOUND(404, "C001", "게시글 정보를 찾을 수 없습니다."),
+
+    PERFUME_NOT_FOUND(404, "P001", "향수 정보를 찾을 수 없습니다."),
     NOT_IMAGE_FILE(415, "C002", "이미지 형식의 파일이 아닙니다."),
 
     COMMENT_NOT_FOUND(404, "O001", "댓글 정보를 찾을 수 없습니다.");

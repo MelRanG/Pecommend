@@ -18,7 +18,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-
 @Entity
 @NoArgsConstructor
 @Getter
@@ -56,26 +55,31 @@ public class UserEntity {
     private Set<Community> posts = new LinkedHashSet<>();
 
     // preference
+    // @OneToMany(mappedBy = "preference", fetch = FetchType.LAZY, cascade =
+    // CascadeType.ALL)
+    // private List<Preference> preference = new ArrayList<>();
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Preference> preference = new ArrayList<>();
 
     // perfume_review
     // 여기도 writer로 해도 되는겨?
-    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PerfumeReview> reviews = new ArrayList<>();
+    // @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade =
+    // CascadeType.ALL)
+    // private List<PerfumeReview> reviews = new ArrayList<>();
 
     // review_like
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ReviewLike> reviewLikeList = new ArrayList<>();
+    // @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade =
+    // CascadeType.ALL)
+    // private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
     @Column(name = "token")
     private String token;
 
-    public void saveToken(String token){
+    public void saveToken(String token) {
         this.token = token;
     }
 
-    public void update(UpdateUserRequestDto dto, PasswordEncoder encoder){
+    public void update(UpdateUserRequestDto dto, PasswordEncoder encoder) {
         this.nickname = dto.getNickname();
         this.password = encoder.encode(dto.getPassword());
         this.birthday = dto.getBirthday();
@@ -84,7 +88,7 @@ public class UserEntity {
         this.introduction = dto.getIntroduction();
     }
 
-    public void update(UpdateUserRequestDto dto){
+    public void update(UpdateUserRequestDto dto) {
         this.nickname = dto.getNickname();
         this.birthday = dto.getBirthday();
         this.gender = dto.getGender();
@@ -92,9 +96,7 @@ public class UserEntity {
         this.introduction = dto.getIntroduction();
     }
 
-    public void changePW(String pw){
+    public void changePW(String pw) {
         this.password = pw;
     }
 }
-
-
