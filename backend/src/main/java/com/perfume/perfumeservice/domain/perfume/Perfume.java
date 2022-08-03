@@ -42,9 +42,9 @@ public class Perfume {
     @OneToMany(mappedBy = "perfume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Note> notes = new ArrayList<>();
 
-//    // perfume_tag - 해시태그
-//    @OneToMany(mappedBy = "perfume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<PerfumeTag> perfumeTags = new ArrayList<>();
+    // perfume_tag - 해시태그
+    @OneToMany(mappedBy = "perfume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PerfumeTag> perfumeTags = new ArrayList<>();
 //
 //    // preference - 선호도(향수하나 유저하나 연결해서 선호 여부)
 //    @OneToMany(mappedBy = "perfume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
