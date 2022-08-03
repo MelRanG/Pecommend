@@ -136,6 +136,26 @@ public class PerfumeController {
 
     }
 
+    @DeleteMapping("/like")
+    @ApiOperation(value = "향수 좋아요 해제")
+    public ResponseEntity<String> deleteLike(@RequestBody Map<String, Long> map){ // String 반환 하는 버전
+        Long perfumeId = map.get("perfumeId");
+        Long userId = map.get("userId");
+
+        String result = perfumeLikeService.deleteLike(perfumeId, userId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+//    @DeleteMapping("/like")
+//    @ApiOperation(value = "향수 좋아요 해제")
+//    public ResponseEntity<String> deleteLike(@RequestBody Map<String, Long> map){ // String 반환 안 하는 버전
+//        Long perfumeId = map.get("perfumeId");
+//        Long userId = map.get("userId");
+//
+//        perfumeLikeService.deleteLike(perfumeId, userId);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+
     @GetMapping("/likelist/{id}")
     @ApiOperation(value = "향수 좋아요 목록")
     public ResponseEntity<List<PerfumeLikeResponseDto>> getPerfumeLike(@PathVariable Long id){ // 일단 확인용으로 만들어 봄

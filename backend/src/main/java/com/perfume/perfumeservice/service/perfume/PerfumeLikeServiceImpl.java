@@ -88,6 +88,31 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         }
     }
 
+
+
+    @Override
+    public String deleteLike(Long perfumeId, Long userId) { // String 반환 하는 버전
+        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+        if(!like.isPresent()) return "FAIL";
+        else{
+            PerfumeLike delLike = perfumeLikeRepository.findByPerfumeAndUser(perfume, user).orElseThrow(null);
+            perfumeLikeRepository.delete(delLike);
+            return "SUCCESS";
+        }
+    }
+
+//    @Override
+//    public void deleteLike(Long perfumeId, Long userId) { // String 반환 안 하는 버전
+//        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+//        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+//        PerfumeLike delLike = perfumeLikeRepository.findByPerfumeAndUser(perfume, user).orElseThrow(null);
+//        perfumeLikeRepository.delete(delLike);
+//
+//    }
+
+
     @Override
     public List<PerfumeLikeResponseDto> getLikeAll() {
         List<PerfumeLike> likeList = perfumeLikeRepository.findAll();
