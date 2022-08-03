@@ -125,6 +125,17 @@ public class PerfumeController {
 
     }
 
+    @PostMapping("/dislike")
+    @ApiOperation(value = "향수 싫어요 등록")
+    public ResponseEntity<String> addDislike(@RequestBody Map<String, Long> map){
+        Long perfumeId = map.get("perfumeId");
+        Long userId = map.get("userId");
+
+        String result = perfumeLikeService.addDisLike(perfumeId, userId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
+    }
+
     @GetMapping("/likelist/{id}")
     @ApiOperation(value = "향수 좋아요 목록")
     public ResponseEntity<List<PerfumeLikeResponseDto>> getPerfumeLike(@PathVariable Long id){ // 일단 확인용으로 만들어 봄
@@ -139,6 +150,20 @@ public class PerfumeController {
         List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislike(id);
         return new ResponseEntity<>(pdDto, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/likelist")
+    @ApiOperation(value = "전체 향수 좋아요 목록")
+    public ResponseEntity<List<PerfumeLikeResponseDto>> getPerfumeLikeAll(){ // 일단 확인용으로 만들어 봄
+        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikeAll();
+        return new ResponseEntity<>(plDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/dislikelist")
+    @ApiOperation(value = "전체 향수 싫어요 목록")
+    public ResponseEntity<List<PerfumeDislikeResponseDto>> getPerfumeDislikeAll(){ // 일단 확인용으로 만들어 봄
+        List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislikeAll();
+        return new ResponseEntity<>(pdDto, HttpStatus.OK);
     }
 
 }

@@ -67,4 +67,45 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         }
     }
 
+    @Override
+    public String addDisLike(Long perfumeId, Long userId) {
+        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+
+        // insert
+        // dislike 체크
+        Optional<PerfumeDislike> dislike = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
+        // like 체크
+        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+
+        if(dislike.isPresent() || like.isPresent()) return "CANCEL";
+        else{
+            perfumeDislikeRepository.save(PerfumeDislike.builder()
+                    .perfume(perfume)
+                    .user(user)
+                    .build());
+            return "ADD";
+        }
+    }
+
+    @Override
+    public List<PerfumeLikeResponseDto> getLikeAll() {
+        List<PerfumeLike> likeList = perfumeLikeRepository.findAll();
+        List<PerfumeLikeResponseDto> dtoList = new LinkedList<>();
+        for(PerfumeLike pl: likeList){
+            dtoList.add(PerfumeLikeResponseDto.from(pl));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<PerfumeDislikeResponseDto> getDislikeAll() {
+        List<PerfumeDislike> dislikeList = perfumeDislikeRepository.findAll();
+        List<PerfumeDislikeResponseDto> dtoList = new LinkedList<>();
+        for(PerfumeDislike pd: dislikeList){
+            dtoList.add(PerfumeDislikeResponseDto.from(pd));
+        }
+        return dtoList;
+    }
+
 }
