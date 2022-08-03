@@ -17,7 +17,7 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "note_id")
-    private Long id;
+    private long id;
 
     @Column(name = "note")
     private String note;

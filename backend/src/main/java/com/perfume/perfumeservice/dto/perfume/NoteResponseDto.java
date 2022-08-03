@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 public class NoteResponseDto {
     private long noteId;
     private String noteCl;
-    private Long perfumeId;
-    private Long materialId;
+    private long perfumeId;
+    private long materialId;
     private String materialName;
 
     public static NoteResponseDto from(Note note){

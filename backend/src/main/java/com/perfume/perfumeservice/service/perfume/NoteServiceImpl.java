@@ -27,11 +27,11 @@ public class NoteServiceImpl implements NoteService{
     public List<NoteResponseDto> getNotes(Long id) { // 향수 id로 노트 정보 가져오기
         Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
         List<Note> notes = perfume.getNotes();
-        List<NoteResponseDto> dtolist = new LinkedList<>();
+        List<NoteResponseDto> dtoList = new LinkedList<>();
         for (Note n : notes) {
-            dtolist.add(NoteResponseDto.from(n));
+            dtoList.add(NoteResponseDto.from(n));
         }
-        return dtolist;
+        return dtoList;
     }
 
 //    @Override

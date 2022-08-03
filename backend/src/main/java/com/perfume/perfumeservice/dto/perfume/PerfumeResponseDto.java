@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "PerfumeResponseRequestDto", description = "향수 정보 응답 Dto")
+@ApiModel(value = "PerfumeResponseDto", description = "향수 정보 응답 Dto")
 public class PerfumeResponseDto {
     private long perfumeId;
     private String koName;

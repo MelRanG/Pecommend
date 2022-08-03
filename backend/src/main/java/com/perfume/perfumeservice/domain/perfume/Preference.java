@@ -18,7 +18,7 @@ public class Preference {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "perference_id")
-    private Long id;
+    private long id;
 
     @Column(name = "perference")
     private int perference;

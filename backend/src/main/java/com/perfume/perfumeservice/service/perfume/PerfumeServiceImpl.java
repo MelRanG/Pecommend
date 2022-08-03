@@ -17,13 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 public class PerfumeServiceImpl  implements PerfumeService {
 
-    private PerfumeRepository perfumeRepository;
+    private final PerfumeRepository perfumeRepository;
 
-    private NoteRepository noteRepository;
 
     @Override
     public List<PerfumeResponseDto> getListAll() {
