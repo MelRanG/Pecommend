@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ajaxPrefilter } from "jquery";
 import { setUser } from "../../redux/user_reducer";
+import { authaxios, freeaxios } from "custom/customAxios";
 
 function Login() {
   const user = useSelector((state) => state.userStore.nowLoginUser);
@@ -78,7 +79,7 @@ function Login() {
       email: id,
       password: pwd,
     };
-    axios
+    freeaxios
       .post("/api/v1/user/login.do", body)
       .then(function (response) {
         console.log(response);
@@ -88,28 +89,21 @@ function Login() {
         }
       })
       .then(function () {
-        getUserInfo();
-      })
-      .then(function () {
-        window.location.href = "/";
+        getUserInfo().then(() => {
+          document.location.href = "/";
+        });
       })
       .catch(function (error) {
         // 1. alertify 로 꾸며주는 부분 필요
         alert("ID, Password를 다시 확인해주세요.");
-      })
-      .catch(function (error) {
-        console.log(error);
       });
   };
 
   const getUserInfo = async () => {
     try {
-      const userInfo = await axios({
+      const userInfo = await authaxios({
         method: "get",
         url: "/api/v1/user/myinfo",
-        headers: {
-          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-        },
       });
 
       const saveInfo = {
@@ -133,7 +127,7 @@ function Login() {
     if (regExp.test(email) === false) {
       alert("이메일의 형식이 맞지 않습니다.");
     } else {
-      axios
+      freeaxios
         .post("/api/v1/user/email-confirm.do", email)
         .then(function (response) {
           if (response.status == 200) {
@@ -182,7 +176,7 @@ function Login() {
     event.preventDefault();
     console.log(nick);
     console.log(nick_check);
-    axios
+    freeaxios
       .get("/api/v1/user/check.do/nickname/" + nick)
       .then(function (response) {
         // console.log(response.data);
@@ -230,7 +224,7 @@ function Login() {
       console.log("회원가입");
       console.log(body);
 
-      axios
+      freeaxios
         .post("/api/v1/user/signup.do", body)
         .then(function (response) {
           console.log(response.data.code);

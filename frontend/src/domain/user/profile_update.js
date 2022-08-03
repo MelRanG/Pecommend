@@ -165,10 +165,10 @@ function Profile_update() {
 
       axios
         .delete("/api/v1/user/delete", { headers: headers })
-        .then((response) => {
+        .then(() => {
           alert("탈퇴가 완료되었습니다.");
-          sessionStorage.setItem("Auth", null);
-          sessionStorage.setItem("Refresh", null);
+          sessionStorage.removeItem("Auth");
+          sessionStorage.removeItem("Refresh");
 
           logOutUser();
         })

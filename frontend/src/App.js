@@ -1,4 +1,5 @@
-import { Routes, Route, useRoutes } from "react-router-dom";
+import { Routes, Route, useRoutes, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import logo from "./logo.svg";
 import "./App.css";
 // import Nav from './components/nav';
@@ -31,6 +32,8 @@ import NotFound from "./domain/error/NotFound";
 // import "./domain/perfume/perfumeList.scss";
 
 function App() {
+  const isLogined = useSelector((state) => state.userStore.isLogined);
+
   const element = useRoutes([
     {
       path: "/",
@@ -53,8 +56,18 @@ function App() {
           children: [
             { path: "detail/:num", element: <CommunityDetail /> },
             { path: "list/:num", element: <CommunityList /> },
-            { path: "regist", element: <CommunityRegist /> },
-            { path: "commu/edit/:num", element: <CommunityEdit /> },
+            {
+              path: "regist",
+              element: isLogined ? (
+                <CommunityRegist />
+              ) : (
+                <Navigate to="/login" />
+              ),
+            },
+            {
+              path: "commu/edit/:num",
+              element: isLogined ? <CommunityEdit /> : <Navigate to="/login" />,
+            },
           ],
         },
         // {
@@ -79,7 +92,7 @@ function App() {
         },
         {
           path: "profile/update",
-          element: <Profile_update />,
+          element: isLogined ? <Profile_update /> : <Navigate to="/login" />,
         },
         {
           path: "login",
@@ -103,7 +116,7 @@ function App() {
         },
         {
           path: "myprofile",
-          element: <MyProfile />,
+          element: isLogined ? <MyProfile /> : <Navigate to="/login" />,
         },
       ],
     },
