@@ -77,7 +77,7 @@ function CommunityDetail() {
   const recommend = async () => {
     try {
       let data = {
-        userId: 1,
+        userId: 2,
         postId: pageDetail.id,
       }
       console.log(data)
@@ -97,7 +97,7 @@ function CommunityDetail() {
           })
           console.log("like up", pageDetail.communityLike)
         }
-        if (response.data == "CANCLE") {
+        if (response.data == "CANCEL") {
           setPageDetail({
             ...pageDetail,
             communityLike: pageDetail.communityLike - 1
