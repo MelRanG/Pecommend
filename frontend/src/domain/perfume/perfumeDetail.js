@@ -1,9 +1,47 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import "./perfumeDetail.css";
 
 // 향수 상세 페이지
 const PerfumeDetail = () => {
+  let useParam = useParams();
+  let number = parseInt(useParam.num);
+  const [perfumeDetail, setPerfumeDetail] = useState({});
+
+
+  const getPerfumeDetail = async () => {
+    try {
+      // console.log("number", number);
+      const response = await axios({
+        method: "get",
+        url: "/api/v1/perfume/" + number,
+        // data: registwrite,
+        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type" : ""}
+        // JSON.stringify()
+      });
+      console.log(response);
+      if (response.status === 200) {
+        console.log(response.data);
+        setPerfumeDetail(response.data);
+        // console.log(parse(response.data.content))
+        // const parsedata = parse(response.data.content)
+        // setParseContent(parsedata)
+        // console.log("pC", parseContent)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPerfumeDetail();
+    // console.log(pageDetail);
+  }, []);
+
+
   return (
     <div className="perfumeDetail">
       <div className="shop-area pt-100 pb-100">
@@ -21,7 +59,7 @@ const PerfumeDetail = () => {
             </div>
             <div className="col-lg-8 col-md-6">
               <div className="detail-product-details-content ml-70">
-                <h2 className="detail-product-title">Perfume Name Here</h2>
+                <h2 className="detail-product-title">{perfumeDetail.koName}({perfumeDetail.enName})</h2>
                 <div className="pro-details-rating-wrap ">
                   <div className="pro-details-rating">
                     <i className="fa fa-star-o yellow"></i>

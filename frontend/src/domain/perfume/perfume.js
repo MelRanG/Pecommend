@@ -41,7 +41,7 @@ const Perfume = () => {
       <Routes>
         <Route index element={<PerfumeMain />} />
         <Route path="list" element={<PerfumeList />} />
-        <Route path="detail" element={<PerfumeDetail />} />
+        <Route path="detail/:num" element={<PerfumeDetail />} />
         <Route path="reglist" element={<PerfumeRegistList />} />
         <Route path="reg" element={<PerfumeRegist />} />
       </Routes>

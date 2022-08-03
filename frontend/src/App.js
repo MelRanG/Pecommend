@@ -28,6 +28,7 @@ import NotFound from "./domain/error/NotFound";
 // import "./domain/perfume/perfumeList.scss";
 
 function App() {
+
   const element = useRoutes([
     {
       path: "/",
@@ -39,39 +40,39 @@ function App() {
           element: <Perfume />,
           children: [
             { path: "list", element: <PerfumeList /> },
-            { path: "detail", element: <PerfumeDetail /> },
+            { path: "detail/:num", element: <PerfumeDetail /> },
             { path: "reglist", element: <PerfumeRegistList /> },
             { path: "reg", element: <PerfumeRegist /> },
           ],
         },
         {
           path: "commu/*",
-          element: <CommunityMain />,
+          element: <Community />,
           children: [
-            //commu
-            // { path: "list", element: <CommunityList />},
-            // { path: "detail/:num", element: <CommunityDetail />},
-            // { path: "regist", element: <CommunityRegist />}
+            { path: "detail/:num", element: <CommunityDetail />, },
+            { path: "list/:num", element: <CommunityList /> },
+            { path: "regist", element: <CommunityRegist /> },
+            { path: "commu/edit/:num", element: <CommunityEdit /> },
           ],
         },
+        // {
+        //   path: "commu/list",
+        //   element: <CommunityList />,
+        // },
+        // {
+        //   path: "commu/detail/:num",
+        //   element: <CommunityDetail />,
+        // },
+        // {
+        //   path: "commu/regist",
+        //   element: <CommunityRegist />,
+        // },
+        // {
+        //   path: "commu/edit/:num",
+        //   element: <CommunityEdit />,
+        // },
         {
-          path: "commu/list",
-          element: <CommunityList />,
-        },
-        {
-          path: "commu/detail/:num",
-          element: <CommunityDetail />,
-        },
-        {
-          path: "commu/regist",
-          element: <CommunityRegist />,
-        },
-        {
-          path: "commu/edit/:num",
-          element: <CommunityEdit />,
-        },
-        {
-          path: "profile",
+          path: "profile/:num",
           element: <Profile />,
         },
         {
@@ -82,10 +83,10 @@ function App() {
           path: "*",
           element: <NotFound />,
         },
-        {
-          path: "commutest",
-          element: <Community />,
-        },
+        // {
+        //   path: "commutest",
+        //   element: <Community />,
+        // },
       ],
     },
   ]);

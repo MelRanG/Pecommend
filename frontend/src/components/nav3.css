@@ -25,11 +25,12 @@ a{
   padding-left: 0;
   margin-bottom: 0px;
   height: 100%;
+  font-family: 'EarlyFontDiary';
 }
 
 .navbar__menu li {
   padding: 0 15px;
-  font-size: 30px;
+  font-size: 25px;
 }
 .navbar__menu li a{
   text-decoration: none;
@@ -57,7 +58,7 @@ a{
   right: 32px;
   top: 30px;
   font-size: 24px;
-  color: rgb(139, 101, 44) !important;
+  color: #ceb3a2 !important;
 }
 
 /* 반응형 */
@@ -80,8 +81,11 @@ a{
   }
 
   .navbar__menu li:hover{
-    background-color: aqua;
+    background-color: #ceb3a2;
     border-radius: 4px;
+  }
+  .navbar__menu li a:hover{
+    color: #f8f8f8;
   }
   .navbar__icons{
     display: none;

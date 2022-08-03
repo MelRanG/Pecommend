@@ -70,13 +70,13 @@ function Login() {
         console.log(response);
         if (response.status == 200) {
           localStorage.setItem("Auth", response.data.accessToken);
-          localStorage.setItem("Refresh",response.data.refreshToken);
+          localStorage.setItem("Refresh", response.data.refreshToken);
 
           // 회원 정보 저장하는 부분 구현필요
 
-          document.location.href='/';
+          document.location.href = '/';
         }
-        
+
       }).catch(function (error) {
         // alertify 로 꾸며주는 부분 필요
         alert("틀렸습니다.");
@@ -109,15 +109,15 @@ function Login() {
       });
   };
 
-  const checkNickname = (event) =>{
+  const checkNickname = (event) => {
     event.preventDefault();
     console.log(nick)
     axios.get("/api/v1/user/check.do/nickname/" + nick)
-    .then(function(response){
-      console.log(response);
-    }).catch(function(error){
-      console.log(error);
-    })
+      .then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      })
   }
 
   // 유효성 검사 필요
@@ -204,7 +204,7 @@ function Login() {
                         <div className="login-register-form">
                           <form onSubmit={onRegisthandler}>
                             <label>이메일</label>
-                            <button class="btn" style={{ float: "right" }}>
+                            <button className="btn" style={{ float: "right" }}>
                               인증번호 받기
                             </button>
                             <input
@@ -213,7 +213,7 @@ function Login() {
                               type="email"
                             />
                             <label>인증번호</label>
-                            <button class="btn" style={{ float: "right" }}>
+                            <button className="btn" style={{ float: "right" }}>
                               인증
                             </button>
                             <input name="user-email-confirm" type="text" />

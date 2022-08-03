@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import React from "react";
 import "./nav3.css";
 
 function Nav3() {
@@ -21,9 +22,10 @@ function Nav3() {
       <div className="navbar__logo">
         <Link to={"/"}>
           <img
+
             alt="?"
-            src="assets/tempImg/logo2.PNG"
-            style={{ height: "80px" }}
+            src="assets/img/logo/logo-3.PNG"
+            style={{ height: "60px", marginBottom: "5px", marginTop: "5px" }}
           />
         </Link>
       </div>
@@ -43,7 +45,7 @@ function Nav3() {
           <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
         </li>
       </ul>
-      <a href="#" className="navbar__toogleBtn"><i class="fa-solid fa-bars"></i></a>
+      <a href="#" className="navbar__toogleBtn"><i className="fa-solid fa-bars"></i></a>
     </nav>
   );
 }
