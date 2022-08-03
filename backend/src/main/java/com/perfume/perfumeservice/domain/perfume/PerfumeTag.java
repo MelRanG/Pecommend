@@ -27,10 +27,10 @@ public class PerfumeTag {
     @JoinColumn(name = "perfume_id")
     private Perfume perfume;
 
-//    // tag
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "tag_id")
-//    private Tag tag;
+    // tag
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tag_id")
+    private Tag tag;
 
 
 

@@ -1,6 +1,5 @@
 package com.perfume.perfumeservice.service.perfume;
 
-import com.perfume.perfumeservice.dto.perfume.DetailResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 
 import java.util.List;
