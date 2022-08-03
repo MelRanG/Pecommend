@@ -2,7 +2,6 @@ package com.perfume.perfumeservice.controller;
 
 import com.perfume.perfumeservice.domain.perfume.Note;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
-import com.perfume.perfumeservice.dto.perfume.DetailResponseDto;
 import com.perfume.perfumeservice.dto.perfume.NoteResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 import com.perfume.perfumeservice.service.perfume.NoteService;
