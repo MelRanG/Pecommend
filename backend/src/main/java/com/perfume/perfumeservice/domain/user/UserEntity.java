@@ -1,6 +1,7 @@
 package com.perfume.perfumeservice.domain.user;
 
 import com.perfume.perfumeservice.domain.community.Community;
+import com.perfume.perfumeservice.domain.perfume.PerfumeDislike;
 import com.perfume.perfumeservice.domain.perfume.PerfumeLike;
 import com.perfume.perfumeservice.domain.perfume.Preference;
 import com.perfume.perfumeservice.domain.review.PerfumeReview;
@@ -65,7 +66,7 @@ public class UserEntity {
 
     // perfume_dislike
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PerfumeLike> perfumeDislikes = new ArrayList<>();
+    private List<PerfumeDislike> perfumeDislikes = new ArrayList<>();
 
     // perfume_review
     // 여기도 writer로 해도 되는겨?
