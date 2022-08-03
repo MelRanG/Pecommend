@@ -87,9 +87,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public PostsResponseDto writePost(PostsRequestDto dto) {
-        //UserEntity user = userRepository.findById(dto.getWriter_id()).orElseThrow(UserNotFoundException::new);
-        UUID uuid = UUID.randomUUID();
-        UserEntity user = UserEntity.builder().email("avc" + uuid).nickname("123" + uuid).password("123").build();
+        UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
 
         userRepository.save(user);
         return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
