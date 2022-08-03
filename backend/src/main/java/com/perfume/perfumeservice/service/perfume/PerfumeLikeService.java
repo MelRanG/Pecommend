@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface PerfumeLikeService {
 
-    List<PerfumeLikeResponseDto> getLike(Long id);
-    List<PerfumeDislikeResponseDto> getDislike(Long id);
+
 
     String addLike(Long perfumeId, Long userId);
 
@@ -19,8 +18,12 @@ public interface PerfumeLikeService {
 
 //    void deleteLike(Long perfumeId, Long userId); // String 반환 안 하는 버전
 
-    List<PerfumeLikeResponseDto> getLikeAll();
+    List<PerfumeLikeResponseDto> getLikePerfume(Long id);
+    List<PerfumeDislikeResponseDto> getDislikePerfume(Long id);
 
+    List<PerfumeLikeResponseDto> getLikeUser(Long id);
+    List<PerfumeDislikeResponseDto> getDislikeUser(Long id);
+    List<PerfumeLikeResponseDto> getLikeAll();
     List<PerfumeDislikeResponseDto> getDislikeAll();
 
 }

@@ -24,27 +24,7 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
 
     private final PerfumeDislikeRepository perfumeDislikeRepository;
 
-    @Override
-    public List<PerfumeLikeResponseDto> getLike(Long id) {
-        Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
-        List<PerfumeLike> likeList = perfume.getLikes();
-        List<PerfumeLikeResponseDto> dtoList = new LinkedList<>();
-        for(PerfumeLike pl: likeList){
-            dtoList.add(PerfumeLikeResponseDto.from(pl));
-        }
-        return dtoList;
-    }
 
-    @Override
-    public List<PerfumeDislikeResponseDto> getDislike(Long id) {
-        Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
-        List<PerfumeDislike> dislikeList = perfume.getDislikes();
-        List<PerfumeDislikeResponseDto> dtoList = new LinkedList<>();
-        for(PerfumeDislike pd: dislikeList){
-            dtoList.add(PerfumeDislikeResponseDto.from(pd));
-        }
-        return dtoList;
-    }
 
 //    @Override
 //    public String addLike(Long perfumeId, Long userId) {
@@ -183,6 +163,49 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
 //        perfumeLikeRepository.delete(delLike);
 //
 //    }
+    @Override
+    public List<PerfumeLikeResponseDto> getLikePerfume(Long id) {
+        Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
+        List<PerfumeLike> likeList = perfume.getLikes();
+        List<PerfumeLikeResponseDto> dtoList = new LinkedList<>();
+        for(PerfumeLike pl: likeList){
+            dtoList.add(PerfumeLikeResponseDto.from(pl));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<PerfumeDislikeResponseDto> getDislikePerfume(Long id) {
+        Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
+        List<PerfumeDislike> dislikeList = perfume.getDislikes();
+        List<PerfumeDislikeResponseDto> dtoList = new LinkedList<>();
+        for(PerfumeDislike pd: dislikeList){
+            dtoList.add(PerfumeDislikeResponseDto.from(pd));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<PerfumeLikeResponseDto> getLikeUser(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow(null);
+        List<PerfumeLike> likeList = user.getPerfumeLikes();
+        List<PerfumeLikeResponseDto> dtoList = new LinkedList<>();
+        for(PerfumeLike pl: likeList){
+            dtoList.add(PerfumeLikeResponseDto.from(pl));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<PerfumeDislikeResponseDto> getDislikeUser(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow(null);
+        List<PerfumeDislike> dislikeList = user.getPerfumeDislikes();
+        List<PerfumeDislikeResponseDto> dtoList = new LinkedList<>();
+        for(PerfumeDislike pd: dislikeList){
+            dtoList.add(PerfumeDislikeResponseDto.from(pd));
+        }
+        return dtoList;
+    }
 
 
     @Override
