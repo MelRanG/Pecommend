@@ -446,10 +446,10 @@ function PerfumeList() {
                     <div className="row">
 
                       {dataList.slice(offset, offset + limitData).map((data) => (
-                        <div key={data} className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
+                        <div key={data.perfumeId} className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                           <div className="product-wrap mb-25 scroll-zoom ">
                             <div className="product-img">
-                              <Link to={`/perfume/detail/${data.perfume_id}`}>
+                              <Link to={`/perfume/detail/${data.perfumeId}`}>
                                 <div className="text_photo">
                                   <div className="explain">
                                     <div className="list-hashtag">

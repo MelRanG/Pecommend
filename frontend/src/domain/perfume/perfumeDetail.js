@@ -9,6 +9,7 @@ const PerfumeDetail = () => {
   let useParam = useParams();
   let number = parseInt(useParam.num);
   const [perfumeDetail, setPerfumeDetail] = useState({});
+  const [noteDetail, setNoteDetail] = useState([]);
 
 
   const getPerfumeDetail = async () => {
@@ -25,7 +26,8 @@ const PerfumeDetail = () => {
       console.log(response);
       if (response.status === 200) {
         console.log(response.data);
-        setPerfumeDetail(response.data);
+        setPerfumeDetail(response.data.pDto);
+        setNoteDetail(response.data.nDto);
         // console.log(parse(response.data.content))
         // const parsedata = parse(response.data.content)
         // setParseContent(parsedata)
@@ -121,7 +123,7 @@ const PerfumeDetail = () => {
                   <div className="detail-pro-details-list">
                     <ul>
                       {/* 탑노트/미들노트 설명 */}
-                      <li>탑노트 : </li>
+                      <li>탑노트 : {noteDetail.materialName}</li>
                       <li>미들노트 : </li>
                       <li>베이스노트 : </li>
                     </ul>
