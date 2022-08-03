@@ -46,6 +46,49 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         return dtoList;
     }
 
+//    @Override
+//    public String addLike(Long perfumeId, Long userId) {
+//        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+//        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+//
+//        // insert
+//        // like 체크
+//        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+//        // dislike 체크
+//        Optional<PerfumeDislike> dislike = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
+//
+//        if(like.isPresent() || dislike.isPresent()) return "CANCEL";
+//        else{
+//            perfumeLikeRepository.save(PerfumeLike.builder()
+//                    .perfume(perfume)
+//                    .user(user)
+//                    .build());
+//            return "ADD";
+//        }
+//    }
+
+//    @Override
+//    public String addLike(Long perfumeId, Long userId) {
+//        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+//        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+//
+//        // insert
+//        // like 체크
+//        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+//        // dislike 체크
+//        Optional<PerfumeDislike> dislike = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
+//
+//        if(like.isPresent()) return "ALREADY_EXISTS";
+//            else if(dislike.isPresent()) return "CANCEL";
+//        else{
+//            perfumeLikeRepository.save(PerfumeLike.builder()
+//                    .perfume(perfume)
+//                    .user(user)
+//                    .build());
+//            return "ADD";
+//        }
+//    }
+
     @Override
     public String addLike(Long perfumeId, Long userId) {
         Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
@@ -57,7 +100,11 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         // dislike 체크
         Optional<PerfumeDislike> dislike = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
 
-        if(like.isPresent() || dislike.isPresent()) return "CANCEL";
+        if(like.isPresent()) {
+            perfumeLikeRepository.delete(like.get());
+            return "DELETE";
+        }
+        else if(dislike.isPresent()) return "CANCEL";
         else{
             perfumeLikeRepository.save(PerfumeLike.builder()
                     .perfume(perfume)
@@ -97,8 +144,7 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
         if(!like.isPresent()) return "FAIL";
         else{
-            PerfumeLike delLike = perfumeLikeRepository.findByPerfumeAndUser(perfume, user).orElseThrow(null);
-            perfumeLikeRepository.delete(delLike);
+            perfumeLikeRepository.delete(like.get());
             return "SUCCESS";
         }
     }

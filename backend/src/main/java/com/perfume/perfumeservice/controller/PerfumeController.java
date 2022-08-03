@@ -114,8 +114,33 @@ public class PerfumeController {
     // 태그 등록(count 증가)은 review에서만
 
     // 좋아요 등록 => 파라미터랑 url 맞는지 모르겠음
+//    @PostMapping("/like")
+//    @ApiOperation(value = "향수 좋아요 등록")
+//    public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
+//        Long perfumeId = map.get("perfumeId");
+//        Long userId = map.get("userId");
+//
+//        String result = perfumeLikeService.addLike(perfumeId, userId);
+//
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//
+//    }
+
+//    @PostMapping("/like")
+//    @ApiOperation(value = "향수 좋아요 등록/좋아요 해제")
+//    public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
+//        Long perfumeId = map.get("perfumeId");
+//        Long userId = map.get("userId");
+//
+//        String result = perfumeLikeService.addLike(perfumeId, userId);
+//        if(result.equals("ALREADY_EXISTS")){
+//            result = perfumeLikeService.deleteLike(perfumeId, userId);
+//        }
+//        return new ResponseEntity<>(HttpStatus.OK);
+//
+//    }
     @PostMapping("/like")
-    @ApiOperation(value = "향수 좋아요 등록")
+    @ApiOperation(value = "향수 좋아요 등록/좋아요 해제")
     public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
         Long perfumeId = map.get("perfumeId");
         Long userId = map.get("userId");
@@ -124,6 +149,7 @@ public class PerfumeController {
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
+
 
     @PostMapping("/dislike")
     @ApiOperation(value = "향수 싫어요 등록")
