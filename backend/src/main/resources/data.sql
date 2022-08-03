@@ -20,11 +20,11 @@ INSERT into comment(community_id, user_id, content) values (1,1, '내용3');
 INSERT into comment(community_id, user_id, content) values (2,2, '내용4');
 INSERT into comment(community_id, user_id, content) values (1,1, '내용5');
 
-INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름1', 'perfume1',0,0);
-INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름2', 'perfume2',0,0);
-INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름3', 'perfume3',0,0);
-INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름4', 'perfume4',0,0);
-INSERT into perfume(perfume_name_ko, perfume_name_en,likes, dislike) values ('향수이름5', 'perfume5',0,0);
+INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름1', 'perfume1');
+INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름2', 'perfume2');
+INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름3', 'perfume3');
+INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름4', 'perfume4');
+INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름5', 'perfume5');
 
 INSERT into material(material_name) values ('향료1');
 INSERT into material(material_name) values ('향료2');
@@ -54,3 +54,13 @@ INSERT into perfume_tag(tag_id, perfume_id, count) values (4,1,2);
 INSERT into perfume_tag(tag_id, perfume_id, count) values (1,2,1);
 INSERT into perfume_tag(tag_id, perfume_id, count) values (4,2,5);
 INSERT into perfume_tag(tag_id, perfume_id, count) values (5,3,4);
+
+INSERT into perfume_like(perfume_id, user_id) values (1,1);
+INSERT into perfume_like(perfume_id, user_id) values (1,2);
+INSERT into perfume_like(perfume_id, user_id) values (2,1);
+INSERT into perfume_like(perfume_id, user_id) values (3,2);
+INSERT into perfume_dislike(perfume_id, user_id) values (1,3);
+INSERT into perfume_dislike(perfume_id, user_id) values (2,2);
+INSERT into perfume_dislike(perfume_id, user_id) values (2,3);
+INSERT into perfume_dislike(perfume_id, user_id) values (3,3);
+

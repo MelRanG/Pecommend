@@ -2,10 +2,9 @@ package com.perfume.perfumeservice.controller;
 
 import com.perfume.perfumeservice.domain.perfume.Note;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
-import com.perfume.perfumeservice.dto.perfume.NoteResponseDto;
-import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
-import com.perfume.perfumeservice.dto.perfume.PerfumeTagResponseDto;
+import com.perfume.perfumeservice.dto.perfume.*;
 import com.perfume.perfumeservice.service.perfume.NoteService;
+import com.perfume.perfumeservice.service.perfume.PerfumeLikeService;
 import com.perfume.perfumeservice.service.perfume.PerfumeService;
 import com.perfume.perfumeservice.service.perfume.PerfumeTagService;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +23,8 @@ public class PerfumeController {
     private final PerfumeService perfumeService;
     private final NoteService noteService;
     private final PerfumeTagService perfumeTagService;
+
+    private final PerfumeLikeService perfumeLikeService;
 
     @GetMapping("/list")
     @ApiOperation(value = "전체 향수 목록 가져오기")
@@ -74,17 +75,37 @@ public class PerfumeController {
 //        return new ResponseEntity<>(noteService.getNotes(id), HttpStatus.OK);
 //    }
 
+//    @GetMapping("/{id}")
+//    @ApiOperation(value = "향수 디테일 가져오기(노트, 태그만 추가)")
+//    public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
+//        PerfumeResponseDto pDto = perfumeService.getPerfume(id);
+//        List<NoteResponseDto> nDto = noteService.getNotes(id);
+//        List<PerfumeTagResponseDto> ptDto = perfumeTagService.getPerfumeTags(id);
+//        Map<String, Object> map = new HashMap<String, Object>();
+//
+//        map.put("nDto",nDto);
+//        map.put("pDto",pDto);
+//        map.put("ptDto", ptDto);
+//
+//        return new ResponseEntity<>(map, HttpStatus.OK);
+//    }
+
     @GetMapping("/{id}")
-    @ApiOperation(value = "향수 디테일 가져오기(노트, 태그만 추가)")
+    @ApiOperation(value = "향수 디테일 가져오기(노트, 태그, 좋아요/싫어요 목록만 추가)")
     public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
         PerfumeResponseDto pDto = perfumeService.getPerfume(id);
         List<NoteResponseDto> nDto = noteService.getNotes(id);
         List<PerfumeTagResponseDto> ptDto = perfumeTagService.getPerfumeTags(id);
+        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLike(id);
+        List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislike(id);
+
         Map<String, Object> map = new HashMap<String, Object>();
 
         map.put("nDto",nDto);
         map.put("pDto",pDto);
         map.put("ptDto", ptDto);
+        map.put("plDto", plDto);
+        map.put("pdDto", pdDto);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }

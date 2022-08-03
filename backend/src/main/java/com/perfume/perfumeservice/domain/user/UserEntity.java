@@ -1,6 +1,7 @@
 package com.perfume.perfumeservice.domain.user;
 
 import com.perfume.perfumeservice.domain.community.Community;
+import com.perfume.perfumeservice.domain.perfume.PerfumeLike;
 import com.perfume.perfumeservice.domain.perfume.Preference;
 import com.perfume.perfumeservice.domain.review.PerfumeReview;
 import com.perfume.perfumeservice.domain.review.ReviewLike;
@@ -55,11 +56,16 @@ public class UserEntity {
     private Set<Community> posts = new LinkedHashSet<>();
 
     // preference
-    // @OneToMany(mappedBy = "preference", fetch = FetchType.LAZY, cascade =
-    // CascadeType.ALL)
-    // private List<Preference> preference = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Preference> preference = new ArrayList<>();
+
+    // perfume_like
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Preference> preference = new ArrayList<>();
+    private List<PerfumeLike> perfumeLikes = new ArrayList<>();
+
+    // perfume_dislike
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PerfumeLike> perfumeDislikes = new ArrayList<>();
 
     // perfume_review
     // 여기도 writer로 해도 되는겨?

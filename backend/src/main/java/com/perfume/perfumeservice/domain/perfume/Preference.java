@@ -19,17 +19,17 @@ public class Preference {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "perference_id")
     private long id;
-
-    @Column(name = "perference")
-    private int perference;
-
-    // perfume
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "perfume_id")
-    private Perfume perfume;
-
-    // User
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+//
+//    @Column(name = "perference")
+//    private int perference;
+//
+//    // perfume
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "perfume_id")
+//    private Perfume perfume;
+//
+//    // User
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private UserEntity user;
 }
