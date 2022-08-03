@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "preference")
 public class Preference {
     @Id
@@ -20,7 +20,7 @@ public class Preference {
     @Column(name = "perference_id")
     private Long id;
 
-    @Column(name = "perference", columnDefinition = "TINIYINT")
+    @Column(name = "perference")
     private int perference;
 
     // perfume
@@ -32,8 +32,4 @@ public class Preference {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-
-
-
 }

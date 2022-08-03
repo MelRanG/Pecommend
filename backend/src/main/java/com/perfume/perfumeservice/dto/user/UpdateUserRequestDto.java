@@ -14,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @ApiModel(value = "UpdateUserRequestDto", description = "회원 정보 수정 요청 Dto")
 public class UpdateUserRequestDto {
-    @NotBlank
     @ApiModelProperty(value = "비밀번호")
     private String password;
     @NotBlank

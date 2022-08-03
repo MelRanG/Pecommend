@@ -112,7 +112,14 @@ public class UserServiceImpl implements UserService{
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
+            if(requestDto.getPassword().equals("")){
+                entity.get().update(requestDto);
+                userRepository.save(entity.get());
+                return;
+            }
+
             entity.get().update(requestDto, passwordEncoder);
+            userRepository.save(entity.get());
             return;
         }
 

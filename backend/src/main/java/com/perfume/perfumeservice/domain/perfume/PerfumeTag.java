@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "perfume_tag")
 public class PerfumeTag {
     @Id

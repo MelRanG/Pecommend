@@ -12,8 +12,8 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tag")
 public class Tag {
     @Id
@@ -26,7 +26,7 @@ public class Tag {
 
     // perfume_tag
     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Tag> tags = new ArrayList<>();
+    private List<PerfumeTag> tags = new ArrayList<>();
 
     // perfume_review
 

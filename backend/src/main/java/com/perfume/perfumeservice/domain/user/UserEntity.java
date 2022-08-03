@@ -56,7 +56,7 @@ public class UserEntity {
     private Set<Community> posts = new LinkedHashSet<>();
 
     // preference
-    @OneToMany(mappedBy = "preference", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Preference> preference = new ArrayList<>();
 
     // perfume_review
@@ -78,6 +78,14 @@ public class UserEntity {
     public void update(UpdateUserRequestDto dto, PasswordEncoder encoder){
         this.nickname = dto.getNickname();
         this.password = encoder.encode(dto.getPassword());
+        this.birthday = dto.getBirthday();
+        this.gender = dto.getGender();
+        this.mbti = dto.getMbti();
+        this.introduction = dto.getIntroduction();
+    }
+
+    public void update(UpdateUserRequestDto dto){
+        this.nickname = dto.getNickname();
         this.birthday = dto.getBirthday();
         this.gender = dto.getGender();
         this.mbti = dto.getMbti();
