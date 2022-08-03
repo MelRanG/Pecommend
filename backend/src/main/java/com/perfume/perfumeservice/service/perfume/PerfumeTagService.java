@@ -7,4 +7,6 @@ import java.util.List;
 public interface PerfumeTagService {
 
     List<PerfumeTagResponseDto> getPerfumeTags(Long id);
+
+    List<PerfumeTagResponseDto> getThreePerfumeTags(Long id);
 }

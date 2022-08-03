@@ -12,14 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,6 +31,29 @@ public class PerfumeController {
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
         return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
     }
+//
+//    @GetMapping("/list/{keyword}")
+//    @ApiOperation(value = "향수 이름으로 검색")
+//    public ResponseEntity<List<PerfumeResponseDto>> getListKeyword(@PathVariable String keyword){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
+//        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
+//    }
+
+//    안돼서 보류
+//    @GetMapping("/list")
+//    @ApiOperation(value = "전체 향수 목록 가져오기 (+해시태그)")
+//    public ResponseEntity<List<Map<String, Object>>> getListAll(){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
+//        List<Map<String, Object>> dtoList = new LinkedList<>();
+//        for(PerfumeResponseDto pd: perfumeDtoList){
+//            Map<String, Object> map = new LinkedHashMap<>();
+//            map.put("pDto",pd);
+//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+//            map.put("tDto", td);
+//            dtoList.add(map);
+//        }
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
 
     @GetMapping("/list/{keyword}")
     @ApiOperation(value = "향수 이름으로 검색")
@@ -70,6 +88,13 @@ public class PerfumeController {
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    // 태그 등록(count 증가)은 review에서만
+
+
+
+
+
 
 
 }
