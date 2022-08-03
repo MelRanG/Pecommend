@@ -40,3 +40,17 @@ INSERT into note(perfume_id, material_id, note) values (2, 1, 'middle');
 INSERT into note(perfume_id, material_id, note) values (2, 2, 'middle');
 INSERT into note(perfume_id, material_id, note) values (2, 4, 'base');
 INSERT into note(perfume_id, material_id, note) values (2, 3, 'base');
+
+INSERT into tag(tag_name) values ('강력한');
+INSERT into tag(tag_name) values ('상큼한');
+INSERT into tag(tag_name) values ('따스한');
+INSERT into tag(tag_name) values ('포근한');
+INSERT into tag(tag_name) values ('무거운');
+
+INSERT into perfume_tag(tag_id, perfume_id, count) values (1,1,3);
+INSERT into perfume_tag(tag_id, perfume_id, count) values (2,1,5);
+INSERT into perfume_tag(tag_id, perfume_id, count) values (3,1,1);
+INSERT into perfume_tag(tag_id, perfume_id, count) values (4,1,2);
+INSERT into perfume_tag(tag_id, perfume_id, count) values (1,2,1);
+INSERT into perfume_tag(tag_id, perfume_id, count) values (4,2,5);
+INSERT into perfume_tag(tag_id, perfume_id, count) values (5,3,4);
