@@ -32,7 +32,11 @@ INSERT into material(material_name) values ('향료3');
 INSERT into material(material_name) values ('향료4');
 
 INSERT into note(perfume_id, material_id, note) values (1, 1, 'single');
-INSERT into note(perfume_id, material_id, note) values (1, 2, 'top');
-INSERT into note(perfume_id, material_id, note) values (3, 1, 'base');
+INSERT into note(perfume_id, material_id, note) values (1, 2, 'single');
 INSERT into note(perfume_id, material_id, note) values (1, 4, 'single');
-INSERT into note(perfume_id, material_id, note) values (2, 2, 'base');
+INSERT into note(perfume_id, material_id, note) values (2, 4, 'top');
+INSERT into note(perfume_id, material_id, note) values (2, 3, 'top');
+INSERT into note(perfume_id, material_id, note) values (2, 1, 'middle');
+INSERT into note(perfume_id, material_id, note) values (2, 2, 'middle');
+INSERT into note(perfume_id, material_id, note) values (2, 4, 'base');
+INSERT into note(perfume_id, material_id, note) values (2, 3, 'base');
