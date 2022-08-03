@@ -24,11 +24,11 @@ public class NoteServiceImpl implements NoteService{
     private final NoteRepository noteRepository;
 
     @Override
-    public List<NoteResponseDto> getNotes(Long id) {
+    public List<NoteResponseDto> getNotes(Long id) { // 향수 id로 노트 정보 가져오기
         Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
         List<Note> notes = perfume.getNotes();
         List<NoteResponseDto> dtolist = new LinkedList<>();
-        for (Note n:notes) {
+        for (Note n : notes) {
             dtolist.add(NoteResponseDto.from(n));
         }
         return dtolist;

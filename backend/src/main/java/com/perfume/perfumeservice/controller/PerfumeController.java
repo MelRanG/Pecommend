@@ -2,6 +2,7 @@ package com.perfume.perfumeservice.controller;
 
 import com.perfume.perfumeservice.domain.perfume.Note;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
+import com.perfume.perfumeservice.dto.perfume.DetailResponseDto;
 import com.perfume.perfumeservice.dto.perfume.NoteResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 import com.perfume.perfumeservice.service.perfume.NoteService;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,14 +50,24 @@ public class PerfumeController {
 //        return new ResponseEntity<>(perfumeService.getPerfume(id), HttpStatus.OK);
 //    }
 
+//    @GetMapping("/{id}")
+//    @ApiOperation(value = "향수 노트만 가져오기")
+//    public ResponseEntity<List<NoteResponseDto>> getgetPerfume(@PathVariable Long id){
+//        return new ResponseEntity<>(noteService.getNotes(id), HttpStatus.OK);
+//    }
+
     @GetMapping("/{id}")
-    @ApiOperation(value = "향수 디테일 가져오기(노트 테스트)")
-    public ResponseEntity<List<NoteResponseDto>> getgetPerfume(@PathVariable Long id){
-        return new ResponseEntity<>(noteService.getNotes(id), HttpStatus.OK);
+    @ApiOperation(value = "향수 디테일 가져오기(노트만 추가)")
+    public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
+        PerfumeResponseDto pDto = perfumeService.getPerfume(id);
+        List<NoteResponseDto> nDto = noteService.getNotes(id);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("nDto",nDto);
+        map.put("pDto",pDto);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
-    // 디테일은 param이 perfume?
-
 
 
 }

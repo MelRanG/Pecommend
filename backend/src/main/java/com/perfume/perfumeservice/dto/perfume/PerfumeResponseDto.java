@@ -23,8 +23,8 @@ public class PerfumeResponseDto {
     private int perfumeLike;
     private int perfumeDisLike;
     private String density;
-    private List<Note> notesId;
-    private List<PerfumeTag> tags;
+//    private List<Note> notesId;
+//    private List<PerfumeTag> tags;
 
 
     public static PerfumeResponseDto from(Perfume perfume){
