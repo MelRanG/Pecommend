@@ -150,27 +150,38 @@ public class PerfumeController {
 
     }
 
-
     @PostMapping("/dislike")
-    @ApiOperation(value = "향수 싫어요 등록")
+    @ApiOperation(value = "향수 싫어요 등록/싫어요 해제")
     public ResponseEntity<String> addDislike(@RequestBody Map<String, Long> map){
         Long perfumeId = map.get("perfumeId");
         Long userId = map.get("userId");
 
-        String result = perfumeLikeService.addDisLike(perfumeId, userId);
+        String result = perfumeLikeService.addDislike(perfumeId, userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 
-    @DeleteMapping("/like")
-    @ApiOperation(value = "향수 좋아요 해제")
-    public ResponseEntity<String> deleteLike(@RequestBody Map<String, Long> map){ // String 반환 하는 버전
-        Long perfumeId = map.get("perfumeId");
-        Long userId = map.get("userId");
 
-        String result = perfumeLikeService.deleteLike(perfumeId, userId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+//    @PostMapping("/dislike")
+//    @ApiOperation(value = "향수 싫어요 등록")
+//    public ResponseEntity<String> addDislike(@RequestBody Map<String, Long> map){
+//        Long perfumeId = map.get("perfumeId");
+//        Long userId = map.get("userId");
+//
+//        String result = perfumeLikeService.addDisLike(perfumeId, userId);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//
+//    }
+
+//    @DeleteMapping("/like")
+//    @ApiOperation(value = "향수 좋아요 해제")
+//    public ResponseEntity<String> deleteLike(@RequestBody Map<String, Long> map){ // String 반환 하는 버전
+//        Long perfumeId = map.get("perfumeId");
+//        Long userId = map.get("userId");
+//
+//        String result = perfumeLikeService.deleteLike(perfumeId, userId);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
 
 //    @DeleteMapping("/like")
 //    @ApiOperation(value = "향수 좋아요 해제")

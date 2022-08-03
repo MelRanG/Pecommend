@@ -115,7 +115,7 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
     }
 
     @Override
-    public String addDisLike(Long perfumeId, Long userId) {
+    public String addDislike(Long perfumeId, Long userId) {
         Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
         UserEntity user = userRepository.findById(userId).orElseThrow(null);
 
@@ -125,7 +125,12 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         // like 체크
         Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
 
-        if(dislike.isPresent() || like.isPresent()) return "CANCEL";
+
+        if(dislike.isPresent()) {
+            perfumeDislikeRepository.delete(dislike.get());
+            return "DELETE";
+        }
+        else if(like.isPresent()) return "CANCEL";
         else{
             perfumeDislikeRepository.save(PerfumeDislike.builder()
                     .perfume(perfume)
@@ -135,19 +140,40 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         }
     }
 
+//    @Override
+//    public String addDislike(Long perfumeId, Long userId) {
+//        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+//        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+//
+//        // insert
+//        // dislike 체크
+//        Optional<PerfumeDislike> dislike = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
+//        // like 체크
+//        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+//
+//        if(dislike.isPresent() || like.isPresent()) return "CANCEL";
+//        else{
+//            perfumeDislikeRepository.save(PerfumeDislike.builder()
+//                    .perfume(perfume)
+//                    .user(user)
+//                    .build());
+//            return "ADD";
+//        }
+//    }
 
 
-    @Override
-    public String deleteLike(Long perfumeId, Long userId) { // String 반환 하는 버전
-        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
-        UserEntity user = userRepository.findById(userId).orElseThrow(null);
-        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
-        if(!like.isPresent()) return "FAIL";
-        else{
-            perfumeLikeRepository.delete(like.get());
-            return "SUCCESS";
-        }
-    }
+
+//    @Override
+//    public String deleteLike(Long perfumeId, Long userId) { // String 반환 하는 버전
+//        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(null);
+//        UserEntity user = userRepository.findById(userId).orElseThrow(null);
+//        Optional<PerfumeLike> like = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+//        if(!like.isPresent()) return "FAIL";
+//        else{
+//            perfumeLikeRepository.delete(like.get());
+//            return "SUCCESS";
+//        }
+//    }
 
 //    @Override
 //    public void deleteLike(Long perfumeId, Long userId) { // String 반환 안 하는 버전
