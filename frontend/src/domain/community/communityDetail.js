@@ -7,18 +7,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
 import Pagination from "./pagination";
 
-
 function CommunityDetail() {
   let navigate = useNavigate();
   let useParam = useParams();
-  let number = parseInt(useParam.num)
+  let number = parseInt(useParam.num);
   const [pageDetail, setPageDetail] = useState({});
   const [parseContent, setParseContent] = useState({});
   const [pageComment, setPageComment] = useState([]);
   const [formValue, setForm] = useState({
     writer: 1,
     communityId: 0,
-    content: '',
+    content: "",
   });
   const [limitData, setLimit] = useState(10);
   const [page, setPage] = useState(1);
@@ -26,13 +25,13 @@ function CommunityDetail() {
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-    console.log(value, name)
+    console.log(value, name);
     setForm({
       ...formValue,
-      [name]: value
-    })
-    console.log(formValue)
-  }
+      [name]: value,
+    });
+    console.log(formValue);
+  };
 
   const getArticleDetail = async () => {
     try {
@@ -44,9 +43,9 @@ function CommunityDetail() {
       });
       console.log(response);
       if (response.status === 200) {
-        setPageDetail(response.data)
-        const parsedata = parse(response.data.content)
-        setParseContent(parsedata)
+        setPageDetail(response.data);
+        const parsedata = parse(response.data.content);
+        setParseContent(parsedata);
       }
     } catch (error) {
       console.log(error);
@@ -60,55 +59,55 @@ function CommunityDetail() {
         url: "/api/v1/comment/" + number,
       });
       // console.log("comment",response.data);
-      const commentdata = response.data
-      setPageComment(commentdata)
-      console.log(pageComment)
+      const commentdata = response.data;
+      setPageComment(commentdata);
+      console.log(pageComment);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getArticleDetail()
-    getArticleComment()
-    console.log(pageDetail)
-  }, [])
+    getArticleDetail();
+    getArticleComment();
+    console.log(pageDetail);
+  }, []);
 
   const recommend = async () => {
     try {
       let data = {
         userId: 1,
         postId: pageDetail.id,
-      }
-      console.log(data)
+      };
+      console.log(data);
       const response = await axios({
         method: "post",
         url: "/api/v1/community/like",
-        data: data
+        data: data,
       });
-      console.log(response)
+      console.log(response);
       if (response.status === 200) {
-        console.log("완료")
+        console.log("완료");
         if (response.data == "ADD") {
           // setPageDetail(communityLike) += 1
           setPageDetail({
             ...pageDetail,
-            communityLike: pageDetail.communityLike + 1
-          })
-          console.log("like up", pageDetail.communityLike)
+            communityLike: pageDetail.communityLike + 1,
+          });
+          console.log("like up", pageDetail.communityLike);
         }
-        if (response.data == "CANCLE") {
+        if (response.data == "CANCEL") {
           setPageDetail({
             ...pageDetail,
-            communityLike: pageDetail.communityLike - 1
-          })
-          console.log("like down", pageDetail.communityLike)
+            communityLike: pageDetail.communityLike - 1,
+          });
+          console.log("like down", pageDetail.communityLike);
         }
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const clickRemove = async () => {
     var result = window.confirm("삭제하시겠습니까?");
@@ -132,14 +131,13 @@ function CommunityDetail() {
         console.log(error);
       }
     } else {
-
     }
-  }
+  };
 
   const commentRegist = async (e) => {
     e.preventDefault();
-    console.log(formValue.content)
-    if (formValue.content != '') {
+    console.log(formValue.content);
+    if (formValue.content != "") {
       try {
         const response = await axios({
           method: "post",
@@ -163,12 +161,12 @@ function CommunityDetail() {
         console.log(error);
       }
     }
-  }
+  };
 
   const clickCommentRemove = async (e) => {
     var result = window.confirm("댓글을 삭제하시겠습니까?");
     if (result) {
-      console.log(e.target.id)
+      console.log(e.target.id);
       try {
         const response = await axios({
           method: "delete",
@@ -188,21 +186,19 @@ function CommunityDetail() {
         console.log(error);
       }
     } else {
-
     }
-  }
+  };
 
   const clickCommentEdit = () => {
-    console.log()
-    alert("댓글 수정 누름!")
-  }
+    console.log();
+    alert("댓글 수정 누름!");
+  };
 
   const clickEdit = () => {
     navigate("/commu/edit/" + number, { replace: true });
-  }
+  };
   return (
     <div className="communityDetail">
-
       <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
         <div class="container">
           <div class="breadcrumb-content text-center">
@@ -226,15 +222,21 @@ function CommunityDetail() {
                 </div>
                 <div class="community-detail-user d-flex flex-row justify-content-between align-items-center mx-2">
                   <div>
-                    <img alt="?" src="" class="me-3" /><span>{pageDetail.writer}</span>
+                    <img alt="?" src="" class="me-3" />
+                    <span>{pageDetail.writer}</span>
                   </div>
                   <div>
-                    <h5 style={{ margin: "0" }}>추천 {pageDetail.communityLike}</h5>
+                    <h5 style={{ margin: "0" }}>
+                      추천 {pageDetail.communityLike}
+                    </h5>
                     <h5 style={{ margin: "0" }}>2022.07.15</h5>
                   </div>
                 </div>
                 <hr></hr>
-                <div className="community-detail-maintextbox" dangerouslySetInnerHTML={{ __html: pageDetail.content }}>
+                <div
+                  className="community-detail-maintextbox"
+                  dangerouslySetInnerHTML={{ __html: pageDetail.content }}
+                >
                   {/* <h5>{ parseContent }</h5> */}
                   {/* <h5>{pageDetail.content}</h5> */}
                   {/* {parseContent} */}
@@ -242,24 +244,44 @@ function CommunityDetail() {
                   {/* dangerouslySetInnerHTML={{__html: this.state.actions}} */}
                 </div>
                 <div className="community-detail-artiblebox d-flex justify-content-center">
-                  <a className="articleButton" onClick={recommend}><span className="glyphicon glyphicon-thumbs-up"></span></a>
-                  <a className="articleButton" href="#"><img alt="" src="" /></a>
-                  <a className="articleButton" href="#"><img alt="" src="" /></a>
-                  <a className="articleButton" href="#"><img alt="" src="" /></a>
+                  <a className="articleButton" onClick={recommend}>
+                    <span className="glyphicon glyphicon-thumbs-up"></span>
+                  </a>
+                  <a className="articleButton" href="#">
+                    <img alt="" src="" />
+                  </a>
+                  <a className="articleButton" href="#">
+                    <img alt="" src="" />
+                  </a>
+                  <a className="articleButton" href="#">
+                    <img alt="" src="" />
+                  </a>
                 </div>
                 <hr></hr>
                 <div className="community-detail-subtextbox">
                   <h5>2022.07.15 14:35 작성됨</h5>
                   <h5>2022.07.17 12:12 수정됨</h5>
-                  <button class="community-button-remove" onClick={clickRemove}>삭제</button>
-                  <button class="community-button-edit" onClick={clickEdit}>수정</button>
+                  <button class="community-button-remove" onClick={clickRemove}>
+                    삭제
+                  </button>
+                  <button class="community-button-edit" onClick={clickEdit}>
+                    수정
+                  </button>
                 </div>
               </div>
               <div id="communityComment">
                 <div className="community-write-box">
                   <h5>{pageDetail.writer}</h5>
-                  <form class="d-flex justify-content-right align-items-end" onSubmit={commentRegist}>
-                    <textarea rows="3" name="content" placeholder="댓글을 입력하세요." onChange={handleChange} ></textarea>
+                  <form
+                    class="d-flex justify-content-right align-items-end"
+                    onSubmit={commentRegist}
+                  >
+                    <textarea
+                      rows="3"
+                      name="content"
+                      placeholder="댓글을 입력하세요."
+                      onChange={handleChange}
+                    ></textarea>
                     {/* <input className="comment-submit" value="작성"/> */}
                     <button className="comment-submit">등록</button>
                   </form>
@@ -283,9 +305,27 @@ function CommunityDetail() {
                   {pageComment.slice(offset, offset + limitData).map((data) => (
                     <div className="community-comment-card d-flex">
                       <span>{data.writer}</span>
-                      <textarea readOnly rows="3" id={`comment-content-${data.id}`}>{data.content}</textarea>
-                      <button className="comment-remove" onClick={clickCommentRemove} id={`${data.id}`}>삭제</button>
-                      <button className="comment-edit" onClick={clickCommentEdit} id={`${data.id}`}>수정</button>
+                      <textarea
+                        readOnly
+                        rows="3"
+                        id={`comment-content-${data.id}`}
+                      >
+                        {data.content}
+                      </textarea>
+                      <button
+                        className="comment-remove"
+                        onClick={clickCommentRemove}
+                        id={`${data.id}`}
+                      >
+                        삭제
+                      </button>
+                      <button
+                        className="comment-edit"
+                        onClick={clickCommentEdit}
+                        id={`${data.id}`}
+                      >
+                        수정
+                      </button>
                     </div>
                   ))}
                 </div>
