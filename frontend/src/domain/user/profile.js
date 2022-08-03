@@ -6,6 +6,8 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 function Profile() {
   let hashtag_list = ["따뜻한", "봄", "가을"];
 
+  let useParam = useParams();
+  let number = parseInt(useParam.num);
   const [userprofile, setUserProfile] = useState([]);
   const [age, setAge] = useState(0);
 
@@ -14,7 +16,7 @@ function Profile() {
     try {
       const response = await axios({
         method: "get",
-        url: "/api/v1/user/myinfo",
+        url: "/api/v1/user/info/" + number,
         headers: {
           Authorization: "Bearer" + sessionStorage.getItem("Auth"),
         },
