@@ -19,14 +19,13 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_id")
-    private Long id;
+    private long id;
 
     @Column(name = "tag_name")
     private String tagName;
 
     // perfume_tag
-     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade =
-     CascadeType.ALL)
+     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
      private List<PerfumeTag> tags = new ArrayList<>();
 
     // perfume_review

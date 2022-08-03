@@ -4,8 +4,10 @@ import com.perfume.perfumeservice.domain.perfume.Note;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
 import com.perfume.perfumeservice.dto.perfume.NoteResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
+import com.perfume.perfumeservice.dto.perfume.PerfumeTagResponseDto;
 import com.perfume.perfumeservice.service.perfume.NoteService;
 import com.perfume.perfumeservice.service.perfume.PerfumeService;
+import com.perfume.perfumeservice.service.perfume.PerfumeTagService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,8 +27,8 @@ import java.util.Map;
 public class PerfumeController {
 
     private final PerfumeService perfumeService;
-
     private final NoteService noteService;
+    private final PerfumeTagService perfumeTagService;
 
     @GetMapping("/list")
     @ApiOperation(value = "전체 향수 목록 가져오기")
@@ -42,7 +44,6 @@ public class PerfumeController {
         return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
     }
 
-    // 디테일은 param이 perfume?
 //    @GetMapping("/{id}")
 //    @ApiOperation(value = "향수 디테일 가져오기(노트, 평점, 이미지, 해시태그, 선호도 없음)")
 //    public ResponseEntity<PerfumeResponseDto> getPerfume(@PathVariable Long id){
@@ -56,14 +57,16 @@ public class PerfumeController {
 //    }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "향수 디테일 가져오기(노트만 추가)")
+    @ApiOperation(value = "향수 디테일 가져오기(노트, 태그만 추가)")
     public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
         PerfumeResponseDto pDto = perfumeService.getPerfume(id);
         List<NoteResponseDto> nDto = noteService.getNotes(id);
+        List<PerfumeTagResponseDto> ptDto = perfumeTagService.getPerfumeTags(id);
         Map<String, Object> map = new HashMap<String, Object>();
 
         map.put("nDto",nDto);
         map.put("pDto",pDto);
+        map.put("ptDto", ptDto);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }

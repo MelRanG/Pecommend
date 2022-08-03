@@ -1,0 +1,8 @@
+package com.perfume.perfumeservice.domain.perfume;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PerfumeTagRepository  extends JpaRepository<Note, Long> {
+
+
+}
