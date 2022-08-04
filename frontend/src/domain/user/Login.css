@@ -49,3 +49,6 @@ input:disabled{
     background-color:#d6e8f9 !important
 }
 
+.swal2-html-container{
+    font-size: 1.7em !important;
+}
