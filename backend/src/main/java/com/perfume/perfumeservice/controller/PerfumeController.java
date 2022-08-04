@@ -97,14 +97,39 @@ public class PerfumeController {
 //        return new ResponseEntity<>(map, HttpStatus.OK);
 //    }
 
+//    @GetMapping("/{id}")
+//    @ApiOperation(value = "향수 디테일 가져오기(노트, 태그, 좋아요/싫어요 목록만 추가)")
+//    public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
+//        PerfumeResponseDto pDto = perfumeService.getPerfume(id);
+//        List<NoteResponseDto> nDto = noteService.getNotes(id);
+//        List<PerfumeTagResponseDto> ptDto = perfumeTagService.getPerfumeTags(id);
+//        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikePerfume(id);
+//        List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislikePerfume(id);
+//
+//        Map<String, Object> map = new HashMap<String, Object>();
+//
+//        map.put("nDto",nDto);
+//        map.put("pDto",pDto);
+//        map.put("ptDto", ptDto);
+//        map.put("plDto", plDto);
+//        map.put("pdDto", pdDto);
+//
+//        return new ResponseEntity<>(map, HttpStatus.OK);
+//    }
+
     @GetMapping("/{id}")
-    @ApiOperation(value = "향수 디테일 가져오기(노트, 태그, 좋아요/싫어요 목록만 추가)")
+    @ApiOperation(value = "향수 디테일 가져오기(노트, 태그, 좋아요/싫어요 목록, 좋아요/싫어요 비율만 추가)")
     public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
         PerfumeResponseDto pDto = perfumeService.getPerfume(id);
         List<NoteResponseDto> nDto = noteService.getNotes(id);
         List<PerfumeTagResponseDto> ptDto = perfumeTagService.getPerfumeTags(id);
         List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikePerfume(id);
         List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislikePerfume(id);
+        // 좋아요 비율
+        int likeRatio = 0;
+        if(plDto.size() != 0 && (double) plDto.size() + (double) pdDto.size() != 0){
+            likeRatio = (int) Math.round(plDto.size() / ((double) plDto.size() + (double) pdDto.size()) * 100);
+        }
 
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -113,6 +138,7 @@ public class PerfumeController {
         map.put("ptDto", ptDto);
         map.put("plDto", plDto);
         map.put("pdDto", pdDto);
+        map.put("likeRatio", likeRatio);// 좋아요 비율
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
