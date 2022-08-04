@@ -180,7 +180,8 @@ function CommunityDetail() {
         if (response.status === 200) {
           alert("삭제했습니다!");
           // navigate("/commu/detail/"+number, { replace: true });
-          getArticleComment();
+          // getArticleComment();
+          window.location.reload();
         }
       } catch (error) {
         console.log(error);

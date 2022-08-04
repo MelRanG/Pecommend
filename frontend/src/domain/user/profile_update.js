@@ -10,7 +10,6 @@ function Profile_update() {
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
-  const logOutUser = () => dispatch(logOut());
 
   const [pwd, setPwd] = React.useState("");
   const [pwdRe, setPwdRe] = React.useState("");
@@ -167,13 +166,9 @@ function Profile_update() {
         .delete("/api/v1/user/delete", { headers: headers })
         .then(() => {
           alert("탈퇴가 완료되었습니다.");
-          sessionStorage.removeItem("Auth");
-          sessionStorage.removeItem("Refresh");
-
-          logOutUser();
         })
         .then(() => {
-          window.location.href = "/";
+          window.location.href = "/logout";
         })
         .catch((error) => {
           console.log(error);
