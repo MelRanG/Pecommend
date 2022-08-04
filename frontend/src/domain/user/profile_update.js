@@ -1,5 +1,5 @@
 import "./Login.css";
-import axios from "axios";
+import {authaxios, freeaxios} from "../../custom/customAxios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user_reducer";
@@ -10,7 +10,6 @@ function Profile_update() {
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
-  const logOutUser = () => dispatch(logOut());
 
   const [pwd, setPwd] = React.useState("");
   const [pwdRe, setPwdRe] = React.useState("");
@@ -28,12 +27,9 @@ function Profile_update() {
 
   const getUserInfo = async () => {
     try {
-      const response = await axios({
+      const response = await authaxios({
         method: "get",
         url: "/api/v1/user/myinfo",
-        headers: {
-          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-        },
       });
       if (response.status === 200) {
         setUserProfile(response.data);
@@ -93,7 +89,7 @@ function Profile_update() {
     event.preventDefault();
     console.log(nick);
     console.log(nick_check);
-    axios
+    freeaxios
       .get("/api/v1/user/check.do/nickname/" + nick)
       .then(function (response) {
         // console.log(response.data);
@@ -159,21 +155,14 @@ function Profile_update() {
     event.preventDefault();
 
     if (window.confirm("정말로 탈퇴하시겠습니까?")) {
-      const headers = {
-        Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-      };
 
-      axios
-        .delete("/api/v1/user/delete", { headers: headers })
+      authaxios
+        .delete("/api/v1/user/delete")
         .then(() => {
           alert("탈퇴가 완료되었습니다.");
-          sessionStorage.removeItem("Auth");
-          sessionStorage.removeItem("Refresh");
-
-          logOutUser();
         })
         .then(() => {
-          window.location.href = "/";
+          window.location.href = "/logout";
         })
         .catch((error) => {
           console.log(error);
@@ -206,14 +195,11 @@ function Profile_update() {
         introduction: "",
       };
 
-      let headers = {
-        Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-      };
       console.log("회원수정");
       console.log(body);
 
-      axios
-        .put("/api/v1/user/update", body, { headers: headers })
+      authaxios
+        .put("/api/v1/user/update", body)
         .then(function (response) {
           if (response.status == 200) {
             const saveInfo = {

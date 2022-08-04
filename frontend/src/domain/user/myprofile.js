@@ -1,6 +1,6 @@
 import "./profile.css";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import {authaxios} from "../../custom/customAxios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 function MyProfile() {
@@ -11,12 +11,9 @@ function MyProfile() {
 
   const getUserInfo = async () => {
     try {
-      const response = await axios({
+      const response = await authaxios({
         method: "get",
         url: "/api/v1/user/myinfo",
-        headers: {
-          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-        },
       });
       if (response.status === 200) {
         setUserProfile(response.data);

@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user_reducer";
+import {authaxios, freeaxios} from "../../custom/customAxios";
 
 function OauthSignUp() {
   const user = useSelector((state) => state.userStore.nowLoginUser);
@@ -62,7 +63,7 @@ function OauthSignUp() {
     event.preventDefault();
     console.log(nick);
     console.log(nick_check);
-    axios
+    freeaxios
       .get("/api/v1/user/check.do/nickname/" + nick)
       .then(function (response) {
         // console.log(response.data);
@@ -104,12 +105,8 @@ function OauthSignUp() {
         introduction: "",
       };
 
-      let headers = {
-        Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-      };
-
-      axios
-        .put("/api/v1/user/update", body, { headers: headers })
+      authaxios
+        .put("/api/v1/user/update", body)
         .then(function (response) {
           if (response.status == 200) {
             const saveInfo = {

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import queryString from "query-string";
 import { setUser } from "../../redux/user_reducer";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
+import {authaxios} from "../../custom/customAxios";
 
 function Oauth() {
   const user = useSelector((state) => state.userStore.nowLoginUser);
@@ -12,12 +12,10 @@ function Oauth() {
 
   const getUserInfo = async () => {
     try {
-      const response = await axios({
+      const response = await authaxios({
         method: "get",
         url: "/api/v1/user/myinfo",
-        headers: {
-          Authorization: "Bearer" + sessionStorage.getItem("Auth"),
-        },
+        
       });
 
       if (

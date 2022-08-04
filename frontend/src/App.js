@@ -28,6 +28,7 @@ import OauthSignUp from "domain/user/oauthSignUp";
 //
 import Home from "./domain/home/home";
 import NotFound from "./domain/error/NotFound";
+import LogOut from "components/logout";
 
 // import "./domain/perfume/perfumeList.css";
 // import "./domain/perfume/perfumeList.scss";
@@ -123,6 +124,10 @@ function App() {
           path: "myprofile",
           element: isLogined ? <MyProfile /> : <Navigate to="/login" />,
         },
+        {
+          path:"logout",
+          element: <LogOut/>
+        }
       ],
     },
   ]);

@@ -72,3 +72,7 @@
     background-color: bisque;
     padding: 3px 6px 3px 6px;
 }
+
+.fontS {
+    font-size: 16px !important;
+}

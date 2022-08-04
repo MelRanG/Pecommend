@@ -1,6 +1,6 @@
 import './communityEdit.css'
 import Nav from "../../components/nav";
-import axios from 'axios';
+import {authaxios, freeaxios} from "../../custom/customAxios";
 import React, {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { data } from 'jquery';
@@ -35,7 +35,7 @@ function CommunityEdit ()  {
     const getArticleDetail = async () => {
         try {
             console.log(number);
-          const response = await axios({
+          const response = await freeaxios({
             method: "get",
             url: "/api/v1/community/"+number,
             // data: registwrite,
@@ -87,7 +87,7 @@ function CommunityEdit ()  {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios({
+          const response = await authaxios({
             method: "patch",
             url: "/api/v1/community/" + number,
             // data: registwrite,

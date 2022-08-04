@@ -1,5 +1,6 @@
 import axios from "axios";
 import { logOut } from "redux/user_reducer";
+import { useDispatch } from "react-redux";
 
 export const freeaxios = axios.create({
   baseURL: "http://localhost:8081/",
@@ -61,9 +62,12 @@ authaxios.interceptors.response.use(
           return await authaxios.request(originalRequest);
         }
       } catch (e) {
+        const dispatch = useDispatch();
+        const doLogOut = () => dispatch(logOut());
+
         sessionStorage.removeItem("Auth");
         sessionStorage.removeItem("Refresh");
-        logOut();
+        doLogOut();
       }
       return Promise.reject(error);
     }
