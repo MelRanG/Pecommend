@@ -328,5 +328,25 @@ public class PerfumeController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/dislikedislike/{id}")
+    @ApiOperation(value = "싫어한 사람이 싫어한 향수")
+    public ResponseEntity<List<Map<String, Object>>> getDislikeDislike(@PathVariable Long id){
+        List<PerfumeLDCount> queryResult = perfumeLikeService.getDislikeDislike(id); // 상위 10개
+        Collections.shuffle(queryResult);
+        List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+        List<Map<String, Object>> result = new LinkedList<>();
+        for(PerfumeLDCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            result.add(map);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
 }
