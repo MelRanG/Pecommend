@@ -294,7 +294,7 @@ public class PerfumeController {
     }
 
     @GetMapping("/dislikelike/{id}")
-    @ApiOperation(value = "좋아한 사람이 좋아한 향수")
+    @ApiOperation(value = "싫어한 사람이 좋아한 향수")
     public ResponseEntity<List<Map<String, Object>>> getDislikeLike(@PathVariable Long id){
 
         List<PerfumeLDCount> queryResult = perfumeLikeService.getDislikeLike(id); // 상위 10개
