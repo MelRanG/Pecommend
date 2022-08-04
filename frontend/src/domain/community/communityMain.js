@@ -7,12 +7,11 @@ import { Link } from "react-router-dom";
 import { data } from "jquery";
 
 function CommunityMain() {
-  const [dataList, setDataList] = useState();
-  // const [article_all, setArticleall] = useState();
-  const [article_free, setArticlefree] = useState();
-  const [article_perfume, setArticleperfume] = useState();
-  const [article_hot, setArticlehot] = useState();
-  const [article_anounce, setArticleanounce] = useState();
+  const [article_all, setArticleall] = useState([]);
+  const [article_free, setArticlefree] = useState([]);
+  const [article_perfume, setArticleperfume] = useState([]);
+  const [article_hot, setArticlehot] = useState([]);
+  const [article_announce, setArticleannounce] = useState([]);
 
   const titleName = [
     '전체',
@@ -26,17 +25,23 @@ function CommunityMain() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list",
+          url: "/api/v1/community/list/main",
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}
           // JSON.stringify()
         });
-        console.log(response);
+         //console.log(response);
         if (response.status === 200) {
-          // const dataset = response.data
-          // setDataList(dataset)
-          // console.log(dataList);
+          const dataset = response.data
+          
+          setArticleall(dataset[0]);
+          setArticlefree(dataset[1]);
+          setArticleperfume(dataset[2]);
+          setArticlehot(dataset[3]);
+          setArticleannounce(dataset[4]);
+          
+          
           // let data = dataset.filter(data => data.category==1)
           // console.log(data)
           // setArticlefree(data)
@@ -49,11 +54,7 @@ function CommunityMain() {
     }
 
   useEffect(() => {
-    getArticleList(0)
-    getArticleList(1)
-    getArticleList(2)
-    getArticleList(3)
-    getArticleList(4)
+    getArticleList()
 }, [])
 
   return (
@@ -189,14 +190,26 @@ function CommunityMain() {
                             </li>
                           ))
                         } */}
-                        {/* {
-                          dataList[1].map((data) => (
+                        {
+                          article_all != null
+                          ?
+                          <>
+                            {article_all.map((data) => (
                             // <li>[{titleName[data.category]}] {data.title}</li>
                             <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
                                 [{titleName[data.category]}] {data.title}
+                              </Link>
                             </li>
-                          ))
-                        } */}
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>
@@ -209,12 +222,26 @@ function CommunityMain() {
                     </div>
                     <div className="community-article-box">
                       <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
-                        <li>[공지] 5번글!</li>
-                        <li>[자유] 6번글!</li>
+                        {
+                          article_free != null
+                          ?
+                          <>
+                            {article_free.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>
@@ -227,12 +254,26 @@ function CommunityMain() {
                     </div>
                     <div className="community-article-box">
                       <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
-                        <li>[공지] 5번글!</li>
-                        <li>[자유] 6번글!</li>
+                      {
+                          article_perfume != null
+                          ?
+                          <>
+                            {article_perfume.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>
@@ -245,12 +286,26 @@ function CommunityMain() {
                     </div>
                     <div className="community-article-box">
                       <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
-                        <li>[공지] 5번글!</li>
-                        <li>[자유] 6번글!</li>
+                      {
+                          article_announce != null
+                          ?
+                          <>
+                            {article_announce.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>
