@@ -21,7 +21,7 @@ function PerfumeList() {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list/",
+        url: "/api/v1/perfume/list",
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -30,7 +30,8 @@ function PerfumeList() {
       console.log(response);
       if (response.status === 200) {
         setDataList(response.data);
-        console.log(dataList);
+        console.log("확인", dataList);
+        console.log(dataList[1].tDto[0].tagName);
       }
     } catch (error) {
       console.log(error);
@@ -53,7 +54,7 @@ function PerfumeList() {
       console.log(response);
       if (response.status === 200) {
         setDataList(response.data);
-        console.log(dataList);
+        // console.log(dataList);
       }
     } catch (error) {
       console.log(error);
@@ -445,20 +446,27 @@ function PerfumeList() {
                         .slice(offset, offset + limitData)
                         .map((data) => (
                           <div
-                            key={data.perfumeId}
+                            key={data.pDto.perfumeId}
                             className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
                           >
                             <div className="product-wrap mb-25 scroll-zoom ">
                               <div className="product-img">
-                                <Link to={`/perfume/detail/${data.perfumeId}`}>
+                                <Link
+                                  to={`/perfume/detail/${data.pDto.perfumeId}`}
+                                >
                                   <div className="text_photo">
                                     <div className="explain">
                                       <div className="list-hashtag">
-                                        <div className="">#장미</div>
-                                        <div className="">
+                                        {data.tDto.map((temp) => (
+                                          <div className="">
+                                            #{temp.tagName}
+                                          </div>
+                                        ))}
+
+                                        {/* <div className="">
                                           #해시태그가어디까지길어지는거죠?
                                         </div>
-                                        <div className="">#복숭아</div>
+                                        <div className="">#복숭아</div> */}
                                       </div>
                                     </div>
                                     <img
@@ -473,9 +481,9 @@ function PerfumeList() {
                               </div>
                               <div className="product-content text-center perfume_list_name">
                                 <div className="product-content-koName">
-                                  {data.koName}
+                                  {data.pDto.koName}
                                 </div>
-                                <div>({data.enName})</div>
+                                <div>({data.pDto.enName})</div>
                               </div>
                             </div>
                           </div>

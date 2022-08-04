@@ -5,6 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./perfumeDetail.css";
 import { Rating } from "react-simple-star-rating";
 import { useSelector } from "react-redux";
+import { Nav } from "react-bootstrap";
+import styled, { keyframes } from "styled-components";
 // import { waitFor } from "@testing-library/react";
 
 // function Note({ note }) {
@@ -12,6 +14,23 @@ import { useSelector } from "react-redux";
 //     <li>{note}</li>
 //   )
 // }
+
+const Box = styled.div`
+  display: block;
+  padding: 0 10px;
+  height: 40px;
+  line-height: 40px;
+  width: ${(props) => props.theme}%;
+  text-align: right;
+  background: #616dff;
+  border-radius: 40px;
+  color: #fff;
+  animation: ${(props) => stack(props.theme)} 2s 1;
+`;
+const stack = (props) => keyframes`
+0% {width: 0; color: rgba(255,255,255, 0);}
+100% {width: ${props}%; color: rgba(255,255,255,1);}
+`;
 
 // 향수 상세 페이지
 const PerfumeDetail = () => {
@@ -26,12 +45,11 @@ const PerfumeDetail = () => {
   const [likeList, setLikeList] = useState([]); // 좋아요
   const [dislikeList, setDislikeList] = useState([]); // 싫어요
   // let likeDislike = 0; //좋아요 싫어요 비율
-  const [likeDislike, setLikeDislike] = useState(0);
+  const [ldlRate, setLdlRate] = useState(0);
 
-  const [topNote, setTopNote] = useState([]); //탑노트
-  const [middleNote, setMiddleNote] = useState([]); //미들노트
-  const [baseNote, setBaseNote] = useState([]); //베이스노트
-  const [singleNote, setSingleNote] = useState([]); //싱글
+  const [ldList, setLdList] = useState({});
+
+  let [tab, setTab] = useState(1); // 좋아싫어탭
 
   const getPerfumeDetail = async () => {
     try {
@@ -53,19 +71,9 @@ const PerfumeDetail = () => {
         setTagDetail(response.data.ptDto);
         setLikeList(response.data.plDto);
         setDislikeList(response.data.pdDto);
+        setLdlRate(response.data.likeRatio);
 
-        // calLikeDislike();
-        setLikeDislike(
-          Math.round(
-            (likeList.length / (likeList.length + dislikeList.length)) * 100
-          )
-        );
-        console.log(
-          Math.round(
-            (likeList.length / (likeList.length + dislikeList.length)) * 100
-          )
-        );
-        console.log("비율", likeDislike);
+        console.log("비율", ldlRate);
         // console.log("noteDetail");
         // console.log(noteDetail);
         // setNote(noteDetail);
@@ -75,26 +83,34 @@ const PerfumeDetail = () => {
     }
   };
 
+  const get좋아싫어리스트 = async () => {
+    try {
+      // console.log("number", number);
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/perfume/ldlist/" + number,
+        // data: registwrite,
+        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type" : ""}
+        // JSON.stringify()
+      });
+      // console.log(response);
+      if (response.status === 200) {
+        setLdList(response.data);
+        // console.log("좋아싫어리스트", response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getPerfumeDetail();
+    get좋아싫어리스트();
     // waitFor(1000);
     // setNote(noteDetail);
     // calLikeDislike();
   }, []);
-
-  // 좋아요 싫어요 비율 계산
-  const calLikeDislike = () => {
-    // console.log(likeList.length);
-    console.log(
-      Math.round(
-        (likeList.length / (likeList.length + dislikeList.length)) * 100
-      )
-    );
-
-    // likeDislike = 67;
-    console.log("비율", likeDislike);
-    console.log(likeDislike);
-  };
 
   //노트구분하기 -> 안씀
   const setNote = (datas) => {
@@ -135,6 +151,7 @@ const PerfumeDetail = () => {
 
   //좋아요
   const recommend = async () => {
+    console.log("좋아요", user);
     try {
       let data = {
         perfumeId: perfumeDetail.perfumeId,
@@ -150,12 +167,6 @@ const PerfumeDetail = () => {
       if (response.status === 200) {
         // console.log("완료")
         if (response.data == "ADD") {
-          // setPageDetail(communityLike) += 1
-          // setPageDetail({
-          //   ...pageDetail,
-          //   communityLike: pageDetail.communityLike + 1
-          // })
-
           let temp = {
             id: 0,
             perfumeId: perfumeDetail.perfumeId,
@@ -196,12 +207,6 @@ const PerfumeDetail = () => {
       if (response.status === 200) {
         // console.log("완료")
         if (response.data == "ADD") {
-          // setPageDetail(communityLike) += 1
-          // setPageDetail({
-          //   ...pageDetail,
-          //   communityLike: pageDetail.communityLike + 1
-          // })
-
           let temp = {
             id: 0,
             perfumeId: perfumeDetail.perfumeId,
@@ -387,7 +392,9 @@ const PerfumeDetail = () => {
                   </div>
                   <div className="col-8 ">
                     <div className="detail-likeDislikeGraph">
-                      <span className="">{likeDislike}%</span>
+                      <Box className="" theme={`${ldlRate}`}>
+                        {ldlRate}%
+                      </Box>
                     </div>
                   </div>
                   <div className="col-2">
@@ -416,88 +423,158 @@ const PerfumeDetail = () => {
               <h2>이 향수를 선호 / 비선호 하는 사람이 궁금해요</h2>
             </div> */}
 
-            <ul className="nav nav-tabs detail-navtab mb-20">
+            <Nav
+              className="mt-5 detail-navtab"
+              variant="tabs"
+              defaultActiveKey="link-0"
+            >
+              <Nav.Item>
+                <Nav.Link eventKey="disabled" disabled>
+                  이 향수를
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  className=""
+                  eventKey="link-1"
+                  onClick={() => setTab(1)}
+                >
+                  &nbsp;좋아&nbsp;
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item className="nav-second">
+                <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
+                  &nbsp;싫어&nbsp;
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="disabled" disabled>
+                  한다면?
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+
+            {/* <ul className="nav nav-tabs detail-navtab mb-20">
               <li className="nav-item">
                 <a
                   className="nav-link disabled detail-navtab-disa"
-                  href="#"
+                  href="#;"
                   tabIndex="-1"
                   aria-disabled="true"
                 >
-                  이 향수를{" "}
+                  이 향수를
                 </a>
               </li>
               <li className="nav-item">
                 <a
                   className="nav-link active detail-nav-link"
-                  aria-current="page"
-                  href="#"
+                  aria-current="true"
+                  onClick={() => setTab(0)}
                 >
                   좋아
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link detail-nav-link" href="#">
+                <a
+                  className="nav-link detail-nav-link"
+                  aria-current="true"
+                  onClick={() => setTab(1)}
+                >
                   싫어
                 </a>
               </li>
               <li className="nav-item">
                 <a
                   className="nav-link disabled detail-navtab-disa"
-                  href="#"
+                  href="#;"
                   tabIndex="-1"
                   aria-disabled="true"
                 >
                   한다면?
                 </a>
               </li>
-            </ul>
+            </ul> */}
+            {tab === 1 ? (
+              <div>
+                <div className="detail-likeDislikeList-items detail-ldl-first row">
+                  <div className="col-lg-3 col-sm-12">
+                    <span className="glyphicon glyphicon-thumbs-up"></span>
+                    <span className="ldltext">1추천해요</span>
+                  </div>
+                  {ldList.likelike &&
+                    ldList.likelike.map((data) => (
+                      <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
+                        <img
+                          src=".\assets\tempImg\123359405127241D28.jpg"
+                          alt=""
+                        />
+                        <p>{data.pName}</p>
+                      </div>
+                    ))}
+                  <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
+                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                    <p>향수명</p>
+                  </div>
+                </div>
 
-            <div className="detail-likeDislikeList-items detail-ldl-first row">
-              <div className="col-lg-3 col-sm-12">
-                <span className="glyphicon glyphicon-thumbs-up"></span>
-                <span className="ldltext">추천해요</span>
+                <div className="detail-likeDislikeList-items row">
+                  <div className="col-lg-3 col-sm-12">
+                    <span className="glyphicon glyphicon-thumbs-down"></span>
+                    <span className="ldltext"> 비추천해요</span>
+                  </div>
+                  {ldList.likedislike &&
+                    ldList.likedislike.map((data) => (
+                      <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
+                        <img
+                          src=".\assets\tempImg\123359405127241D28.jpg"
+                          alt=""
+                        />
+                        <p>{data.pName}</p>
+                      </div>
+                    ))}
+                  <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
+                    <img src=".\assets\tempImg\400x400.jpg" alt="" />
+                    <p>향수명</p>
+                  </div>
+                </div>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
-                <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-            </div>
+            ) : (
+              <div>
+                <div className="detail-likeDislikeList-items detail-ldl-first row">
+                  <div className="col-lg-3 col-sm-12">
+                    <span className="glyphicon glyphicon-thumbs-up"></span>
+                    <span className="ldltext">2추천해요</span>
+                  </div>
+                  {ldList.dislikelike &&
+                    ldList.dislikelike.map((data) => (
+                      <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
+                        <img
+                          src=".\assets\tempImg\123359405127241D28.jpg"
+                          alt=""
+                        />
+                        <p>{data.pName}</p>
+                      </div>
+                    ))}
+                </div>
 
-            <div className="detail-likeDislikeList-items row">
-              <div className="col-lg-3 col-sm-12">
-                <span className="glyphicon glyphicon-thumbs-down"></span>
-                <span className="ldltext"> 비추천해요</span>
+                <div className="detail-likeDislikeList-items row">
+                  <div className="col-lg-3 col-sm-12">
+                    <span className="glyphicon glyphicon-thumbs-down"></span>
+                    <span className="ldltext"> 비추천해요</span>
+                  </div>
+                  {ldList.dislikedislike &&
+                    ldList.dislikedislike.map((data) => (
+                      <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
+                        <img
+                          src=".\assets\tempImg\123359405127241D28.jpg"
+                          alt=""
+                        />
+                        <p>{data.pName}</p>
+                      </div>
+                    ))}
+                </div>
               </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
-                <img src=".\assets\tempImg\400x400.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
-                <img src=".\assets\tempImg\400x400.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2 col-sm-6">
-                <img src=".\assets\tempImg\400x400.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2 col-sm-6">
-                <img src=".\assets\tempImg\400x400.jpg" alt="" />
-                <p>향수명</p>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -915,390 +992,6 @@ const PerfumeDetail = () => {
           </div>
         </div>
       </div>
-
-      {/* 일단안씀 */}
-      {/* <div className="related-product-area pb-95">
-        <div className="container">
-          <div className="section-title text-center mb-50">
-            <h2>Related products</h2>
-          </div>
-          <div className="related-product-active owl-carousel owl-dot-none">
-            <div className="product-wrap">
-              <div className="product-img">
-                <a href="product-details-6.html">
-                  <img className="default-img" src="assets/img/product/pro-1.jpg" alt="" />
-                  <img className="hover-img" src="assets/img/product/pro-1-1.jpg" alt="" />
-                </a>
-                <span className="pink">-10%</span>
-                <div className="product-action">
-                  <div className="pro-same-action pro-wishlist">
-                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                  </div>
-                  <div className="pro-same-action pro-cart">
-                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                  </div>
-                  <div className="pro-same-action pro-quickview">
-                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div className="product-content text-center">
-                <h3><a href="product-details-6.html">T- Shirt And Jeans</a></h3>
-                <div className="product-rating">
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o"></i>
-                  <i className="fa fa-star-o"></i>
-                </div>
-                <div className="product-price">
-                  <span>$ 60.00</span>
-                  <span className="old">$ 60.00</span>
-                </div>
-              </div>
-            </div>
-            <div className="product-wrap">
-              <div className="product-img">
-                <a href="product-details-6.html">
-                  <img className="default-img" src="assets/img/product/pro-2.jpg" alt="" />
-                  <img className="hover-img" src="assets/img/product/pro-2-1.jpg" alt="" />
-                </a>
-                <span className="purple">New</span>
-                <div className="product-action">
-                  <div className="pro-same-action pro-wishlist">
-                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                  </div>
-                  <div className="pro-same-action pro-cart">
-                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                  </div>
-                  <div className="pro-same-action pro-quickview">
-                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div className="product-content text-center">
-                <h3><a href="product-details-6.html">T- Shirt And Jeans</a></h3>
-                <div className="product-rating">
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o"></i>
-                  <i className="fa fa-star-o"></i>
-                </div>
-                <div className="product-price">
-                  <span>$ 60.00</span>
-                </div>
-              </div>
-            </div>
-            <div className="product-wrap">
-              <div className="product-img">
-                <a href="product-details-6.html">
-                  <img className="default-img" src="assets/img/product/pro-3.jpg" alt="" />
-                  <img className="hover-img" src="assets/img/product/pro-3-1.jpg" alt="" />
-                </a>
-                <span className="pink">-10%</span>
-                <div className="product-action">
-                  <div className="pro-same-action pro-wishlist">
-                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                  </div>
-                  <div className="pro-same-action pro-cart">
-                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                  </div>
-                  <div className="pro-same-action pro-quickview">
-                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div className="product-content text-center">
-                <h3><a href="product-details-6.html">T- Shirt And Jeans</a></h3>
-                <div className="product-rating">
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o"></i>
-                  <i className="fa fa-star-o"></i>
-                </div>
-                <div className="product-price">
-                  <span>$ 60.00</span>
-                  <span className="old">$ 60.00</span>
-                </div>
-              </div>
-            </div>
-            <div className="product-wrap">
-              <div className="product-img">
-                <a href="product-details-6.html">
-                  <img className="default-img" src="assets/img/product/pro-4.jpg" alt="" />
-                  <img className="hover-img" src="assets/img/product/pro-4-1.jpg" alt="" />
-                </a>
-                <span className="purple">New</span>
-                <div className="product-action">
-                  <div className="pro-same-action pro-wishlist">
-                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                  </div>
-                  <div className="pro-same-action pro-cart">
-                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                  </div>
-                  <div className="pro-same-action pro-quickview">
-                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div className="product-content text-center">
-                <h3><a href="product-details-6.html">T- Shirt And Jeans</a></h3>
-                <div className="product-rating">
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o"></i>
-                  <i className="fa fa-star-o"></i>
-                </div>
-                <div className="product-price">
-                  <span>$ 60.00</span>
-                </div>
-              </div>
-            </div>
-            <div className="product-wrap">
-              <div className="product-img">
-                <a href="product-details-6.html">
-                  <img className="default-img" src="assets/img/product/pro-5.jpg" alt="" />
-                  <img className="hover-img" src="assets/img/product/pro-5-1.jpg" alt="" />
-                </a>
-                <span className="pink">-10%</span>
-                <div className="product-action">
-                  <div className="pro-same-action pro-wishlist">
-                    <a title="Wishlist" href="#"><i className="pe-7s-like"></i></a>
-                  </div>
-                  <div className="pro-same-action pro-cart">
-                    <a title="Add To Cart" href="#"><i className="pe-7s-cart"></i> Add to cart</a>
-                  </div>
-                  <div className="pro-same-action pro-quickview">
-                    <a title="Quick View" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="pe-7s-look"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div className="product-content text-center">
-                <h3><a href="product-details-6.html">T- Shirt And Jeans</a></h3>
-                <div className="product-rating">
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o yellow"></i>
-                  <i className="fa fa-star-o"></i>
-                  <i className="fa fa-star-o"></i>
-                </div>
-                <div className="product-price">
-                  <span>$ 60.00</span>
-                  <span className="old">$ 60.00</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      {/* <!-- Modal --> */}
-      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="row">
-                <div className="col-md-5 col-sm-12 col-xs-12">
-                  <div className="tab-content quickview-big-img">
-                    <div id="pro-1" className="tab-pane fade show active">
-                      <img src="assets/img/product/quickview-l1.jpg" alt="" />
-                    </div>
-                    <div id="pro-2" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                    </div>
-                    <div id="pro-3" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l3.jpg" alt="" />
-                    </div>
-                    <div id="pro-4" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                    </div>
-                  </div>
-                  {/* <!-- Thumbnail Large Image End --> */}
-                  {/* <!-- Thumbnail Image End --> */}
-                  <div className="quickview-wrap mt-15">
-                    <div
-                      className="quickview-slide-active owl-carousel nav nav-style-1"
-                      role="tablist"
-                    >
-                      <a className="active" data-bs-toggle="tab" href="#pro-1">
-                        <img src="assets/img/product/quickview-s1.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-2">
-                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-3">
-                        <img src="assets/img/product/quickview-s3.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-4">
-                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-7 col-sm-12 col-xs-12">
-                  <div className="product-details-content quickview-content">
-                    <h2>Products Name Here</h2>
-                    <div className="product-details-price">
-                      <span>$18.00 </span>
-                      <span className="old">$20.00 </span>
-                    </div>
-                    <div className="pro-details-rating-wrap">
-                      <div className="pro-details-rating">
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o"></i>
-                        <i className="fa fa-star-o"></i>
-                      </div>
-                      <span>3 Reviews</span>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisic elit
-                      eiusm tempor incidid ut labore et dolore magna aliqua. Ut
-                      enim ad minim venialo quis nostrud exercitation ullamco
-                    </p>
-                    <div className="pro-details-list">
-                      <ul>
-                        <li>- 0.5 mm Dail</li>
-                        <li>- Inspired vector icons</li>
-                        <li>- Very modern style </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-size-color">
-                      <div className="pro-details-color-wrap">
-                        <span>Color</span>
-                        <div className="pro-details-color-content">
-                          <ul>
-                            <li className="blue"></li>
-                            <li className="maroon active"></li>
-                            <li className="gray"></li>
-                            <li className="green"></li>
-                            <li className="yellow"></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="pro-details-size">
-                        <span>Size</span>
-                        <div className="pro-details-size-content">
-                          <ul>
-                            <li>
-                              <a href="#">s</a>
-                            </li>
-                            <li>
-                              <a href="#">m</a>
-                            </li>
-                            <li>
-                              <a href="#">l</a>
-                            </li>
-                            <li>
-                              <a href="#">xl</a>
-                            </li>
-                            <li>
-                              <a href="#">xxl</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pro-details-quality">
-                      <div className="cart-plus-minus">
-                        <input
-                          className="cart-plus-minus-box"
-                          type="text"
-                          name="qtybutton"
-                          value="2"
-                        />
-                      </div>
-                      <div className="pro-details-cart btn-hover">
-                        <a href="#">Add To Cart</a>
-                      </div>
-                      <div className="pro-details-wishlist">
-                        <a href="#">
-                          <i className="fa fa-heart-o"></i>
-                        </a>
-                      </div>
-                      <div className="pro-details-compare">
-                        <a href="#">
-                          <i className="pe-7s-shuffle"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="pro-details-meta">
-                      <span>Categories :</span>
-                      <ul>
-                        <li>
-                          <a href="#">Minimal,</a>
-                        </li>
-                        <li>
-                          <a href="#">Furniture,</a>
-                        </li>
-                        <li>
-                          <a href="#">Electronic</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-meta">
-                      <span>Tag :</span>
-                      <ul>
-                        <li>
-                          <a href="#">Fashion, </a>
-                        </li>
-                        <li>
-                          <a href="#">Furniture,</a>
-                        </li>
-                        <li>
-                          <a href="#">Electronic</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-social">
-                      <ul>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-facebook"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-dribbble"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-pinterest-p"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-linkedin"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <!-- Modal end --> */}
     </div>
   );
 };

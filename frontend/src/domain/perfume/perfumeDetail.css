@@ -21,7 +21,9 @@
   .detail-likeDislikeList-items{
     margin: 0px 50px !important;
   }
-
+  .pro-details-likeDislike{
+    width: 100% !important;
+  }
 }
 
 @media screen and (max-width:992px){
@@ -171,7 +173,7 @@
 .pro-details-likeDislike{
   padding: 30px;
   text-align: center;
-  width: 90%;
+  width: 100%;
 }
 
 .pro-details-rating-wrap {
@@ -189,10 +191,10 @@
   border-radius: 40px;
 }
 
-.detail-likeDislikeGraph span{
+/* styled-components */
+/* .detail-likeDislikeGraph span{
   display: block;
   padding: 0 10px;
-  width: 75%;
   height: 40px;
   line-height: 40px;
   text-align: right;
@@ -204,6 +206,10 @@
 @keyframes stack{
   0% {width: 0; color: rgba(255,255,255, 0);}
   100% {width: 75%; color: rgba(255,255,255,1);}
+} */
+
+.perfume_detail_nav{
+background-color: #5c667b;
 }
 
 /* 좋아요/싫어요 */
@@ -240,17 +246,42 @@
   margin: auto;
 }
 
-.detail-navtab-disa{
+/* .detail-navtab-disabled{
   color: #373f57 !important;
-}
-.detail-nav-link{
+} */
+/* .detail-nav-link{
 color: #b3b3b3;
-}
+} */
 .nav-link.active {
   color: #6e64ff;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
+.nav-tabs .nav-link.disabled {
+  color: #31363a;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: #6e64ff;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+.nav-link, .nav-link:hover {
+  color: #9d9d9d;
+}
+.nav-link:hover,.nav-link:focus {
+  text-decoration: none ;
+  /* color: #9d9d9d; */
+}
+
+.nav-second a.active{
+  color: #ff6161 !important;
+}
+
+
+
 
 
 
@@ -553,3 +584,6 @@ margin-top: 10px;
   margin-right: 3px;
   font-size: 15px;
 }
+
+
+
