@@ -43,4 +43,15 @@ public class PerfumeTagServiceImpl implements PerfumeTagService{
         }
         return dtoList;
     }
+
+//    @Override
+//    public List<PerfumeTagResponseDto> getHotTagAll() {
+//        //List<PerfumeTag> perfumeTags = perfumeTagRepository.findAllByOrderByCountDesc();
+//        // 여기 이 카운트를 가져올게 아니라 Tag들이 몇 번 나왓는지를 세야함 => 쿼리문 써야겠네..........
+//        List<PerfumeTagResponseDto> dtoList = new LinkedList<>();
+//        for(PerfumeTag pt : perfumeTags){
+//            dtoList.add(PerfumeTagResponseDto.from(pt));
+//        }
+//        return dtoList;
+//    }
 }

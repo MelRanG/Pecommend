@@ -40,21 +40,26 @@ public class PerfumeServiceImpl  implements PerfumeService {
     public List<PerfumeResponseDto> getListKeyword(String keyword) {
         // keyword가 한글인지 영어(숫자)인지 확인해서 검색하기
 
-        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
-        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
+        List<Perfume> perfumeList = perfumeRepository.findByKoNameLikeOrEnNameLike("%"+keyword+"%", "%"+keyword+"%");
+//        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
+//        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
 
         // 중복 제거가 안되고 있었슴 ㅋ
 
-        Set<PerfumeResponseDto> dtoList = new LinkedHashSet<>();
+//        Set<PerfumeResponseDto> dtoList = new LinkedHashSet<>();
+//
+//        for(Perfume p: perfumeListKo){
+//            dtoList.add(PerfumeResponseDto.from(p));
+//        }
+//        for(Perfume p: perfumeListEn){
+//            dtoList.add(PerfumeResponseDto.from(p));
+//        }
 
-        for(Perfume p: perfumeListKo){
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeList){
             dtoList.add(PerfumeResponseDto.from(p));
         }
-        for(Perfume p: perfumeListEn){
-            dtoList.add(PerfumeResponseDto.from(p));
-        }
 
-        // 중복 제거
         // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
         return new ArrayList<>(dtoList);
 

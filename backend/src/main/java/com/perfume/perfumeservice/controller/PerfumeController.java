@@ -46,35 +46,35 @@ public class PerfumeController {
 //        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
 //    }
 //
-    @GetMapping("/list/ko/{keyword}")
-    @ApiOperation(value = "향수 <한글> 이름으로 검색 ( + 해시태그)")
-    public ResponseEntity<List<Map<String, Object>>> getListKoKeyword(@PathVariable String keyword){
-        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKoKeyword(keyword);
-        List<Map<String, Object>> dtoList = new LinkedList<>();
-        for(PerfumeResponseDto pd: perfumeDtoList){
-            Map<String, Object> map = new LinkedHashMap<>();
-            map.put("pDto",pd);
-            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-            map.put("tDto", td);
-            dtoList.add(map);
-        }
-        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-    }
-
-    @GetMapping("/list/ennnum/{keyword}")
-    @ApiOperation(value = "향수 <영어, 숫자> 이름으로 검색 ( + 해시태그)")
-    public ResponseEntity<List<Map<String, Object>>> getListEnKeyword(@PathVariable String keyword){
-        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListEnKeyword(keyword);
-        List<Map<String, Object>> dtoList = new LinkedList<>();
-        for(PerfumeResponseDto pd: perfumeDtoList){
-            Map<String, Object> map = new LinkedHashMap<>();
-            map.put("pDto",pd);
-            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-            map.put("tDto", td);
-            dtoList.add(map);
-        }
-        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-    }
+//    @GetMapping("/list/ko/{keyword}")
+//    @ApiOperation(value = "향수 <한글> 이름으로 검색 ( + 해시태그)")
+//    public ResponseEntity<List<Map<String, Object>>> getListKoKeyword(@PathVariable String keyword){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKoKeyword(keyword);
+//        List<Map<String, Object>> dtoList = new LinkedList<>();
+//        for(PerfumeResponseDto pd: perfumeDtoList){
+//            Map<String, Object> map = new LinkedHashMap<>();
+//            map.put("pDto",pd);
+//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+//            map.put("tDto", td);
+//            dtoList.add(map);
+//        }
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/list/ennnum/{keyword}")
+//    @ApiOperation(value = "향수 <영어, 숫자> 이름으로 검색 ( + 해시태그)")
+//    public ResponseEntity<List<Map<String, Object>>> getListEnKeyword(@PathVariable String keyword){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListEnKeyword(keyword);
+//        List<Map<String, Object>> dtoList = new LinkedList<>();
+//        for(PerfumeResponseDto pd: perfumeDtoList){
+//            Map<String, Object> map = new LinkedHashMap<>();
+//            map.put("pDto",pd);
+//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+//            map.put("tDto", td);
+//            dtoList.add(map);
+//        }
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
 
     @GetMapping("/list")
     @ApiOperation(value = "전체 향수 목록 가져오기 (+ 해시태그)")
@@ -92,7 +92,7 @@ public class PerfumeController {
     }
 
     @GetMapping("/list/{keyword}")
-    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그) => 숫자로 검색 시 중복되어서 나오는 중")
+    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그)")
     public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
         List<Map<String, Object>> dtoList = new LinkedList<>();
@@ -492,5 +492,12 @@ public class PerfumeController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-
+    // 인기 해시태그 가져오기(를 여기 컨트롤러에 넣어도 되는지 모르겠넹)
+//    @GetMapping("/hottag")
+//    @ApiOperation(value = "인기 해시태그 리스트")
+//    public ResponseEntity<List<PerfumeTagResponseDto>> getHotTagAll(){
+////        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
+//        List<PerfumeTagResponseDto> dtoList = perfumeTagService.getHotTagAll();
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
 }

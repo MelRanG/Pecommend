@@ -9,4 +9,9 @@ public interface PerfumeTagRepository  extends JpaRepository<PerfumeTag, Long> {
 
     public List<PerfumeTag> findByPerfumeOrderByCountDesc(Perfume perfume);
 
+//    public List<PerfumeTag> findAllByOrderByCountDesc();
+
+    // 그룹바이태그아이디
+
+
 }

@@ -10,4 +10,6 @@ public interface PerfumeTagService {
 
     List<PerfumeTagResponseDto> getThreePerfumeTags(Long id);
 
+   // List<PerfumeTagResponseDto> getHotTagAll();
+
 }

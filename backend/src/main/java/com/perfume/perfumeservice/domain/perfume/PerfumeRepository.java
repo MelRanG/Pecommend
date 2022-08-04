@@ -12,6 +12,8 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
 
     public List<Perfume> findByEnNameLike(String keyword);
 
+    public List<Perfume> findByKoNameLikeOrEnNameLike(String koName, String enName);
+
 
 
 
