@@ -108,8 +108,8 @@ function CommunityDetail () {
                                     </div>
                                 </div>
                                 <hr></hr>
-                                <div className="community-detail-maintextbox">
-                                    <h5>{ parseContent }</h5>
+                                <div className="community-detail-maintextbox" dangerouslySetInnerHTML={{__html: pageDetail.content}}>
+                                    {/* <h5>{ parseContent }</h5> */}
                                 </div>
                                 <div className="community-detail-artiblebox d-flex justify-content-center">
                                     <a className="detail-button" onClick={recommend}><span className="glyphicon glyphicon-thumbs-up"></span></a>

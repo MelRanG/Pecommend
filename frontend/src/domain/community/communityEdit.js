@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { data } from 'jquery';
+import Editor from './editor';
 
 // async function handleSubmit(e) {
 //     e.preventDefault()
@@ -26,9 +27,10 @@ function CommunityEdit ()  {
     const [formValue, setForm] = useState({
         writer: '',
         title: '',
-        content: '',
         category: 0,
     });
+
+    const [content,setContent] = useState("")
 
     const getArticleDetail = async () => {
         try {
@@ -43,11 +45,10 @@ function CommunityEdit ()  {
           if (response.status === 200) {
             console.log(response.data)
             setForm(response.data)
-            console.log("form value", formValue)
             const item = document.getElementById("dropdownMenuButton1")
             let text = document.getElementById(response.data.category)
-            console.log(text)
             item.innerText = text.innerText
+            setContent(response.data.content)
           }
         } catch (error) {
           console.log(error);
@@ -108,21 +109,6 @@ function CommunityEdit ()  {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let registwrite = new FormData();
-        let datas =
-        {
-            writer: 1,
-            title: "string",
-            content: "string",
-            category: 2,
-        };
-        let jsond = JSON.stringify(datas);
-        let file = document.getElementById("img").files[0];
-        let blob = new Blob([jsond], { type: "application/json"});
-        registwrite.append("file", file)
-        registwrite.append("dto",blob)
-        
-        console.log(registwrite);
         try {
           const response = await axios({
             method: "patch",
@@ -131,14 +117,14 @@ function CommunityEdit ()  {
             data:{
                 writer: formValue.writer_id,
                 title: formValue.title,
-                content: formValue.content,
+                content: content,
                 category: formValue.category,
             }
             // headers: { "Content-Type": "multipart/form-data" },
             // headers: { "Content-Type" : ""}
             // JSON.stringify()
           });
-          console.log(response);
+          console.log("patch: " + response);
           if (response.status === 200) {
             console.log("!!!");
             alert("수정되었습니다");
@@ -155,7 +141,7 @@ function CommunityEdit ()  {
             <div className='community-regist-head'>
                 <span>글수정</span>
             </div>
-            <form onSubmit={() => handleSubmit}>
+            <form onSubmit={handleSubmit}>
             <div className='community-regist-topbar'>
                 <div className="regist-topbar-item">
                     <div className="regist-topbar-item-name">
@@ -196,7 +182,10 @@ function CommunityEdit ()  {
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-                <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" value={ formValue.content }></textarea>
+                <Editor
+                    SetContent={setContent}
+                    content={content}
+                />
             </div>
             <input type="file" accept="image/*" id="img" onChange={imgChange}/>
             {imageFile.map((item) => {

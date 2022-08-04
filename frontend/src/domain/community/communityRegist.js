@@ -3,8 +3,7 @@ import Nav from "../../components/nav";
 import axios from 'axios';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Editor from './editor';
 
 // async function handleSubmit(e) {
 //     e.preventDefault()
@@ -24,9 +23,10 @@ function CommunityRegist ()  {
     const [formValue, setForm] = useState({
         writer: 1,
         title: '',
-        content: '',
         category: 0,
     });
+
+    const[content, setContent] = useState("");
 
     const [imageFile, setImgFile] = useState([])
 
@@ -104,7 +104,7 @@ function CommunityRegist ()  {
             data:{
                 writer: 1,
                 title: formValue.title,
-                content: formValue.content,
+                content: content,
                 category: formValue.category,
             },
           });
@@ -170,7 +170,11 @@ function CommunityRegist ()  {
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-                {/* <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea> */}
+            <Editor
+                SetContent={setContent}
+                content={content}
+            />
+                {/* <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea>
                 <CKEditor
                     editor={ ClassicEditor }
                     data="<p>Hello from CKEditor 5!</p>"
@@ -193,7 +197,7 @@ function CommunityRegist ()  {
                     onFocus={ ( event, editor ) => {
                         console.log( 'Focus.', editor );
                     } }
-                />
+                /> */}
             </div>
             <input type="file" accept="image/*" id="img" onChange={imgChange}/>
             {imageFile.map((item) => {
