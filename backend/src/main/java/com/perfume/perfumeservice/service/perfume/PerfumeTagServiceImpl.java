@@ -37,7 +37,8 @@ public class PerfumeTagServiceImpl implements PerfumeTagService{
         Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
         List<PerfumeTag> perfumeTags = perfumeTagRepository.findByPerfumeOrderByCountDesc(perfume);
         List<PerfumeTagResponseDto> dtoList = new LinkedList<>();
-        for(int i = 0; i < 3; i++){
+        int end = Math.min(dtoList.size(), 3);
+        for(int i = 0; i < end; i++){
             dtoList.add(PerfumeTagResponseDto.from(perfumeTags.get(i)));
         }
         return dtoList;

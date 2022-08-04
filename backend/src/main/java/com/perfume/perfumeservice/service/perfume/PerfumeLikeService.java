@@ -1,6 +1,7 @@
 package com.perfume.perfumeservice.service.perfume;
 
 import com.perfume.perfumeservice.domain.perfume.Perfume;
+import com.perfume.perfumeservice.domain.perfume.PerfumeLikeCount;
 import com.perfume.perfumeservice.dto.perfume.PerfumeDislikeResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeLikeResponseDto;
 
@@ -25,5 +26,7 @@ public interface PerfumeLikeService {
     List<PerfumeDislikeResponseDto> getDislikeUser(Long id);
     List<PerfumeLikeResponseDto> getLikeAll();
     List<PerfumeDislikeResponseDto> getDislikeAll();
+
+    List<PerfumeLikeCount> getLikeLike(Long id);
 
 }

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+// 안 씀
+
 @Entity
 @Getter
 @Builder

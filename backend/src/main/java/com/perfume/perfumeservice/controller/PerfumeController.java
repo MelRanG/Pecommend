@@ -2,6 +2,8 @@ package com.perfume.perfumeservice.controller;
 
 import com.perfume.perfumeservice.domain.perfume.Note;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
+import com.perfume.perfumeservice.domain.perfume.PerfumeLike;
+import com.perfume.perfumeservice.domain.perfume.PerfumeLikeCount;
 import com.perfume.perfumeservice.dto.perfume.*;
 import com.perfume.perfumeservice.service.perfume.NoteService;
 import com.perfume.perfumeservice.service.perfume.PerfumeLikeService;
@@ -27,12 +29,12 @@ public class PerfumeController {
     private final PerfumeLikeService perfumeLikeService;
 
 
-    @GetMapping("/list")
-    @ApiOperation(value = "전체 향수 목록 가져오기")
-    public ResponseEntity<List<PerfumeResponseDto>> getListAll(){
-        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
-        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
-    }
+//    @GetMapping("/list")
+//    @ApiOperation(value = "전체 향수 목록 가져오기")
+//    public ResponseEntity<List<PerfumeResponseDto>> getListAll(){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
+//        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
+//    }
 //
 //    @GetMapping("/list/{keyword}")
 //    @ApiOperation(value = "향수 이름으로 검색")
@@ -42,20 +44,20 @@ public class PerfumeController {
 //    }
 
 //    안돼서 보류
-//    @GetMapping("/list")
-//    @ApiOperation(value = "전체 향수 목록 가져오기 (+해시태그)")
-//    public ResponseEntity<List<Map<String, Object>>> getListAll(){
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
-//        List<Map<String, Object>> dtoList = new LinkedList<>();
-//        for(PerfumeResponseDto pd: perfumeDtoList){
-//            Map<String, Object> map = new LinkedHashMap<>();
-//            map.put("pDto",pd);
-//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-//            map.put("tDto", td);
-//            dtoList.add(map);
-//        }
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
+    @GetMapping("/list")
+    @ApiOperation(value = "전체 향수 목록 가져오기 (+해시태그)")
+    public ResponseEntity<List<Map<String, Object>>> getListAll(){
+        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
+        List<Map<String, Object>> dtoList = new LinkedList<>();
+        for(PerfumeResponseDto pd: perfumeDtoList){
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("pDto",pd);
+            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+            map.put("tDto", td);
+            dtoList.add(map);
+        }
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }
 
     @GetMapping("/list/{keyword}")
     @ApiOperation(value = "향수 이름으로 검색")
@@ -249,11 +251,49 @@ public class PerfumeController {
     => ii) 좋아요/싫어요 한 모든 유저가 그 향수를 제외한 좋아한/싫어한 데이터를 가져와서 중복 수가 가장 많은 순서로 4개 고르기 => 계속 반복해서 같은 화면이 나올 확률이 있음
     => iii) 좋아요/싫어요 한 모든 유저가 그 향수를 제외한 좋아한/싫어한 데이터를 가져와서 중복을 제거한 후 랜덤으로 4개 고르기 => 그나마 나아보이지만 큰 데이터를 다뤄야해서 성능 문제가 있을 수 있음
 
+    => 추천수 상위 10개를 골라서 4개를 랜덤으로~
 
+    => 좋아요/좋아요
+    => 1. 향수 id로 <좋아요> 한 유저 리스트 가져오기
+    => 2. 유저 리스트에서 유저 한 명씩 <좋아요> 리스트 가져오기
+    => 3. 리스트의 향수 종류를 카운트
+    => 4. 상위 10개 추출(10개 이하 5개 이상이면 5번으로, 4개 이하면 5.5번으로)
+    => 5. 그 중에 랜덤으로 4개 추출
+    => 5.5 4개가 안 되면 일단 나온 것들만 보냄
     */
 
+    @GetMapping("/likelike/{id}")
+    @ApiOperation(value = "좋아한 사람이 좋아한 향수")
+    public ResponseEntity<List<Map<String, Object>>> getLikeLike(@PathVariable Long id){
+//        // 1. 향수 id로 <좋아요> 한 유저 리스트 가져오기
+//        List<PerfumeLikeResponseDto> userList = perfumeLikeService.getLikePerfume(id);
+//        // 2. 유저 리스트에서 유저 한 명씩 <좋아요> 리스트 가져오기
+//        List<PerfumeLikeResponseDto> allLikeList = new LinkedList<>();
+//        for(PerfumeLikeResponseDto pl : userList){
+//            List<PerfumeLikeResponseDto> perfumeList = perfumeLikeService.getLikeUser(pl.getUserId());
+//            allLikeList.addAll(perfumeList);
+//        }
+//        // 3. 리스트의 향수 종류를 카운트
+        List<PerfumeLikeCount> queryResult = perfumeLikeService.getLikeLike(id); // 상위 10개
+        //List<PerfumeResponseDto> result = new LinkedList<>();
 
+        Collections.shuffle(queryResult);
 
+        List<PerfumeLikeCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
 
+        List<Map<String, Object>> result = new LinkedList<>();
 
+        for(PerfumeLikeCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            result.add(map);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

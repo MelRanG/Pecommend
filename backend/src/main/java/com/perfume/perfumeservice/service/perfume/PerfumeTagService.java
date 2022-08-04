@@ -9,4 +9,5 @@ public interface PerfumeTagService {
     List<PerfumeTagResponseDto> getPerfumeTags(Long id);
 
     List<PerfumeTagResponseDto> getThreePerfumeTags(Long id);
+
 }

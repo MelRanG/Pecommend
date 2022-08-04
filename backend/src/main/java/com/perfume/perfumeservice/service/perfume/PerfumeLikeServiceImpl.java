@@ -228,4 +228,10 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         return dtoList;
     }
 
+    @Override
+    public List<PerfumeLikeCount> getLikeLike(Long id) {
+        return perfumeLikeRepository.findGroupByPerfumeWithJPQL(id);
+    }
+
+
 }
