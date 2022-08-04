@@ -113,6 +113,7 @@ function OauthSignUp() {
               user_id: userInfo.data.user_id,
               email: userInfo.data.email,
               nickname: nick,
+              role: userInfo.data.role
             };
 
             saveUser(saveInfo);

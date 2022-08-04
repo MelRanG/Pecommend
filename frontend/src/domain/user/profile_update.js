@@ -206,6 +206,7 @@ function Profile_update() {
               user_id: userprofile.user_id,
               email: userprofile.email,
               nickname: nick,
+              role: userprofile.role
             };
 
             saveUser(saveInfo);

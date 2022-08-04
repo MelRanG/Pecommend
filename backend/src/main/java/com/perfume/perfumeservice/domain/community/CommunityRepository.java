@@ -36,7 +36,7 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     List<Community> findAllBestByCategory(@Param("category") int category);
     @Query(nativeQuery = true, value =
         "select * from community c " +
-            "where (select count(*) from community_like cl where c.community_id=cl.community_id) >= 3 order by c.community_id desc"
+            "where (select count(*) from community_like cl where c.community_id=cl.community_id) >= 10 order by c.community_id desc"
     )
     List<Community> findAllBest();
 }

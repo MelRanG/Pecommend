@@ -86,6 +86,7 @@ function CommunityEdit ()  {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formValue)
         try {
           const response = await authaxios({
             method: "patch",

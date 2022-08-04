@@ -30,6 +30,7 @@ function Oauth() {
         user_id: response.data.user_id,
         email: response.data.email,
         nickname: response.data.nickname,
+        role: response.data.role
       };
 
       saveUser(saveInfo);
