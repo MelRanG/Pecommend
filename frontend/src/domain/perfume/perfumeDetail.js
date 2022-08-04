@@ -3,14 +3,35 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "./perfumeDetail.css";
+import { Rating } from "react-simple-star-rating";
+import { useSelector } from "react-redux";
+// import { waitFor } from "@testing-library/react";
+
+// function Note({ note }) {
+//   return (
+//     <li>{note}</li>
+//   )
+// }
 
 // 향수 상세 페이지
 const PerfumeDetail = () => {
+  const user = useSelector((state) => state.userStore.nowLoginUser);
+
   let useParam = useParams();
   let number = parseInt(useParam.num);
-  const [perfumeDetail, setPerfumeDetail] = useState({});
-  const [noteDetail, setNoteDetail] = useState([]);
+  const [rating, setRating] = useState(0); // 별점
+  const [perfumeDetail, setPerfumeDetail] = useState({}); //이름같은거
+  const [noteDetail, setNoteDetail] = useState([]); //노트
+  const [tagDetail, setTagDetail] = useState([]); //해시태그
+  const [likeList, setLikeList] = useState([]); // 좋아요
+  const [dislikeList, setDislikeList] = useState([]); // 싫어요
+  // let likeDislike = 0; //좋아요 싫어요 비율
+  const [likeDislike, setLikeDislike] = useState(0);
 
+  const [topNote, setTopNote] = useState([]); //탑노트
+  const [middleNote, setMiddleNote] = useState([]); //미들노트
+  const [baseNote, setBaseNote] = useState([]); //베이스노트
+  const [singleNote, setSingleNote] = useState([]); //싱글
 
   const getPerfumeDetail = async () => {
     try {
@@ -23,15 +44,31 @@ const PerfumeDetail = () => {
         // headers: { "Content-Type" : ""}
         // JSON.stringify()
       });
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
+        console.log("디테일");
         console.log(response.data);
         setPerfumeDetail(response.data.pDto);
         setNoteDetail(response.data.nDto);
-        // console.log(parse(response.data.content))
-        // const parsedata = parse(response.data.content)
-        // setParseContent(parsedata)
-        // console.log("pC", parseContent)
+        setTagDetail(response.data.ptDto);
+        setLikeList(response.data.plDto);
+        setDislikeList(response.data.pdDto);
+
+        // calLikeDislike();
+        setLikeDislike(
+          Math.round(
+            (likeList.length / (likeList.length + dislikeList.length)) * 100
+          )
+        );
+        console.log(
+          Math.round(
+            (likeList.length / (likeList.length + dislikeList.length)) * 100
+          )
+        );
+        console.log("비율", likeDislike);
+        // console.log("noteDetail");
+        // console.log(noteDetail);
+        // setNote(noteDetail);
       }
     } catch (error) {
       console.log(error);
@@ -40,36 +77,190 @@ const PerfumeDetail = () => {
 
   useEffect(() => {
     getPerfumeDetail();
-    // console.log(pageDetail);
+    // waitFor(1000);
+    // setNote(noteDetail);
+    // calLikeDislike();
   }, []);
 
+  // 좋아요 싫어요 비율 계산
+  const calLikeDislike = () => {
+    // console.log(likeList.length);
+    console.log(
+      Math.round(
+        (likeList.length / (likeList.length + dislikeList.length)) * 100
+      )
+    );
+
+    // likeDislike = 67;
+    console.log("비율", likeDislike);
+    console.log(likeDislike);
+  };
+
+  //노트구분하기 -> 안씀
+  const setNote = (datas) => {
+    // console.log("setNote 호출");
+    // console.log(datas);
+    let topArr = [];
+    let middleArr = [];
+    let baseArr = [];
+    let singleArr = [];
+    datas.forEach((data) => {
+      // console.log(data);
+      if (data.noteCl == "top") {
+        topArr.push(data.materialName);
+      } else if (data.noteCl == "middle") {
+        middleArr.push(data.materialName);
+      } else if (data.noteCl == "base") {
+        baseArr.push(data.materialName);
+      } else {
+        singleArr.push(data.materialName);
+      }
+    });
+
+    // console.log(singleArr);
+    setTopNote(topArr);
+    setMiddleNote(middleArr);
+    setBaseNote(baseArr);
+    setSingleNote(singleArr);
+
+    // console.log(topNote);
+    // console.log(singleNote);
+  };
+
+  // Catch Rating value 별점
+  const handleRating = (rate: number) => {
+    setRating(rate);
+    // other logic
+  };
+
+  //좋아요
+  const recommend = async () => {
+    try {
+      let data = {
+        perfumeId: perfumeDetail.perfumeId,
+        userId: user.user_id,
+      };
+      // console.log("유저아이디", data);
+      const response = await axios({
+        method: "post",
+        url: "/api/v1/perfume/like",
+        data: data,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        // console.log("완료")
+        if (response.data == "ADD") {
+          // setPageDetail(communityLike) += 1
+          // setPageDetail({
+          //   ...pageDetail,
+          //   communityLike: pageDetail.communityLike + 1
+          // })
+
+          let temp = {
+            id: 0,
+            perfumeId: perfumeDetail.perfumeId,
+            userId: user.user_id,
+          };
+          console.log("temp", temp);
+          // setLikeList(...likeList, temp);
+          setLikeList(likeList.concat(temp));
+          console.log("like up", likeList);
+        }
+        if (response.data == "CANCEL") {
+          alert("싫어요누른사람");
+        }
+        if (response.data == "DELETE") {
+          setLikeList(likeList.filter((temp) => temp.userId != 4));
+          console.log("like down", likeList);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //싫어요
+  const disrecommend = async () => {
+    try {
+      let data = {
+        perfumeId: perfumeDetail.perfumeId,
+        userId: user.user_id,
+      };
+      // console.log(data)
+      const response = await axios({
+        method: "post",
+        url: "/api/v1/perfume/dislike",
+        data: data,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        // console.log("완료")
+        if (response.data == "ADD") {
+          // setPageDetail(communityLike) += 1
+          // setPageDetail({
+          //   ...pageDetail,
+          //   communityLike: pageDetail.communityLike + 1
+          // })
+
+          let temp = {
+            id: 0,
+            perfumeId: perfumeDetail.perfumeId,
+            userId: user.user_id,
+          };
+          console.log("temp", temp);
+          // setLikeList(...likeList, temp);
+          setDislikeList(dislikeList.concat(temp));
+          console.log("like up", dislikeList);
+        }
+        if (response.data == "CANCEL") {
+          alert("좋아요누른사람");
+        }
+        if (response.data == "DELETE") {
+          setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
+          console.log("like down", dislikeList);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  let [btnActive, setBtnActive] = useState(false); //버튼
+  const toggleActive = (e) => {
+    setBtnActive((prev) => {
+      return !prev;
+    });
+  };
 
   return (
     <div className="perfumeDetail">
       <div className="shop-area pt-100 pb-100">
         <div className="container">
           <div className="row">
-            <div className="col-lg-4 col-md-6">
+            <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="detail-product-details dec-img-wrap">
                 <img
                   src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
                   alt=""
+                  style={{ width: "100%", marginBottom: "20px" }}
                 />
                 {/* <span>-29%</span> */}
                 <span>new</span>
               </div>
             </div>
-            <div className="col-lg-8 col-md-6">
-              <div className="detail-product-details-content ml-70">
-                <h2 className="detail-product-title">{perfumeDetail.koName}({perfumeDetail.enName})</h2>
+            <div className="col-lg-8 col-md-6 col-sm-12">
+              <div className="detail-product-details-content">
+                <h2 className="detail-product-title">
+                  {perfumeDetail.koName}({perfumeDetail.enName})
+                </h2>
                 <div className="pro-details-rating-wrap ">
-                  <div className="pro-details-rating">
+                  {/* <div className="pro-details-rating">
                     <i className="fa fa-star-o yellow"></i>
                     <i className="fa fa-star-o yellow"></i>
                     <i className="fa fa-star-o yellow"></i>
                     <i className="fa fa-star-o"></i>
                     <i className="fa fa-star-o"></i>
-                  </div>
+                  </div> */}
                   <div className="review-rating">
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
@@ -77,6 +268,7 @@ const PerfumeDetail = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div>
+
                   <span>
                     <a href="#">3 Reviews</a>
                   </span>
@@ -86,12 +278,17 @@ const PerfumeDetail = () => {
                   {/* <span>$18.00 </span>
                   <span className="old">$20.00 </span> */}
                   <ul>
-                    <li className="">#봄</li>
+                    {tagDetail.map((data, index) => (
+                      <li className="" key={index}>
+                        #{data.tagName}
+                      </li>
+                    ))}
+                    {/* <li className="">#봄</li>
                     <li className="">#여름</li>
                     <li className="">#가을</li>
                     <li className="">#겨울</li>
                     <li className="">#20대</li>
-                    <li className="">#꽃향기나는</li>
+                    <li className="">#꽃향기나는</li> */}
                   </ul>
                 </div>
 
@@ -100,35 +297,73 @@ const PerfumeDetail = () => {
                   elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut
                   enim ad minim venialo quis nostrud exercitation ullamco
                 </p>
-                {/* <div className="row detail-pro-details-list-row">
-                  <div className="detail-pro-details-list col-lg-5">
-                    <ul>
-                      <li>탑노트 : </li>
-                      <li>미들노트 : </li>
-                      <li>베이스노트 : </li>
-                    </ul>
-                  </div>
-                  <div className="detail-pro-details-list col-lg-5">
-                    <ul>
-                      <li>향료 설명 </li>
-
-                    </ul>
-                  </div>
-
-                </div> */}
 
                 <div className="detail-pro-details-list-row">
                   {/* <div className="col-lg-1">
                   </div> */}
-                  <div className="detail-pro-details-list">
+                  <div className="detail-pro-details-list1">
                     <ul>
                       {/* 탑노트/미들노트 설명 */}
-                      <li>탑노트 : {noteDetail.materialName}</li>
-                      <li>미들노트 : </li>
-                      <li>베이스노트 : </li>
+                      {/* {
+                        topNote.length != 0
+                          ? topNote.map((data, index) => (
+                            <li key={index}>탑노트 : {data}</li>
+                          ))
+                          : null
+                      }
+                      {
+                        middleNote.length != 0
+                          ? middleNote.map((data, index) => (
+                            <li key={index}>미들노트 : {data}</li>
+                          ))
+                          : null
+                      }
+                      {
+                        baseNote.length != 0
+                          ? baseNote.map((data, index) => (
+                            <li key={index}>베이스노트 : {data}</li>
+                          ))
+                          : null
+                      }
+                      {
+                        singleNote.length != 0
+                          ? singleNote.map((data, index) => (
+                            <li key={index}>싱글노트 : {data}</li>
+                          ))
+                          : null
+                      } */}
+
+                      {noteDetail.map((data, index) => (
+                        // if (data.noteCl == "single") {
+                        //   <li key={data.noteId}>싱글노트</li>
+                        // } else {
+                        //   <li key={data.noteId}>싱글아님</li>
+                        // }
+                        <li key={index} className={data.noteCl}>
+                          {data.materialName}
+                        </li>
+                      ))}
                     </ul>
+                    <div className="perfume_detail_note_ex">
+                      <div className="single note_ex_color">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      </div>
+                      <div className="note_ex_text">싱글</div>
+                      <div className="top note_ex_color">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      </div>
+                      <div className="note_ex_text">탑</div>
+                      <div className="middle note_ex_color">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      </div>
+                      <div className="note_ex_text">미들</div>
+                      <div className="base note_ex_color">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      </div>
+                      <div className="note_ex_text">베이스</div>
+                    </div>
                   </div>
-                  <div className="detail-pro-details-list">
+                  <div className="detail-pro-details-list2">
                     <ul>
                       {/* 탑노트/미들노트 설명 */}
                       <li>향료 설명 </li>
@@ -138,17 +373,33 @@ const PerfumeDetail = () => {
 
                 {/* 좋아요 싫어요 */}
                 <div className="pro-details-likeDislike row">
-                  <div className="col-lg-2">
+                  <div className="col-2">
                     {/* <i className="fa fa-heart-o"></i> */}
-                    <span className="glyphicon glyphicon-thumbs-up"></span>
+                    <a
+                      className="articleButton"
+                      onClick={() => {
+                        recommend();
+                        toggleActive();
+                      }}
+                    >
+                      <span className="glyphicon glyphicon-thumbs-up"></span>
+                    </a>
                   </div>
-                  <div className="col-lg-8 ">
+                  <div className="col-8 ">
                     <div className="detail-likeDislikeGraph">
-                      <span className="">75%</span>
+                      <span className="">{likeDislike}%</span>
                     </div>
                   </div>
-                  <div className="col-lg-2">
-                    <span className="glyphicon glyphicon-thumbs-down"></span>
+                  <div className="col-2">
+                    <a
+                      className="articleButton"
+                      onClick={() => {
+                        disrecommend();
+                        toggleActive();
+                      }}
+                    >
+                      <span className="glyphicon glyphicon-thumbs-down"></span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -160,7 +411,7 @@ const PerfumeDetail = () => {
       {/* 2개용 */}
       <div className="description-likeDislike mb-80 pt-50 pb-50">
         <div className="container-fluid">
-          <div className="detail-likeDislikeList">
+          <div className="detail-likeDislikeList container">
             {/* <div className="section-title text-center mb-50">
               <h2>이 향수를 선호 / 비선호 하는 사람이 궁금해요</h2>
             </div> */}
@@ -203,48 +454,46 @@ const PerfumeDetail = () => {
             </ul>
 
             <div className="detail-likeDislikeList-items detail-ldl-first row">
-              <div className="col-lg-3">
+              <div className="col-lg-3 col-sm-12">
                 <span className="glyphicon glyphicon-thumbs-up"></span>
                 <span className="ldltext">추천해요</span>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item col-lg-2">
+              <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                 <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                 <p>향수명</p>
               </div>
             </div>
 
             <div className="detail-likeDislikeList-items row">
-              <div className="col-lg-3">
-                <span className="glyphicon glyphicon-thumbs-down">
-
-                </span>
+              <div className="col-lg-3 col-sm-12">
+                <span className="glyphicon glyphicon-thumbs-down"></span>
                 <span className="ldltext"> 비추천해요</span>
               </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+              <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
                 <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+              <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
                 <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+              <div className="detail-likeDislikeList-item dontlike col-lg-2 col-sm-6">
                 <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
-              <div className="detail-likeDislikeList-item dontlike col-lg-2">
+              <div className="detail-likeDislikeList-item dontlike col-lg-2 col-sm-6">
                 <img src=".\assets\tempImg\400x400.jpg" alt="" />
                 <p>향수명</p>
               </div>
@@ -291,7 +540,7 @@ const PerfumeDetail = () => {
               </div> */}
 
               {/* 리뷰입력 */}
-              <div className="comment_input_wrap" onclick="window.login();">
+              <div className="comment_input_wrap">
                 <div className="comment_input img_add">
                   <textarea
                     className="scrollbar"
@@ -300,19 +549,19 @@ const PerfumeDetail = () => {
                   ></textarea>
                 </div>
                 <div className="comment_input_bot">
-                  <div className="detail-comment review-rating">
+                  {/* <div className="detail-comment review-rating">
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
-                  </div>
+                  </div> */}
+                  <Rating
+                    onClick={handleRating}
+                    ratingValue={rating} /* Available Props */
+                  />
                   <div className="image_add_wrap">
-                    <button
-                      type="button"
-                      className="btn_image_add"
-                      onclick="window.login();"
-                    >
+                    <button type="button" className="btn_image_add">
                       해시태그 선택
                     </button>
                     *필수사항X
@@ -322,11 +571,7 @@ const PerfumeDetail = () => {
                     <em>0</em>/1000자{" "}
                   </span>
                 </div>
-                <button
-                  type="button"
-                  className="btnSizeL comment_submit"
-                  onclick="window.login();"
-                >
+                <button type="button" className="btnSizeL comment_submit">
                   댓글 등록
                 </button>
               </div>
@@ -366,9 +611,13 @@ const PerfumeDetail = () => {
                       type="radio"
                       name="flexRadioDefault"
                       id="flexRadioDefault1"
-                      checked
+                      defaultChecked
+                      defaultValue="{{}}"
                     />
-                    <label className="form-check-label" for="flexRadioDefault1">
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexRadioDefault1"
+                    >
                       전체
                     </label>
                   </div>
@@ -379,7 +628,10 @@ const PerfumeDetail = () => {
                       name="flexRadioDefault"
                       id="flexRadioDefault2"
                     />
-                    <label className="form-check-label" for="flexRadioDefault2">
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexRadioDefault2"
+                    >
                       좋아요
                     </label>
                   </div>
@@ -390,7 +642,10 @@ const PerfumeDetail = () => {
                       name="flexRadioDefault"
                       id="flexRadioDefault1"
                     />
-                    <label className="form-check-label" for="flexRadioDefault1">
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexRadioDefault1"
+                    >
                       싫어요
                     </label>
                   </div>
@@ -1046,5 +1301,5 @@ const PerfumeDetail = () => {
       {/* <!-- Modal end --> */}
     </div>
   );
-}
+};
 export default PerfumeDetail;
