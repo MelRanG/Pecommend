@@ -27,7 +27,7 @@ public class PerfumeServiceImpl  implements PerfumeService {
     @Override
     public List<PerfumeResponseDto> getListAll() {
         List<Perfume> perfumeList = perfumeRepository.findAllByOrderByKoName();
-        // 노트 정보까지 넣어줘야하나? 아님 Dto에서 note를 빼기?
+
         List<PerfumeResponseDto> dtoList = new LinkedList<>();
 
         for (Perfume p: perfumeList){
@@ -59,6 +59,28 @@ public class PerfumeServiceImpl  implements PerfumeService {
         return new ArrayList<>(dtoList);
 
     }
+    @Override
+    public List<PerfumeResponseDto> getListKoKeyword(String keyword) {
+        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeListKo){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
+        return new ArrayList<>(dtoList);
+    }
+
+    @Override
+    public List<PerfumeResponseDto> getListEnKeyword(String keyword) {
+        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeListEn){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
+        return new ArrayList<>(dtoList);
+    }
+
 
     @Override
     public PerfumeResponseDto getPerfume(Long id) {
