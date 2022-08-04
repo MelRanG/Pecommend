@@ -7,16 +7,13 @@ import { useSelector } from "react-redux";
 function Nav3() {
   const isLogined = useSelector((state) => state.userStore.isLogined);
 
-  useEffect(() => {
-    const toggleBtn = document.querySelector(".navbar__toogleBtn");
-    const menu = document.querySelector(".navbar__menu");
-    const icons = document.querySelector(".navbar__icons");
+  const burgerbutton = () => {
+    const menu = document.querySelector('.navbar__menu');
+    const icons = document.querySelector('.navbar__icons');
 
-    toggleBtn.addEventListener("click", () => {
-      menu.classList.toggle("active");
-      icons.classList.toggle("active");
-    });
-  });
+    menu.classList.toggle('active');
+    icons.classList.toggle('active');
+  }
 
   return (
     <nav className="navbar">
@@ -34,31 +31,30 @@ function Nav3() {
           <Link to="/perfume">PERFUME</Link>
         </li>
         <li>
-          <Link to="/commu">COMMUNITY</Link>
+          <Link to="/commu/main">COMMUNITY</Link>
         </li>
         <li>
           <Link to="/test">TEST</Link>
         </li>
       </ul>
-      {isLogined ? (
-        <ul className="navbar__icons">
-          <li>
-            <Link to="/myprofile">MY PROFILE</Link>
-          </li>
-          <li>
-            <Link to="/logout">LOGOUT</Link>
-          </li>
-        </ul>
-      ) : (
-        <ul className="navbar__icons">
-          <li>
-            <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
-          </li>
-        </ul>
-      )}
-      <a href="#" className="navbar__toogleBtn">
-        <i className="fa-solid fa-bars"></i>
-      </a>
+      {isLogined ? 
+      <ul className="navbar__icons">
+        <li>
+          <Link to="/myprofile">MY PROFILE</Link>
+        </li>
+        <li>
+          <Link to="/logout">LOGOUT</Link>
+        </li>
+      </ul> : 
+      <ul className="navbar__icons">
+        <li>
+          <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
+        </li>
+      </ul>
+      }
+      {/* <a className="navbar__toogleBtn"><i className="fa-solid fa-bars"></i></a> */}
+      <a className="navbar__toogleBtn" onClick={burgerbutton}><button className="fa-solid fa-bars burgerbutton"></button></a>
+      {/* <i className="fa-solid fa-bars"><a className="navbar__toogleBtn"></a></i> */}
     </nav>
   );
 }
