@@ -6,7 +6,11 @@ import axios from "axios";
 const API_URL = "/api/v1/file";
 const UPLOAD_ENDPOINT = "upload";
 
+<<<<<<< HEAD
 export default function Editor({ handleChange, SetContent, content }) {
+=======
+export default function Editor({ handleChange, SetContent, content}) {
+>>>>>>> 39e70b115ae18ec424436f0ae304d8ac741b8f57
   function uploadAdapter(loader) {
     return {
       upload: () => {
@@ -42,7 +46,7 @@ export default function Editor({ handleChange, SetContent, content }) {
         config={{
           extraPlugins: [uploadPlugin]
         }}
-        data={content}
+        data = {content}
         editor={ClassicEditor}
         onReady={(editor) => {}}
         onBlur={(event, editor) => {}}

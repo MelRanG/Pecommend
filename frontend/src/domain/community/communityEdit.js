@@ -47,6 +47,7 @@ function CommunityEdit ()  {
             setForm(response.data)
             const item = document.getElementById("dropdownMenuButton1")
             let text = document.getElementById(response.data.category)
+            // console.log(text)
             item.innerText = text.innerText
             setContent(response.data.content)
           }
@@ -82,31 +83,6 @@ function CommunityEdit ()  {
         })
     }
 
-    const imgChange = (e) => {
-        setImgFile([]);
-        for(var i=0;i<e.target.files.length;i++){
-            if (e.target.files[i]) {
-              let reader = new FileReader();
-              reader.readAsDataURL(e.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-              // 파일 상태 업데이트
-              reader.onloadend = () => {
-                // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-                const base64 = reader.result;
-                console.log(base64)
-                if (base64) {
-                //  images.push(base64.toString())
-                var base64Sub = base64.toString()
-                   
-                setImgFile(imageFile => [...imageFile, base64Sub]);
-                //  setImgBase64(newObj);
-                  // 파일 base64 상태 업데이트
-                //  console.log(images)
-                }
-              }
-            }
-        }
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -120,9 +96,6 @@ function CommunityEdit ()  {
                 content: content,
                 category: formValue.category,
             }
-            // headers: { "Content-Type": "multipart/form-data" },
-            // headers: { "Content-Type" : ""}
-            // JSON.stringify()
           });
           console.log("patch: " + response);
           if (response.status === 200) {
@@ -150,7 +123,7 @@ function CommunityEdit ()  {
                     <div className="regist-topbar-item-context">
                         <div className="dropdown">
                             <button className="regist-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
+                                카테고리
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a className="" name="category" onClick={categoryChangehandler} id="1">자유</a></li>
@@ -187,17 +160,6 @@ function CommunityEdit ()  {
                     content={content}
                 />
             </div>
-            <input type="file" accept="image/*" id="img" onChange={imgChange}/>
-            {imageFile.map((item) => {
-                return(
-                    <img
-                    className="d-block w-100"
-                    src={item}
-                    alt="First slide"
-                    style={{width:"100%",height:"550px"}}
-                    />
-                )
-                }) }
             <div className='community-regist-bottombar'>
                 <button className="regist-submit">
                     등록하기

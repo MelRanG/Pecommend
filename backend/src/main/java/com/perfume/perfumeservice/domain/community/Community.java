@@ -1,12 +1,8 @@
 package com.perfume.perfumeservice.domain.community;
+import com.perfume.perfumeservice.domain.baseTime.BaseTime;
 import com.perfume.perfumeservice.domain.comment.Comment;
-import com.perfume.perfumeservice.domain.image.Image;
 import com.perfume.perfumeservice.domain.user.UserEntity;
-import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +15,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @Getter
-public class Community {
+public class Community extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "community_id")
@@ -30,11 +26,12 @@ public class Community {
     private UserEntity writer;
     private String title;
     private String content;
-
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
     List<Comment> comments = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
     List<CommunityImage> images = new ArrayList<>();
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CommunityLike> likes = new LinkedHashSet<>();
 
     public void patch(Community community){
         if(community.title != null)
@@ -44,7 +41,4 @@ public class Community {
         if(community.category != 0)
             this.category = community.category;
     }
-
-    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CommunityLike> likes = new LinkedHashSet<>();
 }

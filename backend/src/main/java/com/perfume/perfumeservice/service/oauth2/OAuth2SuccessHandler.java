@@ -6,6 +6,7 @@ import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.jwt.TokenDto;
 import com.perfume.perfumeservice.jwt.TokenProvider;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -19,12 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
-    private TokenProvider tokenProvider;
-    private UserRepository userRepository;
-    private PasswordMaker passwordMaker;
+    private final TokenProvider tokenProvider;
+    private final UserRepository userRepository;
+    private final PasswordMaker passwordMaker;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -52,14 +53,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         entity.saveToken(tokenDto.getRefreshToken());
         userRepository.save(entity);
 
-        // 토큰 정보 삽입
-        response.setContentType("text/html;charset=UTF-8");
-        response.addHeader("Auth", tokenDto.getAccessToken());
-        response.addHeader("Refresh", tokenDto.getRefreshToken());
-        response.setContentType("application/json;charset=UTF-8");
-
         // 리다이렉트
-        String target = "http://localhost:3000/oauth";
+        String target = "http://localhost:3000/oauth?Auth=" + tokenDto.getAccessToken() + "&Refresh=" + tokenDto.getRefreshToken();
         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
         redirectStrategy.sendRedirect(request, response, target);
     }

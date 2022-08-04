@@ -3,6 +3,7 @@ import Nav from "../../components/nav";
 import axios from 'axios';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import Editor from './editor';
 
 // async function handleSubmit(e) {
@@ -17,6 +18,11 @@ import Editor from './editor';
 //         console.log(error)
 //     }
 // }
+=======
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Editor from "./editor"
+>>>>>>> 39e70b115ae18ec424436f0ae304d8ac741b8f57
 
 function CommunityRegist ()  {
     let navigate = useNavigate()
@@ -25,10 +31,14 @@ function CommunityRegist ()  {
         title: '',
         category: 0,
     });
+<<<<<<< HEAD
 
     const[content, setContent] = useState("");
 
     const [imageFile, setImgFile] = useState([])
+=======
+    const[content,setContent] = useState("")
+>>>>>>> 39e70b115ae18ec424436f0ae304d8ac741b8f57
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -53,49 +63,10 @@ function CommunityRegist ()  {
         
         console.log(formValue)
     }
-    const imgChange = (e) => {
-        setImgFile([]);
-        for(var i=0;i<e.target.files.length;i++){
-            if (e.target.files[i]) {
-              let reader = new FileReader();
-              reader.readAsDataURL(e.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-              // 파일 상태 업데이트
-              reader.onloadend = () => {
-                // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-                const base64 = reader.result;
-                console.log(base64)
-                if (base64) {
-                //  images.push(base64.toString())
-                var base64Sub = base64.toString()
-                   
-                setImgFile(imageFile => [...imageFile, base64Sub]);
-                //  setImgBase64(newObj);
-                  // 파일 base64 상태 업데이트
-                //  console.log(images)
-                }
-              }
-            }
-        }
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         e.target.setAttribute("disabled",'true')
-        let registwrite = new FormData();
-        console.log("formvalue is...")
-        console.log(formValue)
-        let datas = formValue
-        let jsond = JSON.stringify(datas);
-        console.log("json is ", jsond)
-        let file = document.getElementById("img").files[0];
-        let blob = new Blob([jsond], { type: "application/json"});
-        console.log("blob is ",blob)
-        registwrite.append("file", file)
-        registwrite.append("dto",blob)
-        
-        console.log("registwrite is...")
-        console.log(registwrite);
-        console.log("then try")
         try {
           const response = await axios({
             method: "post",
@@ -170,46 +141,12 @@ function CommunityRegist ()  {
                 <hr className='hrtag'></hr>
             </div>
             <div className='community-regist-text'>
-            <Editor
+                {/* <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea> */}
+                <Editor
                 SetContent={setContent}
                 content={content}
             />
-                {/* <textarea className="regist-textarea" rows="15" onChange={ handleChange } name="content" id="contentinput"></textarea>
-                <CKEditor
-                    editor={ ClassicEditor }
-                    data="<p>Hello from CKEditor 5!</p>"
-                    onReady={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        setForm({
-                            ...formValue,
-                            content: data
-                        })
-                        console.log( { event, editor, data } );
-                        console.log(formValue)
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                /> */}
             </div>
-            <input type="file" accept="image/*" id="img" onChange={imgChange}/>
-            {imageFile.map((item) => {
-                return(
-                    <img
-                    className="d-block w-100"
-                    src={item}
-                    alt="First slide"
-                    style={{width:"100%",height:"550px"}}
-                    />
-                )
-                }) }
             <div className='community-regist-bottombar'>
                 <button className="regist-submit">
                     등록하기
