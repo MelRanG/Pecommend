@@ -14,7 +14,6 @@ public interface PerfumeLikeRepository extends JpaRepository<PerfumeLike, Long> 
 
     Optional<PerfumeLike> findByPerfumeAndUser(Perfume perfume, UserEntity user);
 
-    // 향수 아이디를 빼는 작업 해야함.
     @Query(value =
             "SELECT p.perfume_id AS perfumeId, Count(p.user_id) AS userCount "
             + "FROM perfume_like p, "
@@ -27,5 +26,19 @@ public interface PerfumeLikeRepository extends JpaRepository<PerfumeLike, Long> 
             + "LIMIT 10"
             , nativeQuery = true
     )
-    List<PerfumeLikeCount> findGroupByPerfumeWithJPQL(Long id);
+    List<PerfumeLDCount> findPerfumeLikeLikeWithJPQL(Long id);
+
+    @Query(value =
+            "SELECT p.perfume_id AS perfumeId, Count(p.user_id) AS userCount "
+                    + "FROM perfume_like p, "
+                    + "(SELECT user_id "
+                        + "FROM perfume_dislike "
+                        + "WHERE perfume_id = :id) sq "
+                    + "WHERE p.user_id = sq.user_id AND NOT p.perfume_id IN (:id) "
+                    + "GROUP BY p.perfume_id "
+                    + "ORDER BY Count(p.user_id) DESC "
+                    + "LIMIT 10"
+            , nativeQuery = true
+    )
+    List<PerfumeLDCount> findPerfumeDislikeLikeWithJPQL(Long id);
 }

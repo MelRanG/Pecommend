@@ -1,9 +1,6 @@
 package com.perfume.perfumeservice.controller;
 
-import com.perfume.perfumeservice.domain.perfume.Note;
-import com.perfume.perfumeservice.domain.perfume.Perfume;
-import com.perfume.perfumeservice.domain.perfume.PerfumeLike;
-import com.perfume.perfumeservice.domain.perfume.PerfumeLikeCount;
+import com.perfume.perfumeservice.domain.perfume.*;
 import com.perfume.perfumeservice.dto.perfume.*;
 import com.perfume.perfumeservice.service.perfume.NoteService;
 import com.perfume.perfumeservice.service.perfume.PerfumeLikeService;
@@ -43,9 +40,8 @@ public class PerfumeController {
 //        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
 //    }
 
-//    안돼서 보류
     @GetMapping("/list")
-    @ApiOperation(value = "전체 향수 목록 가져오기 (+해시태그)")
+    @ApiOperation(value = "전체 향수 목록 가져오기 (+ 해시태그)")
     public ResponseEntity<List<Map<String, Object>>> getListAll(){
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
         List<Map<String, Object>> dtoList = new LinkedList<>();
@@ -274,16 +270,16 @@ public class PerfumeController {
 //            allLikeList.addAll(perfumeList);
 //        }
 //        // 3. 리스트의 향수 종류를 카운트
-        List<PerfumeLikeCount> queryResult = perfumeLikeService.getLikeLike(id); // 상위 10개
+        List<PerfumeLDCount> queryResult = perfumeLikeService.getLikeLike(id); // 상위 10개
         //List<PerfumeResponseDto> result = new LinkedList<>();
 
         Collections.shuffle(queryResult);
 
-        List<PerfumeLikeCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+        List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
 
         List<Map<String, Object>> result = new LinkedList<>();
 
-        for(PerfumeLikeCount plc: shuffleResult){
+        for(PerfumeLDCount plc: shuffleResult){
             Map<String, Object> map = new LinkedHashMap<>();
             long pid = plc.getPerfumeId();
             // perfume name 구하기
@@ -296,4 +292,33 @@ public class PerfumeController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/dislikelike/{id}")
+    @ApiOperation(value = "좋아한 사람이 좋아한 향수")
+    public ResponseEntity<List<Map<String, Object>>> getDislikeLike(@PathVariable Long id){
+
+        List<PerfumeLDCount> queryResult = perfumeLikeService.getDislikeLike(id); // 상위 10개
+        //List<PerfumeResponseDto> result = new LinkedList<>();
+
+        Collections.shuffle(queryResult);
+
+        List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+
+        List<Map<String, Object>> result = new LinkedList<>();
+
+        for(PerfumeLDCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            result.add(map);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
 }
