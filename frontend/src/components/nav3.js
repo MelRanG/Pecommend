@@ -2,11 +2,10 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import React from "react";
 import "./nav3.css";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 
 function Nav3() {
-
-  const isLogined = useSelector(state=>state.userStore.isLogined)
+  const isLogined = useSelector((state) => state.userStore.isLogined);
 
   const burgerbutton = () => {
     const menu = document.querySelector('.navbar__menu');
@@ -21,7 +20,6 @@ function Nav3() {
       <div className="navbar__logo">
         <Link to={"/"}>
           <img
-
             alt="?"
             src="assets/img/logo/logo-3.PNG"
             style={{ height: "60px", marginBottom: "5px", marginTop: "5px" }}
