@@ -1,4 +1,46 @@
-.detail-pro-details-list{
+
+.detail-product-details{
+  text-align: center;
+}
+
+.detail-product-details-content{
+  margin-left: 70px;
+}
+
+@media screen and (min-width:1201px){
+
+  .detail-likeDislikeList-items{
+    margin: 20px 40px !important;
+  }
+}
+@media screen and (max-width:1200px){
+  .detail-pro-details-list1 ,.detail-pro-details-list2{
+    margin-right: 0px !important;
+  }
+
+  .detail-likeDislikeList-items{
+    margin: 0px 50px !important;
+  }
+
+}
+
+@media screen and (max-width:992px){
+
+  .detail-product-details-content{
+   margin: 10px 40px;
+  }
+
+  .detail-product-details img{ 
+    /* height: 50px; */
+    width: 60% !important;
+
+  }
+
+
+}
+
+/* 노트&향료 정보 */
+.detail-pro-details-list1 ,.detail-pro-details-list2{
   padding: 20px !important;
 
   background-color: #f4f6fa;
@@ -6,13 +48,33 @@
   /* margin: 20px 10px 34px 10px !important; */
   margin: 0px;
   margin-right: 80px;
+  height: auto;
+  overflow: hidden;
+ 
 }
 
-.detail-pro-details-list:nth-child(1){
+.detail-pro-details-list1 ul li{
+  float: left;
+    margin: 8px 15px 0 0;
+    padding: 8px 15px 9px 15px;
+    border-radius: 16px;
+    /* color: #373f57; */
+    color: #f4f6fa;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    line-height: 16px;
+    /* background-color: #f4f6fa; */
+}
+.detail-pro-details-list1 ul{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.detail-pro-details-list1{
   border-radius: 20px 20px 0 0 / 20px 20px 0 0;
   border: 1px solid #e5e5e5;
 }
-.detail-pro-details-list:nth-child(2){
+.detail-pro-details-list2{
   border-radius: 0 0 20px 20px  / 0 0 20px 20px;
   border-bottom: 1px solid #e5e5e5;
   border-left: 1px solid #e5e5e5;
@@ -30,6 +92,37 @@
 .detail-product-title{
   display: inline;
 }
+
+.single{
+  background-color: #677ab1;
+}
+.top{
+  background-color: rgb(232 123 142);
+}
+.middle{
+  background-color: rgb(144 117 124);
+}
+.base{
+  background-color: rgb(255 175 178);
+}
+
+.perfume_detail_note_ex{
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: #e1e1e1; */
+  color: #373f57;
+  float: right;
+  font-size: 13px;
+  margin-top: 5px;
+}
+.note_ex_text{
+  margin-right: 4px;
+}
+.note_ex_color{
+  margin: 0 4px;
+  border-radius: 50%;
+}
+
 
 /* 해시태그 */
 .detail-product-hashtag{
@@ -143,7 +236,7 @@
   justify-content: center;
   /* border-bottom: 1px solid #ccc;
   border-radius: 12px; */
-  width: 1170px !important;
+  /* width: 1170px !important; */
   margin: auto;
 }
 
@@ -171,7 +264,7 @@ color: #b3b3b3;
   /* background-color: #cddbffb8; */
   /* border-radius: 20px; */
   /* padding: 80px 80px; */
-  width: 1170px !important;
+  /* width: 1170px !important; */
   margin: 30px auto;
 }
 
@@ -188,18 +281,18 @@ color: #b3b3b3;
   text-align: center;
   /* display: inline; */
   padding-top: 10px;
-  margin: 20px 40px !important;
+
 }
 
 .detail-likeDislikeList-items span{
-  height: 170px;
-  line-height: 170px;
+  height: 150px;
+  line-height: 150px;
 }
 
 .ldltext{
   font-family: 'NanumBarunGothic';
-  height: 170px;
-  line-height: 170px;
+  height: 150px;
+  line-height: 150px;
   font-size: 30px;
   line-height: 40px;
   text-align: center;

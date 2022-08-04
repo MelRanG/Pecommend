@@ -13,6 +13,14 @@ INSERT into community(category, user_id, title, content) values (1,3, '제목4',
 INSERT into community(category, user_id, title, content) values (1,1, '제목5', '내용5');
 INSERT into community(category, user_id, title, content) values (1,1, '제목6', '내용6');
 
+INSERT INTO community_like(community_id, user_id) values (1, 1);
+INSERT INTO community_like(community_id, user_id) values (2, 1);
+INSERT INTO community_like(community_id, user_id) values (2, 2);
+INSERT INTO community_like(community_id, user_id) values (3, 1);
+INSERT INTO community_like(community_id, user_id) values (3, 2);
+INSERT INTO community_like(community_id, user_id) values (3, 3);
+INSERT INTO community_like(community_id, user_id) values (4, 1);
+
 
 INSERT into comment(community_id, user_id, content) values (1,1, '내용1');
 INSERT into comment(community_id, user_id, content) values (2,2, '내용2');

@@ -152,14 +152,18 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<PostsResponseDto> getList(int category) {
-        List<Community> c_list = communityRepository.findByCategory(category);
-        List<PostsResponseDto> p_list = new LinkedList<>();
+//        List<Community> c_list = communityRepository.findByCategory(category);
+//        List<PostsResponseDto> p_list = new LinkedList<>();
+//
+//        for(Community c: c_list){
+//            p_list.add(PostsResponseDto.from(c));
+//        }
+//
+//        return p_list;
 
-        for(Community c: c_list){
-            p_list.add(PostsResponseDto.from(c));
-        }
-
-        return p_list;
+        return communityRepository.findByCategoryOrderByIdDesc(category).stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -239,5 +243,33 @@ public class CommunityServiceImpl implements CommunityService {
             uploadPathFolder.mkdirs();
         }
         return folderPath;
+    }
+
+    @Override
+    public List<PostsResponseDto> getListByLike(int category) {
+        return communityRepository.findByCategoryOrderByLikes(category).stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> getListByLike() {
+        return communityRepository.findAllOrderByLikes().stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> getBestListByCategory(int category) {
+        return communityRepository.findAllBestByCategory(category).stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> getBestList() {
+        return communityRepository.findAllBest().stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
     }
 }
