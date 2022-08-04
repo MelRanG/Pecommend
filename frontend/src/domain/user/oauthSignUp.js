@@ -6,7 +6,6 @@ import { setUser } from "../../redux/user_reducer";
 import {authaxios, freeaxios} from "../../custom/customAxios";
 
 function OauthSignUp() {
-  const user = useSelector((state) => state.userStore.nowLoginUser);
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
@@ -17,9 +16,8 @@ function OauthSignUp() {
   const [nick, setNick] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [mbti, setMbti] = React.useState("");
-  const [pwd_check, setPwdCheck] = React.useState(true);
   const [nick_check, setNickCheck] = React.useState(true);
-  const [userprofile, setUserProfile] = React.useState([]);
+  const [userprofile, setUserProfile] = useState([]);
 
   const onRPWDhandler = (event) => {
     setPwd(event.currentTarget.value);
@@ -80,6 +78,7 @@ function OauthSignUp() {
       });
   };
 
+
   // 정보 입력
   const onRegisthandler = (event) => {
     event.preventDefault();
@@ -107,26 +106,27 @@ function OauthSignUp() {
 
       authaxios
         .put("/api/v1/user/update", body)
-        .then(function (response) {
-          if (response.status == 200) {
+        .then((response) => {
+          authaxios.get("/api/v1/user/myinfo")
+          .then((userInfo)=>{
             const saveInfo = {
-              user_id: userprofile.user_id,
-              email: userprofile.email,
+              user_id: userInfo.data.user_id,
+              email: userInfo.data.email,
               nickname: nick,
             };
 
             saveUser(saveInfo);
-          }
-        })
-        .then(() => {
+          }).catch((error) => {
+            console.log(error);
+          })
+        }).then(()=>{
           alert("가입을 환영합니다!");
-          document.location.href = "/";
-        })
-        .catch(function (error) {
-          console.log(error);
+          document.location.href = "/"
+        }).catch((e) => {
+          console.log(e);
         });
+      }
     }
-  };
 
   return (
     <div className="Login">

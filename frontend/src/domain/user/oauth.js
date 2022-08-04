@@ -33,7 +33,7 @@ function Oauth() {
       };
 
       saveUser(saveInfo);
-      console.log(response.data);
+
       return true;
     } catch (error) {
       console.log(error);

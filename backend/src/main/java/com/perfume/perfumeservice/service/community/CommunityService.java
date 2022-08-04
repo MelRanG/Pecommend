@@ -24,4 +24,10 @@ public interface CommunityService {
     List<PostsResponseDto> searchPostTitle(String title);
 
     List<PostsResponseDto> searchPostWriter(String writer);
+
+    List<PostsResponseDto> getListByLike(int category);
+    List<PostsResponseDto> getListByLike();
+
+    List<PostsResponseDto> getBestList();
+    List<PostsResponseDto> getBestListByCategory(int category);
 }
