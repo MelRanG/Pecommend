@@ -278,17 +278,17 @@ public class CommunityServiceImpl implements CommunityService {
         Map<String, Object> map = new HashMap<>();
 
         List<PostsResponseDto> all = communityRepository.findAllByOrderByIdDesc().stream()
-                .limit(3)
+                .limit(6)
                 .map(community -> PostsResponseDto.from(community))
                 .collect(Collectors.toList());
 
         List<PostsResponseDto> free = communityRepository.findByCategoryOrderByIdDesc(1).stream()
-                .limit(3)
+                .limit(6)
                 .map(community -> PostsResponseDto.from(community))
                 .collect(Collectors.toList());
 
         List<PostsResponseDto> perfume = communityRepository.findByCategoryOrderByIdDesc(2).stream()
-                .limit(3)
+                .limit(6)
                 .map(community -> PostsResponseDto.from(community))
                 .collect(Collectors.toList());
 
@@ -298,7 +298,7 @@ public class CommunityServiceImpl implements CommunityService {
                 .collect(Collectors.toList());
 
         List<PostsResponseDto> notice = communityRepository.findByCategoryOrderByIdDesc(4).stream()
-                .limit(3)
+                .limit(6)
                 .map(community -> PostsResponseDto.from(community))
                 .collect(Collectors.toList());
 

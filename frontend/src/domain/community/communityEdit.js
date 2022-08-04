@@ -5,6 +5,8 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { data } from 'jquery';
 import Editor from './editor';
+import userReducer from 'redux/user_reducer';
+import { useSelector } from 'react-redux';
 
 // async function handleSubmit(e) {
 //     e.preventDefault()
@@ -20,6 +22,7 @@ import Editor from './editor';
 // }
 
 function CommunityEdit ()  {
+    const user = useSelector(state => state.userStore.nowLoginUser)
     let navigate = useNavigate();
     let useParam = useParams();
     let number = parseInt(useParam.num)
@@ -51,6 +54,10 @@ function CommunityEdit ()  {
             // console.log(text)
             item.innerText = text.innerText
             setContent(response.data.content)
+          }
+          if (response.data.writer_id != user.user_id) {
+            alert("올바르지 못한 접근입니다!")
+            navigate("/commu/main", { replace: true })
           }
         } catch (error) {
           console.log(error);
@@ -130,7 +137,7 @@ function CommunityEdit ()  {
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a className="" name="category" onClick={categoryChangehandler} id="1">자유</a></li>
                                 <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="2">향수</a></li>
-                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="3">질문</a></li>
+                                {/* <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="3">질문</a></li> */}
                                 <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
                             </ul>
                         </div>

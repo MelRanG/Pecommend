@@ -85,6 +85,7 @@ function CommunityDetail () {
                 postId: pageDetail.id,
             }
             console.log(data)
+            if (user.user_id != pageDetail.writer_id) {
             const response = await authaxios({
                 method: "post",
                 url: "/api/v1/community/like",
@@ -111,6 +112,7 @@ function CommunityDetail () {
                 }
                 console.log(e.target)
             }
+        }
         } catch (error) {
             console.log(error);
         }
@@ -305,7 +307,8 @@ function CommunityDetail () {
                                 </div>
                                 <div class="community-detail-user d-flex flex-row justify-content-between align-items-center mx-2">
                                     <div>
-                                        <img alt="?" src="" class="me-3"/><span>{pageDetail.writer}</span>
+                                        {/* <img alt="?" src="" class="me-3"/> */}
+                                        <span>{pageDetail.writer}</span>
                                     </div>
                                     <div>
                                         <h5 style={{margin:"0"}}>추천 {pageDetail.communityLike}</h5>
@@ -330,8 +333,16 @@ function CommunityDetail () {
                                 <div className="community-detail-subtextbox">
                                     <h5>2022.07.15 14:35 작성됨</h5>
                                     <h5>2022.07.17 12:12 수정됨</h5>
-                                    <button class="community-button-remove" onClick={clickRemove}>삭제</button>
-                                    <button class="community-button-edit" onClick={clickEdit}>수정</button>
+                                    {
+                                        user.user_id === pageDetail.writer_id
+                                        ?
+                                        <>
+                                        <button class="community-button-remove" onClick={clickRemove}>삭제</button>
+                                        <button class="community-button-edit" onClick={clickEdit}>수정</button>
+                                        </>
+                                        :
+                                        <></>
+                                    }
                                 </div>
                             </div>
                             <div id="communityComment">
@@ -357,12 +368,11 @@ function CommunityDetail () {
                 </div> */}
 
                 <hr></hr>
-                <div className="backButton">
+                <div className="backButton mb-5">
                     <button onClick={()=>{navigate(-1)}}>목록</button>
                 </div>
                 {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
                 <div className="community-comment-list">
-                    {offset} {offset + limitData}
                     {pageComment.slice(offset, offset + limitData).map((data) => (
                         <div className="community-comment-card d-flex">
                             <span>{data.writer}</span>

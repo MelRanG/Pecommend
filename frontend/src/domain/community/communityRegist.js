@@ -1,6 +1,6 @@
 import './communityRegist.css'
 import Nav from "../../components/nav";
-import axios from 'axios';
+import {authaxios, freeaxios} from "../../custom/customAxios";
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -50,33 +50,38 @@ function CommunityRegist ()  {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        e.target.setAttribute("disabled",'true')
-        try {
-          const response = await axios({
-            method: "post",
-            url: "/api/v1/community",
-            // data: registwrite,
-            data:{
-                writer: user.user_id,
-                title: formValue.title,
-                content: content,
-                category: formValue.category,
-            },
-          });
-          console.log(response);
-          if (response.status === 200) {
-            console.log(response.data);
-            alert("작성 완료되었습니다.")
-            navigate(`/commu/detail/${response.data.id}`, { replace: true });
-          }
-          else {
-            e.target.setAttribute("disabled",'false')
-          }
-        } catch (error) {
-          console.log(error);
-          e.target.setAttribute("disabled",'false')
+        if (formValue.title.replace(/^\s+|\s+$/gm,'') == '') {
+            alert("제목을 입력해주세요")
         }
-        e.target.setAttribute("disabled",'false')
+        else {
+            e.target.setAttribute("disabled",'true')
+            e.target.classList.add("disabled")
+            try {
+              const response = await authaxios({
+                method: "post",
+                url: "/api/v1/community",
+                // data: registwrite,
+                data:{
+                    writer: user.user_id,
+                    title: formValue.title,
+                    content: content,
+                    category: formValue.category,
+                },
+              });
+              console.log(response);
+              if (response.status === 200) {
+                console.log(response.data);
+                alert("작성 완료되었습니다.")
+                navigate(`/commu/detail/${response.data.id}`, { replace: true });
+              }
+              else {
+                e.target.classList.remove("disabled")
+              }
+            } catch (error) {
+              console.log(error);
+            }
+        }
+        e.target.removeAttribute("disabled")
       };
 
     const cancelSubmit = async(e) => {
@@ -104,7 +109,9 @@ function CommunityRegist ()  {
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a className="" name="category" onClick={categoryChangehandler} id="1">자유</a></li>
                                 <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="2">향수</a></li>
-                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="3">질문</a></li>
+                                {/* {
+                                    user.
+                                } */}
                                 <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
                             </ul>
                         </div>
