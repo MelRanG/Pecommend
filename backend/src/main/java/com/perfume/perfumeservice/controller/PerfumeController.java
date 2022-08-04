@@ -272,13 +272,9 @@ public class PerfumeController {
 //        // 3. 리스트의 향수 종류를 카운트
         List<PerfumeLDCount> queryResult = perfumeLikeService.getLikeLike(id); // 상위 10개
         //List<PerfumeResponseDto> result = new LinkedList<>();
-
         Collections.shuffle(queryResult);
-
         List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
-
         List<Map<String, Object>> result = new LinkedList<>();
-
         for(PerfumeLDCount plc: shuffleResult){
             Map<String, Object> map = new LinkedHashMap<>();
             long pid = plc.getPerfumeId();
@@ -289,23 +285,36 @@ public class PerfumeController {
             map.put("pName", pname);
             result.add(map);
         }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
+    @GetMapping("/likedislike/{id}")
+    @ApiOperation(value = "좋아한 사람이 싫어한 향수")
+    public ResponseEntity<List<Map<String, Object>>> getLikeDislike(@PathVariable Long id){
+        List<PerfumeLDCount> queryResult = perfumeLikeService.getLikeDislike(id); // 상위 10개
+        Collections.shuffle(queryResult);
+        List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+        List<Map<String, Object>> result = new LinkedList<>();
+        for(PerfumeLDCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            result.add(map);
+        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/dislikelike/{id}")
     @ApiOperation(value = "싫어한 사람이 좋아한 향수")
     public ResponseEntity<List<Map<String, Object>>> getDislikeLike(@PathVariable Long id){
-
         List<PerfumeLDCount> queryResult = perfumeLikeService.getDislikeLike(id); // 상위 10개
-        //List<PerfumeResponseDto> result = new LinkedList<>();
-
         Collections.shuffle(queryResult);
-
         List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
-
         List<Map<String, Object>> result = new LinkedList<>();
-
         for(PerfumeLDCount plc: shuffleResult){
             Map<String, Object> map = new LinkedHashMap<>();
             long pid = plc.getPerfumeId();
@@ -316,7 +325,6 @@ public class PerfumeController {
             map.put("pName", pname);
             result.add(map);
         }
-
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

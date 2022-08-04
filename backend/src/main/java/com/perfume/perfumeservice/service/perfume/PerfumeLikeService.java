@@ -30,7 +30,7 @@ public interface PerfumeLikeService {
 
     List<PerfumeLDCount> getLikeLike(Long id);
 
-    //List<PerfumeLDCount> getLikeDislike(Long id);
+    List<PerfumeLDCount> getLikeDislike(Long id);
     List<PerfumeLDCount> getDislikeLike(Long id);
 
     //List<PerfumeLDCount> getDislikeDislike(Long id);

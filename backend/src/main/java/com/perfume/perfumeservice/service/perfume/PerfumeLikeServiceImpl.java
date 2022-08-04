@@ -233,10 +233,10 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         return perfumeLikeRepository.findPerfumeLikeLikeWithJPQL(id);
     }
 
-//    @Override
-//    public List<PerfumeLDCount> getLikeDislike(Long id) {
-//        return perfumeDislikeRepository.findPerfumeLikeDislikeWithJPQL(id);
-//    }
+    @Override
+    public List<PerfumeLDCount> getLikeDislike(Long id) {
+        return perfumeDislikeRepository.findPerfumeLikeDislikeWithJPQL(id);
+    }
 
     @Override
     public List<PerfumeLDCount> getDislikeLike(Long id) {
