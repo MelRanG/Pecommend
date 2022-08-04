@@ -39,6 +39,26 @@ public class PerfumeController {
 //        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
 //        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
 //    }
+//    @GetMapping("/list/{keyword}")
+//    @ApiOperation(value = "향수 이름으로 검색")
+//    public ResponseEntity<List<PerfumeResponseDto>> getListKeyword(@PathVariable String keyword){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
+//        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/list/ko/{keyword}")
+//    @ApiOperation(value = "향수 한글 이름으로 검색")
+//    public ResponseEntity<List<PerfumeResponseDto>> getListKoKeyword(@PathVariable String keyword){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
+//        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
+//    }
+
+    @GetMapping("/list/ennnum/{keyword}")
+    @ApiOperation(value = "향수 영어 이름으로 검색")
+    public ResponseEntity<List<PerfumeResponseDto>> getListEnKeyword(@PathVariable String keyword){
+        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
+        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
+    }
 
     @GetMapping("/list")
     @ApiOperation(value = "전체 향수 목록 가져오기 (+ 해시태그)")
@@ -418,7 +438,7 @@ public class PerfumeController {
             map.put("pName", pname);
             dlResult.add(map);
         }
-        resultMap.put("disikelike", dlResult);
+        resultMap.put("dislikelike", dlResult);
         // 좋아요싫어요
         queryResult = perfumeLikeService.getLikeDislike(id); // 상위 10개
         Collections.shuffle(queryResult);
