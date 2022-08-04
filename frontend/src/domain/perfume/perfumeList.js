@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { authaxios, freeaxios } from "custom/customAxios";
 import { useNavigate } from "react-router-dom";
 import "./perfumeList.css";
 // import "./perfumeList.scss";
@@ -17,10 +17,9 @@ function PerfumeList() {
   const [keyWord, setKeyWord] = useState(""); //검색키워드
   const [inputKeyWord, setInputKeyWord] = useState("");
 
-
   const getPerfumeList = async () => {
     try {
-      const response = await axios({
+      const response = await freeaxios({
         method: "get",
         url: "/api/v1/perfume/list/",
         // data: registwrite,
@@ -41,10 +40,9 @@ function PerfumeList() {
     getPerfumeList();
   }, []);
 
-
   const getPerfumeSearchList = async () => {
     try {
-      const response = await axios({
+      const response = await freeaxios({
         method: "get",
         url: "/api/v1/perfume/list/" + keyWord,
         // data: registwrite,
@@ -65,25 +63,21 @@ function PerfumeList() {
     getPerfumeSearchList();
   }, []);
 
-
   const keywordSearch = (e) => {
     e.preventDefault();
-    // setKeyWord(); 
+    // setKeyWord();
     console.log(keyWord);
     getPerfumeSearchList();
-  }
+  };
 
   const onKeyPress = (e) => {
-    if (e.key == 'Enter') {
+    if (e.key == "Enter") {
       keywordSearch();
     }
-  }
-
-
+  };
 
   return (
     <div className="perfumeList">
-
       <div className="shop-area pt-95 pb-100">
         <div className="container">
           <div className="row">
@@ -102,10 +96,13 @@ function PerfumeList() {
                     {/* <h4 className="pro-sidebar-title">Search </h4> */}
                     <div className="pro-sidebar-search mb-50 mt-25">
                       <form className="pro-sidebar-search-form">
-                        <input type="text" placeholder="향수명 검색"
+                        <input
+                          type="text"
+                          placeholder="향수명 검색"
                           onChange={(e) => setKeyWord(e.target.value)}
                           onKeyPress={onKeyPress}
-                          defaultValue="" />
+                          defaultValue=""
+                        />
                         <button onClick={keywordSearch}>
                           <i className="pe-7s-search"></i>
                         </button>
@@ -444,41 +441,45 @@ function PerfumeList() {
                 <div className="tab-content jump">
                   <div id="shop-1" className="tab-pane active">
                     <div className="row">
-
-                      {dataList.slice(offset, offset + limitData).map((data) => (
-                        <div key={data.perfumeId} className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                          <div className="product-wrap mb-25 scroll-zoom ">
-                            <div className="product-img">
-                              <Link to={`/perfume/detail/${data.perfumeId}`}>
-                                <div className="text_photo">
-                                  <div className="explain">
-                                    <div className="list-hashtag">
-                                      <div className="">#장미</div>
-                                      <div className="">
-                                        #해시태그가어디까지길어지는거죠?
+                      {dataList
+                        .slice(offset, offset + limitData)
+                        .map((data) => (
+                          <div
+                            key={data.perfumeId}
+                            className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
+                          >
+                            <div className="product-wrap mb-25 scroll-zoom ">
+                              <div className="product-img">
+                                <Link to={`/perfume/detail/${data.perfumeId}`}>
+                                  <div className="text_photo">
+                                    <div className="explain">
+                                      <div className="list-hashtag">
+                                        <div className="">#장미</div>
+                                        <div className="">
+                                          #해시태그가어디까지길어지는거죠?
+                                        </div>
+                                        <div className="">#복숭아</div>
                                       </div>
-                                      <div className="">#복숭아</div>
                                     </div>
+                                    <img
+                                      className="default-img"
+                                      src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                                      alt=""
+                                    />
                                   </div>
-                                  <img
-                                    className="default-img"
-                                    src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                    alt=""
-                                  />
-                                </div>
-                                {/* </a> */}
-                              </Link>
-                              {/* <span className="purple">New</span> */}
-                            </div>
-                            <div className="product-content text-center perfume_list_name">
-                              <div className="product-content-koName">
-                                {data.koName}
+                                  {/* </a> */}
+                                </Link>
+                                {/* <span className="purple">New</span> */}
                               </div>
-                              <div>({data.enName})</div>
+                              <div className="product-content text-center perfume_list_name">
+                                <div className="product-content-koName">
+                                  {data.koName}
+                                </div>
+                                <div>({data.enName})</div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
 
                       <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                         <div className="product-wrap mb-25 scroll-zoom">
@@ -505,14 +506,10 @@ function PerfumeList() {
                             {/* <span className="purple">New</span> */}
                           </div>
                           <div className="product-content text-center">
-                            <h3>
-                              향수명
-                            </h3>
+                            <h3>향수명</h3>
                           </div>
                         </div>
                       </div>
-
-
                     </div>
                   </div>
                 </div>
@@ -543,8 +540,6 @@ function PerfumeList() {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }

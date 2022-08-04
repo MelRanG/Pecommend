@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { authaxios, freeaxios } from "custom/customAxios";
 import { useParams, useNavigate } from "react-router-dom";
 import "./perfumeDetail.css";
 import { Rating } from "react-simple-star-rating";
@@ -36,7 +36,7 @@ const PerfumeDetail = () => {
   const getPerfumeDetail = async () => {
     try {
       // console.log("number", number);
-      const response = await axios({
+      const response = await freeaxios({
         method: "get",
         url: "/api/v1/perfume/" + number,
         // data: registwrite,
@@ -141,7 +141,7 @@ const PerfumeDetail = () => {
         userId: user.user_id,
       };
       // console.log("유저아이디", data);
-      const response = await axios({
+      const response = await authaxios({
         method: "post",
         url: "/api/v1/perfume/like",
         data: data,
@@ -187,7 +187,7 @@ const PerfumeDetail = () => {
         userId: user.user_id,
       };
       // console.log(data)
-      const response = await axios({
+      const response = await authaxios({
         method: "post",
         url: "/api/v1/perfume/dislike",
         data: data,
