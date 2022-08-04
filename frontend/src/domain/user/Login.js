@@ -301,23 +301,16 @@ function Login() {
                           </form>
                         </div>
                         <div className="d-grid gap-2">
-                          <button
-                            type="submit"
-                            className="naver-login-btn mb-3"
-                          >
-                            <span>
-                              <a href="http://localhost:8081/oauth2/authorization/naver">
-                                네이버 로그인
-                              </a>
-                            </span>
-                          </button>
-                          <button type="submit" className="google-login-btn">
-                            <span>
-                              <a href="http://localhost:8081/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com">
-                                구글 로그인
-                              </a>
-                            </span>
-                          </button>
+                          <a href="http://localhost:8081/oauth2/authorization/naver" className="naver-login-btn mb-3">
+                            <button type="submit" className="naver-login-btn mb-3">
+                              네이버 로그인
+                            </button>
+                          </a>
+                          <a className="google-login-btn" href="http://localhost:8081/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com">
+                            <button type="submit" className="google-login-btn">
+                              구글 로그인
+                            </button>
+                          </a>
                         </div>
                       </div>
                     </div>
