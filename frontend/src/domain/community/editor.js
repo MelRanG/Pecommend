@@ -1,7 +1,7 @@
 import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import axios from "axios";
+import {authaxios, freeaxios} from "../../custom/customAxios";
 import './editor.css'
 
 const API_URL = "/api/v1/file";
@@ -15,7 +15,7 @@ export default function Editor({ handleChange, SetContent, content}) {
           const body = new FormData();
           loader.file.then((file) => {
             body.append("files", file);
-            axios.post(`${API_URL}/${UPLOAD_ENDPOINT}`, body)
+            authaxios.post(`${API_URL}/${UPLOAD_ENDPOINT}`, body)
               .then((res) => {
                 resolve({
                     default: `http://localhost:8081/api/v1/file/getimg/${res.data}`

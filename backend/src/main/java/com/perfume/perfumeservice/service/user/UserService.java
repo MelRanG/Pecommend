@@ -10,7 +10,7 @@ public interface UserService {
     boolean checkNickName(String nickname);
     TokenDto doLogin(LoginRequestDto requestDto);
     UserResponseDto doSignUp(SignUpRequestDto requestDto);
-    UserResponseDto getUserInfo(String email);
+    UserResponseDto getUserInfo(Long id);
     void updateUser(String email, UpdateUserRequestDto requestDto);
     void deleteUser(String email);
     void changePW(String email, String newPW);

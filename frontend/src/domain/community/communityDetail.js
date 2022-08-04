@@ -2,7 +2,7 @@ import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
 import "./communityDetail.css";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import {authaxios, freeaxios} from "../../custom/customAxios";
 import { useParams, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
 import Pagination from "./pagination";
@@ -39,7 +39,7 @@ function CommunityDetail () {
     const getArticleDetail = async () => {
         try {
             console.log("number", number);
-          const response = await axios({
+          const response = await freeaxios({
             method: "get",
             url: "/api/v1/community/"+number,
             headers: { "Content-Type": "multipart/form-data" },
@@ -58,7 +58,7 @@ function CommunityDetail () {
 
     const getArticleComment = async() => {
         try {
-            const response = await axios ({
+            const response = await freeaxios ({
                 method: "get",
                 url: "/api/v1/comment/"+number,
             });
@@ -85,7 +85,7 @@ function CommunityDetail () {
                 postId: pageDetail.id,
             }
             console.log(data)
-            const response = await axios({
+            const response = await authaxios({
                 method: "post",
                 url: "/api/v1/community/like",
                 data: data
@@ -120,7 +120,7 @@ function CommunityDetail () {
         var result = window.confirm("삭제하시겠습니까?");
         if(result){
             try {
-                const response = await axios({
+                const response = await authaxios({
                     method: "delete",
                     url: "/api/v1/community/"+number,
                     headers: { "Content-Type": "multipart/form-data" },
@@ -128,7 +128,7 @@ function CommunityDetail () {
                 console.log(response);
                 if (response.status === 200) {
                     alert("삭제했습니다!");
-                    navigate("/commu/list", { replace: true });
+                    navigate(-1);
                 }
             } catch (error) {
             console.log(error);
@@ -144,7 +144,7 @@ function CommunityDetail () {
         e.target.setAttribute("disabled",'true')
         if (formValue.content != '') {
             try {
-                const response = await axios({
+                const response = await authaxios({
                     method: "post",
                     url: "/api/v1/comment",
                     data: {
@@ -181,7 +181,7 @@ function CommunityDetail () {
         if(result){
             console.log(e.target.id)
             try {
-                const response = await axios({
+                const response = await authaxios({
                     method: "delete",
                     url: "/api/v1/comment/"+e.target.id,
                     headers: { "Content-Type": "multipart/form-data" },
@@ -227,7 +227,7 @@ function CommunityDetail () {
 
     const clickCommentLike = async (e) => {
         try {
-            const response = await axios({
+            const response = await authaxios({
                 method: "post",
                 url: "/api/v1/comment/like",
                 data: {
@@ -259,7 +259,7 @@ function CommunityDetail () {
     const clickCommentEditCommit = async (e) => {
         try {
             const commentBox = document.getElementById("comment-content-"+e.target.id)
-            const response = await axios({
+            const response = await authaxios({
                 method: "patch",
                 url: "/api/v1/comment/"+e.target.id,
                 data: {

@@ -1,7 +1,7 @@
 import "./communityRegist.css";
 import "./communityList.css";
 import React, { Component, useEffect, useState } from "react";
-import axios from "axios";
+import {authaxios, freeaxios} from "../../custom/customAxios";
 import { useParams, Link, Route, Router, useNavigate } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
 import CommunitySidebar from "./communitySidebar";
@@ -27,7 +27,7 @@ function CommunityList() {
     console.log(categorys);
     if (categorys > 0) {
       try {
-        const response = await axios({
+        const response = await freeaxios({
           method: "get",
           url: "/api/v1/community/list/" + categorys,
           // data: registwrite,
@@ -46,7 +46,7 @@ function CommunityList() {
     }
     else {
       try {
-        const response = await axios({
+        const response = await freeaxios({
           method: "get",
           url: "/api/v1/community/list",
           // data: registwrite,
