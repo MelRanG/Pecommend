@@ -307,11 +307,6 @@ function Login() {
       };
       console.log("회원가입");
       console.log(body);
-      // Swal.fire({
-      //   icon: 'success',
-      //   title: '성공',
-      //   text: '환영합니다.',
-      // });
       freeaxios
         .post("/api/v1/user/signup.do", body)
         .then(function (response) {
@@ -319,6 +314,11 @@ function Login() {
           console.log(response);
           if (response.status == 200) {
             console.log("!!regist!!");
+            Swal.fire({
+              icon: 'success',
+              title: '성공',
+              text: '환영합니다!',
+            });
             document.location.href = "/login";
           } else {
             console.log(response.data);

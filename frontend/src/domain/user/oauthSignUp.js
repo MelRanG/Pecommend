@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user_reducer";
 import {authaxios, freeaxios} from "../../custom/customAxios";
+import Swal from 'sweetalert2'
+
 
 function OauthSignUp() {
   const user = useSelector((state) => state.userStore.nowLoginUser);
@@ -16,9 +18,9 @@ function OauthSignUp() {
   const [birth, setBirth] = React.useState("");
   const [nick, setNick] = React.useState("");
   const [gender, setGender] = React.useState("");
-  const [mbti, setMbti] = React.useState("");
+  const [mbti, setMbti] = React.useState("비공개");
   const [pwd_check, setPwdCheck] = React.useState(true);
-  const [nick_check, setNickCheck] = React.useState(true);
+  const [nick_check, setNickCheck] = React.useState(false);
   const [userprofile, setUserProfile] = React.useState([]);
 
   const onRPWDhandler = (event) => {
@@ -63,38 +65,76 @@ function OauthSignUp() {
     event.preventDefault();
     console.log(nick);
     console.log(nick_check);
-    freeaxios
-      .get("/api/v1/user/check.do/nickname/" + nick)
-      .then(function (response) {
-        // console.log(response.data);
-        if (response.data === true) {
-          alert("이미 존재하는 닉네임입니다.");
-        } else {
-          alert("사용 가능한 닉네임입니다.");
-          setNickCheck(true);
-          console.log(nick_check);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
+    if (nick.length >= 2 && nick.length <= 8) {
+      freeaxios
+        .get("/api/v1/user/check.do/nickname/" + nick)
+        .then(function (response) {
+          if (response.data === true) {
+            Swal.fire({
+              icon: 'warning',
+              title: '실패',
+              text: '이미 존재하는 닉네임입니다.',
+            });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: '성공',
+              text: '사용 가능한 닉네임입니다.',
+            });
+            setNickCheck(true);
+            console.log(nick_check);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '재시도 후 문의바랍니다.',
+          });
+        });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: '실패',
+        text: 'Nickname은 2~8자리만 가능합니다.',
       });
+    }
   };
 
   // 정보 입력
   const onRegisthandler = (event) => {
     event.preventDefault();
     if (checkPassword(pwd) === false) {
-      alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
+      Swal.fire({
+        icon: 'warning',
+        title: '비밀번호',
+        text: '8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.',
+      });
     } else if (pwd !== pwdRe) {
-      alert("'비밀번호 확인'을 다시 해주세요.");
+      Swal.fire({
+        icon: 'warning',
+        title: '비밀번호 확인',
+        text: "'비밀번호 확인'을 다시 해주세요.",
+      });
     } else if (nick_check === false) {
-      alert("닉네임 중복확인이 필요합니다.");
+      Swal.fire({
+        icon: 'warning',
+        title: '닉네임',
+        text: "닉네임 중복확인이 필요합니다.",
+      });
     } else if (birth === "") {
-      alert("생일을 선택해주세요.");
+      Swal.fire({
+        icon: 'warning',
+        title: '생일',
+        text: "생일을 선택해주세요.",
+      });
     } else if (gender === "") {
-      alert("성별을 선택해주세요.");
-    } else if (mbti === "") {
-      alert("MBTI를 선택해주세요.");
+      Swal.fire({
+        icon: 'warning',
+        title: '성별',
+        text: "성별을 선택해주세요.",
+      });
     } else {
       let body = {
         password: pwd,
@@ -119,7 +159,12 @@ function OauthSignUp() {
           }
         })
         .then(() => {
-          alert("가입을 환영합니다!");
+          // alert("가입을 환영합니다!");
+          Swal.fire({
+            icon: 'success',
+            title: '성공',
+            text: '환영합니다!',
+          });
           document.location.href = "/";
         })
         .catch(function (error) {
@@ -130,128 +175,117 @@ function OauthSignUp() {
 
   return (
     <div className="Login">
-      <div className="Login">
-        <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
-          <div className="container">
-            <div className="breadcrumb-content text-center">
-              <ul>
-                <li className="active"> login / Register </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="login-register-area pt-100 pb-100">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-7 col-md-12 ms-auto me-auto">
-                <div className="login-register-wrapper">
-                  <div className="login-register-tab-list nav">
-                    <a>
-                      <h4> 추가 정보 입력 </h4>
-                    </a>
-                  </div>
-                  <div className="tab-content">
-                    <div id="lg2">
-                      <div className="login-form-container">
-                        <div className="login-register-form">
-                          <form onSubmit={onRegisthandler}>
-                            <label>비밀번호</label>
+      <div className="login-register-area pt-50 pb-100">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-7 col-md-12 ms-auto me-auto">
+              <div className="login-register-wrapper">
+                <div className="login-register-tab-list nav">
+                  <a>
+                    <h4> 추가 정보 입력 </h4>
+                  </a>
+                </div>
+                <div className="tab-content">
+                  <div id="lg2">
+                    <div className="login-form-container">
+                      <div className="login-register-form">
+                        <form onSubmit={onRegisthandler}>
+                          <label>비밀번호</label>
 
-                            <input
-                              type="password"
-                              name="user-password"
-                              placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
-                              onChange={onRPWDhandler}
-                            />
-                            <label>비밀번호 확인</label>
-                            <input
-                              name="user-password-confirm"
-                              placeholder="Password confirm"
-                              type="password"
-                              onChange={onPWDReHandler}
-                            />
-                            <label>닉네임</label>
-                            <button
-                              class="btn"
-                              style={{ float: "right" }}
-                              onClick={checkNickname}
-                            >
-                              중복 확인
+                          <input
+                            type="password"
+                            name="user-password"
+                            placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
+                            onChange={onRPWDhandler}
+                          />
+                          <label>비밀번호 확인</label>
+                          <input
+                            name="user-password-confirm"
+                            placeholder="Password confirm"
+                            type="password"
+                            onChange={onPWDReHandler}
+                          />
+                          <label>닉네임</label>
+                          <button
+                            class="btn"
+                            style={{ float: "right" }}
+                            onClick={checkNickname}
+                          >
+                            중복 확인
+                          </button>
+                          <input
+                            name="nickname"
+                            placeholder="Nickname"
+                            type="text"
+                            onChange={onNicknamehandler}
+                          />
+                          <label>생일</label>
+                          <input
+                            name="birthday"
+                            placeholder="birthday"
+                            type="date"
+                            onChange={onBirthhandler}
+                          />
+                          <label>성별</label>
+                          <br />
+                          <input
+                            name="gender"
+                            value="male"
+                            type="radio"
+                            id="male-check"
+                            onChange={onGenderHandler}
+                          />
+                          <label
+                            for="male-check"
+                            className="form-check-label"
+                          >
+                            남성
+                          </label>
+                          <input
+                            name="gender"
+                            value="female"
+                            type="radio"
+                            id="female-check"
+                            onChange={onGenderHandler}
+                          />
+                          <label
+                            for="female-check"
+                            className="form-check-label"
+                          >
+                            여성
+                          </label>
+                          <br />
+                          <br />
+                          <label>MBTI</label>
+                          <select
+                            name="mbti"
+                            className="form-select"
+                            onChange={onMbtiHandler}
+                          >
+                            <option value="비공개">비공개</option>
+                            <option value="ISTJ">ISTJ</option>
+                            <option value="ISTP">ISTP</option>
+                            <option value="ISFJ">ISFJ</option>
+                            <option value="ISFP">ISFP</option>
+                            <option value="INTJ">INTJ</option>
+                            <option value="INTP">INTP</option>
+                            <option value="INFJ">INFJ</option>
+                            <option value="INFP">INFP</option>
+                            <option value="ESTJ">ESTJ</option>
+                            <option value="ESTP">ESTP</option>
+                            <option value="ESFJ">ESFJ</option>
+                            <option value="ESFP">ESFP</option>
+                            <option value="ENTJ">ENTJ</option>
+                            <option value="ENTP">ENTP</option>
+                            <option value="ENFJ">ENFJ</option>
+                            <option value="ENFP">ENFP</option>
+                          </select>
+                          <div className="button-box">
+                            <button type="submit">
+                              <span>가입</span>
                             </button>
-                            <input
-                              name="nickname"
-                              placeholder="Nickname"
-                              type="text"
-                              onChange={onNicknamehandler}
-                            />
-                            <label>생일</label>
-                            <input
-                              name="birthday"
-                              placeholder="birthday"
-                              type="date"
-                              onChange={onBirthhandler}
-                            />
-                            <label>성별</label>
-                            <br />
-                            <input
-                              name="gender"
-                              value="male"
-                              type="radio"
-                              id="male-check"
-                              onChange={onGenderHandler}
-                            />
-                            <label
-                              for="male-check"
-                              className="form-check-label"
-                            >
-                              남성
-                            </label>
-                            <input
-                              name="gender"
-                              value="female"
-                              type="radio"
-                              id="female-check"
-                              onChange={onGenderHandler}
-                            />
-                            <label
-                              for="female-check"
-                              className="form-check-label"
-                            >
-                              여성
-                            </label>
-                            <br />
-                            <br />
-                            <label>MBTI</label>
-                            <select
-                              name="mbti"
-                              className="form-select"
-                              onChange={onMbtiHandler}
-                            >
-                              <option value="">선택</option>
-                              <option value="ISTJ">ISTJ</option>
-                              <option value="ISTP">ISTP</option>
-                              <option value="ISFJ">ISFJ</option>
-                              <option value="ISFP">ISFP</option>
-                              <option value="INTJ">INTJ</option>
-                              <option value="INTP">INTP</option>
-                              <option value="INFJ">INFJ</option>
-                              <option value="INFP">INFP</option>
-                              <option value="ESTJ">ESTJ</option>
-                              <option value="ESTP">ESTP</option>
-                              <option value="ESFJ">ESFJ</option>
-                              <option value="ESFP">ESFP</option>
-                              <option value="ENTJ">ENTJ</option>
-                              <option value="ENTP">ENTP</option>
-                              <option value="ENFJ">ENFJ</option>
-                              <option value="ENFP">ENFP</option>
-                            </select>
-                            <div className="button-box">
-                              <button type="submit">
-                                <span>가입</span>
-                              </button>
-                            </div>
-                          </form>
-                        </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>

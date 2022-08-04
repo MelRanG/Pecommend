@@ -108,6 +108,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserResponseDto getUserInfo(String email){
+        return UserResponseDto.from(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
+    }
+
+    @Override
     public void updateUser(String email, UpdateUserRequestDto requestDto){
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 

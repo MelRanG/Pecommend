@@ -11,6 +11,7 @@ public interface UserService {
     TokenDto doLogin(LoginRequestDto requestDto);
     UserResponseDto doSignUp(SignUpRequestDto requestDto);
     UserResponseDto getUserInfo(Long id);
+    UserResponseDto getUserInfo(String email);
     void updateUser(String email, UpdateUserRequestDto requestDto);
     void deleteUser(String email);
     void changePW(String email, String newPW);
