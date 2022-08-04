@@ -272,4 +272,42 @@ public class CommunityServiceImpl implements CommunityService {
                 .map(community -> PostsResponseDto.from(community))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Map<String, Object> getMain(){
+        Map<String, Object> map = new HashMap<>();
+
+        List<PostsResponseDto> all = communityRepository.findAllByOrderByIdDesc().stream()
+                .limit(3)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> free = communityRepository.findByCategoryOrderByIdDesc(1).stream()
+                .limit(3)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> perfume = communityRepository.findByCategoryOrderByIdDesc(2).stream()
+                .limit(3)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> hot = communityRepository.findAllBest().stream()
+                .limit(3)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> notice = communityRepository.findByCategoryOrderByIdDesc(4).stream()
+                .limit(3)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        map.put("0", all);
+        map.put("1", free);
+        map.put("2", perfume);
+        map.put("3", hot);
+        map.put("4", notice);
+
+        return map;
+    }
 }
