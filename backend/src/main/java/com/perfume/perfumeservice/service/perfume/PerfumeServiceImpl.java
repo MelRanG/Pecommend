@@ -43,7 +43,8 @@ public class PerfumeServiceImpl  implements PerfumeService {
         List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
         List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
 
-        // 중복 제거
+        // 중복 제거가 안되고 있었슴 ㅋ
+
         Set<PerfumeResponseDto> dtoList = new LinkedHashSet<>();
 
         for(Perfume p: perfumeListKo){

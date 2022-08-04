@@ -56,10 +56,18 @@ public class PerfumeController {
     }
 
     @GetMapping("/list/{keyword}")
-    @ApiOperation(value = "향수 이름으로 검색")
-    public ResponseEntity<List<PerfumeResponseDto>> getListKeyword(@PathVariable String keyword){
+    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그)")
+    public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
-        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
+        List<Map<String, Object>> dtoList = new LinkedList<>();
+        for(PerfumeResponseDto pd: perfumeDtoList){
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("pDto",pd);
+            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+            map.put("tDto", td);
+            dtoList.add(map);
+        }
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
 //    @GetMapping("/{id}")
@@ -346,6 +354,80 @@ public class PerfumeController {
             result.add(map);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/ldlist/{id}")
+    @ApiOperation(value = "좋아요싫어요좋아요싫어요 리스트(4개 모두)")
+    public ResponseEntity<Map<String, Object>> getLDList(@PathVariable Long id){
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        // 좋아요좋아요
+        List<PerfumeLDCount> queryResult = perfumeLikeService.getDislikeDislike(id); // 상위 10개
+        Collections.shuffle(queryResult);
+        List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+        List<Map<String, Object>> llResult = new LinkedList<>();
+        for(PerfumeLDCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            llResult.add(map);
+        }
+        resultMap.put("likelike", llResult);
+
+        // 싫어요좋아요
+        queryResult = perfumeLikeService.getDislikeLike(id); // 상위 10개
+        Collections.shuffle(queryResult);
+        shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+        List<Map<String, Object>> dlResult = new LinkedList<>();
+        for(PerfumeLDCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            dlResult.add(map);
+        }
+        resultMap.put("disikelike", dlResult);
+        // 좋아요싫어요
+        queryResult = perfumeLikeService.getLikeDislike(id); // 상위 10개
+        Collections.shuffle(queryResult);
+        shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+        List<Map<String, Object>> ldResult = new LinkedList<>();
+        for(PerfumeLDCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            ldResult.add(map);
+        }
+        resultMap.put("likedislike", ldResult);
+
+        // 싫어요싫어요
+        queryResult = perfumeLikeService.getDislikeDislike(id); // 상위 10개
+        Collections.shuffle(queryResult);
+        shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
+        List<Map<String, Object>> ddResult = new LinkedList<>();
+        for(PerfumeLDCount plc: shuffleResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long pid = plc.getPerfumeId();
+            // perfume name 구하기
+            String pname = perfumeService.getPerfume(pid).getKoName();
+            // perfume img 구하기
+            map.put("pId", plc);
+            map.put("pName", pname);
+            ddResult.add(map);
+        }
+        resultMap.put("dislikedislike", ddResult);
+
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
 
