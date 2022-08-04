@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/perfume")
@@ -493,11 +495,21 @@ public class PerfumeController {
     }
 
     // 인기 해시태그 가져오기(를 여기 컨트롤러에 넣어도 되는지 모르겠넹)
-//    @GetMapping("/hottag")
-//    @ApiOperation(value = "인기 해시태그 리스트")
-//    public ResponseEntity<List<PerfumeTagResponseDto>> getHotTagAll(){
-////        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
-//        List<PerfumeTagResponseDto> dtoList = perfumeTagService.getHotTagAll();
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
+    @GetMapping("/hottag")
+    @ApiOperation(value = "인기 해시태그 리스트")
+    public ResponseEntity<List<Map<String, Object>>> getHotTagAll(){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
+        List<PerfumeTagCount> queryResult = perfumeTagService.getHotTagAll(); // 해시태그 인기순
+        List<Map<String, Object>> result = new LinkedList<>();
+        for(PerfumeTagCount ptc: queryResult){
+            Map<String, Object> map = new LinkedHashMap<>();
+            long tid = ptc.getTagId();
+            String tname = perfumeTagService.getPerfumeTagName(tid);
+            map.put("tId", ptc);
+            map.put("tName", tname);
+            result.add(map);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
+    }
 }

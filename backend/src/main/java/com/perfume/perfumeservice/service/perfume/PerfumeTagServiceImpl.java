@@ -1,9 +1,6 @@
 package com.perfume.perfumeservice.service.perfume;
 
-import com.perfume.perfumeservice.domain.perfume.Perfume;
-import com.perfume.perfumeservice.domain.perfume.PerfumeRepository;
-import com.perfume.perfumeservice.domain.perfume.PerfumeTag;
-import com.perfume.perfumeservice.domain.perfume.PerfumeTagRepository;
+import com.perfume.perfumeservice.domain.perfume.*;
 import com.perfume.perfumeservice.dto.perfume.PerfumeTagResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +16,8 @@ public class PerfumeTagServiceImpl implements PerfumeTagService{
 
     private final PerfumeRepository perfumeRepository;
     private final PerfumeTagRepository perfumeTagRepository;
+
+    private final TagRepository tagRepository;
 
 
     @Override
@@ -44,14 +43,14 @@ public class PerfumeTagServiceImpl implements PerfumeTagService{
         return dtoList;
     }
 
-//    @Override
-//    public List<PerfumeTagResponseDto> getHotTagAll() {
-//        //List<PerfumeTag> perfumeTags = perfumeTagRepository.findAllByOrderByCountDesc();
-//        // 여기 이 카운트를 가져올게 아니라 Tag들이 몇 번 나왓는지를 세야함 => 쿼리문 써야겠네..........
-//        List<PerfumeTagResponseDto> dtoList = new LinkedList<>();
-//        for(PerfumeTag pt : perfumeTags){
-//            dtoList.add(PerfumeTagResponseDto.from(pt));
-//        }
-//        return dtoList;
-//    }
+    @Override
+    public List<PerfumeTagCount> getHotTagAll() {
+        return perfumeTagRepository.findCountSumOrderBySumWithJPQL();
+    }
+
+    @Override
+    public String getPerfumeTagName(Long id) {
+        Tag tag = tagRepository.findById(id).orElseThrow(null);
+        return tag.getTagName();
+    }
 }
