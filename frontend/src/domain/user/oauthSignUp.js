@@ -8,7 +8,6 @@ import Swal from 'sweetalert2'
 
 
 function OauthSignUp() {
-  const user = useSelector((state) => state.userStore.nowLoginUser);
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
@@ -19,9 +18,7 @@ function OauthSignUp() {
   const [nick, setNick] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [mbti, setMbti] = React.useState("비공개");
-  const [pwd_check, setPwdCheck] = React.useState(true);
   const [nick_check, setNickCheck] = React.useState(false);
-  const [userprofile, setUserProfile] = React.useState([]);
 
   const onRPWDhandler = (event) => {
     setPwd(event.currentTarget.value);
@@ -102,6 +99,7 @@ function OauthSignUp() {
     }
   };
 
+
   // 정보 입력
   const onRegisthandler = (event) => {
     event.preventDefault();
@@ -147,31 +145,32 @@ function OauthSignUp() {
 
       authaxios
         .put("/api/v1/user/update", body)
-        .then(function (response) {
-          if (response.status == 200) {
+        .then((response) => {
+          authaxios.get("/api/v1/user/myinfo")
+          .then((userInfo)=>{
             const saveInfo = {
-              user_id: userprofile.user_id,
-              email: userprofile.email,
+              user_id: userInfo.data.user_id,
+              email: userInfo.data.email,
               nickname: nick,
+              role: userInfo.data.role
             };
 
             saveUser(saveInfo);
-          }
-        })
-        .then(() => {
-          // alert("가입을 환영합니다!");
+          }).catch((error) => {
+            console.log(error);
+          })
+        }).then(()=>{
           Swal.fire({
             icon: 'success',
             title: '성공',
             text: '환영합니다!',
           });
-          document.location.href = "/";
-        })
-        .catch(function (error) {
-          console.log(error);
+          document.location.href = "/"
+        }).catch((e) => {
+          console.log(e);
         });
+      }
     }
-  };
 
   return (
     <div className="Login">

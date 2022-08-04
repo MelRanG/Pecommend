@@ -66,6 +66,7 @@ public class CommunityController {
     }
 
     @GetMapping("/list/user/{userid}")
+    @ApiOperation(value = "해당 유저가 쓴 글 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getListByUser(@PathVariable Long userid){
         return new ResponseEntity<>(communityService.getListByUser(userid), HttpStatus.OK);
     }
@@ -98,5 +99,39 @@ public class CommunityController {
     public ResponseEntity<Integer> deletePost(@PathVariable Long id){
         communityService.deletePost(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/list/like/{category}")
+    @ApiOperation(value = "해당 카테고리 게시글 목록 추천 순으로 가져오기")
+    public ResponseEntity<List<PostsResponseDto>> getListByLike(@PathVariable int category){
+        List<PostsResponseDto> postsDtoList = communityService.getListByLike(category);
+        return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/like")
+    @ApiOperation(value = "전체 게시글 목록 추천 순으로 가져오기")
+    public ResponseEntity<List<PostsResponseDto>> getListByLike(){
+        List<PostsResponseDto> postsDtoList = communityService.getListByLike();
+        return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/best/{category}")
+    @ApiOperation(value = "카테고리 별 게시글 목록 추천 10개 이상 가져오기")
+    public ResponseEntity<List<PostsResponseDto>> getBestListByCategory(@PathVariable int category){
+        List<PostsResponseDto> postsDtoList = communityService.getBestListByCategory(category);
+        return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/best")
+    @ApiOperation(value = "전체 게시글 목록 추천 10개 이상 가져오기")
+    public ResponseEntity<List<PostsResponseDto>> getBestList(){
+        List<PostsResponseDto> postsDtoList = communityService.getBestList();
+        return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/main")
+    @ApiOperation(value = "메인에 쓸 게시글 목록(5가지 카테고리) 가져오기")
+    public ResponseEntity<Map<String, Object>> getMain(){
+        return new ResponseEntity<>(communityService.getMain(), HttpStatus.OK);
     }
 }

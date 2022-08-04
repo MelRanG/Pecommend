@@ -18,11 +18,12 @@ public class PostsResponseDto {
     private String title;
     private String content;
     private int communityLike;
+    private String createdDate;
+    private String modifiedDate;
 
     public static PostsResponseDto from(Community community){
         Set<CommunityLike> set = community.getLikes();
         int likes = set == null ? 0 : set.size();
-
 
         return PostsResponseDto.builder()
                 .id(community.getId())
@@ -32,6 +33,8 @@ public class PostsResponseDto {
                 .title(community.getTitle())
                 .content(community.getContent())
                 .communityLike(likes)
+                .createdDate(community.getCreatedDate().toString())
+                .modifiedDate(community.getModifiedDate().toString())
                 .build();
     }
 }

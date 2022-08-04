@@ -6,6 +6,7 @@ import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CommunityService {
     String writePostAndImage(PostsRequestDto dto, MultipartFile[] file);
@@ -24,4 +25,11 @@ public interface CommunityService {
     List<PostsResponseDto> searchPostTitle(String title);
 
     List<PostsResponseDto> searchPostWriter(String writer);
+
+    List<PostsResponseDto> getListByLike(int category);
+    List<PostsResponseDto> getListByLike();
+
+    List<PostsResponseDto> getBestList();
+    List<PostsResponseDto> getBestListByCategory(int category);
+    Map<String, Object> getMain();
 }

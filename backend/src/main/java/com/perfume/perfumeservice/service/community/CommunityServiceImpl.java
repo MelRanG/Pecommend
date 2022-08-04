@@ -152,14 +152,18 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<PostsResponseDto> getList(int category) {
-        List<Community> c_list = communityRepository.findByCategory(category);
-        List<PostsResponseDto> p_list = new LinkedList<>();
+//        List<Community> c_list = communityRepository.findByCategory(category);
+//        List<PostsResponseDto> p_list = new LinkedList<>();
+//
+//        for(Community c: c_list){
+//            p_list.add(PostsResponseDto.from(c));
+//        }
+//
+//        return p_list;
 
-        for(Community c: c_list){
-            p_list.add(PostsResponseDto.from(c));
-        }
-
-        return p_list;
+        return communityRepository.findByCategoryOrderByIdDesc(category).stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -239,5 +243,71 @@ public class CommunityServiceImpl implements CommunityService {
             uploadPathFolder.mkdirs();
         }
         return folderPath;
+    }
+
+    @Override
+    public List<PostsResponseDto> getListByLike(int category) {
+        return communityRepository.findByCategoryOrderByLikes(category).stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> getListByLike() {
+        return communityRepository.findAllOrderByLikes().stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> getBestListByCategory(int category) {
+        return communityRepository.findAllBestByCategory(category).stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostsResponseDto> getBestList() {
+        return communityRepository.findAllBest().stream()
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, Object> getMain(){
+        Map<String, Object> map = new HashMap<>();
+
+        List<PostsResponseDto> all = communityRepository.findAllByOrderByIdDesc().stream()
+                .limit(6)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> free = communityRepository.findByCategoryOrderByIdDesc(1).stream()
+                .limit(6)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> perfume = communityRepository.findByCategoryOrderByIdDesc(2).stream()
+                .limit(6)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> hot = communityRepository.findAllBest().stream()
+                .limit(3)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        List<PostsResponseDto> notice = communityRepository.findByCategoryOrderByIdDesc(4).stream()
+                .limit(6)
+                .map(community -> PostsResponseDto.from(community))
+                .collect(Collectors.toList());
+
+        map.put("0", all);
+        map.put("1", free);
+        map.put("2", perfume);
+        map.put("3", hot);
+        map.put("4", notice);
+
+        return map;
     }
 }

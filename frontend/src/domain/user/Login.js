@@ -114,6 +114,7 @@ function Login() {
         user_id: userInfo.data.user_id,
         email: userInfo.data.email,
         nickname: userInfo.data.nickname,
+        role: userInfo.data.role
       };
 
       saveUser(saveInfo);
