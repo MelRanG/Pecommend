@@ -18,6 +18,7 @@ import PerfumeMain from "./domain/perfume/perfumeMain";
 import PerfumeRegistList from "./domain/perfume/perfumeRegistList";
 import PerfumeRegist from "./domain/perfume/perfumeRegist";
 import Login from "./domain/user/Login";
+import Search_pwd from "domain/user/searchpwd";
 import Profile from "./domain/user/profile";
 import Profile_update from "./domain/user/profile_update";
 import Oauth from "./domain/user/oauth";
@@ -82,6 +83,10 @@ function App() {
         {
           path: "login",
           element: <Login />,
+        },
+        {
+          path: "searchpwd",
+          element: <Search_pwd />
         },
         {
           path: "*",

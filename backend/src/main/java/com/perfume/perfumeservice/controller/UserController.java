@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URLDecoder;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -110,11 +111,12 @@ public class UserController {
         userService.deleteUser(email);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
-    
-    @PostMapping("/findpw.do")
-    @ApiOperation(value = "비밀번호 찾기")
-    public ResponseEntity<String> findPW(String email){
 
+    @PutMapping("/findpw.do")
+    @ApiOperation(value = "비밀번호 찾기")
+    public ResponseEntity<String> findPW(@RequestBody Map<String, String> map){
+        String email = map.get("email");
+        System.out.println("email : " + email);
         try {
             if(!userService.checkEmail(email)){
                 throw new UserNotFoundException();

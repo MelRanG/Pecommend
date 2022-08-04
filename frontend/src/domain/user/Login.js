@@ -25,7 +25,7 @@ function Login() {
   const [birth, setBirth] = React.useState("");
   const [nick, setNick] = React.useState("");
   const [gender, setGender] = React.useState("");
-  const [mbti, setMbti] = React.useState("");
+  const [mbti, setMbti] = React.useState("비공개");
   const [match, setMatch] = React.useState("");
   const [email_disabled, setEmailDisabled] = React.useState(false);
   const [check_disabled, setCheckDisabled] = React.useState(false);
@@ -216,8 +216,6 @@ function Login() {
       alert("생일을 선택해주세요.");
     } else if (gender === "") {
       alert("성별을 선택해주세요.");
-    } else if (mbti === "") {
-      alert("MBTI를 선택해주세요.");
     } else {
       let body = {
         email: email,
@@ -237,7 +235,7 @@ function Login() {
           console.log(response);
           if (response.status == 200) {
             console.log("!!regist!!");
-            document.location.href = "/";
+            document.location.href = "/login";
           } else {
             console.log(response.data);
           }
@@ -297,7 +295,7 @@ function Login() {
                               <div className="login-toggle-btn">
                                 <input type="checkbox" />
                                 <label>Remember me</label>
-                                <a href="#">Forgot Password?</a>
+                                <a href="/searchpwd">Forgot Password?</a>
                               </div>
                               <div className="d-grid gap-2">
                                 <button type="submit" className="bbb">
@@ -376,7 +374,6 @@ function Login() {
                               type="password"
                               onChange={onPWDReHandler}
                             />
-
                             <label>닉네임</label>
                             <button
                               class="btn"
@@ -434,7 +431,7 @@ function Login() {
                               className="form-select"
                               onChange={onMbtiHandler}
                             >
-                              <option value="">선택</option>
+                              <option value="비공개">비공개</option>
                               <option value="ISTJ">ISTJ</option>
                               <option value="ISTP">ISTP</option>
                               <option value="ISFJ">ISFJ</option>
