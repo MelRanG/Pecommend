@@ -3,26 +3,9 @@ import Nav from "../../components/nav";
 import axios from 'axios';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import Editor from './editor';
-
-// async function handleSubmit(e) {
-//     e.preventDefault()
-//     let registwrite = {writer : 1, title: "타이틀", content : "내용", category : 1};
-//     console.log(registwrite)
-//     try {
-//         // const response = await axios.post("/api/v1/community",registwrite);
-//         const response = await axios.get("/api/v1/community/test.do");
-//         console.log(response)
-//     } catch(error) {
-//         console.log(error)
-//     }
-// }
-=======
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Editor from "./editor"
->>>>>>> 39e70b115ae18ec424436f0ae304d8ac741b8f57
 
 function CommunityRegist ()  {
     let navigate = useNavigate()
@@ -31,14 +14,7 @@ function CommunityRegist ()  {
         title: '',
         category: 0,
     });
-<<<<<<< HEAD
-
-    const[content, setContent] = useState("");
-
-    const [imageFile, setImgFile] = useState([])
-=======
     const[content,setContent] = useState("")
->>>>>>> 39e70b115ae18ec424436f0ae304d8ac741b8f57
 
     const handleChange = (e) => {
         const { value, name } = e.target;
