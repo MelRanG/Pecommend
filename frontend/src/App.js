@@ -1,4 +1,5 @@
-import { Routes, Route, useRoutes } from "react-router-dom";
+import { Routes, Route, useRoutes, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import logo from "./logo.svg";
 import "./App.css";
 // import Nav from './components/nav';
@@ -20,8 +21,10 @@ import PerfumeRegist from "./domain/perfume/perfumeRegist";
 import Login from "./domain/user/Login";
 import Search_pwd from "domain/user/searchpwd";
 import Profile from "./domain/user/profile";
+import MyProfile from "./domain/user/myprofile";
 import Profile_update from "./domain/user/profile_update";
 import Oauth from "./domain/user/oauth";
+import OauthSignUp from "domain/user/oauthSignUp";
 //
 import Home from "./domain/home/home";
 import NotFound from "./domain/error/NotFound";
@@ -30,6 +33,8 @@ import NotFound from "./domain/error/NotFound";
 // import "./domain/perfume/perfumeList.scss";
 
 function App() {
+  const isLogined = useSelector((state) => state.userStore.isLogined);
+
   const element = useRoutes([
     {
       path: "/",
@@ -52,8 +57,18 @@ function App() {
           children: [
             { path: "detail/:num", element: <CommunityDetail /> },
             { path: "list/:num", element: <CommunityList /> },
-            { path: "regist", element: <CommunityRegist /> },
-            { path: "commu/edit/:num", element: <CommunityEdit /> },
+            {
+              path: "regist",
+              element: isLogined ? (
+                <CommunityRegist />
+              ) : (
+                <Navigate to="/login" />
+              ),
+            },
+            {
+              path: "commu/edit/:num",
+              element: isLogined ? <CommunityEdit /> : <Navigate to="/login" />,
+            },
           ],
         },
         // {
@@ -78,7 +93,7 @@ function App() {
         },
         {
           path: "profile/update",
-          element: <Profile_update />,
+          element: isLogined ? <Profile_update /> : <Navigate to="/login" />,
         },
         {
           path: "login",
@@ -99,6 +114,14 @@ function App() {
         {
           path: "oauth",
           element: <Oauth />,
+        },
+        {
+          path: "oauth/signup",
+          element: <OauthSignUp />,
+        },
+        {
+          path: "myprofile",
+          element: isLogined ? <MyProfile /> : <Navigate to="/login" />,
         },
       ],
     },

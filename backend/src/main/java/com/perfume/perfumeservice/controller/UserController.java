@@ -86,12 +86,6 @@ public class UserController {
 
         return new ResponseEntity<>(tokenDto, headers, HttpStatus.OK);
     }
-
-    @GetMapping("/info/{email}")
-    @ApiOperation(value = "회원 정보 조회")
-    public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable String email){
-        return new ResponseEntity<>(userService.getUserInfo(email), HttpStatus.OK);
-    }
     
     @PutMapping("/update")
     @ApiOperation(value = "회원 정보 수정")
@@ -153,4 +147,9 @@ public class UserController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
+    @GetMapping("/info/{id}")
+    @ApiOperation(value = "회원 정보 조회")
+    public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable Long id){
+        return new ResponseEntity<>(userService.getUserInfo(id), HttpStatus.OK);
+    }
 }
