@@ -2,6 +2,7 @@ import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
+import './editor.css'
 
 const API_URL = "/api/v1/file";
 const UPLOAD_ENDPOINT = "upload";
@@ -40,7 +41,7 @@ export default function Editor({ handleChange, SetContent, content}) {
     <div className="form-wrapper">
       <CKEditor className='editor'
         config={{
-          extraPlugins: [uploadPlugin]
+          extraPlugins: [uploadPlugin],
         }}
         data = {content}
         editor={ClassicEditor}

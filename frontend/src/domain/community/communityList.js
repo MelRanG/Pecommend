@@ -2,13 +2,14 @@ import "./communityRegist.css";
 import "./communityList.css";
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link, Route, Router } from "react-router-dom";
+import { useParams, Link, Route, Router, useNavigate } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
 import CommunitySidebar from "./communitySidebar";
 import Pagination from "./pagination";
 
 function CommunityList() {
   let useParam = useParams();
+  let navigate = useNavigate();
   let categorys = parseInt(useParam.num);
   const [dataList, setDataList] = useState([]);
   const titleName = [
@@ -63,10 +64,21 @@ function CommunityList() {
       }
     }
   };
+
+  // const getTitleLink = () => {
+  //   console.log("page title : ",titleName[categorys])
+  //   const titlelink = document.getElementsByName(titleName[categorys])
+  //   console.log(titlelink)
+  //   console.log(titlelink[0])
+  //   titlelink[0].classList.add("is-active")
+  // }
+
   useEffect(() => {
     getArticleList();
     console.log(useParam, "category", categorys)
+    // getTitleLink();
   }, [categorys]);
+
   return (
     <div className="communityRegist">
       {/* <CommunitySidebar /> */}
@@ -85,10 +97,11 @@ function CommunityList() {
                   <button className="community-top-box-active">ㆍ최신</button>
                   <button className="community-top-box-wait">ㆍ추천</button>
                   <button className="community-top-box-wait">ㆍHOT</button>
-                  <button className="community-top-box-wait">ㆍ베스트</button>
+                  <button className="community-top-box-wait"></button>
                 </div>
                 <div className="col-lg-6 community-top-regist col-sm-12">
-                  <button type="button" className="btn btn-secondary">글 작성</button>
+                  <button type="button" className="btn btn-secondary" onClick={() =>
+                    (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
                 </div>
               </div>
               <div className="shop-bottom-area mt-15">
@@ -309,17 +322,17 @@ function CommunityList() {
                     </tbody>
                   </table> */}
                 </div>
-                <div className="d-flex flex-row-reverse">
+                {/* <div className="d-flex flex-row-reverse"> */}
                   {/* <button className="List-regist-button">
                     <Link to={`/commu/regist`}>글 작성</Link>
                   </button> */}
-                  <button type="button" className="btn btn-outline-dark">
+                  {/* <button type="button" className="btn btn-outline-dark">
                     <Link to={`/commu/regist`}>글 작성</Link>
-                  </button>
+                  </button> */}
                   {/* <button type="button" className="btn btn-outline-secondary">
                     Secondary
                   </button> */}
-                </div>
+                {/* </div> */}
                 {/* <div className="pro-pagination-style text-center mt-10 mb-3">
                   <ul>
                     <li>

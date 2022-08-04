@@ -88,10 +88,9 @@ function Login() {
         }
       })
       .then(function () {
-        getUserInfo();
-      })
-      .then(function () {
-        window.location.href = "/";
+        getUserInfo().then(()=>{
+          document.location.href="/"
+        });
       })
       .catch(function (error) {
         // 1. alertify 로 꾸며주는 부분 필요
