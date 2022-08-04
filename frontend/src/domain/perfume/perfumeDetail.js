@@ -426,7 +426,7 @@ const PerfumeDetail = () => {
             <Nav
               className="mt-5 detail-navtab"
               variant="tabs"
-              defaultActiveKey="link-0"
+              defaultActiveKey="link-1"
             >
               <Nav.Item>
                 <Nav.Link eventKey="disabled" disabled>
