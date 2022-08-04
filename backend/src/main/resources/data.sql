@@ -12,6 +12,11 @@ INSERT into community(category, user_id, title, content) values (1,2, '제목3',
 INSERT into community(category, user_id, title, content) values (1,3, '제목4', '내용4');
 INSERT into community(category, user_id, title, content) values (1,1, '제목5', '내용5');
 INSERT into community(category, user_id, title, content) values (1,1, '제목6', '내용6');
+INSERT into community(category, user_id, title, content) values (2,1, '제목7', '내용7');
+INSERT into community(category, user_id, title, content) values (2,1, '제목8', '내용8');
+INSERT into community(category, user_id, title, content) values (2,3, '제목9', '내용9');
+INSERT into community(category, user_id, title, content) values (4,1, '제목10', '내용10');
+INSERT into community(category, user_id, title, content) values (1,1, '제목11', '내용11');
 
 INSERT INTO community_like(community_id, user_id) values (1, 1);
 INSERT INTO community_like(community_id, user_id) values (2, 1);

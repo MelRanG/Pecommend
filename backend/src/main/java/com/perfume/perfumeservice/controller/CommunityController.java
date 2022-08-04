@@ -128,4 +128,10 @@ public class CommunityController {
         List<PostsResponseDto> postsDtoList = communityService.getBestList();
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
+
+    @GetMapping("/list/main")
+    @ApiOperation(value = "메인에 쓸 게시글 목록(5가지 카테고리) 가져오기")
+    public ResponseEntity<Map<String, Object>> getMain(){
+        return new ResponseEntity<>(communityService.getMain(), HttpStatus.OK);
+    }
 }
