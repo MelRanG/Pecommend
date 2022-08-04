@@ -2,7 +2,7 @@ import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
 import "./communityMain.css";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import {authaxios, freeaxios} from "../../custom/customAxios";
 import { Link } from "react-router-dom";
 import { data } from "jquery";
 
@@ -24,7 +24,7 @@ function CommunityMain() {
 
   const getArticleList = async () => {
       try {
-        const response = await axios({
+        const response = await freeaxios({
           method: "get",
           url: "/api/v1/community/list",
           // data: registwrite,
@@ -205,7 +205,7 @@ function CommunityMain() {
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>자유</h4>
-                      <h5>더보기 {">"}</h5>
+                      <h5><Link to={`/commu/list/1`}>더보기 {">"}</Link></h5>
                     </div>
                     <div className="community-article-box">
                       <ul>
@@ -223,7 +223,7 @@ function CommunityMain() {
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>향수</h4>
-                      <h5>더보기 {">"}</h5>
+                      <h5><Link to={`/commu/list/2`}>더보기 {">"}</Link></h5>
                     </div>
                     <div className="community-article-box">
                       <ul>
@@ -241,7 +241,7 @@ function CommunityMain() {
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>공지</h4>
-                      <h5>더보기 {">"}</h5>
+                      <h5><Link to={`/commu/list/4`}>더보기 {">"}</Link></h5>
                     </div>
                     <div className="community-article-box">
                       <ul>

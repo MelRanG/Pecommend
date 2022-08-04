@@ -37,7 +37,7 @@ function Nav3() {
           <Link to="/perfume">PERFUME</Link>
         </li>
         <li>
-          <Link to="/commu">COMMUNITY</Link>
+          <Link to="/commu/main">COMMUNITY</Link>
         </li>
         <li>
           <Link to="/test">TEST</Link>

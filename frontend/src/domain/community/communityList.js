@@ -6,8 +6,12 @@ import { useParams, Link, Route, Router, useNavigate } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
 import CommunitySidebar from "./communitySidebar";
 import Pagination from "./pagination";
+import userReducer from "redux/user_reducer";
+import { useSelector } from "react-redux";
 
 function CommunityList() {
+  const user = useSelector(state => state.userStore.nowLoginUser);
+
   let useParam = useParams();
   let navigate = useNavigate();
   let categorys = parseInt(useParam.num);
@@ -100,8 +104,17 @@ function CommunityList() {
                   <button className="community-top-box-wait"></button>
                 </div>
                 <div className="col-lg-6 community-top-regist col-sm-12">
-                  <button type="button" className="btn btn-secondary" onClick={() =>
-                    (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
+                  {
+                    (user != null)
+                    ? <>
+                      <button type="button" className="btn btn-secondary" onClick={() =>
+                      (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
+                    </>
+                    : <>
+                    </>
+                  }
+                   {/* <button type="button" className="btn btn-secondary" onClick={() => */}
+                    {/* (navigate(`/commu/regist`, { replace: true }))}>글 작성</button> */}
                 </div>
               </div>
               <div className="shop-bottom-area mt-15">

@@ -10,6 +10,10 @@
     min-height: 400px;
 }
 
+.community-detail-maintextbox img {
+    width:100%;
+}
+
 .community-button-remove {
     color: red;
     border: 1px solid red;
