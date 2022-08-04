@@ -17,18 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 public class PerfumeServiceImpl  implements PerfumeService {
 
-    private PerfumeRepository perfumeRepository;
+    private final PerfumeRepository perfumeRepository;
 
-    private NoteRepository noteRepository;
 
     @Override
     public List<PerfumeResponseDto> getListAll() {
         List<Perfume> perfumeList = perfumeRepository.findAllByOrderByKoName();
-        // 노트 정보까지 넣어줘야하나? 아님 Dto에서 note를 빼기?
+
         List<PerfumeResponseDto> dtoList = new LinkedList<>();
 
         for (Perfume p: perfumeList){
@@ -41,24 +40,52 @@ public class PerfumeServiceImpl  implements PerfumeService {
     public List<PerfumeResponseDto> getListKeyword(String keyword) {
         // keyword가 한글인지 영어(숫자)인지 확인해서 검색하기
 
-        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
-        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
+        List<Perfume> perfumeList = perfumeRepository.findByKoNameLikeOrEnNameLike("%"+keyword+"%", "%"+keyword+"%");
+//        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
+//        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
 
-        // 중복 제거
-        Set<PerfumeResponseDto> dtoList = new LinkedHashSet<>();
+        // 중복 제거가 안되고 있었슴 ㅋ
 
-        for(Perfume p: perfumeListKo){
+//        Set<PerfumeResponseDto> dtoList = new LinkedHashSet<>();
+//
+//        for(Perfume p: perfumeListKo){
+//            dtoList.add(PerfumeResponseDto.from(p));
+//        }
+//        for(Perfume p: perfumeListEn){
+//            dtoList.add(PerfumeResponseDto.from(p));
+//        }
+
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeList){
             dtoList.add(PerfumeResponseDto.from(p));
         }
-        for(Perfume p: perfumeListEn){
-            dtoList.add(PerfumeResponseDto.from(p));
-        }
 
-        // 중복 제거
         // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
         return new ArrayList<>(dtoList);
 
     }
+    @Override
+    public List<PerfumeResponseDto> getListKoKeyword(String keyword) {
+        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeListKo){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
+        return new ArrayList<>(dtoList);
+    }
+
+    @Override
+    public List<PerfumeResponseDto> getListEnKeyword(String keyword) {
+        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeListEn){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
+        return new ArrayList<>(dtoList);
+    }
+
 
     @Override
     public PerfumeResponseDto getPerfume(Long id) {

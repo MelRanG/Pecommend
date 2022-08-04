@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.domain.perfume;
 
+import com.perfume.perfumeservice.domain.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,28 +13,21 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "note")
-public class Note {
+@Table(name = "perfume_dislike")
+public class PerfumeDislike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "note_id")
+    @Column(name = "perfume_dislike_id")
     private long id;
-
-    @Column(name = "note")
-    private String note;
 
     // perfume
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "perfume_id")
     private Perfume perfume;
 
-    // material
+    // user
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "material_id")
-    private Material material;
-
-
-
-
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 }

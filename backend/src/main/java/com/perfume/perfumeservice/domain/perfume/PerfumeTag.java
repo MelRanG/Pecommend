@@ -17,7 +17,7 @@ public class PerfumeTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "perfume_tag_id")
-    private Long id;
+    private long id;
 
     @Column(name = "count")
     private int count;
