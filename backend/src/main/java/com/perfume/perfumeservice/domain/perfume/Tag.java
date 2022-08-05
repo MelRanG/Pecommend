@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.domain.perfume;
 
+import com.perfume.perfumeservice.domain.review.ReviewTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,10 +26,12 @@ public class Tag {
     private String tagName;
 
     // perfume_tag
-     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-     private List<PerfumeTag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PerfumeTag> perfumeTags = new ArrayList<>();
 
-    // perfume_review
+    // review_tag
+    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReviewTag> reviewTags = new ArrayList<>();
 
     // user_tag
 

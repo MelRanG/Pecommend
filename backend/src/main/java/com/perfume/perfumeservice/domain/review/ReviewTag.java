@@ -1,6 +1,7 @@
 package com.perfume.perfumeservice.domain.review;
 
-import com.perfume.perfumeservice.domain.user.UserEntity;
+import com.perfume.perfumeservice.domain.perfume.Perfume;
+import com.perfume.perfumeservice.domain.perfume.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,24 +12,24 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "review_like")
-public class ReviewLike {
+@NoArgsConstructor
+@Table(name = "review_tag")
+public class ReviewTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_like_id")
-    private Long id;
+    @Column(name = "review_tag_id")
+    private long id;
 
-    // perfume_review
+    // review
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "perfume_reivew_id")
+    @JoinColumn(name = "review_id")
     private Review review;
 
-    // user
+    // tag
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @JoinColumn(name = "tag_id")
+    private Tag tag;
 
 
 }
