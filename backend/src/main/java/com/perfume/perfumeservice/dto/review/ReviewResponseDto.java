@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @ApiModel(value = "PerfumeResponseDto", description = "향수 정보 응답 Dto")
 public class ReviewResponseDto {
 
