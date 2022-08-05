@@ -46,6 +46,15 @@ function MyProfile() {
 
   return (
     <div className="profile">
+      <div className="container-temp">
+        <div className="pernav">
+          <div className="pernav-header">
+            <div className="pernav-header-title tac">
+              {/* <span>s</span> */}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="container mainProfile">
         <div className="col-md-4 profile-top">
           <div className="profileBox">
@@ -56,9 +65,6 @@ function MyProfile() {
                 alt="?"
               /> */}
               <h4>{userprofile.nickname}</h4>
-              <button className="profile-edit-button" type="button">
-                <Link to="/profile/update">수정하기</Link>
-              </button>
             </div>
           </div>
           <div className="profileText">
@@ -75,6 +81,9 @@ function MyProfile() {
               <h5>나이 : {age}대</h5>
               <h5>MBTI : {userprofile.mbti}</h5>
             </div>
+            <button className="profile-edit-button" type="button">
+                <Link to="/profile/update">프로필 및 계정 관리</Link>
+            </button>
           </div>
         </div>
 

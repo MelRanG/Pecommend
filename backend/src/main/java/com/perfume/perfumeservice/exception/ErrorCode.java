@@ -16,7 +16,10 @@ public enum ErrorCode {
     PERFUME_NOT_FOUND(404, "P001", "향수 정보를 찾을 수 없습니다."),
     NOT_IMAGE_FILE(415, "C002", "이미지 형식의 파일이 아닙니다."),
 
-    COMMENT_NOT_FOUND(404, "O001", "댓글 정보를 찾을 수 없습니다.");
+    COMMENT_NOT_FOUND(404, "O001", "댓글 정보를 찾을 수 없습니다."),
+    REVIEW_NOT_FOUND(404, "P002", "리뷰를 찾을 수 없습니다."),
+    TAG_NOT_FOUND(404, "P003", "해시태그 정보를 찾을 수 없습니다."),
+    REVIEW_IS_EXIST(400, "P004", "이미 리뷰룰 작성하였습니다.");
 
     private final int status;
     private final String code;

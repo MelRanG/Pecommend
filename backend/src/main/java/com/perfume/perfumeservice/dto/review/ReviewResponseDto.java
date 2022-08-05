@@ -1,17 +1,59 @@
 package com.perfume.perfumeservice.dto.review;
 
+import com.perfume.perfumeservice.domain.review.Review;
+import com.perfume.perfumeservice.domain.review.ReviewDisLike;
+import com.perfume.perfumeservice.domain.review.ReviewLike;
+import com.perfume.perfumeservice.domain.review.ReviewTag;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Getter
 @Builder
 @AllArgsConstructor
-//@NoArgsConstructor
-@ApiModel(value = "PerfumeResponseDto", description = "향수 정보 응답 Dto")
+@ApiModel(value = "ReviewResponseDto", description = "리뷰 정보 응답 Dto")
 public class ReviewResponseDto {
+    private Long id;
+    private String content;
+    private int score;
+    private Long user_id;
+    private String user;
+    private int reviewLike;
+    private int reviewDisLike;
+    private List<Long> tags;
+    private List<String> tagNames;
 
 
+    public static ReviewResponseDto from(Review review, List<ReviewTag> rtList){
+        List<ReviewLike> list = review.getReviewLikeList();
+        int likes = list == null ? 0 : list.size();
+
+        List<ReviewDisLike> dislist = review.getReviewDisLikeList();
+        int dislikes = dislist == null ? 0 : dislist.size();
+
+        List<Long> tagList = new LinkedList<>();
+        List<String> tagNameList = new LinkedList<>();
+
+        for(ReviewTag rt: rtList){
+            tagList.add(rt.getTag().getId());
+            tagNameList.add(rt.getTag().getTagName());
+        }
+
+        return ReviewResponseDto.builder()
+                .id(review.getId())
+                .content(review.getContent())
+                .score(review.getScore())
+                .user_id(review.getUser().getId())
+                .user(review.getUser().getNickname())
+                .reviewLike(likes)
+                .reviewDisLike(dislikes)
+                .tags(tagList)
+                .tagNames(tagNameList)
+                .build();
+    }
 }

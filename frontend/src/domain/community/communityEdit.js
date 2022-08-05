@@ -137,7 +137,14 @@ function CommunityEdit ()  {
                                 <li><a className="" name="category" onClick={categoryChangehandler} id="1">자유</a></li>
                                 <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="2">향수</a></li>
                                 {/* <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="3">질문</a></li> */}
-                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
+                                {/* <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li> */}
+                                {
+                                    (user.role == "ROLE_ADMIN")
+                                    ? <>
+                                        <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
+                                    </>
+                                    : <></>
+                                }
                             </ul>
                         </div>
                     </div>
