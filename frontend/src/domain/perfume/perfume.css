@@ -107,3 +107,8 @@ position: relative;
 .per-nav li:last-child {
   border-right: 1px solid #4b5766;
 }
+
+.is-active {
+  background-color: #305388;
+  border-color: #305388;
+}
