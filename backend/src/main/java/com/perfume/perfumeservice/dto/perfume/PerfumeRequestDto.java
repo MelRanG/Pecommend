@@ -1,7 +1,13 @@
 package com.perfume.perfumeservice.dto.perfume;
 
 import com.perfume.perfumeservice.domain.perfume.Perfume;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
+@Builder
+@Data
 public class PerfumeRequestDto {
 
     //private long perfumeId;
