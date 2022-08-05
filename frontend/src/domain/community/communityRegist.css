@@ -56,6 +56,8 @@
 .community-regist-bottombar {
     display: flex;
     flex-direction: row-reverse;
+    margin-bottom: 15px;
+    padding-right: 18px;
 }
 
 .regist-cancel {
@@ -64,6 +66,8 @@
     background-color: #9c3737;
     padding: 3px 6px 3px 6px;
     color: #ffffff;
+    width: 90px;
+    height: 35px;
 }
 
 .regist-submit {
@@ -71,4 +75,18 @@
     border: none;
     background-color: bisque;
     padding: 3px 6px 3px 6px;
+    width: 90px;
+    height: 35px;
+}
+
+.fontS {
+    font-size: 16px !important;
+}
+
+.ck img {
+    width:500px
+}
+
+.communityRegist > form {
+    padding:0 8% 0 8%;
 }

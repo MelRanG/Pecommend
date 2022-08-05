@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URLDecoder;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -85,12 +86,6 @@ public class UserController {
 
         return new ResponseEntity<>(tokenDto, headers, HttpStatus.OK);
     }
-
-    @GetMapping("/info/{email}")
-    @ApiOperation(value = "회원 정보 조회")
-    public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable String email){
-        return new ResponseEntity<>(userService.getUserInfo(email), HttpStatus.OK);
-    }
     
     @PutMapping("/update")
     @ApiOperation(value = "회원 정보 수정")
@@ -110,11 +105,12 @@ public class UserController {
         userService.deleteUser(email);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
-    
-    @PostMapping("/findpw.do")
-    @ApiOperation(value = "비밀번호 찾기")
-    public ResponseEntity<String> findPW(String email){
 
+    @PutMapping("/findpw.do")
+    @ApiOperation(value = "비밀번호 찾기")
+    public ResponseEntity<String> findPW(@RequestBody Map<String, String> map){
+        String email = map.get("email");
+        System.out.println("email : " + email);
         try {
             if(!userService.checkEmail(email)){
                 throw new UserNotFoundException();
@@ -151,4 +147,15 @@ public class UserController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
+    @GetMapping("/info/id/{id}")
+    @ApiOperation(value = "회원 정보 조회")
+    public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable Long id){
+        return new ResponseEntity<>(userService.getUserInfo(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/info/email/{email}")
+    @ApiOperation(value = "회원 정보 조회")
+    public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable String email){
+        return new ResponseEntity<>(userService.getUserInfo(email), HttpStatus.OK);
+    }
 }

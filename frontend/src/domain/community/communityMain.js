@@ -1,9 +1,62 @@
 import CommunitySidebar from "./communitySidebar";
 import Nav from "../../components/nav";
 import "./communityMain.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {authaxios, freeaxios} from "../../custom/customAxios";
+import { Link } from "react-router-dom";
+import { data } from "jquery";
 
 function CommunityMain() {
+  const [article_all, setArticleall] = useState([]);
+  const [article_free, setArticlefree] = useState([]);
+  const [article_perfume, setArticleperfume] = useState([]);
+  const [article_hot, setArticlehot] = useState([]);
+  const [article_announce, setArticleannounce] = useState([]);
+
+  const titleName = [
+    '전체',
+    '자유',
+    '향수',
+    '인기',
+    '공지'
+  ]
+
+  const getArticleList = async () => {
+      try {
+        const response = await freeaxios({
+          method: "get",
+          url: "/api/v1/community/list/main",
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+         //console.log(response);
+        if (response.status === 200) {
+          const dataset = response.data
+          
+          setArticleall(dataset[0]);
+          setArticlefree(dataset[1]);
+          setArticleperfume(dataset[2]);
+          setArticlehot(dataset[3]);
+          setArticleannounce(dataset[4]);
+          
+          
+          // let data = dataset.filter(data => data.category==1)
+          // console.log(data)
+          // setArticlefree(data)
+          // data = dataset.filter(data => data.category==2)
+          // setArticle
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+  useEffect(() => {
+    getArticleList()
+}, [])
+
   return (
     <div className="communityMain">
       {/* <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
@@ -116,14 +169,47 @@ function CommunityMain() {
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>전체글</h4>
-                      <h5>더보기 {">"}</h5>
+                      <h5><Link to={`/commu/list/0`}>더보기 {">"}</Link></h5>
                     </div>
                     <div className="community-article-box">
                       <ul>
-                        <li>[이벤트] 1번글!</li>
+                        {/* <li>[이벤트] 1번글!</li>
                         <li>[공지] 2번글!</li>
                         <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
+                        <li>[자랑] 4번글!</li> */}
+                        {/* {
+                          dataList.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                [{titleName[data.category]}] {data.title}
+                              </Link>
+                            </li>
+                          ))
+                        } */}
+                        {
+                          article_all != null
+                          ?
+                          <>
+                            {article_all.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                [{titleName[data.category]}] {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>
@@ -132,14 +218,30 @@ function CommunityMain() {
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>자유</h4>
-                      <h5>더보기 {">"}</h5>
+                      <h5><Link to={`/commu/list/1`}>더보기 {">"}</Link></h5>
                     </div>
                     <div className="community-article-box">
                       <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
+                        {
+                          article_free != null
+                          ?
+                          <>
+                            {article_free.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>
@@ -148,30 +250,30 @@ function CommunityMain() {
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>향수</h4>
-                      <h5>더보기 {">"}</h5>
+                      <h5><Link to={`/commu/list/2`}>더보기 {">"}</Link></h5>
                     </div>
                     <div className="community-article-box">
                       <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-xs-12">
-                  <div className="community-main-box">
-                    <div className="d-flex justify-content-between community-main-box-title">
-                      <h4>질문</h4>
-                      <h5>더보기 {">"}</h5>
-                    </div>
-                    <div className="community-article-box">
-                      <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
+                      {
+                          article_perfume != null
+                          ?
+                          <>
+                            {article_perfume.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>
@@ -180,30 +282,30 @@ function CommunityMain() {
                   <div className="community-main-box">
                     <div className="d-flex justify-content-between community-main-box-title">
                       <h4>공지</h4>
-                      <h5>더보기 {">"}</h5>
+                      <h5><Link to={`/commu/list/4`}>더보기 {">"}</Link></h5>
                     </div>
                     <div className="community-article-box">
                       <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-xs-12">
-                  <div className="community-main-box">
-                    <div className="d-flex justify-content-between community-main-box-title">
-                      <h4>베스트</h4>
-                      <h5>더보기 {">"}</h5>
-                    </div>
-                    <div className="community-article-box">
-                      <ul>
-                        <li>[이벤트] 1번글!</li>
-                        <li>[공지] 2번글!</li>
-                        <li>[자유] 3번글!</li>
-                        <li>[자랑] 4번글!</li>
+                      {
+                          article_announce != null
+                          ?
+                          <>
+                            {article_announce.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
                       </ul>
                     </div>
                   </div>

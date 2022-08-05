@@ -1,14 +1,19 @@
 import "./communityRegist.css";
 import "./communityList.css";
 import React, { Component, useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, Link, Route, Router } from "react-router-dom";
+import {authaxios, freeaxios} from "../../custom/customAxios";
+import { useParams, Link, Route, Router, useNavigate } from "react-router-dom";
 import CommunityDetail from "./communityDetail";
 import CommunitySidebar from "./communitySidebar";
 import Pagination from "./pagination";
+import userReducer from "redux/user_reducer";
+import { useSelector } from "react-redux";
 
 function CommunityList() {
+  const user = useSelector(state => state.userStore.nowLoginUser);
+
   let useParam = useParams();
+  let navigate = useNavigate();
   let categorys = parseInt(useParam.num);
   const [dataList, setDataList] = useState([]);
   const titleName = [
@@ -22,11 +27,95 @@ function CommunityList() {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limitData;
 
+  const getArticleListLike = async () => {
+    console.log(categorys);
+    if (categorys > 0) {
+      try {
+        const response = await freeaxios({
+          method: "get",
+          url: "/api/v1/community/list/like/" + categorys,
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    else {
+      try {
+        const response = await freeaxios({
+          method: "get",
+          url: "/api/v1/community/list/like",
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const getArticleListBest = async () => {
+    console.log(categorys);
+    if (categorys > 0) {
+      try {
+        const response = await freeaxios({
+          method: "get",
+          url: "/api/v1/community/list/best/" + categorys,
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    else {
+      try {
+        const response = await freeaxios({
+          method: "get",
+          url: "/api/v1/community/list/best",
+          // data: registwrite,
+          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type" : ""}
+          // JSON.stringify()
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log(dataList);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const getArticleList = async () => {
     console.log(categorys);
     if (categorys > 0) {
       try {
-        const response = await axios({
+        const response = await freeaxios({
           method: "get",
           url: "/api/v1/community/list/" + categorys,
           // data: registwrite,
@@ -45,7 +134,7 @@ function CommunityList() {
     }
     else {
       try {
-        const response = await axios({
+        const response = await freeaxios({
           method: "get",
           url: "/api/v1/community/list",
           // data: registwrite,
@@ -63,10 +152,48 @@ function CommunityList() {
       }
     }
   };
+
+  const clickButton1 = () => {
+    getArticleList();
+    const button1 = document.getElementById("button1")
+    const button2 = document.getElementById("button2")
+    const button3 = document.getElementById("button3")
+    button1.setAttribute("class","community-top-box-active")
+    button2.setAttribute("class","community-top-box-wait")
+    button3.setAttribute("class","community-top-box-wait")
+  }
+  const clickButton2 = () => {
+    getArticleListLike()
+    const button1 = document.getElementById("button1")
+    const button2 = document.getElementById("button2")
+    const button3 = document.getElementById("button3")
+    button1.setAttribute("class","community-top-box-wait")
+    button2.setAttribute("class","community-top-box-active")
+    button3.setAttribute("class","community-top-box-wait")
+  }
+  const clickButton3 = () => {
+    getArticleListBest();
+    const button1 = document.getElementById("button1")
+    const button2 = document.getElementById("button2")
+    const button3 = document.getElementById("button3")
+    button1.setAttribute("class","community-top-box-wait")
+    button2.setAttribute("class","community-top-box-wait")
+    button3.setAttribute("class","community-top-box-active")
+  }
+  // const getTitleLink = () => {
+  //   console.log("page title : ",titleName[categorys])
+  //   const titlelink = document.getElementsByName(titleName[categorys])
+  //   console.log(titlelink)
+  //   console.log(titlelink[0])
+  //   titlelink[0].classList.add("is-active")
+  // }
+
   useEffect(() => {
     getArticleList();
     console.log(useParam, "category", categorys)
+    // getTitleLink();
   }, [categorys]);
+
   return (
     <div className="communityRegist">
       {/* <CommunitySidebar /> */}
@@ -82,13 +209,22 @@ function CommunityList() {
               <hr></hr>
               <div className="row">
                 <div className="community-top-box col-lg-6 col-sm-12">
-                  <button className="community-top-box-active">ㆍ최신</button>
-                  <button className="community-top-box-wait">ㆍ추천</button>
-                  <button className="community-top-box-wait">ㆍHOT</button>
-                  <button className="community-top-box-wait">ㆍ베스트</button>
+                  <button className="community-top-box-active" onClick={clickButton1} id="button1">ㆍ최신</button>
+                  <button className="community-top-box-wait" onClick={clickButton2} id="button2">ㆍ추천</button>
+                  <button className="community-top-box-wait" onClick={clickButton3} id="button3">ㆍHOT</button>
                 </div>
                 <div className="col-lg-6 community-top-regist col-sm-12">
-                  <button type="button" className="btn btn-secondary">글 작성</button>
+                  {
+                    (user != null)
+                    ? <>
+                      <button type="button" className="btn btn-secondary" onClick={() =>
+                      (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
+                    </>
+                    : <>
+                    </>
+                  }
+                   {/* <button type="button" className="btn btn-secondary" onClick={() => */}
+                    {/* (navigate(`/commu/regist`, { replace: true }))}>글 작성</button> */}
                 </div>
               </div>
               <div className="shop-bottom-area mt-15">
@@ -309,17 +445,17 @@ function CommunityList() {
                     </tbody>
                   </table> */}
                 </div>
-                <div className="d-flex flex-row-reverse">
+                {/* <div className="d-flex flex-row-reverse"> */}
                   {/* <button className="List-regist-button">
                     <Link to={`/commu/regist`}>글 작성</Link>
                   </button> */}
-                  <button type="button" className="btn btn-outline-dark">
+                  {/* <button type="button" className="btn btn-outline-dark">
                     <Link to={`/commu/regist`}>글 작성</Link>
-                  </button>
+                  </button> */}
                   {/* <button type="button" className="btn btn-outline-secondary">
                     Secondary
                   </button> */}
-                </div>
+                {/* </div> */}
                 {/* <div className="pro-pagination-style text-center mt-10 mb-3">
                   <ul>
                     <li>
