@@ -1,6 +1,6 @@
 import "./profile.css";
 import React, { useEffect, useState } from "react";
-import {authaxios, freeaxios} from "../../custom/customAxios";
+import { authaxios, freeaxios } from "../../custom/customAxios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 function Profile() {
@@ -16,7 +16,7 @@ function Profile() {
     try {
       const response = await authaxios({
         method: "get",
-        url: "/api/v1/user/info/" + number,
+        url: "/api/v1/user/info/id/" + number,
       });
       if (response.status === 200) {
         setUserProfile(response.data);

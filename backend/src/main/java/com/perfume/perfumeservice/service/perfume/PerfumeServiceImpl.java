@@ -11,9 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.query.criteria.internal.predicate.LikePredicate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.*;
 
 @Service
@@ -22,6 +24,9 @@ import java.util.*;
 public class PerfumeServiceImpl  implements PerfumeService {
 
     private final PerfumeRepository perfumeRepository;
+
+    @Value("${part4.upload.perfumepath}")
+    private String uploadPath;
 
 
     @Override
@@ -93,6 +98,8 @@ public class PerfumeServiceImpl  implements PerfumeService {
         return PerfumeResponseDto.from(perfume);
     }
 
-
-
+    @Override
+    public String getImg(String img) {
+        return uploadPath + File.separator + "PERFUME" + File.separator + img;
+    }
 }

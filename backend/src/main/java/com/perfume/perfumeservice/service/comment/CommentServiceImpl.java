@@ -73,7 +73,10 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
 
         Optional<CommentLike> like = commentLikeRepository.findByUserAndComment(user, comment);
-        if(like.isPresent()) return "CANCEL";
+        if(like.isPresent()) {
+            commentLikeRepository.delete(like.get());
+            return "CANCEL";
+        }
         else{
             commentLikeRepository.save(CommentLike.builder()
                             .comment(comment)

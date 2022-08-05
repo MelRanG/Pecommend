@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.controller;
 
+import com.perfume.perfumeservice.service.community.CommunityService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
@@ -23,26 +24,29 @@ import java.util.Map;
 @RequestMapping("/api/v1/file")
 public class fileController {
 
-    private final ResourceLoader resLoader;
+    private final CommunityService communityService;
 
     @PostMapping(value = "/upload")
     public ResponseEntity<String> upload(@RequestParam Map<String, Object> map, MultipartHttpServletRequest request) throws Exception{
 
-        Resource resource = resLoader.getResource("upload");
-
-        MultipartFile mf = request.getFiles("files").get(0);
-        String path = resource.getFile().getCanonicalPath() + "/" + mf.getOriginalFilename();
-        mf.transferTo(new File(path));
-
-        return new ResponseEntity<>(mf.getOriginalFilename(), HttpStatus.OK);
+//        Resource resource = resLoader.getResource("upload");
+//
+//        MultipartFile mf = request.getFiles("files").get(0);
+//        String path = resource.getFile().getCanonicalPath() + "/" + mf.getOriginalFilename();
+//        mf.transferTo(new File(path));
+//
+//        return new ResponseEntity<>(mf.getOriginalFilename(), HttpStatus.OK);
+        return new ResponseEntity<>(communityService.fileUpload(map, request), HttpStatus.OK);
     }
 
     @GetMapping(value = "/getimg/{img}")
     public ResponseEntity<Resource> getImg(@PathVariable String img) throws Exception{
 
-        Resource resource = resLoader.getResource("upload");
+        // resource = resLoader.getResource("upload");
 
-        String path = resource.getFile().getCanonicalPath() + "/" + img;
+        //String path = resource.getFile().getCanonicalPath() + "/" + img;
+
+        String path = communityService.getImg(img);
 
         Resource ret = new FileSystemResource(path);
 
