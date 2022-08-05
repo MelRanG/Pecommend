@@ -1,4 +1,6 @@
 INSERT into users(email, nickname, password, birthday, gender, mbti, role, token)
+values('admin', 'admin', '$2a$10$3x4TK8CNgpBT13pZgjh7fOjnJyNcEE3hlotzsgdDSOFRAr/byl9HK', '1990-10-01', '남', 'X', 'ROLE_ADMIN', '');
+INSERT into users(email, nickname, password, birthday, gender, mbti, role, token)
 values('tttt@naver.com', 'asd', '123', '111', '남', 'sess', 'ROLE_USER', 'asdasd');
 INSERT into users(email, nickname, password, birthday, gender, mbti, role, token)
 values('tttt@naver.com1', 'asd1', '1231', '1121', '남', 'sess', 'ROLE_USER', 'asdasd');

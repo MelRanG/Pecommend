@@ -188,10 +188,42 @@ function CommunityList() {
   //   titlelink[0].classList.add("is-active")
   // }
 
+  const getSearch = async () => {
+    const data = document.getElementById("dropdownMenuLink")
+    const filter = document.getElementById("search-filter")
+    let senddata = {
+      type : data.name,
+      word : filter.value
+    }
+    console.log(senddata)
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/community/search",
+        params : senddata,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        window.history.pushState("","","/commu/list/0")
+        setDataList(response.data);
+        console.log(dataList);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const clicksearchfilter = (e) => {
+    const data = document.getElementById("dropdownMenuLink")
+    data.name = e.target.name
+    data.innerText = e.target.innerText
+  }
+
   useEffect(() => {
     getArticleList();
     console.log(useParam, "category", categorys)
     // getTitleLink();
+    console.log("user",user)
   }, [categorys]);
 
   return (
@@ -215,13 +247,25 @@ function CommunityList() {
                 </div>
                 <div className="col-lg-6 community-top-regist col-sm-12">
                   {
-                    (user != null)
+                    (user.user_id == null)
                     ? <>
-                      <button type="button" className="btn btn-secondary" onClick={() =>
+                    </>
+                    : (
+                      (user.role == "ROLE_ADMIN")
+                      ? <>
+                        <button type="button" className="btn btn-secondary" onClick={() =>
                       (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
-                    </>
-                    : <>
-                    </>
+                      </>
+                      : (
+                        (categorys < 4)
+                        ? <>
+                          <button type="button" className="btn btn-secondary" onClick={() =>
+                        (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
+                        </>
+                        : <>
+                        </>
+                      )
+                    )
                   }
                    {/* <button type="button" className="btn btn-secondary" onClick={() => */}
                     {/* (navigate(`/commu/regist`, { replace: true }))}>글 작성</button> */}
@@ -322,22 +366,22 @@ function CommunityList() {
                   <div className="input-group mb-3 commu_list_search">
                     <div className="input-group-text p-0">
                       <div className="dropdown">
-                        <a className="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a className="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="title">
                           제목
                         </a>
 
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <li><a className="dropdown-item" id="filter:title">제목</a></li>
-                          <li><a className="dropdown-item" id="filter:writer">작성자</a></li>
-                          <li><a className="dropdown-item" id="filter:title_writer">제목 + 작성자</a></li>
+                          <li><a className="dropdown-item" id="filter:title" onClick={clicksearchfilter} name="title">제목</a></li>
+                          <li><a className="dropdown-item" id="filter:writer" onClick={clicksearchfilter} name="writer">작성자</a></li>
+                          {/* <li><a className="dropdown-item" id="filter:title_writer">제목 + 작성자</a></li> */}
                         </ul>
                       </div>
                     </div>
                     <div className="commu_list_search_text">
-                      <input type="text" className="form-control" placeholder="Search Here" />
+                      <input id="search-filter" type="text" className="form-control" placeholder="Search Here" />
                     </div>
                     <div>
-                      <button className="input-group-text commu_list_search_btn shadow-none px-4">
+                      <button className="input-group-text commu_list_search_btn shadow-none px-4" onClick={getSearch}>
                         <i className="bi bi-search"></i>
                       </button>
                     </div>
