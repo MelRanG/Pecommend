@@ -3,15 +3,16 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user_reducer";
-import {authaxios, freeaxios} from "../../custom/customAxios";
-import Swal from 'sweetalert2'
-
+import { authaxios, freeaxios } from "../../custom/customAxios";
+import Swal from "sweetalert2";
 
 function OauthSignUp() {
-
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
 
+  const [id, setId] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [role, setRole] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwdRe, setPwdRe] = React.useState("");
   const [birth, setBirth] = React.useState("");
@@ -19,6 +20,19 @@ function OauthSignUp() {
   const [gender, setGender] = React.useState("");
   const [mbti, setMbti] = React.useState("비공개");
   const [nick_check, setNickCheck] = React.useState(false);
+
+  useEffect(() => {
+    authaxios
+      .get("/api/v1/user/myinfo")
+      .then((userInfo) => {
+        setId(userInfo.data.user_id);
+        setEmail(userInfo.data.email);
+        setRole(userInfo.data.role);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   const onRPWDhandler = (event) => {
     setPwd(event.currentTarget.value);
@@ -68,15 +82,15 @@ function OauthSignUp() {
         .then(function (response) {
           if (response.data === true) {
             Swal.fire({
-              icon: 'warning',
-              title: '실패',
-              text: '이미 존재하는 닉네임입니다.',
+              icon: "warning",
+              title: "실패",
+              text: "이미 존재하는 닉네임입니다.",
             });
           } else {
             Swal.fire({
-              icon: 'success',
-              title: '성공',
-              text: '사용 가능한 닉네임입니다.',
+              icon: "success",
+              title: "성공",
+              text: "사용 가능한 닉네임입니다.",
             });
             setNickCheck(true);
             console.log(nick_check);
@@ -85,52 +99,51 @@ function OauthSignUp() {
         .catch(function (error) {
           console.log(error);
           Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '재시도 후 문의바랍니다.',
+            icon: "error",
+            title: "Error",
+            text: "재시도 후 문의바랍니다.",
           });
         });
     } else {
       Swal.fire({
-        icon: 'warning',
-        title: '실패',
-        text: 'Nickname은 2~8자리만 가능합니다.',
+        icon: "warning",
+        title: "실패",
+        text: "Nickname은 2~8자리만 가능합니다.",
       });
     }
   };
-
 
   // 정보 입력
   const onRegisthandler = (event) => {
     event.preventDefault();
     if (checkPassword(pwd) === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '비밀번호',
-        text: '8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.',
+        icon: "warning",
+        title: "비밀번호",
+        text: "8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.",
       });
     } else if (pwd !== pwdRe) {
       Swal.fire({
-        icon: 'warning',
-        title: '비밀번호 확인',
+        icon: "warning",
+        title: "비밀번호 확인",
         text: "'비밀번호 확인'을 다시 해주세요.",
       });
     } else if (nick_check === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '닉네임',
+        icon: "warning",
+        title: "닉네임",
         text: "닉네임 중복확인이 필요합니다.",
       });
     } else if (birth === "") {
       Swal.fire({
-        icon: 'warning',
-        title: '생일',
+        icon: "warning",
+        title: "생일",
         text: "생일을 선택해주세요.",
       });
     } else if (gender === "") {
       Swal.fire({
-        icon: 'warning',
-        title: '성별',
+        icon: "warning",
+        title: "성별",
         text: "성별을 선택해주세요.",
       });
     } else {
@@ -145,32 +158,29 @@ function OauthSignUp() {
 
       authaxios
         .put("/api/v1/user/update", body)
-        .then((response) => {
-          authaxios.get("/api/v1/user/myinfo")
-          .then((userInfo)=>{
-            const saveInfo = {
-              user_id: userInfo.data.user_id,
-              email: userInfo.data.email,
-              nickname: nick,
-              role: userInfo.data.role
-            };
+        .then(() => {
+          const saveInfo = {
+            user_id: id,
+            email: email,
+            role: role,
+            nickname: nick,
+          };
 
-            saveUser(saveInfo);
-          }).catch((error) => {
-            console.log(error);
-          })
-        }).then(()=>{
+          saveUser(saveInfo);
+        })
+        .then(() => {
           Swal.fire({
-            icon: 'success',
-            title: '성공',
-            text: '환영합니다!',
+            icon: "success",
+            title: "성공",
+            text: "환영합니다!",
           });
-          document.location.href = "/"
-        }).catch((e) => {
+          document.location.href = "/";
+        })
+        .catch((e) => {
           console.log(e);
         });
-      }
     }
+  };
 
   return (
     <div className="Login">
@@ -234,10 +244,7 @@ function OauthSignUp() {
                             id="male-check"
                             onChange={onGenderHandler}
                           />
-                          <label
-                            for="male-check"
-                            className="form-check-label"
-                          >
+                          <label for="male-check" className="form-check-label">
                             남성
                           </label>
                           <input
