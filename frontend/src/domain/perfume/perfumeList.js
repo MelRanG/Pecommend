@@ -488,7 +488,7 @@ function PerfumeList() {
                             </div>
                           </div>
                         ))}
-
+                      {/* 
                       <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                         <div className="product-wrap mb-25 scroll-zoom">
                           <div className="product-img">
@@ -509,15 +509,13 @@ function PerfumeList() {
                                   alt=""
                                 />
                               </div>
-                              {/* </a> */}
                             </Link>
-                            {/* <span className="purple">New</span> */}
                           </div>
                           <div className="product-content text-center">
                             <h3>향수명</h3>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

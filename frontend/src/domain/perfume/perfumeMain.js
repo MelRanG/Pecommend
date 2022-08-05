@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
+import { authaxios, freeaxios } from "custom/customAxios";
 import "./perfumeMain.css";
 // import $ from "jquery";
 // import jQuery from "jquery";
@@ -8,18 +9,33 @@ import "./perfumeMain.css";
 // import { Outlet } from 'react-router-dom';
 // 향수 메인 페이지
 const PerfumeMain = () => {
-  // useEffect(() => {
-  //   $(document).ready(function () {
-  //     $(".bxslider").bxSlider({
-  //       mode: "vertical",
-  //       slideMargin: 5,
-  //       pager: false,
-  //       onSliderLoad: function () {
-  //         $("#edd").css("visibility", "visible").animate({ opacity: 1 });
-  //       },
-  //     });
-  //   });
-  // }, []);
+  const [hottag, setHottag] = useState([]); // 별점
+
+  const getPerfumeHashTag = async () => {
+    try {
+      // console.log("number", number);
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/perfume/hottag",
+        // data: registwrite,
+        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type" : ""}
+        // JSON.stringify()
+      });
+      // console.log(response);
+      if (response.status === 200) {
+        console.log("향수메인");
+        console.log(response.data);
+        setHottag(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPerfumeHashTag();
+  }, []);
 
   return (
     <div className="perfumeMain">
@@ -34,31 +50,12 @@ const PerfumeMain = () => {
             </div>
             <div className="perfume-popular-hashtag">
               {/* 이부분에 해시태그 */}
-              {/* <div className="product-hashtag">
-                  <ul>
-                    <li className="">#봄</li>
-                    <li className="">#여름</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                    <li className="">#20대</li>
-                    <li className="">#꽃향기나는</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                  </ul>
-                  <ul>
-                    <li className="">#봄</li>
-                    <li className="">#여름</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                    <li className="">#20대</li>
-                    <li className="">#꽃향기나는</li>
-                    <li className="">#가을</li>
-                    <li className="">#겨울</li>
-                  </ul>
-                </div> */}
               <div className="product-hashtag">
+                {hottag.map((data, index) => (
+                  <div className="" key={index}>#{data.tName}</div>
+                ))}
                 <div className="">#30대</div>
-                <div className="">#장미</div>
+                {/* <div className="">#장미</div>
                 <div className="">#ESTP</div>
                 <div className="">#해시태그가어디까지길어지는거죠?</div>
                 <div className="">#30대</div>
@@ -85,7 +82,7 @@ const PerfumeMain = () => {
                 <div className="">#10대</div>
                 <div className="">#복숭아</div>
                 <div className="">#장미</div>
-                <div className="">#30대</div>
+                <div className="">#30대</div> */}
               </div>
             </div>
           </div>

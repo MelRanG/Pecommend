@@ -48,7 +48,6 @@ function CommunityEdit ()  {
           if (response.status === 200) {
             console.log(response.data)
             setForm(response.data)
-            console.log("form value", formValue)
             const item = document.getElementById("dropdownMenuButton1")
             let text = document.getElementById(response.data.category)
             // console.log(text)
@@ -106,7 +105,7 @@ function CommunityEdit ()  {
                 category: formValue.category,
             }
           });
-          console.log(response);
+          console.log("patch: " + response);
           if (response.status === 200) {
             console.log("!!!");
             alert("수정되었습니다");

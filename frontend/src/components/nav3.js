@@ -28,7 +28,7 @@ function Nav3() {
       </div>
       <ul className="navbar__menu">
         <li>
-          <Link to="/perfume">PERFUME</Link>
+          <Link to="/perfume/main">PERFUME</Link>
         </li>
         <li>
           <Link to="/commu/main">COMMUNITY</Link>
@@ -37,20 +37,20 @@ function Nav3() {
           <Link to="/test">TEST</Link>
         </li>
       </ul>
-      {isLogined ? 
-      <ul className="navbar__icons">
-        <li>
-          <Link to="/myprofile">MY PROFILE</Link>
-        </li>
-        <li>
-          <Link to="/logout">LOGOUT</Link>
-        </li>
-      </ul> : 
-      <ul className="navbar__icons">
-        <li>
-          <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
-        </li>
-      </ul>
+      {isLogined ?
+        <ul className="navbar__icons">
+          <li>
+            <Link to="/myprofile">MY PROFILE</Link>
+          </li>
+          <li>
+            <Link to="/logout">LOGOUT</Link>
+          </li>
+        </ul> :
+        <ul className="navbar__icons">
+          <li>
+            <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
+          </li>
+        </ul>
       }
       {/* <a className="navbar__toogleBtn"><i className="fa-solid fa-bars"></i></a> */}
       <a className="navbar__toogleBtn" onClick={burgerbutton}><button className="fa-solid fa-bars burgerbutton"></button></a>

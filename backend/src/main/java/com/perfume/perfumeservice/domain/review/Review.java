@@ -6,11 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -18,11 +17,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "perfume_review")
-public class PerfumeReview {
+@Table(name = "review")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "perfume_reivew_id")
+    @Column(name = "reivew_id")
     private Long id;
 
     // perfume
@@ -46,12 +45,9 @@ public class PerfumeReview {
     // regdate - 보류
     // ?
 
-    // ???? - 보류
-    // tag1
-
-    // tag2
-
-    // tag3
+    // review_tag
+    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReviewTag> reviewTags = new LinkedList<ReviewTag>();
 
     // review_like
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

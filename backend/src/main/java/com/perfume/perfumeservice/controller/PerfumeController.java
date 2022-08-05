@@ -8,10 +8,16 @@ import com.perfume.perfumeservice.service.perfume.PerfumeService;
 import com.perfume.perfumeservice.service.perfume.PerfumeTagService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -511,5 +517,26 @@ public class PerfumeController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/getimg/{name}")
+    @ApiOperation(value = "향수 이미지 가져오기")
+    public ResponseEntity<Resource> getImg(@PathVariable String name){
+        String img = name.replaceAll(" ", "_");
+
+        String path = perfumeService.getImg(img);
+        Resource resource = new FileSystemResource(path);
+
+        HttpHeaders header = new HttpHeaders();
+        Path filePath = null;
+
+        try {
+            filePath = Paths.get(path);
+            header.add("Content-Type", Files.probeContentType(filePath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(resource, header, HttpStatus.OK);
     }
 }

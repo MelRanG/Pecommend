@@ -1,5 +1,5 @@
 // import { Outlet } from "react-router-dom";
-import { Link, Routes, Route } from "react-router-dom";
+import { NavLink, Link, Routes, Route } from "react-router-dom";
 import PerfumeList from "./perfumeList";
 import PerfumeDetail from "./perfumeDetail";
 import PerfumeMain from "./perfumeMain";
@@ -24,14 +24,14 @@ const Perfume = () => {
           <div className="pernav-header-menu">
             <div className="per-nav n3">
               <ul className="mb-0">
-                <li className="is-active">
-                  <Link to="">MAIN</Link>
+                <li>
+                  <NavLink to="main" className={({ isActive }) => (isActive ? "is-active" : "is-not")}>MAIN</NavLink>
                 </li>
                 <li>
-                  <Link to="list">LIST</Link>
+                  <NavLink to="list" className={({ isActive }) => (isActive ? "is-active" : "is-not")}>LIST</NavLink>
                 </li>
                 <li>
-                  <Link to="reglist">REGIST</Link>
+                  <NavLink to="reglist" className={({ isActive }) => (isActive ? "is-active" : "is-not")}>REGIST</NavLink>
                 </li>
               </ul>
             </div>
@@ -39,7 +39,7 @@ const Perfume = () => {
         </div>
       </div>
       <Routes>
-        <Route index element={<PerfumeMain />} />
+        <Route path="main" element={<PerfumeMain />} />
         <Route path="list" element={<PerfumeList />} />
         <Route path="detail/:num" element={<PerfumeDetail />} />
         <Route path="reglist" element={<PerfumeRegistList />} />

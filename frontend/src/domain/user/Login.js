@@ -5,14 +5,16 @@ import "./Login.css";
 import Nav from "../../components/nav";
 import Footer from "../../components/footer";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ajaxPrefilter } from "jquery";
 import { setUser } from "../../redux/user_reducer";
 import { authaxios, freeaxios } from "custom/customAxios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import { useCookies } from "react-cookie";
 
 function Login() {
+  const [cookies, setCookie, removeCookie] = useCookies(["saveId"]);
   const user = useSelector((state) => state.userStore.nowLoginUser);
 
   const dispatch = useDispatch();
@@ -32,6 +34,7 @@ function Login() {
   const [email_disabled, setEmailDisabled] = React.useState(false);
   const [check_disabled, setCheckDisabled] = React.useState(false);
   const [nick_check, setNickCheck] = React.useState(false);
+  const [remember, setRemember] = React.useState(false);
 
   const onIDhandler = (event) => {
     setId(event.currentTarget.value);
@@ -74,6 +77,10 @@ function Login() {
     setMbti(event.currentTarget.value);
   };
 
+  const onRememberHandler = (event) => {
+    setRemember(event.target.checked);
+  };
+
   const onSubmithandler = (event) => {
     event.preventDefault();
     let body = {
@@ -87,6 +94,12 @@ function Login() {
         if (response.status == 200) {
           sessionStorage.setItem("Auth", response.data.accessToken);
           sessionStorage.setItem("Refresh", response.data.refreshToken);
+
+          if (remember) {
+            setCookie("saveId", id, { maxAge: 60 * 60 * 24 * 30 });
+          } else {
+            removeCookie("saveId");
+          }
         }
       })
       .then(function () {
@@ -96,12 +109,19 @@ function Login() {
       })
       .catch(function (error) {
         Swal.fire({
-          icon: 'warning',
-          title: '실패',
-          text: 'ID, Password를 다시 확인해주세요.',
+          icon: "warning",
+          title: "실패",
+          text: "ID, Password를 다시 확인해주세요.",
         });
       });
   };
+
+  useEffect(() => {
+    if (cookies.saveId !== undefined) {
+      setId(cookies.saveId);
+      setRemember(true);
+    }
+  }, []);
 
   const getUserInfo = async () => {
     try {
@@ -114,7 +134,7 @@ function Login() {
         user_id: userInfo.data.user_id,
         email: userInfo.data.email,
         nickname: userInfo.data.nickname,
-        role: userInfo.data.role
+        role: userInfo.data.role,
       };
 
       saveUser(saveInfo);
@@ -132,19 +152,18 @@ function Login() {
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (regExp.test(email) === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '실패',
-        text: '이메일의 형식이 맞지 않습니다.',
+        icon: "warning",
+        title: "실패",
+        text: "이메일의 형식이 맞지 않습니다.",
       });
     } else {
-      
       Swal.fire({
-        icon: 'info',
-        title: 'Loading',
-        text: '잠시만 기다려주세요.' 
-      // <div class="spinner-border text-secondary" role="status">
-      //   <span class="visually-hidden">Loading...</span>
-      // </div>,
+        icon: "info",
+        title: "Loading",
+        text: "잠시만 기다려주세요.",
+        // <div class="spinner-border text-secondary" role="status">
+        //   <span class="visually-hidden">Loading...</span>
+        // </div>,
       });
       freeaxios
         .post("/api/v1/user/email-confirm.do", email)
@@ -152,27 +171,27 @@ function Login() {
           // false
           if (response.status == 200) {
             Swal.fire({
-              icon: 'success',
-              title: '성공',
-              text: '메일을 확인해주세요.',
+              icon: "success",
+              title: "성공",
+              text: "메일을 확인해주세요.",
             });
             setMatch(response.data);
             setEmailDisabled(true);
           } else {
             Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: '재시도 후 문의바랍니다.',
+              icon: "error",
+              title: "Error",
+              text: "재시도 후 문의바랍니다.",
             });
           }
           console.log(match);
         })
         .catch(function (error) {
-        // false
+          // false
           Swal.fire({
-            icon: 'warning',
-            title: '실패',
-            text: '이미 가입된 메일입니다.',
+            icon: "warning",
+            title: "실패",
+            text: "이미 가입된 메일입니다.",
           });
         });
     }
@@ -183,18 +202,18 @@ function Login() {
     event.preventDefault();
     console.log(match);
     console.log(cnum);
-    if (cnum === match && cnum !== '') {
+    if (cnum === match && cnum !== "") {
       Swal.fire({
-        icon: 'success',
-        title: '성공',
-        text: '인증이 완료되었습니다.',
+        icon: "success",
+        title: "성공",
+        text: "인증이 완료되었습니다.",
       });
       setCheckDisabled(true);
     } else {
       Swal.fire({
-        icon: 'warning',
-        title: '실패',
-        text: '인증 번호를 다시 확인해 주세요.',
+        icon: "warning",
+        title: "실패",
+        text: "인증 번호를 다시 확인해 주세요.",
       });
     }
   };
@@ -221,15 +240,15 @@ function Login() {
         .then(function (response) {
           if (response.data === true) {
             Swal.fire({
-              icon: 'warning',
-              title: '실패',
-              text: '이미 존재하는 닉네임입니다.',
+              icon: "warning",
+              title: "실패",
+              text: "이미 존재하는 닉네임입니다.",
             });
           } else {
             Swal.fire({
-              icon: 'success',
-              title: '성공',
-              text: '사용 가능한 닉네임입니다.',
+              icon: "success",
+              title: "성공",
+              text: "사용 가능한 닉네임입니다.",
             });
             setNickCheck(true);
             console.log(nick_check);
@@ -238,16 +257,16 @@ function Login() {
         .catch(function (error) {
           console.log(error);
           Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '재시도 후 문의바랍니다.',
+            icon: "error",
+            title: "Error",
+            text: "재시도 후 문의바랍니다.",
           });
         });
     } else {
       Swal.fire({
-        icon: 'warning',
-        title: '실패',
-        text: 'Nickname은 2~8자리만 가능합니다.',
+        icon: "warning",
+        title: "실패",
+        text: "Nickname은 2~8자리만 가능합니다.",
       });
     }
   };
@@ -257,44 +276,44 @@ function Login() {
     event.preventDefault();
     if (email_disabled === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '이메일',
-        text: '인증번호 받기가 필요합니다.',
+        icon: "warning",
+        title: "이메일",
+        text: "인증번호 받기가 필요합니다.",
       });
     } else if (check_disabled === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '인증번호',
-        text: '인증이 필요합니다.',
+        icon: "warning",
+        title: "인증번호",
+        text: "인증이 필요합니다.",
       });
     } else if (checkPassword(regist_pwd) === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '비밀번호',
-        text: '8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.',
+        icon: "warning",
+        title: "비밀번호",
+        text: "8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.",
       });
     } else if (regist_pwd !== pwdRe) {
       Swal.fire({
-        icon: 'warning',
-        title: '비밀번호 확인',
+        icon: "warning",
+        title: "비밀번호 확인",
         text: "'비밀번호 확인'을 다시 해주세요.",
       });
     } else if (nick_check === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '닉네임',
+        icon: "warning",
+        title: "닉네임",
         text: "닉네임 중복확인이 필요합니다.",
       });
     } else if (birth === "") {
       Swal.fire({
-        icon: 'warning',
-        title: '생일',
+        icon: "warning",
+        title: "생일",
         text: "생일을 선택해주세요.",
       });
     } else if (gender === "") {
       Swal.fire({
-        icon: 'warning',
-        title: '성별',
+        icon: "warning",
+        title: "성별",
         text: "성별을 선택해주세요.",
       });
     } else {
@@ -316,9 +335,9 @@ function Login() {
           if (response.status == 200) {
             console.log("!!regist!!");
             Swal.fire({
-              icon: 'success',
-              title: '성공',
-              text: '환영합니다!',
+              icon: "success",
+              title: "성공",
+              text: "환영합니다!",
             });
             document.location.href = "/login";
           } else {
@@ -356,6 +375,7 @@ function Login() {
                             name="lg-user-email"
                             placeholder="Email"
                             onChange={onIDhandler}
+                            value={id}
                           />
                           <input
                             type="password"
@@ -365,7 +385,11 @@ function Login() {
                           />
                           <div className="button-box">
                             <div className="login-toggle-btn">
-                              <input type="checkbox" />
+                              <input
+                                type="checkbox"
+                                onChange={onRememberHandler}
+                                checked={remember}
+                              />
                               <label>Remember me</label>
                               <a href="/searchpwd">Forgot Password?</a>
                             </div>
@@ -379,12 +403,21 @@ function Login() {
                         </form>
                       </div>
                       <div className="d-grid gap-2">
-                        <a href="http://localhost:8081/oauth2/authorization/naver" className="naver-login-btn mb-3">
-                          <button type="submit" className="naver-login-btn mb-3">
+                        <a
+                          href="http://localhost:8081/oauth2/authorization/naver"
+                          className="naver-login-btn mb-3"
+                        >
+                          <button
+                            type="submit"
+                            className="naver-login-btn mb-3"
+                          >
                             네이버 로그인
                           </button>
                         </a>
-                        <a className="google-login-btn" href="http://localhost:8081/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com">
+                        <a
+                          className="google-login-btn"
+                          href="http://localhost:8081/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com"
+                        >
                           <button type="submit" className="google-login-btn">
                             구글 로그인
                           </button>
@@ -399,7 +432,7 @@ function Login() {
                           <label>이메일</label>
                           {/* 이쁘게 하기 */}
                           {/* {abc==true? <div>전송중...</div>:<div></div>} */}
-                          
+
                           <button
                             class="btn"
                             style={{ float: "right" }}
@@ -472,10 +505,7 @@ function Login() {
                             id="male-check"
                             onChange={onGenderHandler}
                           />
-                          <label
-                            for="male-check"
-                            className="form-check-label"
-                          >
+                          <label for="male-check" className="form-check-label">
                             남성
                           </label>
                           <input

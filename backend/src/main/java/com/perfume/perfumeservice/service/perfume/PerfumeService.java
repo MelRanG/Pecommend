@@ -14,4 +14,6 @@ public interface PerfumeService {
 
     PerfumeResponseDto getPerfume(Long id);
 
+    String getImg(String img);
+
 }
