@@ -1,9 +1,9 @@
 INSERT into users(email, nickname, password, birthday, gender, mbti, role, token)
-values('tttt@naver.com', 'asd', '123', '111', '남', 'sess', 'ROLE_USER', 'asdasd');
+values('admin', 'admin', '$2a$10$3x4TK8CNgpBT13pZgjh7fOjnJyNcEE3hlotzsgdDSOFRAr/byl9HK', '1990-10-01', '남', 'X', 'ROLE_ADMIN', '');
 INSERT into users(email, nickname, password, birthday, gender, mbti, role, token)
-values('tttt@naver.com1', 'asd1', '1231', '1121', '남', 'sess', 'ROLE_USER', 'asdasd');
+values('abc@naver.com', 'abc', '123', '2000-01-01', '남', 'isfj', 'ROLE_USER', '');
 INSERT into users(email, nickname, password, birthday, gender, mbti, role, token)
-values('tttt@nave3r.com', 'as3d', '1233', '1131', '남', 'sess', 'ROLE_USER', 'asdasd');
+values('qwe@naver.com', 'qwe', '123', '2010-11-11', '여', 'enfp', 'ROLE_USER', '');
 
 
 INSERT into community(category, user_id, title, content, created_date, modified_date) values (1,1, '제목1', '내용1', now(), now());

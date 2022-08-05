@@ -512,4 +512,8 @@ public class PerfumeController {
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
+
+//    @GetMapping("/getimg/{name}")
+//    @ApiOperation(value = "향수 이미지 가져오기")
+//    public ResponseEntity<Resource>
 }
