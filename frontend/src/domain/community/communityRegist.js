@@ -12,9 +12,15 @@ function CommunityRegist ()  {
     const user = useSelector(state => state.userStore.nowLoginUser);
 
     useEffect(()=>{
-        console.log(user)
+        usercheck()
     })
 
+    const usercheck = () => {
+        if (user.user_id == null) {
+            alert("올바르지 못한 접근입니다!")
+            navigate("/commu/main", { replace: true })
+          }
+    }
 
     let navigate = useNavigate()
     const [formValue, setForm] = useState({
@@ -112,7 +118,14 @@ function CommunityRegist ()  {
                                 {/* {
                                     user.
                                 } */}
-                                <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
+                                {/* <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li> */}
+                                {
+                                    (user.role == "ROLE_ADMIN")
+                                    ? <>
+                                        <li><a className="dropdown-item" name="category" onClick={categoryChangehandler} id="4">공지</a></li>
+                                    </>
+                                    : <></>
+                                }
                             </ul>
                         </div>
                     </div>
