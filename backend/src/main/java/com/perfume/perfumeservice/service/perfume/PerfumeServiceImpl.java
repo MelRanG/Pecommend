@@ -42,6 +42,18 @@ public class PerfumeServiceImpl  implements PerfumeService {
     }
 
     @Override
+    public List<PerfumeResponseDto> getListHashTag(List<Long> tags){
+        List<Perfume> perfumeList = perfumeRepository.findByTags(tags);
+
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeList){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+
+        return dtoList;
+    }
+
+    @Override
     public List<PerfumeResponseDto> getListKeyword(String keyword) {
         // keyword가 한글인지 영어(숫자)인지 확인해서 검색하기
 
