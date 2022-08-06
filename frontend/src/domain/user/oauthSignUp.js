@@ -20,6 +20,7 @@ function OauthSignUp() {
   const [gender, setGender] = React.useState("");
   const [mbti, setMbti] = React.useState("비공개");
   const [nick_check, setNickCheck] = React.useState(false);
+  const [introduction, setIntroduction] = React.useState("");
 
   useEffect(() => {
     authaxios
@@ -57,6 +58,20 @@ function OauthSignUp() {
 
   const onMbtiHandler = (event) => {
     setMbti(event.currentTarget.value);
+  };
+
+  const onIntroduction = (event) => {
+    setIntroduction(event.currentTarget.value);
+  };
+
+  const checkAge = (data) => {
+    const nums = data.split("-");
+    const today = new Date();
+    const birthDate = new Date(nums[0], nums[1], nums[2]);
+
+    let age = today.getFullYear() - birthDate.getFullYear() + 1;
+
+    return parseInt(age / 10) * 10;
   };
 
   // 비밀번호 유효성 검사
@@ -140,6 +155,12 @@ function OauthSignUp() {
         title: "생일",
         text: "생일을 선택해주세요.",
       });
+    } else if (checkAge(birth) < 10) {
+      Swal.fire({
+        icon: "warning",
+        title: "생일",
+        text: "10세 이상만 가입 가능합니다.",
+      });
     } else if (gender === "") {
       Swal.fire({
         icon: "warning",
@@ -153,7 +174,7 @@ function OauthSignUp() {
         birthday: birth,
         gender: gender,
         mbti: mbti,
-        introduction: "",
+        introduction: introduction,
       };
 
       authaxios
@@ -262,7 +283,7 @@ function OauthSignUp() {
                           </label>
                           <br />
                           <br />
-                          <label>MBTI</label>
+                          <label>MBTI (선택)</label>
                           <select
                             name="mbti"
                             className="form-select"
@@ -286,6 +307,13 @@ function OauthSignUp() {
                             <option value="ENFJ">ENFJ</option>
                             <option value="ENFP">ENFP</option>
                           </select>
+                          <label>프로필 소개 (선택)</label>
+                          <input
+                            name="introduction"
+                            placeholder="프로필 소개"
+                            type="text"
+                            onChange={onIntroduction}
+                          />
                           <div className="button-box">
                             <button type="submit">
                               <span>가입</span>
