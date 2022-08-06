@@ -27,6 +27,8 @@ public class ReviewResponseDto {
     private int reviewDisLike;
     private List<Long> tags;
     private List<String> tagNames;
+    private String createdDate;
+    private String modifiedDate;
 
 
     public static ReviewResponseDto from(Review review, List<ReviewTag> rtList){
@@ -44,6 +46,11 @@ public class ReviewResponseDto {
             tagNameList.add(rt.getTag().getTagName());
         }
 
+        String cDate = review.getCreatedDate().toString().substring(0, 10);
+        String cTime = review.getCreatedDate().toString().substring(11, 19);
+        String mDate = review.getModifiedDate().toString().substring(0, 10);
+        String mTime = review.getModifiedDate().toString().substring(11, 19);
+
         return ReviewResponseDto.builder()
                 .id(review.getId())
                 .content(review.getContent())
@@ -54,6 +61,8 @@ public class ReviewResponseDto {
                 .reviewDisLike(dislikes)
                 .tags(tagList)
                 .tagNames(tagNameList)
+                .createdDate(cDate + " " + cTime)
+                .modifiedDate(mDate + " " + mTime)
                 .build();
     }
 }
