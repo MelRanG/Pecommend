@@ -243,4 +243,28 @@ public class ReviewServiceImpl implements ReviewService{
             }
         }
     }
+
+    @Override
+    public List<ReviewResponseDto> getLikeList(Long id) {
+        List<Review> rList = reviewRepository.findReviewLikePerfumeUser(id);
+        List<ReviewResponseDto> dtoList = new LinkedList<>();
+
+        for(Review r: rList){
+            dtoList.add(ReviewResponseDto.from(r, r.getReviewTags()));
+        }
+
+        return dtoList;
+    }
+
+    @Override
+    public List<ReviewResponseDto> getDisLikeList(Long id) {
+        List<Review> rList = reviewRepository.findReviewDisLikePerfumeUser(id);
+        List<ReviewResponseDto> dtoList = new LinkedList<>();
+
+        for(Review r: rList){
+            dtoList.add(ReviewResponseDto.from(r, r.getReviewTags()));
+        }
+
+        return dtoList;
+    }
 }

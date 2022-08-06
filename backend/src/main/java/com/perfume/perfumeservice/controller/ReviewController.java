@@ -45,13 +45,25 @@ public class ReviewController {
         return new ResponseEntity<>(reviewService.getList(id, order), HttpStatus.OK);
     }
 
-    @PostMapping("/like")
+    @GetMapping("/list/like/{id}")
+    @ApiOperation(value = "선호하는 사람이 작성한 향수 리뷰 조회")
+    public ResponseEntity<List<ReviewResponseDto>> getLikeList(@PathVariable Long id){
+        return new ResponseEntity<>(reviewService.getLikeList(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/list/dislike/{id}")
+    @ApiOperation(value = "비선호하는 사람이 작성한 향수 리뷰 조회")
+    public ResponseEntity<List<ReviewResponseDto>> getDisLikeList(@PathVariable Long id){
+        return new ResponseEntity<>(reviewService.getDisLikeList(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/review/like")
     @ApiOperation(value = "향수 리뷰 좋아요")
     public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
         return new ResponseEntity<>(reviewService.addLike(map), HttpStatus.OK);
     }
 
-    @PostMapping("/dislike")
+    @PostMapping("/review/dislike")
     @ApiOperation(value = "향수 리뷰 싫어요")
     public ResponseEntity<String> addDisLike(@RequestBody Map<String, Long> map){
         return new ResponseEntity<>(reviewService.addDisLike(map), HttpStatus.OK);
