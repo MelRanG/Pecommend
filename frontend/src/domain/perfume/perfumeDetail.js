@@ -47,8 +47,8 @@ const PerfumeDetail = () => {
   const [reviewContent, setReviewContent] = useState(""); //리뷰작성내용
   const [reviewOrder, setReviewOrder] = useState("new"); //리뷰정렬 기본 최신순
   const [ldList, setLdList] = useState({});
+  const [updaterating, setUpdateRating] = useState(0);
   let [tab, setTab] = useState(1); // 좋아싫어탭
-
 
   const getPerfumeDetail = async () => {
     try {
@@ -110,24 +110,21 @@ const PerfumeDetail = () => {
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/review/list/" + number + "?order=" + reviewOrder,
-
       });
       console.log("review", response.data);
       // const commentdata = response.data
       // setPageComment(commentdata)
       // console.log("댓글", pageComment)
       setReview(response.data);
-
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getPerfumeDetail();
     get좋아싫어리스트();
     getReview();
-
   }, []);
 
   //노트구분하기 -> 안씀
@@ -168,6 +165,10 @@ const PerfumeDetail = () => {
     console.log("별점", rating);
   };
 
+  const handleUpdateRating = (rate: number) => {
+    setUpdateRating(rate / 20);
+  };
+
   //좋아요
   const recommend = async () => {
     console.log("좋아요", user);
@@ -192,7 +193,6 @@ const PerfumeDetail = () => {
             userId: user.user_id,
           };
           console.log("temp", temp);
-
         }
         if (response.data == "CANCEL") {
           alert("싫어요누른사람");
@@ -230,7 +230,6 @@ const PerfumeDetail = () => {
             userId: user.user_id,
           };
           console.log("temp", temp);
-
         }
         if (response.data == "CANCEL") {
           alert("좋아요누른사람");
@@ -268,9 +267,9 @@ const PerfumeDetail = () => {
         });
         console.log(response);
         if (response.status === 200) {
-          console.log("리뷰작성완료")
+          console.log("리뷰작성완료");
           //리뷰작성창 초기화
-          document.getElementById("reviewValue").value = '';
+          document.getElementById("reviewValue").value = "";
           //다시불러오기
           getReview();
         }
@@ -286,7 +285,7 @@ const PerfumeDetail = () => {
     // alert(e.target.id);
     // console.log(e.target.id);
     if (result) {
-      console.log(e.target.id)
+      console.log(e.target.id);
       try {
         const response = await authaxios({
           method: "delete",
@@ -303,25 +302,26 @@ const PerfumeDetail = () => {
       }
       getReview();
     } else {
-
     }
-  }
+  };
 
-  //리뷰수정 여기도 1000자 ? 
+  //리뷰수정 여기도 1000자 ?
   const clickReviewEditCommit = async (e) => {
     e.preventDefault();
     console.log("리뷰수정", e.target.id);
     try {
-      const commentBox = document.getElementById("review-content-" + e.target.id)
+      const commentBox = document.getElementById(
+        "review-content-" + e.target.id,
+      );
       const response = await authaxios({
         method: "patch",
         url: "/api/v1/review/" + e.target.id,
         data: {
           content: commentBox.value,
-          // score: 5,
-          // tags,
-          // perfume_id,
-          // user_id,
+          score: updaterating,
+          tags: [3],
+          perfume_id: perfumeDetail.perfumeId,
+          user_id: user.user_id,
         },
         // headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -329,9 +329,15 @@ const PerfumeDetail = () => {
       });
       console.log(response);
       if (response.status === 200) {
-        const commentBox = document.getElementById("review-content-" + e.target.id)
-        const commentButtonBox1 = document.getElementById("review-button-set1-" + e.target.id)
-        const commentButtonBox2 = document.getElementById("review-button-set2-" + e.target.id)
+        const commentBox = document.getElementById(
+          "review-content-" + e.target.id,
+        );
+        const commentButtonBox1 = document.getElementById(
+          "review-button-set1-" + e.target.id,
+        );
+        const commentButtonBox2 = document.getElementById(
+          "review-button-set2-" + e.target.id,
+        );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
         commentBox.readOnly = true;
@@ -340,39 +346,45 @@ const PerfumeDetail = () => {
     } catch (error) {
       console.log(error);
     }
-  }
-
+  };
 
   //수정버튼클릭
   const clickReviewEdit = (e) => {
     // console.log("clickReviewEdit", data);
     e.preventDefault();
-    const commentBox = document.getElementById("review-content-" + e.target.id)
-    console.log(commentBox)
-    commentBox.setAttribute("name", commentBox.value)
-    const commentButtonBox1 = document.getElementById("review-button-set1-" + e.target.id)
-    const commentButtonBox2 = document.getElementById("review-button-set2-" + e.target.id)
-    console.log(commentButtonBox1, commentButtonBox2)
+    const commentBox = document.getElementById("review-content-" + e.target.id);
+    console.log(commentBox);
+    commentBox.setAttribute("name", commentBox.value);
+    const commentButtonBox1 = document.getElementById(
+      "review-button-set1-" + e.target.id,
+    );
+    const commentButtonBox2 = document.getElementById(
+      "review-button-set2-" + e.target.id,
+    );
+    console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = true;
     commentButtonBox2.hidden = false;
-    console.log(commentBox)
+    console.log(commentBox);
     commentBox.readOnly = false;
-  }
+  };
 
   //수정버튼 -> 취소
   const clickReviewEditRemove = (e) => {
     e.preventDefault();
-    const commentBox = document.getElementById("review-content-" + e.target.id)
-    const commentButtonBox1 = document.getElementById("review-button-set1-" + e.target.id)
-    const commentButtonBox2 = document.getElementById("review-button-set2-" + e.target.id)
-    console.log(commentButtonBox1, commentButtonBox2)
+    const commentBox = document.getElementById("review-content-" + e.target.id);
+    const commentButtonBox1 = document.getElementById(
+      "review-button-set1-" + e.target.id,
+    );
+    const commentButtonBox2 = document.getElementById(
+      "review-button-set2-" + e.target.id,
+    );
+    console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = false;
     commentButtonBox2.hidden = true;
-    commentBox.value = commentBox.getAttribute('name')
+    commentBox.value = commentBox.getAttribute("name");
     commentBox.readOnly = true;
     getArticleComment();
-  }
-
+  };
 
   // 리뷰내용변경될때마다. 1000자 제한걸기
   const reviewChange = (e) => {
@@ -380,8 +392,7 @@ const PerfumeDetail = () => {
     // console.log(value, name);
     setReviewContent(value);
     // console.log(reviewContent);
-  }
-
+  };
 
   let [btnActive, setBtnActive] = useState(false); //버튼
   const toggleActive = (e) => {
@@ -542,7 +553,6 @@ const PerfumeDetail = () => {
                       }}
                     >
                       <span className="glyphicon glyphicon-thumbs-up"></span>
-
                     </a>
                   </div>
                   <div className="col-8 ">
@@ -806,7 +816,11 @@ const PerfumeDetail = () => {
                     <em>{reviewContent.length}</em>/1000자{" "}
                   </span>
                 </div>
-                <button type="button" className="btnSizeL comment_submit" onClick={reviewWrite}>
+                <button
+                  type="button"
+                  className="btnSizeL comment_submit"
+                  onClick={reviewWrite}
+                >
                   댓글 등록
                 </button>
               </div>
@@ -840,7 +854,13 @@ const PerfumeDetail = () => {
               {/* 좋아요 / 싫어요 / 최신순 정렬 */}
               <div className="detail-review-sort mt-10">
                 <div>
-                  <div className="form-check" onClick={() => { setReviewOrder("new"); getReview(); }}>
+                  <div
+                    className="form-check"
+                    onClick={() => {
+                      setReviewOrder("new");
+                      getReview();
+                    }}
+                  >
                     <input
                       className="form-check-input"
                       type="radio"
@@ -856,23 +876,33 @@ const PerfumeDetail = () => {
                       최신순
                     </label>
                   </div>
-                  <div className="form-check" onClick={() => { setReviewOrder("best"); getReview(); }}>
+                  <div
+                    className="form-check"
+                    onClick={() => {
+                      setReviewOrder("best");
+                      getReview();
+                    }}
+                  >
                     <input
                       className="form-check-input"
                       type="radio"
                       name="flexRadioDefault"
                       id="flexRadioDefault2"
-
                     />
                     <label
                       className="form-check-label"
                       htmlFor="flexRadioDefault2"
-
                     >
                       추천순
                     </label>
                   </div>
-                  <div className="form-check" onClick={() => { setReviewOrder("old"); getReview(); }}>
+                  <div
+                    className="form-check"
+                    onClick={() => {
+                      setReviewOrder("old");
+                      getReview();
+                    }}
+                  >
                     <input
                       className="form-check-input"
                       type="radio"
@@ -925,7 +955,7 @@ const PerfumeDetail = () => {
               <div className="detail-line"></div>
 
               {/* 리뷰내용 */}
-              {review.map(data => (
+              {review.map((data) => (
                 <div className="row mt-10">
                   <div className="ratting-form-wrapper">
                     <div className="ratting-form">
@@ -955,7 +985,14 @@ const PerfumeDetail = () => {
                               <i className="fa fa-star"></i>
                             </div>
                             <div className="review-text form-submit">
-                              <textarea readOnly rows="3" name="" id={`review-content-${data.id}`}>{data.content}</textarea>
+                              <textarea
+                                readOnly
+                                rows="3"
+                                name=""
+                                id={`review-content-${data.id}`}
+                              >
+                                {data.content}
+                              </textarea>
                             </div>
                           </div>
 
@@ -963,34 +1000,77 @@ const PerfumeDetail = () => {
                             <span className="review-text-profile-img">
                               <img src="assets/img/testimonial/1.jpg" alt="" />
                             </span>
-                            <span>&nbsp; {data.user} 님 ({data.score}점)</span>
+                            <span>
+                              &nbsp; {data.user} 님 ({data.score}점)
+                            </span>
                           </div>
                           <div className="col-md-3 review-text-like">
-
-                            {user.user_id === data.user_id ?
+                            {user.user_id === data.user_id ? (
                               <>
-                                <div className="review-button-set" id={`review-button-set1-${data.id}`}>
-                                  <button className="review-remove"
+                                <div
+                                  className="review-button-set"
+                                  id={`review-button-set1-${data.id}`}
+                                >
+                                  <button
+                                    className="review-remove"
                                     onClick={clickReviewRemove}
                                     id={`${data.id}`}
-                                  >삭제</button>
-                                  <button className="review-edit"
+                                  >
+                                    삭제
+                                  </button>
+                                  <button
+                                    className="review-edit"
                                     onClick={clickReviewEdit}
                                     id={`${data.id}`}
-                                  >수정</button>
+                                  >
+                                    수정
+                                  </button>
                                 </div>
-                                <div className="review-button-set" id={`review-button-set2-${data.id}`} hidden>
-                                  <button className="edit-remove" onClick={clickReviewEditRemove} id={`${data.id}`}>취소</button>
-                                  <button className="edit-commit" onClick={clickReviewEditCommit} id={`${data.id}`}>확인</button>
+                                <div
+                                  className="review-button-set"
+                                  id={`review-button-set2-${data.id}`}
+                                  hidden
+                                >
+                                  <span>
+                                    <Rating
+                                      onClick={handleUpdateRating}
+                                      ratingValue={
+                                        updaterating
+                                      } /* Available Props */
+                                    />
+                                    {updaterating}점
+                                    <div className="image_add_wrap">
+                                      <button
+                                        type="button"
+                                        className="btn_image_add"
+                                      >
+                                        해시태그 선택
+                                      </button>
+                                      *필수사항X
+                                    </div>
+                                  </span>
+                                  <button
+                                    className="edit-remove"
+                                    onClick={clickReviewEditRemove}
+                                    id={`${data.id}`}
+                                  >
+                                    취소
+                                  </button>
+                                  <button
+                                    className="edit-commit"
+                                    onClick={clickReviewEditCommit}
+                                    id={`${data.id}`}
+                                  >
+                                    확인
+                                  </button>
                                 </div>
                               </>
-
-                              :
+                            ) : (
                               <>
                                 <span className="glyphicon glyphicon-thumbs-up"></span>
                                 <span className="glyphicon glyphicon-thumbs-down"></span>
                               </>
-                            }
+                            )}
                           </div>
                         </div>
                       </form>
@@ -1044,13 +1124,11 @@ const PerfumeDetail = () => {
                   </div>
                 </div>
               </div> */}
-
-
             </div>
           </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 export default PerfumeDetail;

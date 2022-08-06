@@ -25,7 +25,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviewService.writeReview(reviewDto), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @ApiOperation(value = "향수 리뷰 수정")
     public ResponseEntity<ReviewResponseDto> updateReview(@PathVariable Long id, @RequestBody ReviewRequestDto reviewDto){
 
