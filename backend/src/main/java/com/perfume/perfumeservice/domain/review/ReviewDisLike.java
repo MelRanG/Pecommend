@@ -22,7 +22,7 @@ public class ReviewDisLike {
 
     // perfume_review
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "perfume_reivew_id")
+    @JoinColumn(name = "review_id")
     private Review review;
 
     // user
