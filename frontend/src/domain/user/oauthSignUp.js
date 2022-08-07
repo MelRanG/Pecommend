@@ -10,6 +10,8 @@ function OauthSignUp() {
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
 
+  const isLogined = useSelector((state) => state.userStore.isLogined);
+
   const [id, setId] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState("");
@@ -22,6 +24,10 @@ function OauthSignUp() {
   const [nick_check, setNickCheck] = React.useState(false);
 
   useEffect(() => {
+    if (isLogined === true) {
+      window.location.href = "/";
+    }
+
     authaxios
       .get("/api/v1/user/myinfo")
       .then((userInfo) => {

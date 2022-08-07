@@ -38,4 +38,5 @@ public interface PerfumeDislikeRepository extends JpaRepository<PerfumeDislike, 
             , nativeQuery = true
     )
     List<PerfumeLDCount> findPerfumeDislikeDislikeWithJPQL(Long id);
+    List<PerfumeDislike> findByUser(UserEntity user);
 }

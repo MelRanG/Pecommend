@@ -22,6 +22,4 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
 
 
 
-
-
 }

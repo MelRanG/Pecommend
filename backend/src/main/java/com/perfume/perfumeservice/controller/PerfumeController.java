@@ -555,4 +555,16 @@ public class PerfumeController {
 
         return new ResponseEntity<>(resource, header, HttpStatus.OK);
     }
+
+    @GetMapping("/likelist/{userId}")
+    @ApiOperation(value = "선호 리스트")
+    public ResponseEntity<List<PerfumeResponseDto>> getLikeList(@PathVariable Long userId){
+        return new ResponseEntity<>(perfumeLikeService.getLikeList(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/dislikelist/{userId}")
+    @ApiOperation(value = "비선호 리스트")
+    public ResponseEntity<List<PerfumeResponseDto>> getDisLikeList(@PathVariable Long userId){
+        return new ResponseEntity<>(perfumeLikeService.getDisLikeList(userId), HttpStatus.OK);
+    }
 }
