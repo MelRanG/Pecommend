@@ -1,9 +1,6 @@
 package com.perfume.perfumeservice.service.comment;
 
-import com.perfume.perfumeservice.domain.comment.Comment;
-import com.perfume.perfumeservice.domain.comment.CommentLike;
-import com.perfume.perfumeservice.domain.comment.CommentLikeRepository;
-import com.perfume.perfumeservice.domain.comment.CommentRepository;
+import com.perfume.perfumeservice.domain.comment.*;
 import com.perfume.perfumeservice.domain.community.Community;
 import com.perfume.perfumeservice.domain.community.CommunityRepository;
 import com.perfume.perfumeservice.domain.user.UserEntity;
@@ -31,6 +28,7 @@ public class CommentServiceImpl implements CommentService{
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
     private final CommentLikeRepository commentLikeRepository;
+    private final CommentDisLikeRepository commentDisLikeRepository;
 
     @Override
     public List<CommentsResponseDto> getList(Long id) {
@@ -40,7 +38,6 @@ public class CommentServiceImpl implements CommentService{
                 .forEach(c -> {
                     CommentsResponseDto dto = CommentsResponseDto.from(c);
                     map.put(dto.getId(), dto);
-                    System.out.println("출력: " + map.get(dto.getId()).toString());
                     if(c.getParent() != null) {
 
                         List<CommentsResponseDto> childList = map.get(c.getParent().getId()).getChildren();
@@ -101,6 +98,8 @@ public class CommentServiceImpl implements CommentService{
     public String addLike(Long userId, Long commentId) {
         UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
+        Optional<CommentDisLike> dislike = commentDisLikeRepository.findByUserAndComment(user, comment);
+        if(dislike.isPresent()) return "X";
 
         Optional<CommentLike> like = commentLikeRepository.findByUserAndComment(user, comment);
         if(like.isPresent()) {
@@ -109,6 +108,26 @@ public class CommentServiceImpl implements CommentService{
         }
         else{
             commentLikeRepository.save(CommentLike.builder()
+                            .comment(comment)
+                            .user(user)
+                            .build());
+            return "ADD";
+        }
+    }
+
+    @Override
+    public String addDisLike(Long userId, Long commentId) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
+        Optional<CommentLike> like = commentLikeRepository.findByUserAndComment(user, comment);
+        if(like.isPresent()) return "X";
+
+        Optional<CommentDisLike> dislike = commentDisLikeRepository.findByUserAndComment(user, comment);
+        if(dislike.isPresent()){
+            commentDisLikeRepository.delete(dislike.get());
+            return "CANCEL";
+        }else{
+            commentDisLikeRepository.save(CommentDisLike.builder()
                             .comment(comment)
                             .user(user)
                             .build());

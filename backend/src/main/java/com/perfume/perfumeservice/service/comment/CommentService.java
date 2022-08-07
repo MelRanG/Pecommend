@@ -15,4 +15,6 @@ public interface CommentService {
 
     void deleteComment(Long id);
     String addLike(Long userId, Long commentId);
+
+    String addDisLike(Long userId, Long commentId);
 }

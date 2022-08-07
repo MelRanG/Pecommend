@@ -47,6 +47,9 @@ public class Comment extends BaseTime {
     @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CommentLike> commentLikes = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CommentDisLike> commentDisLikes = new LinkedHashSet<>();
+
     public void patch(Comment comment){
         if(comment.getContent() != null)
             this.content = comment.content;
