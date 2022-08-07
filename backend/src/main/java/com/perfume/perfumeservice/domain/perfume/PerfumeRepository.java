@@ -24,5 +24,8 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
         "select * from perfume p order by (select count(*) from perfume_like pl where p.perfume_id=pl.perfume_id) desc"
     )
     public List<Perfume> findAllOrderByLikes();
+    //public List<Perfume> findByKoNameLikeOrEnNameLike(String koName, String enName);
+
+    public List<Perfume> findByKoNameLikeOrEnNameLikeIgnoreCase(String koName, String enName);
 
 }

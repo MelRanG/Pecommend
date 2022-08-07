@@ -100,7 +100,7 @@ public class PerfumeController {
     }
 
     @GetMapping("/list/{keyword}")
-    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그)")
+    @ApiOperation(value = "향수 이름으로 검색 (대소문자 무시) (+ 해시태그)")
     public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
         List<Map<String, Object>> dtoList = new LinkedList<>();
