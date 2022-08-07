@@ -337,6 +337,12 @@ function Login() {
         title: "성별",
         text: "성별을 선택해주세요.",
       });
+    } else if (introduction.length > 60) {
+      Swal.fire({
+        icon: "warning",
+        title: "프로필 소개",
+        text: "소개는 60자 이하만 가능합니다.",
+      });
     } else {
       let body = {
         email: email,
@@ -572,7 +578,7 @@ function Login() {
                           <label>프로필 소개 (선택)</label>
                           <input
                             name="introduction"
-                            placeholder="프로필 소개"
+                            placeholder="소개는 60자 이하만 가능합니다."
                             type="text"
                             onChange={onIntroduction}
                           />
