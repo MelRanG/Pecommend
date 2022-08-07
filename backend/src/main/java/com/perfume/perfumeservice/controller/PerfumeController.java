@@ -199,6 +199,8 @@ public class PerfumeController {
         map.put("plDto", plDto);
         map.put("pdDto", pdDto);
         map.put("likeRatio", likeRatio);// 좋아요 비율
+        map.put("likeCnt", plDto.size());
+        map.put("dislikeCnt", pdDto.size());
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
@@ -569,7 +571,7 @@ public class PerfumeController {
     }
 
     @GetMapping("/best")
-    @ApiOperation(value = "인기 향수 리스트")
+    @ApiOperation(value = "인기 향수 리스트 12개")
     public ResponseEntity<List<Map<String, Object>>> getBestList(){
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getBestList();
         List<Map<String, Object>> dtoList = new LinkedList<>();
