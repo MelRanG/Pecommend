@@ -116,12 +116,13 @@ function CommunityEdit ()  {
         }
       };
 
+    const returnPage = (e) => {
+        e.preventDefault()
+        navigate(-1)
+    }
+
     return (
         <div className="communityRegist">
-            <Nav />
-            <div className='community-regist-head'>
-                <span>글수정</span>
-            </div>
             <form onSubmit={handleSubmit}>
             <div className='community-regist-topbar'>
                 <div className="regist-topbar-item">
@@ -179,7 +180,7 @@ function CommunityEdit ()  {
                 <button className="regist-submit">
                     등록하기
                 </button>
-                <button className='regist-cancel'>
+                <button className='regist-cancel' onClick={returnPage}>
                     취소하기
                 </button>
             </div>
