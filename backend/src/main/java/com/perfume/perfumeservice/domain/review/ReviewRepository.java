@@ -31,4 +31,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
                     "order by r.review_id desc"
     )
     List<Review> findReviewDisLikePerfumeUser(@Param("perfume_id") Long perfumeId);
+    List<Review> findAllByOrderByIdDesc();
 }

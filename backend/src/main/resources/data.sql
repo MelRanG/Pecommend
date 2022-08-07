@@ -43,7 +43,7 @@ INSERT into comment(community_id, user_id, content) values (1,1, '내용5');
 -- INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름5', 'perfume5');
 
 INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향1', 'p2');
-INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수2', 'er2');
+INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수2', 'Er2');
 INSERT into perfume(perfume_name_ko, perfume_name_en) values ('수이3', 'f3');
 INSERT into perfume(perfume_name_ko, perfume_name_en) values ('이름4', 'u4');
 INSERT into perfume(perfume_name_ko, perfume_name_en) values ('름5', 'me5');

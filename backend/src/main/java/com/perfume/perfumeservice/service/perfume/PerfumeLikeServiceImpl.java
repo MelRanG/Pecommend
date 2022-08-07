@@ -5,6 +5,9 @@ import com.perfume.perfumeservice.domain.user.UserEntity;
 import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.perfume.PerfumeDislikeResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeLikeResponseDto;
+import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
+import com.perfume.perfumeservice.exception.perfume.PerfumeNotFoundException;
+import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -248,5 +251,58 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         return perfumeDislikeRepository.findPerfumeDislikeDislikeWithJPQL(id);
     }
 
+    @Override
+    public List<PerfumeResponseDto> getLikeList(Long userId) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        List<Perfume> perfumeList = new LinkedList<>();
+        List<PerfumeLike> plList = perfumeLikeRepository.findByUser(user);
+        List<PerfumeResponseDto> list = new LinkedList<>();
 
+        for(PerfumeLike pl: plList){
+            Perfume p = pl.getPerfume();
+            perfumeList.add(p);
+        }
+
+        for(Perfume p: perfumeList){
+            list.add(PerfumeResponseDto.from(p));
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<PerfumeResponseDto> getDisLikeList(Long userId) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        List<Perfume> perfumeList = new LinkedList<>();
+        List<PerfumeDislike> plList = perfumeDislikeRepository.findByUser(user);
+        List<PerfumeResponseDto> list = new LinkedList<>();
+
+        for(PerfumeDislike pl: plList){
+            Perfume p = pl.getPerfume();
+            perfumeList.add(p);
+        }
+
+        for(Perfume p: perfumeList){
+            list.add(PerfumeResponseDto.from(p));
+        }
+
+        return list;
+    }
+
+    @Override
+    public int checkLike(Long userId, Long perfumeId) {
+        // 좋아하면 1, 싫어하면 -1, 없으면 0
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(PerfumeNotFoundException::new);
+        Optional<PerfumeLike> pl = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+        Optional<PerfumeDislike> pdl = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
+
+        if(pl.isPresent()){
+            return 1;
+        }else if(pdl.isPresent()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
 }

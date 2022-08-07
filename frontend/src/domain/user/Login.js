@@ -15,7 +15,7 @@ import { useCookies } from "react-cookie";
 
 function Login() {
   const [cookies, setCookie, removeCookie] = useCookies(["saveId"]);
-  const user = useSelector((state) => state.userStore.nowLoginUser);
+  const isLogined = useSelector((state) => state.userStore.isLogined);
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
@@ -117,6 +117,10 @@ function Login() {
   };
 
   useEffect(() => {
+    if (isLogined === true) {
+      window.location.href = "/";
+    }
+
     if (cookies.saveId !== undefined) {
       setId(cookies.saveId);
       setRemember(true);
