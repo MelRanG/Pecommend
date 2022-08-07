@@ -44,12 +44,14 @@ const PerfumeDetail = () => {
   const [noteDetail, setNoteDetail] = useState([]); //노트
   const [tagDetail, setTagDetail] = useState([]); //해시태그
   const [ldlRate, setLdlRate] = useState(0);
+  const [reviewScore, setReviewScore] = useState("");
   const [review, setReview] = useState([]); //리뷰
+  const [reviewCount, setReviewCount] = useState(0); //리뷰 개수
   const [reviewContent, setReviewContent] = useState(""); //리뷰작성내용
   const [reviewOrder, setReviewOrder] = useState("new"); //리뷰정렬 기본 최신순
   const [ldList, setLdList] = useState({});
   const [updaterating, setUpdateRating] = useState(0);
-  const [likeOrDisLike, setLikeOrDisLike] = useState(0);
+  const [likeOrDisLike, setLikeOrDisLike] = useState(0); //해당 유저가 이 향수를 좋아하는지 싫어하는지 1 : 좋아 -1 : 싫어 0:안누름
   let [tab, setTab] = useState(1); // 좋아싫어탭
 
   const getPerfumeDetail = async () => {
@@ -74,7 +76,7 @@ const PerfumeDetail = () => {
         // setDislikeList(response.data.pdDto);
         setLdlRate(response.data.likeRatio);
 
-        console.log("비율", ldlRate);
+        // console.log("비율", ldlRate);
         // console.log("noteDetail");
         // console.log(noteDetail);
         // setNote(noteDetail);
@@ -114,10 +116,12 @@ const PerfumeDetail = () => {
         url: "/api/v1/review/list/" + number + "?order=" + reviewOrder,
       });
       console.log("review", response.data);
+      setReviewScore(response.data.score_avg);
       // const commentdata = response.data
       // setPageComment(commentdata)
       // console.log("댓글", pageComment)
-      setReview(response.data);
+      setReview(response.data.review);
+      setReviewCount(response.data.review_count);
     } catch (error) {
       console.log(error);
     }
@@ -495,23 +499,17 @@ const PerfumeDetail = () => {
                   {perfumeDetail.koName}({perfumeDetail.enName})
                 </h2>
                 <div className="pro-details-rating-wrap ">
-                  {/* <div className="pro-details-rating">
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o"></i>
-                    <i className="fa fa-star-o"></i>
-                  </div> */}
                   <div className="review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
+                    <Rating
+                      /* Available Props */
+                      initialValue={`${reviewScore}`}
+                      readonly
+                      size={"20px"}
+                    />
                   </div>
 
-                  <span>
-                    <a href="#">3 Reviews</a>
+                  <span className="ml-10">
+                    {reviewCount}개의 리뷰
                   </span>
                 </div>
                 {/* 이부분에 해시태그 */}
@@ -540,46 +538,13 @@ const PerfumeDetail = () => {
                 </p>
 
                 <div className="detail-pro-details-list-row">
-                  {/* <div className="col-lg-1">
-                  </div> */}
+
                   <div className="detail-pro-details-list1">
                     <ul>
                       {/* 탑노트/미들노트 설명 */}
-                      {/* {
-                        topNote.length != 0
-                          ? topNote.map((data, index) => (
-                            <li key={index}>탑노트 : {data}</li>
-                          ))
-                          : null
-                      }
-                      {
-                        middleNote.length != 0
-                          ? middleNote.map((data, index) => (
-                            <li key={index}>미들노트 : {data}</li>
-                          ))
-                          : null
-                      }
-                      {
-                        baseNote.length != 0
-                          ? baseNote.map((data, index) => (
-                            <li key={index}>베이스노트 : {data}</li>
-                          ))
-                          : null
-                      }
-                      {
-                        singleNote.length != 0
-                          ? singleNote.map((data, index) => (
-                            <li key={index}>싱글노트 : {data}</li>
-                          ))
-                          : null
-                      } */}
 
                       {noteDetail.map((data, index) => (
-                        // if (data.noteCl == "single") {
-                        //   <li key={data.noteId}>싱글노트</li>
-                        // } else {
-                        //   <li key={data.noteId}>싱글아님</li>
-                        // }
+
                         <li key={index} className={data.noteCl}>
                           {data.materialName}
                         </li>
@@ -691,46 +656,6 @@ const PerfumeDetail = () => {
               </Nav.Item>
             </Nav>
 
-            {/* <ul className="nav nav-tabs detail-navtab mb-20">
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled detail-navtab-disa"
-                  href="#;"
-                  tabIndex="-1"
-                  aria-disabled="true"
-                >
-                  이 향수를
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link active detail-nav-link"
-                  aria-current="true"
-                  onClick={() => setTab(0)}
-                >
-                  좋아
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link detail-nav-link"
-                  aria-current="true"
-                  onClick={() => setTab(1)}
-                >
-                  싫어
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled detail-navtab-disa"
-                  href="#;"
-                  tabIndex="-1"
-                  aria-disabled="true"
-                >
-                  한다면?
-                </a>
-              </li>
-            </ul> */}
             {tab === 1 ? (
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
@@ -1057,7 +982,7 @@ const PerfumeDetail = () => {
                               <div className="review-rating mb-10 ">
                                 <Rating
                                   /* Available Props */
-                                  tooltipDefaultText="4"
+                                  // tooltipDefaultText="4"
                                   initialValue={`${data.score}`}
                                   readonly
                                   size={"20px"}
