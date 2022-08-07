@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.service.perfume;
 
+import com.perfume.perfumeservice.domain.perfume.Perfume;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface PerfumeService {
     PerfumeResponseDto getPerfume(Long id);
 
     String getImg(String img);
-
+    List<PerfumeResponseDto> getBestList();
 }

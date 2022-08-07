@@ -112,5 +112,15 @@ public class PerfumeServiceImpl  implements PerfumeService {
         return uploadPath + File.separator + "PERFUME" + File.separator + img;
     }
 
+    @Override
+    public List<PerfumeResponseDto> getBestList() {
+        List<Perfume> perfumeList = perfumeRepository.findAllOrderByLikes();
+        List<PerfumeResponseDto> list = new LinkedList<>();
 
+        for(Perfume p: perfumeList){
+            list.add(PerfumeResponseDto.from(p));
+        }
+
+        return list;
+    }
 }

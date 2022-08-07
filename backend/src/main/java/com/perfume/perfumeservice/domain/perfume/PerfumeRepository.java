@@ -20,6 +20,9 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
     )
     public List<Perfume> findByTags(List<Long> tags);
 
-
+    @Query(nativeQuery = true, value =
+        "select * from perfume p order by (select count(*) from perfume_like pl where p.perfume_id=pl.perfume_id) desc"
+    )
+    public List<Perfume> findAllOrderByLikes();
 
 }

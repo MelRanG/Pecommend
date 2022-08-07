@@ -567,4 +567,20 @@ public class PerfumeController {
     public ResponseEntity<List<PerfumeResponseDto>> getDisLikeList(@PathVariable Long userId){
         return new ResponseEntity<>(perfumeLikeService.getDisLikeList(userId), HttpStatus.OK);
     }
+
+    @GetMapping("/best")
+    @ApiOperation(value = "인기 향수 리스트")
+    public ResponseEntity<List<Map<String, Object>>> getBestList(){
+        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getBestList();
+        List<Map<String, Object>> dtoList = new LinkedList<>();
+        for(PerfumeResponseDto pd: perfumeDtoList){
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("pDto", pd);
+            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+            map.put("tDto", td);
+            dtoList.add(map);
+        }
+
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }
 }
