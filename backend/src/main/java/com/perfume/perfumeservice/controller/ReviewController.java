@@ -53,7 +53,7 @@ public class ReviewController {
         score = score / list.size();
         map.put("review_count", list.size());
         map.put("review", list);
-        map.put("score_avg", String.format("%.1f", score));
+        map.put("score_avg", Math.round(score*10)/10.0);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
