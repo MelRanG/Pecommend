@@ -37,4 +37,6 @@ public interface PerfumeLikeService {
     List<PerfumeLDCount> getDislikeDislike(Long id);
     List<PerfumeResponseDto> getLikeList(Long userId);
     List<PerfumeResponseDto> getDisLikeList(Long userId);
+
+    int checkLike(Long userId, Long perfumeId);
 }

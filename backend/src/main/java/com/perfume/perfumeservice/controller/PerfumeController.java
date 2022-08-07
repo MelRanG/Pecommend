@@ -585,4 +585,10 @@ public class PerfumeController {
 
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
+
+    @GetMapping("/check/like")
+    @ApiOperation(value = "이 향수를 좋아/싫어 하는지 체크")
+    public ResponseEntity<Integer> checkLike(@RequestParam Long userId, Long perfumeId){
+        return new ResponseEntity<>(perfumeLikeService.checkLike(userId, perfumeId), HttpStatus.OK);
+    }
 }

@@ -6,6 +6,7 @@ import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.perfume.PerfumeDislikeResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeLikeResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
+import com.perfume.perfumeservice.exception.perfume.PerfumeNotFoundException;
 import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -286,5 +287,22 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         }
 
         return list;
+    }
+
+    @Override
+    public int checkLike(Long userId, Long perfumeId) {
+        // 좋아하면 1, 싫어하면 -1, 없으면 0
+        UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        Perfume perfume = perfumeRepository.findById(perfumeId).orElseThrow(PerfumeNotFoundException::new);
+        Optional<PerfumeLike> pl = perfumeLikeRepository.findByPerfumeAndUser(perfume, user);
+        Optional<PerfumeDislike> pdl = perfumeDislikeRepository.findByPerfumeAndUser(perfume, user);
+
+        if(pl.isPresent()){
+            return 1;
+        }else if(pdl.isPresent()){
+            return -1;
+        }else{
+            return 0;
+        }
     }
 }
