@@ -31,6 +31,15 @@ public class ReviewResponseDto {
     private String modifiedDate;
 
 
+    public static ReviewResponseDto from(Review review){
+        return ReviewResponseDto.builder()
+                .id(review.getId())
+                .content(review.getContent())
+                .score(review.getScore())
+                .user_id(review.getUser().getId())
+                .user(review.getUser().getNickname())
+                .build();
+    }
     public static ReviewResponseDto from(Review review, List<ReviewTag> rtList){
         List<ReviewLike> list = review.getReviewLikeList();
         int likes = list == null ? 0 : list.size();

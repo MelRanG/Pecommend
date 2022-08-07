@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,15 +58,21 @@ public class ReviewController {
         return new ResponseEntity<>(reviewService.getDisLikeList(id), HttpStatus.OK);
     }
 
-    @PostMapping("/review/like")
+    @PostMapping("/add/like")
     @ApiOperation(value = "향수 리뷰 좋아요")
     public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
         return new ResponseEntity<>(reviewService.addLike(map), HttpStatus.OK);
     }
 
-    @PostMapping("/review/dislike")
+    @PostMapping("/add/dislike")
     @ApiOperation(value = "향수 리뷰 싫어요")
     public ResponseEntity<String> addDisLike(@RequestBody Map<String, Long> map){
         return new ResponseEntity<>(reviewService.addDisLike(map), HttpStatus.OK);
+    }
+
+    @GetMapping("/new")
+    @ApiOperation(value = "최신 리뷰 6개")
+    public ResponseEntity<List<Map<String, Object>>> getNewReview(){
+        return new ResponseEntity<>(reviewService.getNewReview(), HttpStatus.OK);
     }
 }
