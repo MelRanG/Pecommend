@@ -18,8 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -35,10 +34,27 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public List<CommentsResponseDto> getList(Long id) {
+        List<CommentsResponseDto> result = new ArrayList<>();
+        Map<Long, CommentsResponseDto> map = new HashMap<>();
+        commentRepository.findCommentByCommunityId(id).stream()
+                .forEach(c -> {
+                    CommentsResponseDto dto = CommentsResponseDto.from(c);
+                    map.put(dto.getId(), dto);
+                    System.out.println("출력: " + map.get(dto.getId()).toString());
+                    if(c.getParent() != null) {
 
-        return commentRepository.findByCommunityId(id).stream()
-                .map(comment -> CommentsResponseDto.from(comment))
-                .collect(Collectors.toList());
+                        List<CommentsResponseDto> childList = map.get(c.getParent().getId()).getChildren();
+                        if(childList == null){
+                            childList = new ArrayList<>();
+                            childList.add(dto);
+                        }else{
+                            childList.add(dto);
+                        }
+                        map.get(c.getParent().getId()).addChildren(childList);
+                    }
+                    else result.add(dto);
+                });
+        return result;
     }
 
     @Override
