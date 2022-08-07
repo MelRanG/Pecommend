@@ -42,8 +42,19 @@ public class ReviewController {
 
     @GetMapping("/list/{id}")
     @ApiOperation(value = "향수 리뷰 전체 조회")
-    public ResponseEntity<List<ReviewResponseDto>> getList(@PathVariable Long id, @RequestParam String order){
-        return new ResponseEntity<>(reviewService.getList(id, order), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getList(@PathVariable Long id, @RequestParam String order){
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ReviewResponseDto> list = reviewService.getList(id, order);
+        double score = 0.0;
+        for(ReviewResponseDto r: list){
+            score += (double)r.getScore();
+        }
+
+        score = score / list.size();
+        map.put("review_count", list.size());
+        map.put("review", list);
+        map.put("score_avg", String.format("%.1f", score));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping("/list/like/{id}")
