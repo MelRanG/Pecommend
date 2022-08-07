@@ -465,7 +465,7 @@ const PerfumeDetail = () => {
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
                 {/* <span>-29%</span> */}
-                <span>new</span>
+                {/* <span>new</span> */}
               </div>
             </div>
             <div className="col-lg-8 col-md-6 col-sm-12">
@@ -1018,7 +1018,7 @@ const PerfumeDetail = () => {
                 <div className="row mt-10">
                   <div className="ratting-form-wrapper">
                     <div className="ratting-form">
-                      <form action="#">
+                      <form>
                         <div className="row review-text-line">
                           {/* <div className="col-md-3">
                           <div className="review-profile review-text mb-10 pt-10">
