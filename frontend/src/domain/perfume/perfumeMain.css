@@ -43,7 +43,7 @@
   margin: 16px 8px 0 0;
   padding: 7px 15px 9px 15px;
   border-radius: 16px;
-  color: #373f57;
+  color: #667d8e;
   font-size: 14px;
   letter-spacing: -0.5px;
   line-height: 16px;
@@ -279,7 +279,7 @@ padding: 20px 20px;
   margin: auto;
 }
 
-@media screen and (min-width:568px){
+@media screen and (min-width:768px){
   .cards-wrapper{
     display: flex;
   }
@@ -297,7 +297,7 @@ padding: 20px 20px;
   }
 }
 /* 보고 max-width픽셀 타블렛쪽으로 바꾸기 */
-@media screen and (max-width:567px){
+@media screen and (max-width:767px){
   .card:not(:first-child){
     display: none;
 
@@ -315,6 +315,7 @@ padding: 20px 20px;
   background-color: #f4f6fa;
   border-radius: 12px;
   padding: 10px 12px;
+  height: 170px;
 }
 
 .per_main_review_card{

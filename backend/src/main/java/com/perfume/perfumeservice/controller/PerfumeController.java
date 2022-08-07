@@ -114,6 +114,22 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/list/hashtag")
+    @ApiOperation(value = "해시태그로 향수 검색")
+    public ResponseEntity<List<Map<String, Object>>> getListHashTag(@RequestParam List<Long> tags){
+        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListHashTag(tags);
+        List<Map<String, Object>> dtoList = new LinkedList<>();
+        for(PerfumeResponseDto pd: perfumeDtoList){
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("pDto", pd);
+            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+            map.put("tDto", td);
+            dtoList.add(map);
+        }
+
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }
+
 //    @GetMapping("/{id}")
 //    @ApiOperation(value = "향수 디테일 가져오기(노트, 평점, 이미지, 해시태그, 선호도 없음)")
 //    public ResponseEntity<PerfumeResponseDto> getPerfume(@PathVariable Long id){

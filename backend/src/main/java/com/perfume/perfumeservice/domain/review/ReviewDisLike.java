@@ -13,11 +13,11 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "review_like")
-public class ReviewLike {
+@Table(name = "review_dislike")
+public class ReviewDisLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_like_id")
+    @Column(name = "review_dislike_id")
     private Long id;
 
     // perfume_review
@@ -29,6 +29,4 @@ public class ReviewLike {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-
 }

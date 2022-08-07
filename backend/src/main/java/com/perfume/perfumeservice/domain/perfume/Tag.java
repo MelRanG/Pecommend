@@ -29,7 +29,7 @@ public class Tag {
     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PerfumeTag> perfumeTags = new ArrayList<>();
 
-    // review_tag
+//    // review_tag
     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReviewTag> reviewTags = new ArrayList<>();
 

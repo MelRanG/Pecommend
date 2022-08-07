@@ -42,13 +42,12 @@ const PerfumeDetail = () => {
   const [perfumeDetail, setPerfumeDetail] = useState({}); //이름같은거
   const [noteDetail, setNoteDetail] = useState([]); //노트
   const [tagDetail, setTagDetail] = useState([]); //해시태그
-  const [likeList, setLikeList] = useState([]); // 좋아요
-  const [dislikeList, setDislikeList] = useState([]); // 싫어요
-  // let likeDislike = 0; //좋아요 싫어요 비율
   const [ldlRate, setLdlRate] = useState(0);
-
+  const [review, setReview] = useState([]); //리뷰
+  const [reviewContent, setReviewContent] = useState(""); //리뷰작성내용
+  const [reviewOrder, setReviewOrder] = useState("new"); //리뷰정렬 기본 최신순
   const [ldList, setLdList] = useState({});
-
+  const [updaterating, setUpdateRating] = useState(0);
   let [tab, setTab] = useState(1); // 좋아싫어탭
 
   const getPerfumeDetail = async () => {
@@ -69,8 +68,8 @@ const PerfumeDetail = () => {
         setPerfumeDetail(response.data.pDto);
         setNoteDetail(response.data.nDto);
         setTagDetail(response.data.ptDto);
-        setLikeList(response.data.plDto);
-        setDislikeList(response.data.pdDto);
+        // setLikeList(response.data.plDto);
+        // setDislikeList(response.data.pdDto);
         setLdlRate(response.data.likeRatio);
 
         console.log("비율", ldlRate);
@@ -104,12 +103,28 @@ const PerfumeDetail = () => {
     }
   };
 
+  //리뷰불러오기
+  const getReview = async () => {
+    console.log("리뷰정렬", reviewOrder);
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/review/list/" + number + "?order=" + reviewOrder,
+      });
+      console.log("review", response.data);
+      // const commentdata = response.data
+      // setPageComment(commentdata)
+      // console.log("댓글", pageComment)
+      setReview(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getPerfumeDetail();
     get좋아싫어리스트();
-    // waitFor(1000);
-    // setNote(noteDetail);
-    // calLikeDislike();
+    getReview();
   }, []);
 
   //노트구분하기 -> 안씀
@@ -145,8 +160,13 @@ const PerfumeDetail = () => {
 
   // Catch Rating value 별점
   const handleRating = (rate: number) => {
-    setRating(rate);
+    setRating(rate / 20);
     // other logic
+    console.log("별점", rating);
+  };
+
+  const handleUpdateRating = (rate: number) => {
+    setUpdateRating(rate / 20);
   };
 
   //좋아요
@@ -173,15 +193,12 @@ const PerfumeDetail = () => {
             userId: user.user_id,
           };
           console.log("temp", temp);
-          // setLikeList(...likeList, temp);
-          setLikeList(likeList.concat(temp));
-          console.log("like up", likeList);
         }
         if (response.data == "CANCEL") {
           alert("싫어요누른사람");
         }
         if (response.data == "DELETE") {
-          setLikeList(likeList.filter((temp) => temp.userId != 4));
+          // setLikeList(likeList.filter((temp) => temp.userId != 4));
           console.log("like down", likeList);
         }
       }
@@ -213,21 +230,207 @@ const PerfumeDetail = () => {
             userId: user.user_id,
           };
           console.log("temp", temp);
-          // setLikeList(...likeList, temp);
-          setDislikeList(dislikeList.concat(temp));
-          console.log("like up", dislikeList);
         }
         if (response.data == "CANCEL") {
           alert("좋아요누른사람");
         }
         if (response.data == "DELETE") {
-          setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
+          // setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
           console.log("like down", dislikeList);
         }
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  //리뷰 작성
+  const reviewWrite = async (e) => {
+    e.preventDefault();
+    console.log("리뷰작성", user.user_id);
+
+    if (rating != 0) {
+      try {
+        let data = {
+          content: reviewContent,
+          perfume_id: perfumeDetail.perfumeId,
+          score: rating,
+          tags: [1, 2],
+          user_id: user.user_id,
+        };
+        console.log(data);
+        // console.log("유저아이디", data);
+        const response = await authaxios({
+          method: "post",
+          url: "/api/v1/review",
+          data: data,
+        });
+        console.log(response);
+        if (response.status === 200) {
+          console.log("리뷰작성완료");
+          //리뷰작성창 초기화
+          document.getElementById("reviewValue").value = "";
+          //다시불러오기
+          getReview();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  //리뷰삭제
+  const clickReviewRemove = async (e) => {
+    var result = window.confirm("리뷰를 삭제하시겠습니까?");
+    // alert(e.target.id);
+    // console.log(e.target.id);
+    if (result) {
+      console.log(e.target.id);
+      try {
+        const response = await authaxios({
+          method: "delete",
+          url: "/api/v1/review/" + e.target.id,
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        console.log(response);
+        if (response.status === 200) {
+          alert("삭제했습니다!");
+          window.location.reload();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      getReview();
+    } else {
+      // alert("삭제를 취소했습니다.")
+      //취소하면 메인으로 이동당함 
+    }
+  };
+
+
+  //좋아요 리뷰만 
+  const clickReviewLIKEList = async () => {
+    // console.log("좋아요 리뷰만");
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/review/list/like/" + number,
+      });
+      console.log("좋아요 리뷰만", response.data);
+      // const commentdata = response.data
+      // setPageComment(commentdata)
+      // console.log("댓글", pageComment)
+      setReview(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //싫어요 리뷰만
+  const clickReviewDISLIKEList = async () => {
+    // console.log("좋아요 리뷰만");
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/review/list/dislike/" + number,
+      });
+      console.log("싫어요 리뷰만", response.data);
+      // const commentdata = response.data
+      // setPageComment(commentdata)
+      // console.log("댓글", pageComment)
+      setReview(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //리뷰수정 여기도 1000자 ?
+  const clickReviewEditCommit = async (e) => {
+    e.preventDefault();
+    console.log("리뷰수정", e.target.id);
+    try {
+      const commentBox = document.getElementById(
+        "review-content-" + e.target.id,
+      );
+      const response = await authaxios({
+        method: "patch",
+        url: "/api/v1/review/" + e.target.id,
+        data: {
+          content: commentBox.value,
+          score: updaterating,
+          tags: [3],
+          perfume_id: perfumeDetail.perfumeId,
+          user_id: user.user_id,
+        },
+        // headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type" : ""}
+        // JSON.stringify()
+      });
+      console.log(response);
+      if (response.status === 200) {
+        const commentBox = document.getElementById(
+          "review-content-" + e.target.id,
+        );
+        const commentButtonBox1 = document.getElementById(
+          "review-button-set1-" + e.target.id,
+        );
+        const commentButtonBox2 = document.getElementById(
+          "review-button-set2-" + e.target.id,
+        );
+        commentButtonBox1.hidden = false;
+        commentButtonBox2.hidden = true;
+        commentBox.readOnly = true;
+        getReview();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //수정버튼클릭
+  const clickReviewEdit = (e) => {
+    // console.log("clickReviewEdit", data);
+    e.preventDefault();
+    const commentBox = document.getElementById("review-content-" + e.target.id);
+    console.log(commentBox);
+    commentBox.setAttribute("name", commentBox.value);
+    const commentButtonBox1 = document.getElementById(
+      "review-button-set1-" + e.target.id,
+    );
+    const commentButtonBox2 = document.getElementById(
+      "review-button-set2-" + e.target.id,
+    );
+    console.log(commentButtonBox1, commentButtonBox2);
+    commentButtonBox1.hidden = true;
+    commentButtonBox2.hidden = false;
+    console.log(commentBox);
+    commentBox.readOnly = false;
+  };
+
+  //수정버튼 -> 취소
+  const clickReviewEditRemove = (e) => {
+    e.preventDefault();
+    const commentBox = document.getElementById("review-content-" + e.target.id);
+    const commentButtonBox1 = document.getElementById(
+      "review-button-set1-" + e.target.id,
+    );
+    const commentButtonBox2 = document.getElementById(
+      "review-button-set2-" + e.target.id,
+    );
+    console.log(commentButtonBox1, commentButtonBox2);
+    commentButtonBox1.hidden = false;
+    commentButtonBox2.hidden = true;
+    commentBox.value = commentBox.getAttribute("name");
+    commentBox.readOnly = true;
+    getArticleComment();
+  };
+
+  // 리뷰내용변경될때마다. 1000자 제한걸기
+  const reviewChange = (e) => {
+    const { value } = e.target;
+    // console.log(value, name);
+    setReviewContent(value);
+    // console.log(reviewContent);
   };
 
   let [btnActive, setBtnActive] = useState(false); //버튼
@@ -377,6 +580,7 @@ const PerfumeDetail = () => {
                 </div>
 
                 {/* 좋아요 싫어요 */}
+                <i class="fa-regular fa-thumbs-down"></i>
                 <div className="pro-details-likeDislike row">
                   <div className="col-2">
                     {/* <i className="fa fa-heart-o"></i> */}
@@ -499,7 +703,7 @@ const PerfumeDetail = () => {
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
                     <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">1추천해요</span>
+                    <span className="ldltext">추천해요</span>
                   </div>
                   {ldList.likelike &&
                     ldList.likelike.map((data) => (
@@ -543,7 +747,7 @@ const PerfumeDetail = () => {
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
                     <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">2추천해요</span>
+                    <span className="ldltext">추천해요</span>
                   </div>
                   {ldList.dislikelike &&
                     ldList.dislikelike.map((data) => (
@@ -620,9 +824,12 @@ const PerfumeDetail = () => {
               <div className="comment_input_wrap">
                 <div className="comment_input img_add">
                   <textarea
-                    className="scrollbar"
+                    id="reviewValue"
+                    className="reviewValue"
                     placeholder="향수에 대한 리뷰를 남겨주세요."
                     disabled=""
+                    maxLength={255}
+                    onChange={reviewChange}
                   ></textarea>
                 </div>
                 <div className="comment_input_bot">
@@ -634,9 +841,12 @@ const PerfumeDetail = () => {
                     <i className="fa fa-star"></i>
                   </div> */}
                   <Rating
+                    showTooltip
                     onClick={handleRating}
                     ratingValue={rating} /* Available Props */
+                    fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
                   />
+                  {/* {rating}점 */}
                   <div className="image_add_wrap">
                     <button type="button" className="btn_image_add">
                       해시태그 선택
@@ -645,10 +855,14 @@ const PerfumeDetail = () => {
                   </div>
                   <span className="comment_count">
                     {" "}
-                    <em>0</em>/1000자{" "}
+                    <em>{reviewContent.length}</em>/255자{" "}
                   </span>
                 </div>
-                <button type="button" className="btnSizeL comment_submit">
+                <button
+                  type="button"
+                  className="btnSizeL comment_submit"
+                  onClick={reviewWrite}
+                >
                   댓글 등록
                 </button>
               </div>
@@ -682,7 +896,13 @@ const PerfumeDetail = () => {
               {/* 좋아요 / 싫어요 / 최신순 정렬 */}
               <div className="detail-review-sort mt-10">
                 <div>
-                  <div className="form-check">
+                  <div
+                    className="form-check"
+                    onClick={() => {
+                      setReviewOrder("new");
+                      getReview();
+                    }}
+                  >
                     <input
                       className="form-check-input"
                       type="radio"
@@ -695,10 +915,16 @@ const PerfumeDetail = () => {
                       className="form-check-label"
                       htmlFor="flexRadioDefault1"
                     >
-                      전체
+                      최신순
                     </label>
                   </div>
-                  <div className="form-check">
+                  <div
+                    className="form-check"
+                    onClick={() => {
+                      setReviewOrder("best");
+                      getReview();
+                    }}
+                  >
                     <input
                       className="form-check-input"
                       type="radio"
@@ -709,21 +935,28 @@ const PerfumeDetail = () => {
                       className="form-check-label"
                       htmlFor="flexRadioDefault2"
                     >
-                      좋아요
+                      추천순
                     </label>
                   </div>
-                  <div className="form-check">
+                  <div
+                    className="form-check"
+                    onClick={() => {
+                      setReviewOrder("old");
+                      getReview();
+                    }}
+                  >
                     <input
                       className="form-check-input"
                       type="radio"
                       name="flexRadioDefault"
-                      id="flexRadioDefault1"
+                      id="flexRadioDefault3"
                     />
+
                     <label
                       className="form-check-label"
-                      htmlFor="flexRadioDefault1"
+                      htmlFor="flexRadioDefault3"
                     >
-                      싫어요
+                      오래된순
                     </label>
                   </div>
                 </div>
@@ -743,20 +976,25 @@ const PerfumeDetail = () => {
                     aria-labelledby="dropdownMenuButton1"
                   >
                     <li>
-                      <a className="dropdown-item" href="#">
-                        최신순
+                      <a className="dropdown-item" onClick={getReview}>
+                        전체
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
-                        추천순
+                      <a className="dropdown-item" onClick={clickReviewLIKEList}>
+                        좋아요
                       </a>
                     </li>
                     <li>
+                      <a className="dropdown-item" onClick={clickReviewDISLIKEList}>
+                        싫어요
+                      </a>
+                    </li>
+                    {/* <li>
                       <a className="dropdown-item" href="#">
                         오래된순
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
@@ -764,228 +1002,184 @@ const PerfumeDetail = () => {
               <div className="detail-line"></div>
 
               {/* 리뷰내용 */}
-              <div className="row mt-10">
-                <div className="ratting-form-wrapper">
-                  <div className="ratting-form">
-                    <form action="#">
-                      <div className="row review-text-line">
-                        {/* <div className="col-md-3">
+              {review.map((data) => (
+                <div className="row mt-10">
+                  <div className="ratting-form-wrapper">
+                    <div className="ratting-form">
+                      <form action="#">
+                        <div className="row review-text-line">
+                          {/* <div className="col-md-3">
                           <div className="review-profile review-text mb-10 pt-10">
                             <img src="assets/img/testimonial/1.jpg" alt="" />
                             <p>닉네임</p>
                           </div>
                         </div> */}
 
-                        <div className="col-md-12">
-                          <div className="review-rating mb-10">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                          <div className="review-text form-submit">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
-                          </div>
-                        </div>
 
-                        <div className="col-md-9 review-text-profile">
-                          <span className="review-text-profile-img">
-                            <img src="assets/img/testimonial/1.jpg" alt="" />
-                          </span>
-                          <span>&nbsp; 어쩌구저쩌구 님</span>
-                        </div>
-                        <div className="col-md-3 review-text-like">
-                          <span className="glyphicon glyphicon-thumbs-up"></span>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <span className="glyphicon glyphicon-thumbs-down"></span>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div className="row mt-10">
-                <div className="ratting-form-wrapper">
-                  <div className="ratting-form">
-                    <form action="#">
-                      <div className="row review-text-line">
-                        {/* <div className="col-md-3">
-                          <div className="review-profile review-text mb-10 pt-10">
-                            <img src="assets/img/testimonial/1.jpg" alt="" />
-                            <p>닉네임</p>
+                          <div className="col-md-9 review-text-profile">
+                            <span className="review-text-profile-img">
+                              <img src="assets/img/testimonial/1.jpg" alt="" />
+                            </span>
+                            <span>
+                              &nbsp; {data.user} 님
+                            </span>
                           </div>
-                        </div> */}
 
-                        <div className="col-md-12">
-                          <div className="review-rating mb-10">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                          <div className="review-text form-submit">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="col-md-9 review-text-profile">
-                          <span className="review-text-profile-img">
-                            <img src="assets/img/testimonial/1.jpg" alt="" />
-                          </span>
-                          <span>&nbsp; 어쩌구저쩌구 님</span>
-                        </div>
-                        <div className="col-md-3 review-text-like">
-                          <span className="glyphicon glyphicon-thumbs-up"></span>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <span className="glyphicon glyphicon-thumbs-down"></span>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div className="row mt-10">
-                <div className="ratting-form-wrapper">
-                  <div className="ratting-form">
-                    <form action="#">
-                      <div className="row review-text-line">
-                        {/* <div className="col-md-3">
-                          <div className="review-profile review-text mb-10 pt-10">
-                            <img src="assets/img/testimonial/1.jpg" alt="" />
-                            <p>닉네임</p>
-                          </div>
-                        </div> */}
-
-                        <div className="col-md-12">
-                          <div className="review-rating mb-10">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                          <div className="review-text form-submit">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="col-md-9 review-text-profile">
-                          <span className="review-text-profile-img">
-                            <img src="assets/img/testimonial/1.jpg" alt="" />
-                          </span>
-                          <span>&nbsp; 어쩌구저쩌구 님</span>
-                        </div>
-                        <div className="col-md-3 review-text-like">
-                          <span className="glyphicon glyphicon-thumbs-up"></span>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <span className="glyphicon glyphicon-thumbs-down"></span>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-              {/* <div id="des-details3" className="">
-                <div className="row">
-                  <div className="col-lg-7">
-                    <div className="review-wrapper">
-                      <div className="single-review">
-                        <div className="review-img">
-                          <img src="assets/img/testimonial/1.jpg" alt="" />
-                        </div>
-                        <div className="review-content">
-                          <div className="review-top-wrap">
-                            <div className="review-left">
-                              <div className="review-name">
-                                <h4>White Lewis</h4>
-                              </div>
-                              <div className="review-rating">
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                              </div>
+                          <div className="col-md-12">
+                            <div className="review-rating mb-10">
+                              {/* <i className="fa fa-star"></i>
+                              <i className="fa fa-star"></i>
+                              <i className="fa fa-star"></i>
+                              <i className="fa fa-star"></i>
+                              <i className="fa fa-star"></i> */}
+                              <Rating
+                                /* Available Props */
+                                tooltipDefaultText="4"
+                                initialValue={`${data.score}`}
+                                readonly
+                                size={"20px"}
+                              />
                             </div>
-                            <div className="review-left">
-                              <a href="#">Reply</a>
+                            <div className="col-md-3 review-text-like">
+                              {user.user_id === data.user_id ? (
+                                <>
+                                  <div
+                                    className="review-button-set"
+                                    id={`review-button-set1-${data.id}`}
+                                  >
+                                    <button
+                                      className="review-remove"
+                                      onClick={clickReviewRemove}
+                                      id={`${data.id}`}
+                                    >
+                                      삭제
+                                    </button>
+                                    <button
+                                      className="review-edit"
+                                      onClick={clickReviewEdit}
+                                      id={`${data.id}`}
+                                    >
+                                      수정
+                                    </button>
+                                  </div>
+                                  <div
+                                    className="review-button-set"
+                                    id={`review-button-set2-${data.id}`}
+                                    hidden
+                                  >
+                                    <span>
+                                      <Rating
+                                        onClick={handleUpdateRating}
+                                        ratingValue={
+                                          updaterating
+                                        } /* Available Props */
+                                      />
+                                      {updaterating}점
+                                      <div className="image_add_wrap">
+                                        <button
+                                          type="button"
+                                          className="btn_image_add"
+                                        >
+                                          해시태그 선택
+                                        </button>
+                                        *필수사항X
+                                      </div>
+                                    </span>
+                                    <button
+                                      className="edit-remove"
+                                      onClick={clickReviewEditRemove}
+                                      id={`${data.id}`}
+                                    >
+                                      취소
+                                    </button>
+                                    <button
+                                      className="edit-commit"
+                                      onClick={clickReviewEditCommit}
+                                      id={`${data.id}`}
+                                    >
+                                      확인
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <span className="glyphicon glyphicon-thumbs-up"></span>
+                                  <span className="glyphicon glyphicon-thumbs-down"></span>
+                                </>
+                              )}
+                            </div>
+                            <div className="review-text form-submit">
+                              <textarea
+                                readOnly
+                                rows="3"
+                                name=""
+                                id={`review-content-${data.id}`}
+                              >
+                                {data.content}
+                              </textarea>
                             </div>
                           </div>
-                          <div className="review-bottom">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
+                          <div className="detail-product-hashtag">
+                            <ul>
+                              {data.tagNames.map((data2, index) => (
+                                <li className="" key={index}>
+                                  #{data2}
+                                </li>
+                              ))}
+                            </ul>
                           </div>
+
+
                         </div>
-                      </div>
-                      <div className="single-review child-review">
-                        <div className="review-img">
-                          <img src="assets/img/testimonial/2.jpg" alt="" />
-                        </div>
-                        <div className="review-content">
-                          <div className="review-top-wrap">
-                            <div className="review-left">
-                              <div className="review-name">
-                                <h4>White Lewis</h4>
-                              </div>
-                              <div className="review-rating">
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                                <i className="fa fa-star"></i>
-                              </div>
-                            </div>
-                            <div className="review-left">
-                              <a href="#">Reply</a>
-                            </div>
-                          </div>
-                          <div className="review-bottom">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Sus pen disse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
+                </div>
+              ))}
 
+              {/* <div className="row mt-10">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row review-text-line">
+             
+
+                        <div className="col-md-12">
+                          <div className="review-rating mb-10">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                          <div className="review-text form-submit">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-md-9 review-text-profile">
+                          <span className="review-text-profile-img">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </span>
+                          <span>&nbsp; 어쩌구저쩌구 님</span>
+                        </div>
+                        <div className="col-md-3 review-text-like">
+                          <span className="glyphicon glyphicon-thumbs-up"></span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span className="glyphicon glyphicon-thumbs-down"></span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div> */}
             </div>

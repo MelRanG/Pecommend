@@ -551,7 +551,7 @@ margin-top: 10px;
 }
 
 .review-text-line{
-  padding:24px 16px;
+  padding:0px 16px 16px 16px;
   border-bottom: 1px solid #d7dce5;
   /* border-top: 1px solid #d7dce5; */
 }
@@ -587,3 +587,17 @@ margin-top: 10px;
 
 
 
+
+
+.review-text textarea:read-only {
+  background-color: white;
+  border: 0;
+  resize: none;
+  cursor:default;
+}
+
+.review-text textarea {
+  background-color: white;
+  border: 1px solid skyblue;
+  resize: none;
+}

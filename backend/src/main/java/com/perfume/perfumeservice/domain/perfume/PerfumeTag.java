@@ -33,6 +33,8 @@ public class PerfumeTag {
     private Tag tag;
 
 
-
+    public void setCount(int cnt){
+        this.count = cnt;
+    }
 
 }
