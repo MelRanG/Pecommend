@@ -1,7 +1,9 @@
 package com.perfume.perfumeservice.domain.review;
 
+import com.perfume.perfumeservice.domain.baseTime.BaseTime;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
 import com.perfume.perfumeservice.domain.user.UserEntity;
+import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,10 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "review")
-public class Review {
+public class Review extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reivew_id")
+    @Column(name = "review_id")
     private Long id;
 
     // perfume
@@ -32,7 +34,7 @@ public class Review {
     // user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserEntity writer;
+    private UserEntity user;
 
     // content
     @Column(name = "content")
@@ -45,7 +47,7 @@ public class Review {
     // regdate - 보류
     // ?
 
-    // review_tag
+//    // review_tag
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReviewTag> reviewTags = new LinkedList<ReviewTag>();
 
@@ -53,6 +55,15 @@ public class Review {
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReviewDisLike> reviewDisLikeList = new ArrayList<>();
 
+    public void update(ReviewRequestDto requestDto){
+        this.content = requestDto.getContent();
+        this.score = requestDto.getScore();
+    }
 
+    public void setTags(List<ReviewTag> tags){
+        this.reviewTags = tags;
+    }
 }
