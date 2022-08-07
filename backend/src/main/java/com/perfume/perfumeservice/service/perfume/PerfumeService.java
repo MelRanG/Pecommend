@@ -9,8 +9,8 @@ public interface PerfumeService {
     List<PerfumeResponseDto> getListAll();
     List<PerfumeResponseDto> getListKeyword(String keyword); // '이름(한글, 영어)'에만 포함되어 있을 때
 
-    List<PerfumeResponseDto> getListKoKeyword(String keyword);
-    List<PerfumeResponseDto> getListEnKeyword(String keyword);
+    // List<PerfumeResponseDto> getListKoKeyword(String keyword);
+    // List<PerfumeResponseDto> getListEnKeyword(String keyword);
 
     PerfumeResponseDto getPerfume(Long id);
 
