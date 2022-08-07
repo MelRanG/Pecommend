@@ -440,6 +440,7 @@ function Profile_update() {
                               name="birthday"
                               placeholder="birthday"
                               type="date"
+                              max="9999-12-31"
                               onChange={onBirthhandler}
                               value={birth}
                             />

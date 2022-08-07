@@ -266,6 +266,7 @@ function OauthSignUp() {
                             name="birthday"
                             placeholder="birthday"
                             type="date"
+                            max="9999-12-31"
                             onChange={onBirthhandler}
                           />
                           <label>성별</label>

@@ -109,6 +109,7 @@ function Search_pwd() {
                           name="birthday"
                           placeholder="birthday"
                           type="date"
+                          max="9999-12-31"
                           onChange={onBirthhandler}
                         />
                         <div className="button-box">
