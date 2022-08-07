@@ -1,4 +1,5 @@
 import './topbutton.css'
+import { BsChevronDoubleUp } from 'react-icons/bs'
 
 function Topbutton() {
     const topB = () => {
@@ -10,7 +11,7 @@ function Topbutton() {
     }
     return (
         <div className="topbutton">
-            <button className="glyphicon glyphicon-triangle-top" onClick={topB}></button>
+            <button onClick={topB}><BsChevronDoubleUp /></button>
         </div>
     )
 }
