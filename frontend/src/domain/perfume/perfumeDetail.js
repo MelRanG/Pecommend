@@ -377,8 +377,12 @@ const PerfumeDetail = () => {
         const commentButtonBox2 = document.getElementById(
           "review-button-set2-" + e.target.id,
         );
+        const commentButtonBox3 = document.getElementById(
+          "review-button-set3-" + e.target.id,
+        );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
+        commentButtonBox3.hidden = true;
         commentBox.readOnly = true;
         getReview();
       }
@@ -400,9 +404,13 @@ const PerfumeDetail = () => {
     const commentButtonBox2 = document.getElementById(
       "review-button-set2-" + e.target.id,
     );
+    const commentButtonBox3 = document.getElementById(
+      "review-button-set3-" + e.target.id,
+    );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = true;
     commentButtonBox2.hidden = false;
+    commentButtonBox3.hidden = false;
     console.log(commentBox);
     commentBox.readOnly = false;
   };
@@ -417,9 +425,13 @@ const PerfumeDetail = () => {
     const commentButtonBox2 = document.getElementById(
       "review-button-set2-" + e.target.id,
     );
+    const commentButtonBox3 = document.getElementById(
+      "review-button-set3-" + e.target.id,
+    );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = false;
     commentButtonBox2.hidden = true;
+    commentButtonBox3.hidden = true;
     commentBox.value = commentBox.getAttribute("name");
     commentBox.readOnly = true;
     getArticleComment();
@@ -1017,30 +1029,48 @@ const PerfumeDetail = () => {
 
 
                           <div className="col-md-9 review-text-profile">
-                            <span className="review-text-profile-img">
+                            <div className="review-text-profile-img">
                               <img src="assets/img/testimonial/1.jpg" alt="" />
-                            </span>
-                            <span>
-                              &nbsp; {data.user} 님
-                            </span>
+                            </div>
+                            <div className="review-text-profile-user ml-10">
+                              <div className="review-rating mb-10 ">
+                                <Rating
+                                  /* Available Props */
+                                  tooltipDefaultText="4"
+                                  initialValue={`${data.score}`}
+                                  readonly
+                                  size={"20px"}
+                                />
+                              </div>
+                              <div>
+                                {data.user} 님 | {data.modifiedDate}
+                              </div>
+
+                            </div>
+                            <div className="ml-15" id={`review-button-set3-${data.id}`}
+                              hidden>
+                              <Rating
+                                onClick={handleUpdateRating}
+                                ratingValue={
+                                  updaterating
+                                } /* Available Props */
+                                size={"25px"}
+                              />
+                              {updaterating}점
+                              <div className="image_add_wrap">
+                                <button
+                                  type="button"
+                                  className="btn_image_add"
+                                >
+                                  해시태그 선택
+                                </button>
+                                *필수사항X
+                              </div>
+                            </div>
                           </div>
 
-                          <div className="col-md-12">
-                            <div className="review-rating mb-10">
-                              {/* <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i> */}
-                              <Rating
-                                /* Available Props */
-                                tooltipDefaultText="4"
-                                initialValue={`${data.score}`}
-                                readonly
-                                size={"20px"}
-                              />
-                            </div>
-                            <div className="col-md-3 review-text-like">
+                          <div className="col-md-3">
+                            <div className="review-text-like">
                               {user.user_id === data.user_id ? (
                                 <>
                                   <div
@@ -1067,24 +1097,7 @@ const PerfumeDetail = () => {
                                     id={`review-button-set2-${data.id}`}
                                     hidden
                                   >
-                                    <span>
-                                      <Rating
-                                        onClick={handleUpdateRating}
-                                        ratingValue={
-                                          updaterating
-                                        } /* Available Props */
-                                      />
-                                      {updaterating}점
-                                      <div className="image_add_wrap">
-                                        <button
-                                          type="button"
-                                          className="btn_image_add"
-                                        >
-                                          해시태그 선택
-                                        </button>
-                                        *필수사항X
-                                      </div>
-                                    </span>
+
                                     <button
                                       className="edit-remove"
                                       onClick={clickReviewEditRemove}
@@ -1108,19 +1121,19 @@ const PerfumeDetail = () => {
                                 </>
                               )}
                             </div>
-                            <div className="review-text form-submit">
-                              <textarea
-                                readOnly
-                                rows="3"
-                                name=""
-                                maxLength={255}
-                                id={`review-content-${data.id}`}
-                              >
-                                {data.content}
-                              </textarea>
-                            </div>
                           </div>
-                          <div className="detail-product-hashtag">
+                          <div className="review-text form-submit">
+                            <textarea
+                              readOnly
+                              rows="3"
+                              name=""
+                              maxLength={255}
+                              id={`review-content-${data.id}`}
+                            >
+                              {data.content}
+                            </textarea>
+                          </div>
+                          <div className="detail-product-hashtag review-hashtag col-12">
                             <ul>
                               {data.tagNames.map((data2, index) => (
                                 <li className="" key={index}>
