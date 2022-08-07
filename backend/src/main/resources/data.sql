@@ -30,11 +30,11 @@ INSERT INTO community_like(community_id, user_id) values (3, 3);
 INSERT INTO community_like(community_id, user_id) values (4, 1);
 
 
-INSERT into comment(community_id, user_id, content, depth, parent_id) values (1,1, '내용1', 0, null);
-INSERT into comment(community_id, user_id, content, depth, parent_id) values (1,1, '내용3', 1, 1);
-INSERT into comment(community_id, user_id, content, depth, parent_id) values (1,2, '내용4', 2, 2);
-INSERT into comment(community_id, user_id, content, depth, parent_id) values (1,2, '내용2',  0, null);
-INSERT into comment(community_id, user_id, content, depth, parent_id) values (1,1, '내용5', 1, 4);
+INSERT into comment(community_id, user_id, content, depth, parent_id, is_deleted) values (1,1, '내용1', 0, null, false);
+INSERT into comment(community_id, user_id, content, depth, parent_id, is_deleted) values (1,1, '내용2', 1, 1, false);
+INSERT into comment(community_id, user_id, content, depth, parent_id, is_deleted) values (1,2, '내용3', 2, 2, false);
+INSERT into comment(community_id, user_id, content, depth, parent_id, is_deleted) values (1,2, '내용4', 0, null, false);
+INSERT into comment(community_id, user_id, content, depth, parent_id, is_deleted) values (1,1, '내용5', 1, 4, false);
 
 -- INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름1', 'perfume2');
 -- INSERT into perfume(perfume_name_ko, perfume_name_en) values ('향수이름2', 'perfume2');

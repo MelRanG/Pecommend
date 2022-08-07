@@ -19,13 +19,16 @@ public class CommentsRequestDto {
     private Long communityId;
     private Long writer;
     private String content;
+    private int depth;
+    private Long parent;
 
 
-    public Comment toEntity(Community community, UserEntity user){
+    public Comment toEntity(Community community, UserEntity user, Comment parnet){
         return Comment.builder()
                 .community(community)
                 .writer(user)
                 .content(content)
+                .parent(parnet)
                 .build();
     }
 }

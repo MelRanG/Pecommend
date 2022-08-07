@@ -38,6 +38,8 @@ public class Comment extends BaseTime {
     @JoinColumn(name = "parent_id")
     private Comment parent;
 
+    private boolean isDeleted;
+
     @Builder.Default
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
     private List<Comment> children = new ArrayList<>();
@@ -48,5 +50,9 @@ public class Comment extends BaseTime {
     public void patch(Comment comment){
         if(comment.getContent() != null)
             this.content = comment.content;
+    }
+
+    public void changeDeleted(){
+        this.isDeleted = true;
     }
 }

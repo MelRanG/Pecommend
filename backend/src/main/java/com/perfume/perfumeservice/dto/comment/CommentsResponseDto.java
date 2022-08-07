@@ -25,6 +25,7 @@ public class CommentsResponseDto {
     private int commentLike;
     private int depth;
     private Long parentId;
+    private boolean isDeleted;
     private List<CommentsResponseDto> children;
 
 
@@ -44,6 +45,7 @@ public class CommentsResponseDto {
                 .commentLike(likes)
                 .depth(comment.getDepth())
                 .parentId(parentId)
+                .isDeleted(comment.isDeleted())
                 .build();
     }
 

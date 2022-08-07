@@ -61,15 +61,18 @@ public class CommentServiceImpl implements CommentService{
     public CommentsResponseDto writeComment(CommentsRequestDto dto) {
         UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
         Community community = communityRepository.findById(dto.getCommunityId()).orElseThrow(PostNotFoundException::new);
-
-        return CommentsResponseDto.from(commentRepository.save(dto.toEntity(community, user)));
+        Comment parent = dto.getParent() == null ? null :
+                commentRepository.findById(dto.getParent()).orElseThrow(CommentNotFoundException::new);
+        return CommentsResponseDto.from(commentRepository.save(dto.toEntity(community, user, parent)));
     }
 
     @Override
     public CommentsResponseDto updateComment(Long id, CommentsRequestDto dto) {
         UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
         Community community = communityRepository.findById(dto.getCommunityId()).orElseThrow(PostNotFoundException::new);
-        Comment comment = dto.toEntity(community, user);
+        Comment parent = dto.getParent() == null ? null :
+                commentRepository.findById(dto.getParent()).orElseThrow(CommentNotFoundException::new);
+        Comment comment = dto.toEntity(community, user, parent);
 
         Comment target = commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
         target.patch(comment);
@@ -80,7 +83,18 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void deleteComment(Long id) {
         Comment comment = commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
-        commentRepository.delete(comment);
+        if(comment.getChildren().size() != 0){
+            comment.changeDeleted();
+        }else{
+            commentRepository.delete(getDeletableAncestorComment(comment));
+        }
+    }
+
+    private Comment getDeletableAncestorComment(Comment comment) {
+        Comment parent = comment.getParent();
+        if(parent != null && parent.isDeleted() && parent.getChildren().size() == 1)
+            return getDeletableAncestorComment(parent);
+        return comment;
     }
 
     @Override
