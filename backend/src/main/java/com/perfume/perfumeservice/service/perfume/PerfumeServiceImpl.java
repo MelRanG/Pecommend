@@ -117,8 +117,12 @@ public class PerfumeServiceImpl  implements PerfumeService {
         List<Perfume> perfumeList = perfumeRepository.findAllOrderByLikes();
         List<PerfumeResponseDto> list = new LinkedList<>();
 
+        int idx = 0;
         for(Perfume p: perfumeList){
             list.add(PerfumeResponseDto.from(p));
+            idx++;
+
+            if(idx==12) break;
         }
 
         return list;
