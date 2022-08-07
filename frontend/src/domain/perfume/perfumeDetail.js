@@ -1113,6 +1113,7 @@ const PerfumeDetail = () => {
                                 readOnly
                                 rows="3"
                                 name=""
+                                maxLength={255}
                                 id={`review-content-${data.id}`}
                               >
                                 {data.content}
