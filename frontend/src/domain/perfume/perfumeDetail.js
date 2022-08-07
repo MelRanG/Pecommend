@@ -302,8 +302,47 @@ const PerfumeDetail = () => {
       }
       getReview();
     } else {
+      // alert("삭제를 취소했습니다.")
+      //취소하면 메인으로 이동당함 
     }
   };
+
+
+  //좋아요 리뷰만 
+  const clickReviewLIKEList = async () => {
+    // console.log("좋아요 리뷰만");
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/review/list/like/" + number,
+      });
+      console.log("좋아요 리뷰만", response.data);
+      // const commentdata = response.data
+      // setPageComment(commentdata)
+      // console.log("댓글", pageComment)
+      setReview(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //싫어요 리뷰만
+  const clickReviewDISLIKEList = async () => {
+    // console.log("좋아요 리뷰만");
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/review/list/dislike/" + number,
+      });
+      console.log("싫어요 리뷰만", response.data);
+      // const commentdata = response.data
+      // setPageComment(commentdata)
+      // console.log("댓글", pageComment)
+      setReview(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //리뷰수정 여기도 1000자 ?
   const clickReviewEditCommit = async (e) => {
@@ -664,7 +703,7 @@ const PerfumeDetail = () => {
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
                     <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">1추천해요</span>
+                    <span className="ldltext">추천해요</span>
                   </div>
                   {ldList.likelike &&
                     ldList.likelike.map((data) => (
@@ -708,7 +747,7 @@ const PerfumeDetail = () => {
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
                     <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">2추천해요</span>
+                    <span className="ldltext">추천해요</span>
                   </div>
                   {ldList.dislikelike &&
                     ldList.dislikelike.map((data) => (
@@ -801,10 +840,12 @@ const PerfumeDetail = () => {
                     <i className="fa fa-star"></i>
                   </div> */}
                   <Rating
+                    showTooltip
                     onClick={handleRating}
                     ratingValue={rating} /* Available Props */
+                    fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
                   />
-                  {rating}점
+                  {/* {rating}점 */}
                   <div className="image_add_wrap">
                     <button type="button" className="btn_image_add">
                       해시태그 선택
@@ -934,12 +975,17 @@ const PerfumeDetail = () => {
                     aria-labelledby="dropdownMenuButton1"
                   >
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" onClick={getReview}>
+                        전체
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" onClick={clickReviewLIKEList}>
                         좋아요
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" onClick={clickReviewDISLIKEList}>
                         싫어요
                       </a>
                     </li>
@@ -978,11 +1024,18 @@ const PerfumeDetail = () => {
                           </div>
                           <div className="col-md-12">
                             <div className="review-rating mb-10">
+                              {/* <i className="fa fa-star"></i>
                               <i className="fa fa-star"></i>
                               <i className="fa fa-star"></i>
                               <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
+                              <i className="fa fa-star"></i> */}
+                              <Rating
+                                /* Available Props */
+                                tooltipDefaultText="4"
+                                initialValue={`${data.score}`}
+                                readonly
+                                size={"20px"}
+                              />
                             </div>
                             <div className="review-text form-submit">
                               <textarea
