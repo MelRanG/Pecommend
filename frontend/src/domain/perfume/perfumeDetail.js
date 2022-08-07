@@ -828,6 +828,7 @@ const PerfumeDetail = () => {
                     className="reviewValue"
                     placeholder="향수에 대한 리뷰를 남겨주세요."
                     disabled=""
+                    maxLength={255}
                     onChange={reviewChange}
                   ></textarea>
                 </div>
@@ -854,7 +855,7 @@ const PerfumeDetail = () => {
                   </div>
                   <span className="comment_count">
                     {" "}
-                    <em>{reviewContent.length}</em>/1000자{" "}
+                    <em>{reviewContent.length}</em>/255자{" "}
                   </span>
                 </div>
                 <button
@@ -1013,15 +1014,17 @@ const PerfumeDetail = () => {
                             <p>닉네임</p>
                           </div>
                         </div> */}
-                          <div className="detail-product-hashtag">
-                            <ul>
-                              {data.tagNames.map((data2, index) => (
-                                <li className="" key={index}>
-                                  #{data2}
-                                </li>
-                              ))}
-                            </ul>
+
+
+                          <div className="col-md-9 review-text-profile">
+                            <span className="review-text-profile-img">
+                              <img src="assets/img/testimonial/1.jpg" alt="" />
+                            </span>
+                            <span>
+                              &nbsp; {data.user} 님
+                            </span>
                           </div>
+
                           <div className="col-md-12">
                             <div className="review-rating mb-10">
                               {/* <i className="fa fa-star"></i>
@@ -1037,6 +1040,74 @@ const PerfumeDetail = () => {
                                 size={"20px"}
                               />
                             </div>
+                            <div className="col-md-3 review-text-like">
+                              {user.user_id === data.user_id ? (
+                                <>
+                                  <div
+                                    className="review-button-set"
+                                    id={`review-button-set1-${data.id}`}
+                                  >
+                                    <button
+                                      className="review-remove"
+                                      onClick={clickReviewRemove}
+                                      id={`${data.id}`}
+                                    >
+                                      삭제
+                                    </button>
+                                    <button
+                                      className="review-edit"
+                                      onClick={clickReviewEdit}
+                                      id={`${data.id}`}
+                                    >
+                                      수정
+                                    </button>
+                                  </div>
+                                  <div
+                                    className="review-button-set"
+                                    id={`review-button-set2-${data.id}`}
+                                    hidden
+                                  >
+                                    <span>
+                                      <Rating
+                                        onClick={handleUpdateRating}
+                                        ratingValue={
+                                          updaterating
+                                        } /* Available Props */
+                                      />
+                                      {updaterating}점
+                                      <div className="image_add_wrap">
+                                        <button
+                                          type="button"
+                                          className="btn_image_add"
+                                        >
+                                          해시태그 선택
+                                        </button>
+                                        *필수사항X
+                                      </div>
+                                    </span>
+                                    <button
+                                      className="edit-remove"
+                                      onClick={clickReviewEditRemove}
+                                      id={`${data.id}`}
+                                    >
+                                      취소
+                                    </button>
+                                    <button
+                                      className="edit-commit"
+                                      onClick={clickReviewEditCommit}
+                                      id={`${data.id}`}
+                                    >
+                                      확인
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <span className="glyphicon glyphicon-thumbs-up"></span>
+                                  <span className="glyphicon glyphicon-thumbs-down"></span>
+                                </>
+                              )}
+                            </div>
                             <div className="review-text form-submit">
                               <textarea
                                 readOnly
@@ -1048,83 +1119,17 @@ const PerfumeDetail = () => {
                               </textarea>
                             </div>
                           </div>
+                          <div className="detail-product-hashtag">
+                            <ul>
+                              {data.tagNames.map((data2, index) => (
+                                <li className="" key={index}>
+                                  #{data2}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
 
-                          <div className="col-md-9 review-text-profile">
-                            <span className="review-text-profile-img">
-                              <img src="assets/img/testimonial/1.jpg" alt="" />
-                            </span>
-                            <span>
-                              &nbsp; {data.user} 님 ({data.score}점)
-                            </span>
-                          </div>
-                          <div className="col-md-3 review-text-like">
-                            {user.user_id === data.user_id ? (
-                              <>
-                                <div
-                                  className="review-button-set"
-                                  id={`review-button-set1-${data.id}`}
-                                >
-                                  <button
-                                    className="review-remove"
-                                    onClick={clickReviewRemove}
-                                    id={`${data.id}`}
-                                  >
-                                    삭제
-                                  </button>
-                                  <button
-                                    className="review-edit"
-                                    onClick={clickReviewEdit}
-                                    id={`${data.id}`}
-                                  >
-                                    수정
-                                  </button>
-                                </div>
-                                <div
-                                  className="review-button-set"
-                                  id={`review-button-set2-${data.id}`}
-                                  hidden
-                                >
-                                  <span>
-                                    <Rating
-                                      onClick={handleUpdateRating}
-                                      ratingValue={
-                                        updaterating
-                                      } /* Available Props */
-                                    />
-                                    {updaterating}점
-                                    <div className="image_add_wrap">
-                                      <button
-                                        type="button"
-                                        className="btn_image_add"
-                                      >
-                                        해시태그 선택
-                                      </button>
-                                      *필수사항X
-                                    </div>
-                                  </span>
-                                  <button
-                                    className="edit-remove"
-                                    onClick={clickReviewEditRemove}
-                                    id={`${data.id}`}
-                                  >
-                                    취소
-                                  </button>
-                                  <button
-                                    className="edit-commit"
-                                    onClick={clickReviewEditCommit}
-                                    id={`${data.id}`}
-                                  >
-                                    확인
-                                  </button>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <span className="glyphicon glyphicon-thumbs-up"></span>
-                                <span className="glyphicon glyphicon-thumbs-down"></span>
-                              </>
-                            )}
-                          </div>
+
                         </div>
                       </form>
                     </div>
