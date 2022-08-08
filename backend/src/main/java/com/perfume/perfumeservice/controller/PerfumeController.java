@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -32,6 +33,8 @@ public class PerfumeController {
     private final PerfumeTagService perfumeTagService;
 
     private final PerfumeLikeService perfumeLikeService;
+
+    private final PerfumeRepository perfumeRepository;
 
 
 //    @GetMapping("/list")
@@ -128,6 +131,79 @@ public class PerfumeController {
         }
 
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }
+
+//    @GetMapping("/list/filter")
+//    @ApiOperation(value = "필터로 향수 목록 가져오기")
+//    public ResponseEntity<List<Map<String, Object>>> getListFilter(@RequestBody Map<String, Object> map){
+//        List<Integer> ages = (List<Integer>) map.get("ages");
+//        List<String> gender = (List<String>) map.get("gender");
+//        List<String> mbti = (List<String>) map.get("mbti");
+//
+//        Map<String, Object> result = new HashMap<>();
+//        perfumeService.getUserByAge(ages);
+//
+//        // 나이로 가져오기
+//        // 해당 나이인 사용자가 좋아요한 향수
+//
+//        // 나이 계산
+//
+//
+//
+//
+//        // 성별로 가져오기
+//
+//
+//
+//        // mbti로 가져오기
+//
+//
+//
+//        // 리스트의 중복을 제거
+//
+//        // 좋아요가 많은 순서로 정렬
+//
+//
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+
+    @PostMapping("/list/filter")
+    @ApiOperation(value = "필터로 향수 목록 가져오기 (나이만)")
+    public ResponseEntity<List<Long>> getListFilter(@RequestBody Map<String, Object> map){
+        List<Integer> ages = (List<Integer>) map.get("ages");
+        List<String> gender = (List<String>) map.get("gender");
+        List<String> mbti = (List<String>) map.get("mbti");
+
+//        Map<String, Object> result = new HashMap<>();
+        List<Long> result = perfumeService.getUserByAge(ages);
+
+        // 나이로 가져오기
+        // 해당 나이인 사용자가 좋아요한 향수
+
+        // 나이 계산
+
+
+
+
+        // 성별로 가져오기
+
+
+
+        // mbti로 가져오기
+
+
+
+        // 리스트의 중복을 제거
+
+        // 좋아요가 많은 순서로 정렬
+
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/list/list")
+    public List<String> getTest(){
+        return perfumeRepository.test();
     }
 
 //    @GetMapping("/{id}")
@@ -591,4 +667,6 @@ public class PerfumeController {
     public ResponseEntity<Integer> checkLike(@RequestParam Long userId, Long perfumeId){
         return new ResponseEntity<>(perfumeLikeService.checkLike(userId, perfumeId), HttpStatus.OK);
     }
+
+
 }

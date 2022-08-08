@@ -18,7 +18,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PerfumeServiceImpl  implements PerfumeService {
+public class PerfumeServiceImpl implements PerfumeService {
 
     private final PerfumeRepository perfumeRepository;
 
@@ -114,4 +114,11 @@ public class PerfumeServiceImpl  implements PerfumeService {
 
         return list;
     }
+
+    @Override
+    public List<Long> getUserByAge(List<Integer> ages) {
+        return perfumeRepository.findByAge(ages);
+    }
+
+
 }
