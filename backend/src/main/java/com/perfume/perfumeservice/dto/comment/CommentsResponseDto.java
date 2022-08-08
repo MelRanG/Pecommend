@@ -24,6 +24,8 @@ public class CommentsResponseDto {
     private Long writerId;
     private String writer;
     private int commentLike;
+    private String createdDate;
+    private String updatedDate;
     private int depth;
     private Long parentId;
     private boolean isDeleted;
@@ -47,6 +49,8 @@ public class CommentsResponseDto {
                 .writerId(comment.getWriter().getId())
                 .writer(comment.getWriter().getNickname())
                 .commentLike(likes - disLikes)
+                .createdDate(comment.getCreatedDate().toString())
+                .updatedDate(comment.getModifiedDate().toString())
                 .depth(comment.getDepth())
                 .parentId(parentId)
                 .isDeleted(comment.isDeleted())
