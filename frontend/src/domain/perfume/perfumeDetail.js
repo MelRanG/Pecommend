@@ -44,7 +44,9 @@ const PerfumeDetail = () => {
   const [noteDetail, setNoteDetail] = useState([]); //노트
   const [tagDetail, setTagDetail] = useState([]); //해시태그
   const [ldlRate, setLdlRate] = useState(0);
-  const [reviewScore, setReviewScore] = useState("");
+  const [dislikeCnt, setDislikeCnt] = useState(0); //싫어요 개수
+  const [likeCnt, setLikeCnt] = useState(0); //좋아요 개수
+  const [reviewScore, setReviewScore] = useState(""); // 리뷰 전체 평점
   const [review, setReview] = useState([]); //리뷰
   const [reviewCount, setReviewCount] = useState(0); //리뷰 개수
   const [reviewContent, setReviewContent] = useState(""); //리뷰작성내용
@@ -75,7 +77,8 @@ const PerfumeDetail = () => {
         // setLikeList(response.data.plDto);
         // setDislikeList(response.data.pdDto);
         setLdlRate(response.data.likeRatio);
-
+        setLikeCnt(response.data.likeCnt);
+        setDislikeCnt(response.data.dislikeCnt);
         // console.log("비율", ldlRate);
         // console.log("noteDetail");
         // console.log(noteDetail);
@@ -127,6 +130,7 @@ const PerfumeDetail = () => {
     }
   };
 
+  //해당유저가 좋아하는지 싫어하는지
   const getLikeOrDisLike = async () => {
     try {
       const response = await authaxios({
@@ -226,6 +230,8 @@ const PerfumeDetail = () => {
           // setLikeList(likeList.filter((temp) => temp.userId != 4));
           console.log("like down", likeList);
         }
+        getPerfumeDetail();
+        getLikeOrDisLike();
       }
     } catch (error) {
       console.log(error);
@@ -263,6 +269,8 @@ const PerfumeDetail = () => {
           // setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
           console.log("like down", dislikeList);
         }
+        getPerfumeDetail();
+        getLikeOrDisLike();
       }
     } catch (error) {
       console.log(error);
@@ -328,12 +336,11 @@ const PerfumeDetail = () => {
       getReview();
     } else {
       // alert("삭제를 취소했습니다.")
-      //취소하면 메인으로 이동당함 
+      //취소하면 메인으로 이동당함
     }
   };
 
-
-  //좋아요 리뷰만 
+  //좋아요 리뷰만
   const clickReviewLIKEList = async () => {
     // console.log("좋아요 리뷰만");
     try {
@@ -349,7 +356,7 @@ const PerfumeDetail = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //싫어요 리뷰만
   const clickReviewDISLIKEList = async () => {
@@ -367,7 +374,7 @@ const PerfumeDetail = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //리뷰수정 여기도 1000자 ?
   const clickReviewEditCommit = async (e) => {
@@ -375,7 +382,7 @@ const PerfumeDetail = () => {
     console.log("리뷰수정", e.target.id);
     try {
       const commentBox = document.getElementById(
-        "review-content-" + e.target.id,
+        "review-content-" + e.target.id
       );
       const response = await authaxios({
         method: "patch",
@@ -394,16 +401,16 @@ const PerfumeDetail = () => {
       console.log(response);
       if (response.status === 200) {
         const commentBox = document.getElementById(
-          "review-content-" + e.target.id,
+          "review-content-" + e.target.id
         );
         const commentButtonBox1 = document.getElementById(
-          "review-button-set1-" + e.target.id,
+          "review-button-set1-" + e.target.id
         );
         const commentButtonBox2 = document.getElementById(
-          "review-button-set2-" + e.target.id,
+          "review-button-set2-" + e.target.id
         );
         const commentButtonBox3 = document.getElementById(
-          "review-button-set3-" + e.target.id,
+          "review-button-set3-" + e.target.id
         );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
@@ -424,13 +431,13 @@ const PerfumeDetail = () => {
     console.log(commentBox);
     commentBox.setAttribute("name", commentBox.value);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id,
+      "review-button-set1-" + e.target.id
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id,
+      "review-button-set2-" + e.target.id
     );
     const commentButtonBox3 = document.getElementById(
-      "review-button-set3-" + e.target.id,
+      "review-button-set3-" + e.target.id
     );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = true;
@@ -445,13 +452,13 @@ const PerfumeDetail = () => {
     e.preventDefault();
     const commentBox = document.getElementById("review-content-" + e.target.id);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id,
+      "review-button-set1-" + e.target.id
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id,
+      "review-button-set2-" + e.target.id
     );
     const commentButtonBox3 = document.getElementById(
-      "review-button-set3-" + e.target.id,
+      "review-button-set3-" + e.target.id
     );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = false;
@@ -475,6 +482,47 @@ const PerfumeDetail = () => {
     setBtnActive((prev) => {
       return !prev;
     });
+  };
+
+  //리뷰 좋아요
+  const clickReviewLike = async (e) => {
+    // console.log("리뷰 좋아요", user);
+    try {
+      let data = {
+        reviewId: e.target.id,
+        userId: user.user_id,
+      };
+      // console.log("유저아이디", data);
+      const response = await authaxios({
+        method: "post",
+        url: "/api/v1/review/add/like",
+        data: data,
+      });
+      // console.log(response);
+      if (response.status === 200) {
+        // console.log("완료")
+        if (response.data == "ADD") {
+          // let temp = {
+          //   id: 0,
+          //   perfumeId: perfumeDetail.perfumeId,
+          //   userId: user.user_id,
+          // };
+          // console.log("temp", temp);
+          // alert("좋아요");
+        }
+        if (response.data == "CANCEL") {
+          // alert("이미 싫어요 누름. 싫어요 취소");
+        }
+        if (response.data == "X") {
+          // setLikeList(likeList.filter((temp) => temp.userId != 4));
+          // console.log("like down", likeList);
+          // alert("이미 좋아요 누름");
+        }
+        getReview();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -508,9 +556,8 @@ const PerfumeDetail = () => {
                     />
                   </div>
 
-                  <span className="ml-10">
-                    {reviewCount}개의 리뷰
-                  </span>
+                  <span className="">({reviewScore})</span>
+                  <span className="ml-10">{reviewCount}개의 리뷰</span>
                 </div>
                 {/* 이부분에 해시태그 */}
                 <div className="detail-product-hashtag">
@@ -538,13 +585,11 @@ const PerfumeDetail = () => {
                 </p>
 
                 <div className="detail-pro-details-list-row">
-
                   <div className="detail-pro-details-list1">
                     <ul>
                       {/* 탑노트/미들노트 설명 */}
 
                       {noteDetail.map((data, index) => (
-
                         <li key={index} className={data.noteCl}>
                           {data.materialName}
                         </li>
@@ -578,19 +623,24 @@ const PerfumeDetail = () => {
                 </div>
 
                 {/* 좋아요 싫어요 */}
-                <i class="fa-regular fa-thumbs-down"></i>
+                {/* <i class="fa-regular fa-thumbs-down"></i> */}
                 <div className="pro-details-likeDislike row">
                   <div className="col-2">
                     {/* <i className="fa fa-heart-o"></i> */}
-                    <a
-                      className="articleButton"
+
+                    <div
+                      className=" fa-regular fa-thumbs-up likeOrDislike"
+                      style={
+                        likeOrDisLike === 1
+                          ? { color: "rgb(72 118 239)" }
+                          : { color: "#ccc" }
+                      }
                       onClick={() => {
                         recommend();
                         toggleActive();
                       }}
-                    >
-                      <span className="glyphicon glyphicon-thumbs-up"></span>
-                    </a>
+                    ></div>
+                    <div>{likeCnt}</div>
                   </div>
                   <div className="col-8 ">
                     <div className="detail-likeDislikeGraph">
@@ -600,15 +650,19 @@ const PerfumeDetail = () => {
                     </div>
                   </div>
                   <div className="col-2">
-                    <a
-                      className="articleButton"
+                    <div
+                      className="fa-regular fa-thumbs-down likeOrDislike"
+                      style={
+                        likeOrDisLike === -1
+                          ? { color: "rgb(255 97 97)" }
+                          : { color: "#ccc" }
+                      }
                       onClick={() => {
                         disrecommend();
                         toggleActive();
                       }}
-                    >
-                      <span className="glyphicon glyphicon-thumbs-down"></span>
-                    </a>
+                    ></div>
+                    <div>{dislikeCnt}</div>
                   </div>
                 </div>
               </div>
@@ -802,7 +856,13 @@ const PerfumeDetail = () => {
                     showTooltip
                     onClick={handleRating}
                     ratingValue={rating} /* Available Props */
-                    fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
+                    fillColorArray={[
+                      "#f17a45",
+                      "#f19745",
+                      "#f1a545",
+                      "#f1b345",
+                      "#f1d045",
+                    ]}
                   />
                   {/* {rating}점 */}
                   <div className="image_add_wrap">
@@ -939,12 +999,18 @@ const PerfumeDetail = () => {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" onClick={clickReviewLIKEList}>
+                      <a
+                        className="dropdown-item"
+                        onClick={clickReviewLIKEList}
+                      >
                         좋아요
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" onClick={clickReviewDISLIKEList}>
+                      <a
+                        className="dropdown-item"
+                        onClick={clickReviewDISLIKEList}
+                      >
                         싫어요
                       </a>
                     </li>
@@ -973,7 +1039,6 @@ const PerfumeDetail = () => {
                           </div>
                         </div> */}
 
-
                           <div className="col-md-9 review-text-profile">
                             <div className="review-text-profile-img">
                               <img src="assets/img/testimonial/1.jpg" alt="" />
@@ -991,23 +1056,20 @@ const PerfumeDetail = () => {
                               <div>
                                 {data.user} 님 | {data.modifiedDate}
                               </div>
-
                             </div>
-                            <div className="ml-15" id={`review-button-set3-${data.id}`}
-                              hidden>
+                            <div
+                              className="ml-15"
+                              id={`review-button-set3-${data.id}`}
+                              hidden
+                            >
                               <Rating
                                 onClick={handleUpdateRating}
-                                ratingValue={
-                                  updaterating
-                                } /* Available Props */
+                                ratingValue={updaterating} /* Available Props */
                                 size={"25px"}
                               />
                               {updaterating}점
                               <div className="image_add_wrap">
-                                <button
-                                  type="button"
-                                  className="btn_image_add"
-                                >
+                                <button type="button" className="btn_image_add">
                                   해시태그 선택
                                 </button>
                                 *필수사항X
@@ -1016,7 +1078,10 @@ const PerfumeDetail = () => {
                           </div>
 
                           <div className="col-md-3">
-                            <div className="review-text-like">
+                            <div
+                              className="review-text-like"
+                              style={{ verticalAlign: "middle" }}
+                            >
                               {user.user_id === data.user_id ? (
                                 <>
                                   <div
@@ -1043,7 +1108,6 @@ const PerfumeDetail = () => {
                                     id={`review-button-set2-${data.id}`}
                                     hidden
                                   >
-
                                     <button
                                       className="edit-remove"
                                       onClick={clickReviewEditRemove}
@@ -1062,8 +1126,22 @@ const PerfumeDetail = () => {
                                 </>
                               ) : (
                                 <>
-                                  <span className="glyphicon glyphicon-thumbs-up"></span>
-                                  <span className="glyphicon glyphicon-thumbs-down"></span>
+                                  {/* <i class="fa-regular fa-thumbs-down"></i> */}
+                                  <span
+                                    className="fa-regular fa-thumbs-up mr-10"
+                                    onClick={clickReviewLike}
+                                    style={{
+                                      color: "rgb(72 118 239)",
+                                      fontSize: "25px",
+                                      verticalAlign: "middle",
+                                      lineHeight: "25px",
+                                    }}
+                                    id={`${data.id}`}
+                                  ></span>
+                                  {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
+                                  <span style={{ fontSize: "25px" }}>
+                                    {data.reviewLike}
+                                  </span>
                                 </>
                               )}
                             </div>
@@ -1088,60 +1166,12 @@ const PerfumeDetail = () => {
                               ))}
                             </ul>
                           </div>
-
-
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
               ))}
-
-              {/* <div className="row mt-10">
-                <div className="ratting-form-wrapper">
-                  <div className="ratting-form">
-                    <form action="#">
-                      <div className="row review-text-line">
-             
-
-                        <div className="col-md-12">
-                          <div className="review-rating mb-10">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                          <div className="review-text form-submit">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="col-md-9 review-text-profile">
-                          <span className="review-text-profile-img">
-                            <img src="assets/img/testimonial/1.jpg" alt="" />
-                          </span>
-                          <span>&nbsp; 어쩌구저쩌구 님</span>
-                        </div>
-                        <div className="col-md-3 review-text-like">
-                          <span className="glyphicon glyphicon-thumbs-up"></span>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <span className="glyphicon glyphicon-thumbs-down"></span>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
