@@ -224,18 +224,14 @@ function Profile() {
                       <div>
                         <div className="detail-likeDislikeList-items detail-ldl-first row">
                             {likelist.slice(offset, offset + limitData).map((data) => (
-                              <div className="col-lg-6 col-sm-12">
-                                <div className="col-sm-6 col-xs-6">
-                                  사진
-                                </div>
-                                <div className="col-sm-6 col-xs-6">
-                                <Link
-                                  // className="community-list-titlebox"
-                                  to={`/perfume/detail/${data.perfumeId}`}
-                                >
-                                  {data.koName}
-                                </Link>
-                                {/* <div id={`${data.perfumeId}`} ></div> */}
+                              <div className="col-lg-4 col-sm-12">
+                                <div className="col-sm-6 col-xs-6 mt-30 mb-30 rightbox-in-perfume">
+                                  <div>사진</div>
+                                  <Link
+                                    to={`/perfume/detail/${data.perfumeId}`}
+                                  >
+                                    {data.koName}
+                                  </Link>
                                 </div>
                               </div>
                             ))}
