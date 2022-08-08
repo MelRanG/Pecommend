@@ -15,7 +15,6 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     List<Community> findByTitleLike(String title);
     List<Community> findByWriterOrderByIdDesc(UserEntity user);
 
-
     @Query(nativeQuery = true, value =
         "select * from community c where category=:category " +
                 "order by (select count(*) from community_like cl where c.community_id=cl.community_id) desc"

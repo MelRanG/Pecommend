@@ -35,6 +35,7 @@ const stack = (props) => keyframes`
 // 향수 상세 페이지
 const PerfumeDetail = () => {
   const user = useSelector((state) => state.userStore.nowLoginUser);
+  const isLogined = useSelector((state) => state.userStore.isLogined);
 
   let useParam = useParams();
   let number = parseInt(useParam.num);
@@ -48,6 +49,7 @@ const PerfumeDetail = () => {
   const [reviewOrder, setReviewOrder] = useState("new"); //리뷰정렬 기본 최신순
   const [ldList, setLdList] = useState({});
   const [updaterating, setUpdateRating] = useState(0);
+  const [likeOrDisLike, setLikeOrDisLike] = useState(0);
   let [tab, setTab] = useState(1); // 좋아싫어탭
 
   const getPerfumeDetail = async () => {
@@ -121,7 +123,26 @@ const PerfumeDetail = () => {
     }
   };
 
+  const getLikeOrDisLike = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url:
+          "/api/v1/perfume/check/like?userId=" +
+          user.user_id +
+          "&perfumeId=" +
+          number,
+      });
+      setLikeOrDisLike(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    if (isLogined) {
+      getLikeOrDisLike();
+    }
     getPerfumeDetail();
     get좋아싫어리스트();
     getReview();

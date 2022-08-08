@@ -14,12 +14,10 @@ import com.perfume.perfumeservice.exception.perfume.TagNotFoundException;
 import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -265,7 +263,6 @@ public class ReviewServiceImpl implements ReviewService{
 
         return dtoList;
     }
-
     @Override
     public List<Map<String, Object>> getNewReview() {
         List<Map<String, Object>> list = new LinkedList<>();
@@ -273,7 +270,7 @@ public class ReviewServiceImpl implements ReviewService{
         List<Review> rList = reviewRepository.findAllByOrderByIdDesc();
 
         int idx = 0;
-        for(Review r: rList){
+        for (Review r : rList) {
             ReviewResponseDto rDto = ReviewResponseDto.from(r);
             PerfumeResponseDto pDto = PerfumeResponseDto.from(r.getPerfume());
 
@@ -284,9 +281,14 @@ public class ReviewServiceImpl implements ReviewService{
             list.add(map);
 
             idx++;
-            if(idx==6) break;
+            if (idx == 6) break;
         }
 
         return list;
+    }
+
+    @Override
+    public List<Tag> getTagAll() {
+        return tagRepository.findAllByOrderByTagName();
     }
 }

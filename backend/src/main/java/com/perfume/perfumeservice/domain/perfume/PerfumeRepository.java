@@ -1,8 +1,11 @@
 package com.perfume.perfumeservice.domain.perfume;
 
+import com.perfume.perfumeservice.domain.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
@@ -27,5 +30,20 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
     //public List<Perfume> findByKoNameLikeOrEnNameLike(String koName, String enName);
 
     public List<Perfume> findByKoNameLikeOrEnNameLikeIgnoreCase(String koName, String enName);
+
+    // 나이 해당하는 사람 가져오기
+    @Query(nativeQuery = true, value =
+//            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
+            "SELECT STR_TO_DATE(birthday, '%Y-%m-%d') AS"
+    )
+    public List<Long> findByAge(List<Integer> ages);
+//    public List<Perfume> findByTags(List<Integer> ages, List<String> genders, List<String> mbtis);
+    @Query(nativeQuery = true, value =
+//            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
+//            "SELECT FORMATDATETIME(birthday, 'yyyy-MM-dd') FROM user;"
+//            "SELECT to_date(birthday, 'YYYY-MM-DD') FROM user"
+            "SELECT to_char(to_date(u.birthday, 'YYYY-mm-dd'), 'yyyy/mm/dd') FROM user u"
+    )
+    public List<String> test();
 
 }

@@ -1,5 +1,8 @@
 package com.perfume.perfumeservice.controller;
 
+import com.perfume.perfumeservice.domain.perfume.PerfumeTagCount;
+import com.perfume.perfumeservice.domain.perfume.Tag;
+import com.perfume.perfumeservice.dto.perfume.TagResponseDto;
 import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
 import com.perfume.perfumeservice.dto.review.ReviewResponseDto;
 import com.perfume.perfumeservice.service.review.ReviewService;
@@ -10,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,8 +46,19 @@ public class ReviewController {
 
     @GetMapping("/list/{id}")
     @ApiOperation(value = "향수 리뷰 전체 조회")
-    public ResponseEntity<List<ReviewResponseDto>> getList(@PathVariable Long id, @RequestParam String order){
-        return new ResponseEntity<>(reviewService.getList(id, order), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getList(@PathVariable Long id, @RequestParam String order) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ReviewResponseDto> list = reviewService.getList(id, order);
+        double score = 0.0;
+        for (ReviewResponseDto r : list) {
+            score += (double) r.getScore();
+        }
+
+        score = score / list.size();
+        map.put("review_count", list.size());
+        map.put("review", list);
+        map.put("score_avg", Math.round(score * 10) / 10.0);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping("/list/like/{id}")
@@ -72,7 +87,19 @@ public class ReviewController {
 
     @GetMapping("/new")
     @ApiOperation(value = "최신 리뷰 6개")
-    public ResponseEntity<List<Map<String, Object>>> getNewReview(){
+    public ResponseEntity<List<Map<String, Object>>> getNewReview() {
         return new ResponseEntity<>(reviewService.getNewReview(), HttpStatus.OK);
+    }
+
+    @GetMapping("/tag")
+    @ApiOperation(value = "해시태그 전체 리스트")
+    public ResponseEntity<List<TagResponseDto>> getTagAll(){
+        List<Tag> tags = reviewService.getTagAll();
+        List<TagResponseDto> tDto = new LinkedList<>();
+        for(Tag tag : tags){
+            tDto.add(TagResponseDto.from(tag));
+        }
+        return new ResponseEntity<>(tDto, HttpStatus.OK);
+
     }
 }

@@ -82,7 +82,6 @@ public class CommunityServiceImpl implements CommunityService {
     public List<PostsResponseDto> getListByUser(Long userId){
         UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         List<Community> c_list = communityRepository.findByWriterOrderByIdDesc(user);
-        //Set<Community> c_list = user.getPosts();
         List<PostsResponseDto> p_list = new LinkedList<>();
 
         for(Community c: c_list){
