@@ -21,6 +21,7 @@ public class PostsResponseDto {
     private String title;
     private String content;
     private int communityLike;
+    private int commentCount;
     private String createDateYMD;
     private String createDateHMS;
     private String modifiedDateYMD;
@@ -43,6 +44,7 @@ public class PostsResponseDto {
                 .title(community.getTitle())
                 .content(community.getContent())
                 .communityLike(likes)
+                .commentCount(community.getComments().size())
                 .createDateYMD(createDateYMD)
                 .createDateHMS(createDateHMS)
                 .modifiedDateYMD(modifiedDateYMD)

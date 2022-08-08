@@ -69,4 +69,9 @@ public class CommentController {
         String result = commentService.addDisLike(userId, commentId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/profile/{id}")
+    @ApiOperation(value = "프로필 댓글 목록 조회")
+    public ResponseEntity<List<CommentsResponseDto>> getProfileComments(@PathVariable Long id){
+        return new ResponseEntity<>(commentService.getProfileComments(id), HttpStatus.OK);
+    }
 }
