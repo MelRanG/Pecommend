@@ -5,8 +5,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./perfumeDetail.css";
 import { Rating } from "react-simple-star-rating";
 import { useSelector } from "react-redux";
-import { Nav } from "react-bootstrap";
+import { Modal, Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 import styled, { keyframes } from "styled-components";
+// import PerfumeTagModal from "./perfumeTagModal";
+import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
+
 // import { waitFor } from "@testing-library/react";
 
 // function Note({ note }) {
@@ -55,6 +59,12 @@ const PerfumeDetail = () => {
   const [updaterating, setUpdateRating] = useState(0);
   const [likeOrDisLike, setLikeOrDisLike] = useState(0); //해당 유저가 이 향수를 좋아하는지 싫어하는지 1 : 좋아 -1 : 싫어 0:안누름
   let [tab, setTab] = useState(1); // 좋아싫어탭
+  const [tagList, setTagList] = useState([]); //태그선택모달창의 해시태그리스트
+  //모달
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const getPerfumeDetail = async () => {
     try {
@@ -83,6 +93,24 @@ const PerfumeDetail = () => {
         // console.log("noteDetail");
         // console.log(noteDetail);
         // setNote(noteDetail);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 해시태그선택용 해시태그불러오기
+  const getTagList = async () => {
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/perfume/hottag",
+        // headers: { "Content-Type": "multipart/form-data" },
+      });
+      // console.log(response);
+      if (response.status === 200) {
+        console.log("인기태그리스트", response.data);
+        setTagList(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -154,6 +182,7 @@ const PerfumeDetail = () => {
     getPerfumeDetail();
     get좋아싫어리스트();
     getReview();
+    getTagList();
   }, []);
 
   //노트구분하기 -> 안씀
@@ -627,20 +656,32 @@ const PerfumeDetail = () => {
                 <div className="pro-details-likeDislike row">
                   <div className="col-2">
                     {/* <i className="fa fa-heart-o"></i> */}
-
-                    <div
-                      className=" fa-regular fa-thumbs-up likeOrDislike"
-                      style={
-                        likeOrDisLike === 1
-                          ? { color: "rgb(72 118 239)" }
-                          : { color: "#ccc" }
+                    <OverlayTrigger
+                      key={"top"}
+                      placement={"top"}
+                      overlay={
+                        <Tooltip
+                          id={`tooltip-top`}
+                          style={{ fontSize: "15px" }}
+                        >
+                          {likeCnt}
+                        </Tooltip>
                       }
-                      onClick={() => {
-                        recommend();
-                        toggleActive();
-                      }}
-                    ></div>
-                    <div>{likeCnt}</div>
+                    >
+                      <div
+                        className=" fa-regular fa-thumbs-up likeOrDislike"
+                        style={
+                          likeOrDisLike === 1
+                            ? { color: "rgb(72 118 239)" }
+                            : { color: "#ccc" }
+                        }
+                        onClick={() => {
+                          recommend();
+                          toggleActive();
+                        }}
+                      ></div>
+                      {/* <div>{likeCnt}</div> */}
+                    </OverlayTrigger>
                   </div>
                   <div className="col-8 ">
                     <div className="detail-likeDislikeGraph">
@@ -650,19 +691,32 @@ const PerfumeDetail = () => {
                     </div>
                   </div>
                   <div className="col-2">
-                    <div
-                      className="fa-regular fa-thumbs-down likeOrDislike"
-                      style={
-                        likeOrDisLike === -1
-                          ? { color: "rgb(255 97 97)" }
-                          : { color: "#ccc" }
+                    <OverlayTrigger
+                      key={"top"}
+                      placement={"top"}
+                      overlay={
+                        <Tooltip
+                          id={`tooltip-top`}
+                          style={{ fontSize: "15px" }}
+                        >
+                          {dislikeCnt}
+                        </Tooltip>
                       }
-                      onClick={() => {
-                        disrecommend();
-                        toggleActive();
-                      }}
-                    ></div>
-                    <div>{dislikeCnt}</div>
+                    >
+                      <div
+                        className="fa-regular fa-thumbs-down likeOrDislike"
+                        style={
+                          likeOrDisLike === -1
+                            ? { color: "rgb(255 97 97)" }
+                            : { color: "#ccc" }
+                        }
+                        onClick={() => {
+                          disrecommend();
+                          toggleActive();
+                        }}
+                      ></div>
+                    </OverlayTrigger>
+                    {/* <div>{dislikeCnt}</div> */}
                   </div>
                 </div>
               </div>
@@ -853,6 +907,7 @@ const PerfumeDetail = () => {
                     <i className="fa fa-star"></i>
                   </div> */}
                   <Rating
+                    className="ml-10"
                     showTooltip
                     onClick={handleRating}
                     ratingValue={rating} /* Available Props */
@@ -866,10 +921,19 @@ const PerfumeDetail = () => {
                   />
                   {/* {rating}점 */}
                   <div className="image_add_wrap">
-                    <button type="button" className="btn_image_add">
+                    {/* <!-- Button trigger modal --> */}
+                    <Button variant="primary" onClick={handleShow}>
+                      해시태그 선택
+                    </Button>
+
+                    {/* <button
+                      onClick={() => setTagModal(!tagModal)}
+                      className="btn_image_add"
+                    >
                       해시태그 선택
                     </button>
-                    *필수사항X
+                    *필수사항X */}
+                    {/* {tagModal === true ? <PerfumeTagModal /> : null} */}
                   </div>
                   <span className="comment_count">
                     {" "}
@@ -1176,6 +1240,32 @@ const PerfumeDetail = () => {
           </div>
         </div>
       </div>
+      {/* <!-- Modal --> */}
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>해시태그 선택</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          <div className="product-hashtag">
+            {tagList.map((data, index) => (
+              <div className="" key={index}>
+                #{data.tName}
+              </div>
+            ))}
+            {/* <div className="">#30대</div> */}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/*  */}
     </div>
   );
 };
