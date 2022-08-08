@@ -15,7 +15,7 @@ import { useCookies } from "react-cookie";
 
 function Login() {
   const [cookies, setCookie, removeCookie] = useCookies(["saveId"]);
-  const user = useSelector((state) => state.userStore.nowLoginUser);
+  const isLogined = useSelector((state) => state.userStore.isLogined);
 
   const dispatch = useDispatch();
   const saveUser = (data) => dispatch(setUser(data));
@@ -35,6 +35,7 @@ function Login() {
   const [check_disabled, setCheckDisabled] = React.useState(false);
   const [nick_check, setNickCheck] = React.useState(false);
   const [remember, setRemember] = React.useState(false);
+  const [introduction, setIntroduction] = React.useState("");
 
   const onIDhandler = (event) => {
     setId(event.currentTarget.value);
@@ -81,6 +82,20 @@ function Login() {
     setRemember(event.target.checked);
   };
 
+  const onIntroduction = (event) => {
+    setIntroduction(event.currentTarget.value);
+  };
+
+  const checkAge = (data) => {
+    const nums = data.split("-");
+    const today = new Date();
+    const birthDate = new Date(nums[0], nums[1], nums[2]);
+
+    let age = today.getFullYear() - birthDate.getFullYear() + 1;
+
+    return parseInt(age / 10) * 10;
+  };
+  
   const onSubmithandler = (event) => {
     event.preventDefault();
     let body = {
@@ -117,6 +132,10 @@ function Login() {
   };
 
   useEffect(() => {
+    if (isLogined === true) {
+      window.location.href = "/";
+    }
+
     if (cookies.saveId !== undefined) {
       setId(cookies.saveId);
       setRemember(true);
@@ -310,11 +329,23 @@ function Login() {
         title: "생일",
         text: "생일을 선택해주세요.",
       });
+    } else if (checkAge(birth) < 10) {
+      Swal.fire({
+        icon: "warning",
+        title: "생일",
+        text: "10세 이상만 가입 가능합니다.",
+      });
     } else if (gender === "") {
       Swal.fire({
         icon: "warning",
         title: "성별",
         text: "성별을 선택해주세요.",
+      });
+    } else if (introduction.length > 60) {
+      Swal.fire({
+        icon: "warning",
+        title: "프로필 소개",
+        text: "소개는 60자 이하만 가능합니다.",
       });
     } else {
       let body = {
@@ -324,6 +355,7 @@ function Login() {
         birthday: birth,
         gender: gender,
         mbti: mbti,
+        introduction: introduction,
       };
       console.log("회원가입");
       console.log(body);
@@ -494,6 +526,7 @@ function Login() {
                             name="birthday"
                             placeholder="birthday"
                             type="date"
+                            max="9999-12-31"
                             onChange={onBirthhandler}
                           />
                           <label>성별</label>
@@ -523,7 +556,7 @@ function Login() {
                           </label>
                           <br />
                           <br />
-                          <label>MBTI</label>
+                          <label>MBTI (선택)</label>
                           <select
                             name="mbti"
                             className="form-select"
@@ -547,6 +580,13 @@ function Login() {
                             <option value="ENFJ">ENFJ</option>
                             <option value="ENFP">ENFP</option>
                           </select>
+                          <label>프로필 소개 (선택)</label>
+                          <input
+                            name="introduction"
+                            placeholder="소개는 60자 이하만 가능합니다."
+                            type="text"
+                            onChange={onIntroduction}
+                          />
                           <div className="button-box">
                             <button type="submit">
                               <span>Register</span>

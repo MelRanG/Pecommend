@@ -232,13 +232,7 @@ function CommunityList() {
       <div className="pb-100">
         <div className="container">
           <div className="row flex-row-reverse">
-            <div className="col-lg-12">
-              <div>
-                <h4 className="mt-5" style={{ "text-align": "center" }}>
-                  {titleName[categorys]} 게시판
-                </h4>
-              </div>
-              <hr></hr>
+            <div className="col-lg-12 mt-5">
               <div className="row">
                 <div className="community-top-box col-lg-6 col-sm-12">
                   <button className="community-top-box-active" onClick={clickButton1} id="button1">ㆍ최신</button>

@@ -76,18 +76,13 @@ function CommunityMain() {
         <div className="container commuMain_con">
           <div className="row flex-row-reverse">
             <div className="col-lg-12">
-              <div className="community-long-box">
+              {/* <div className="community-long-box">
                 <div
                   id="community-carousel"
                   className="carousel slide"
                   data-bs-ride="carousel"
                 >
                   <div className="carousel-inner long-item-box">
-                    {/* <img
-                      className="long-item-img"
-                      src="../assets\tempImg\laptop-g3b51ebe8f_1920.png"
-                      alt=""
-                    /> */}
                     <div className="carousel-item active long-item-article">
                       <img
                         className="long-item-img"
@@ -98,7 +93,6 @@ function CommunityMain() {
                       <div className="long-item-title">
                         싸피에서 간식허락 해준다면
                       </div>
-                      {/* <div className="long-item-name">작성자 : 닉네임</div> */}
                       <div className="long-item-text">
                         두줄이 넘어가면 어떻게 표시될지 모르겠어서 길게길게
                         적어보는중입니다. 여기는 2줄이상 표시하지않도록 hello
@@ -115,7 +109,6 @@ function CommunityMain() {
                       <div className="long-item-title">
                         집에 가고싶게 만드는 향수없나요
                       </div>
-                      {/* <div className="long-item-name">작성자 : 닉네임</div> */}
                       <div className="long-item-text">
                         있다면 프로님한테 뿌리게,,
                       </div>
@@ -130,7 +123,6 @@ function CommunityMain() {
                       <div className="long-item-title">
                         삼겹살냄새 향수가 나온다면
                       </div>
-                      {/* <div className="long-item-name">작성자 : 닉네임</div> */}
                       <div className="long-item-text">
                         좋을까요 싫을까요 궁금해요
                       </div>
@@ -160,6 +152,37 @@ function CommunityMain() {
                     ></span>
                     <span className="visually-hidden">Next</span>
                   </button>
+                </div>
+              </div> */}
+              <div className="community-long-box">
+                <div className="long-item-box">
+                  <div className="long-item-article active">
+                    <h4>인기글</h4>
+                    <div className="community-article-box">
+                      <ul>
+                        {
+                          article_hot != null
+                          ?
+                          <>
+                            {article_hot.map((data) => (
+                            // <li>[{titleName[data.category]}] {data.title}</li>
+                            <li>
+                              <Link
+                                className="community-list-titlebox"
+                                to={`/commu/detail/${data.id}`}
+                              >
+                                [{titleName[data.category]}] {data.title}
+                              </Link>
+                            </li>
+                          ))}
+                          </>
+                          :
+                          <>
+                          </>
+                        }
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -6,7 +6,7 @@ function PerfumeRegistList() {
   return (
     <div className="perfumeRegistList">
 
-      <div className="container mt-50 mb-100" style={{ width: "80%", minWidth: "500px" }}>
+      <div className="container mt-50 mb-100" style={{ width: "60%", minWidth: "500px" }}>
         <div className="top-bar">
           <h4>향수 등록 신청 목록</h4>
           <button><Link to={"../reg"}>신청하기</Link></button>

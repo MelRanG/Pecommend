@@ -1,35 +1,123 @@
 import "./profile.css";
 import React, { useEffect, useState } from "react";
 import { authaxios, freeaxios } from "../../custom/customAxios";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, NavLink, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Nav } from "react-bootstrap";
+import Pagination from "../community/pagination";
 
 function Profile() {
-  let hashtag_list = ["따뜻한", "봄", "가을"];
-
+  // let hashtag_list = ["따뜻한", "봄", "가을"];
   let useParam = useParams();
-  let number = parseInt(useParam.num);
+  let number = parseInt(useParam.num); // 유저번호
   const [userprofile, setUserProfile] = useState([]);
   const [age, setAge] = useState(0);
+  const user = useSelector(state => state.userStore.nowLoginUser);
+  let [tab, setTab] = useState(1);
+  const [likelist, setLikeList] = useState([]);
+  const [dislikelist, setDisLikeList] = useState([]);
+  const [cummuProfile, setCummuProfile] = useState([]);
+  const [commentProfile, setCommentProfile] = useState([]);
+  const [limitData, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limitData;
 
-  // 다른 유저 프로필 조회 기능 구현 필요
+  const titleName = [
+    '전체',
+    '자유',
+    '향수',
+    '인기',
+    '공지'
+  ]
+
+
   const getUserInfo = async () => {
     try {
       const response = await authaxios({
         method: "get",
         url: "/api/v1/user/info/id/" + number,
       });
+      console.log(response.data.user_id)
       if (response.status === 200) {
         setUserProfile(response.data);
       }
-
       setAge(getAge(response.data.birthday));
     } catch (error) {
       console.log(error);
+      document.location.href = "/NotFound"
+    }
+  };
+
+  const getLikeInfo = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url: "/api/v1/perfume/likelist/" + number,
+      });
+      console.log(response.data)
+      if (response.status === 200) {
+        setLikeList(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      document.location.href = "/NotFound"
+    }
+  };
+
+  const getDisLikeInfo = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url: "/api/v1/perfume/dislikelist/" + number,
+      });
+      console.log(response)
+      if (response.status === 200) {
+        setDisLikeList(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      document.location.href = "/NotFound"
+    }
+  };
+
+  const getCummuInfo = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url: "/api/v1/community/list/user/" + number,
+      });
+      console.log(response.data)
+      if (response.status === 200) {
+        setCummuProfile(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      document.location.href = "/NotFound"
+    }
+  };
+
+  const getCommentInfo = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url: "/api/v1/comment/profile/" + number,
+      });
+      console.log(response.data)
+      if (response.status === 200) {
+        setCommentProfile(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      document.location.href = "/NotFound"
     }
   };
 
   useEffect(() => {
     getUserInfo();
+    getLikeInfo();
+    getDisLikeInfo();
+    getCummuInfo();
+    getCommentInfo();
   }, []);
 
   const getGender = (data) => {
@@ -47,29 +135,43 @@ function Profile() {
     return parseInt(age / 10) * 10;
   };
 
+  // const getDataList = (event) => {
+  //   event.preventDefault();
+  //   console.log(userprofile);
+  //   freeaxios
+  //     .get("/api/v1/perfume/likelist/" + userprofile.user_id)
+  //     .then(function(response) {
+  //       console.log(response)
+  //     })
+  //   };
+
+
   return (
     <div className="profile">
+      <div className="container-temp">
+        <div className="pernav">
+          <div className="pernav-header">
+            <div className="pernav-header-title tac">
+              {/* <span></span> */}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="container mainProfile">
-        <div className="col-md-4 profile-top">
+        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 profile-top">
           <div className="profileBox">
+            {(user.user_id === userprofile.user_id) && 
+              <button className="profile-edit-button" type="button" title="ddd">
+                <Link to="/profile/update"><i className="fa-solid fa-gear"> 사용자 설정</i></Link>
+              </button>}
             <div>
-              {/* <img
-                className="profile-img"
-                src="./assets/tempImg/다운로드 (1).jpg"
-                alt="?"
-              /> */}
+
               <h4>{userprofile.nickname}</h4>
+              {(userprofile.introduction !== '') && 
+                <p className="introduction">"{userprofile.introduction}"</p>}
             </div>
           </div>
           <div className="profileText">
-            <div className="profilecomment">
-              <span>"여기에 한마디가 들어갑니다"</span>
-            </div>
-            <div className="hashtag-list">
-              {hashtag_list.map((n, i) => {
-                return <TagSpawn tagname={hashtag_list[i]} count={i} />;
-              })}
-            </div>
             <div className="profileDataLine">
               <h5>성별 : {getGender(userprofile.gender)}</h5>
               <h5>나이 : {age}대</h5>
@@ -78,196 +180,181 @@ function Profile() {
           </div>
         </div>
 
-        <div className="col-md-8 row mt-25 mb-25">
-          <div className="profile-topbar">
-            <ul className="nav nav-tabs justify-content-center">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  선호 향수
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  비선호 향수
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  작성 게시글
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  작성 댓글
-                </a>
-              </li>
-            </ul>
-            <div className="row profile-maindiv">
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>불가리 뿌르옴므</h4>
-                  <h5>불가리</h5>
-                  <h5>4.0</h5>
-                </div>
+        <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 pt-50 pb-100 rightbox">
+          <div className="profile-description">
+            <div className="container-fluid">
+              <div>
+                <Nav className="mt-5 profile-navtab" variant="tabs" defaultActiveKey="link-1">
+                  <Nav.Item>
+                    <Nav.Link className="" eventKey="link-1" onClick={() => setTab(1)}>
+                      &nbsp;Like&nbsp;
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="nav-second">
+                    <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
+                      &nbsp;Dislike&nbsp;
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="nav-second">
+                    <Nav.Link eventKey="link-3" onClick={() => setTab(3)}>
+                      &nbsp;게시글&nbsp;
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="nav-second">
+                    <Nav.Link eventKey="link-4" onClick={() => setTab(4)}>
+                      &nbsp;댓글&nbsp;
+                    </Nav.Link>
+                  </Nav.Item>
+                </Nav>
+                {
+                  tab === 1
+                  ? (
+                      <div>
+                        <div className="detail-likeDislikeList-items detail-ldl-first row">
+                            {likelist.slice(offset, offset + limitData).map((data) => (
+                              <div className="col-lg-4 col-sm-12">
+                                <div className="col-sm-6 col-xs-6 mt-30 mb-30 rightbox-in-perfume">
+                                  <div>사진</div>
+                                  <Link
+                                    to={`/perfume/detail/${data.perfumeId}`}
+                                  >
+                                    {data.koName}
+                                  </Link>
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                        <div>
+                          <Pagination
+                            total={likelist.length}
+                            limit={limitData}
+                            page={page}
+                            setPage={setPage}
+                          />
+                        </div>
+                      </div>
+                      )
+                  : ( tab === 2
+                    ? (
+                      <div>
+                        <div className="detail-likeDislikeList-items detail-ldl-first row">
+                            {dislikelist.slice(offset, offset + limitData).map((data) => (
+                              <div className="col-lg-6 col-sm-12">
+                                <div className="col-sm-6 col-xs-6">
+                                  사진
+                                </div>
+                                <div className="col-sm-6 col-xs-6">
+                                <Link
+                                  // className="community-list-titlebox"
+                                  to={`/perfume/detail/${data.perfumeId}`}
+                                >
+                                  {data.koName}
+                                </Link>
+                                {/* <div id={`${data.perfumeId}`} ></div> */}
+                                
+                                </div>
+                              </div>
+                              )
+                            )}
+                        </div>
+                        <div>
+                          <Pagination
+                            total={dislikelist.length}
+                            limit={limitData}
+                            page={page}
+                            setPage={setPage}
+                          />
+                        </div>
+                      </div>)
+                      : ( tab === 3
+                        ? (
+                          <div className="mt-20">
+                          <table className="table table-hover">
+                          <thead>
+                            <tr className="table-top rightbox-in">
+                              <th scope="col">제목</th>
+                              <th scope="col">작성일</th>
+                              <th scope="col">추천수</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {cummuProfile.slice(offset, offset + limitData).map((data) => (
+                              <tr className="table-bottom">
+                                <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                                  <Link
+                                    className="community-list-titlebox"
+                                    to={`/commu/detail/${data.id}`}
+                                  >
+                                    [{titleName[data.category]}] {data.title}
+                                  </Link>
+                                </td>
+                                <td>{data.createDateYMD}</td>
+                                {/* <td>{data.createDateHMS}</td> */}
+                                <td>{data.communityLike}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                          </table>
+                          <div>
+                          <Pagination
+                            total={cummuProfile.length}
+                            limit={limitData}
+                            page={page}
+                            setPage={setPage}
+                          />
+                          </div></div>
+                          )
+                          : ( tab === 4
+                            ? (
+                              <div className="mt-20">
+                              <table className="table table-hover">
+                              <thead>
+                                <tr className="table-top rightbox-in">
+                                  <th scope="col">댓글</th>
+                                  <th scope="col">작성일</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {commentProfile.slice(offset, offset + limitData).map((data) => (
+                                  <tr className="table-bottom">
+                                    <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                                      <Link
+                                        className="community-list-titlebox"
+                                        to={`/commu/detail/${data.id}`}
+                                      >
+                                        {data.content}
+                                      </Link>
+                                    </td>
+                                    <td>{data.createdDate}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                            <div>
+                              <Pagination
+                                total={cummuProfile.length}
+                                limit={limitData}
+                                page={page}
+                                setPage={setPage}
+                              />
+                            </div></div>
+                              )
+                              : null)))
+                }
               </div>
-              {/* <hr></hr> */}
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>불가리 뿌르옴므</h4>
-                  <h5>불가리</h5>
-                  <div className=" review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                  </div>
-                  {/* <h5>향수 평점 : </h5> */}
-                </div>
-              </div>
-              <hr></hr>
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>불가리 뿌르옴므</h4>
-                  <h5>불가리</h5>
-                  <div className=" review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <span> 4.0</span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>불가리 뿌르옴므</h4>
-                  <h5>불가리</h5>
-                  <div className=" review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <span> (62)</span>
-                  </div>
-                </div>
-              </div>
-              <hr></hr>
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>불가리 뿌르옴므</h4>
-                  <h5>불가리</h5>
-                  <h5 style={{ marginBottom: "0px" }}>4.0</h5>
-                  <div className=" review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <span> (62)</span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>불가리 뿌르옴므</h4>
-                  <h5>불가리</h5>
-                  <div className=" review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <span> 4.0 (62)</span>
-                  </div>
-                </div>
-              </div>
-              <hr></hr>
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>향수 이름</h4>
-                  <h5>향수 제조사</h5>
-                  <h5>향수 평점 : </h5>
-                </div>
-              </div>
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>향수 이름</h4>
-                  <h5>향수 제조사</h5>
-                  <h5>향수 평점 : </h5>
-                </div>
-              </div>
-              <hr></hr>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
 }
 
-function TagSpawn(props) {
+{/* function TagSpawn(props) {
   return (
     <button className={"hashtag" + (props.count % 3)}>#{props.tagname}</button>
   );
-}
+} */}
 
 export default Profile;

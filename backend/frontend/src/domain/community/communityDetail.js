@@ -10,6 +10,13 @@ import { useSelector } from "react-redux";
 
 
 function CommunityDetail () {
+    const articleCategory = [
+        '전체',
+        '자유',
+        '향수',
+        '인기',
+        '공지'
+    ]
     const user = useSelector(state => state.userStore.nowLoginUser);
     let navigate = useNavigate();
     let useParam = useParams();
@@ -303,12 +310,12 @@ function CommunityDetail () {
                         <div class="col-lg-12 community-detail-box">
                             <div class="community-detail">
                                 <div class="community-detail-title">
-                                    <h4 class="ms-5 mt-3">{pageDetail.title}</h4>
+                                    <h4 class="mx-4 mt-3">[{articleCategory[pageDetail.category]}] {pageDetail.title}</h4>
                                 </div>
-                                <div class="community-detail-user d-flex flex-row justify-content-between align-items-center mx-2">
+                                <div class="community-detail-user d-flex flex-row justify-content-between align-items-center mx-4">
                                     <div>
                                         {/* <img alt="?" src="" class="me-3"/> */}
-                                        <span>{pageDetail.writer}</span>
+                                        <span>작성자 : {pageDetail.writer}</span>
                                     </div>
                                     <div>
                                         <h5 style={{margin:"0"}}>추천 {pageDetail.communityLike}</h5>
@@ -331,8 +338,8 @@ function CommunityDetail () {
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-subtextbox">
-                                    <h5>2022.07.15 14:35 작성됨</h5>
-                                    <h5>2022.07.17 12:12 수정됨</h5>
+                                    {/* <h5>{pageDetail.createdDate.slice(0,10)}일 {pageDetail.createdDate.slice(11,19)} 작성됨</h5> */}
+                                    {/* <h5>{pageDetail.modifiedDate.substr(0,10)}일 {pageDetail.modifiedDate.substr(11,8)} 수정됨</h5> */}
                                     {
                                         user.user_id === pageDetail.writer_id
                                         ?
@@ -373,7 +380,7 @@ function CommunityDetail () {
                 </div>
                 {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
                 <div className="community-comment-list">
-                    {pageComment.slice(offset, offset + limitData).map((data) => (
+                    {pageComment.map((data) => (
                         <div className="community-comment-card d-flex">
                             <span>{data.writer}</span>
                             <textarea readOnly rows="3" name="" id={`comment-content-${data.id}`} onChange={commentEditChange}>{data.content}</textarea>
@@ -427,32 +434,7 @@ function CommunityDetail () {
                       } */}
                 </div>
 
-                <div>
-                    <label>
-                      페이지 당 표시할 게시물 수:&nbsp;
-                      <select
-                        type="number"
-                        value={limitData}
-                        onChange={({ target: { value } }) => setLimit(Number(value))}
-                      >
-                        <option value="5">5</option>
-                        <option value="70">7</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                      </select>
-                    </label>
-                  </div>
-
-                <div>
-                    <Pagination
-                      total={pageComment.length}
-                      limit={limitData}
-                      page={page}
-                      setPage={setPage}
-                    />
-                </div>
-
-                <div className="backButton">
+                <div className="backButton mt-5">
                     <button onClick={()=>{navigate(-1)}}>목록</button>
                 </div>
 

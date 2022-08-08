@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user_reducer";
 import { logOut } from "../../redux/user_reducer";
+import Swal from "sweetalert2";
 
 function Profile_update() {
   const user = useSelector((state) => state.userStore.nowLoginUser);
@@ -24,6 +25,7 @@ function Profile_update() {
   const [userprofile, setUserProfile] = React.useState([]);
   const [nick_change_msg, setNickChangeMsg] = React.useState("변경");
   const [pwd_change_msg, setPwdChangeMsg] = React.useState("변경");
+  const [introduction, setIntroduction] = React.useState("");
 
   const getUserInfo = async () => {
     try {
@@ -37,6 +39,7 @@ function Profile_update() {
         setGender(response.data.gender);
         setNick(response.data.nickname);
         setMbti(response.data.mbti);
+        setIntroduction(response.data.introduction);
       }
     } catch (error) {
       console.log(error);
@@ -72,12 +75,25 @@ function Profile_update() {
     setMbti(event.currentTarget.value);
   };
 
+  const onIntroduction = (event) => {
+    setIntroduction(event.currentTarget.value);
+  };
+
+  const checkAge = (data) => {
+    const nums = data.split("-");
+    const today = new Date();
+    const birthDate = new Date(nums[0], nums[1], nums[2]);
+
+    let age = today.getFullYear() - birthDate.getFullYear() + 1;
+
+    return parseInt(age / 10) * 10;
+  };
+
   // 비밀번호 유효성 검사
   const checkPassword = (password) => {
     // 8~16자리 문자, 숫자, 특수문자 조합.
     const regExp = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
     if (regExp.test(password) === false) {
-      // alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
       return false;
     } else {
       return true;
@@ -89,57 +105,121 @@ function Profile_update() {
     event.preventDefault();
     console.log(nick);
     console.log(nick_check);
-    freeaxios
-      .get("/api/v1/user/check.do/nickname/" + nick)
-      .then(function (response) {
-        // console.log(response.data);
-        if (response.data === true) {
-          alert("이미 존재하는 닉네임입니다.");
-        } else {
-          alert("사용 가능한 닉네임입니다.");
-          setNickCheck(true);
-          console.log(nick_check);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+    console.log(nick.length);
+    if (nick.length >= 2 && nick.length <= 8) {
+      freeaxios
+        .get("/api/v1/user/check.do/nickname/" + nick)
+        .then(function (response) {
+          if (response.data === true) {
+            Swal.fire({
+              icon: "warning",
+              title: "실패",
+              text: "이미 존재하는 닉네임입니다.",
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: "성공",
+              text: "사용 가능한 닉네임입니다.",
+            });
+            setNickCheck(true);
+            console.log(nick_check);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "재시도 후 문의바랍니다.",
+          });
+        });
+      };
+    };
 
   const changeNickname = (event) => {
     event.preventDefault();
     if (nick_disabled) {
-      if (window.confirm("닉네임을 변경하시겠습니까?")) {
-        setNickDisabled(false);
-        setNickCheck(false);
-        setNickChangeMsg("변경 취소");
-      }
+      Swal.fire({
+        title: '닉네임을 변경하시겠습니까?',
+        text: " ",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            setNickDisabled(false);
+            setNickCheck(false);
+            setNickChangeMsg("변경 취소");
+          }
+      })
     } else {
-      if (window.confirm("닉네임 변경을 취소하시겠습니까?")) {
-        setNickDisabled(true);
-        setNickCheck(true);
-        setNick(userprofile.nickname);
-        setNickChangeMsg("변경");
-      }
+      Swal.fire({
+        title: '닉네임을 변경을 취소하시겠습니까?',
+        text: " ",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setNickDisabled(true);
+          setNickCheck(true);
+          setNick(userprofile.nickname);
+          setNickChangeMsg("변경");
+          }
+      })
     }
   };
 
   const changePassword = (event) => {
     event.preventDefault();
     if (pwd_disabled) {
-      if (window.confirm("비밀번호를 변경하시겠습니까?")) {
-        setPwdDisabled(false);
-        setPwdCheck(false);
-        setPwdChangeMsg("변경 취소");
-      }
+      Swal.fire({
+        title: "비밀번호를 변경하시겠습니까?",
+        text: " ",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setPwdDisabled(false);
+          setPwdCheck(false);
+          setPwdChangeMsg("변경 취소");
+          }
+      })
+      // if (window.confirm("비밀번호를 변경하시겠습니까?")) {
+      //   setPwdDisabled(false);
+      //   setPwdCheck(false);
+      //   setPwdChangeMsg("변경 취소");
+      // }
     } else {
-      if (window.confirm("비밀번호 변경을 취소하시겠습니까?")) {
-        setPwdDisabled(true);
-        setPwdCheck(true);
-        setPwd("");
-        setPwdRe("");
-        setPwdChangeMsg("변경");
-      }
+      Swal.fire({
+        title: "비밀번호 변경을 취소하시겠습니까?",
+        text: " ",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setPwdDisabled(true);
+          setPwdCheck(true);
+          setPwd("");
+          setPwdRe("");
+          setPwdChangeMsg("변경");
+          }
+      })
     }
   };
 
@@ -153,13 +233,25 @@ function Profile_update() {
 
   const deleteUser = (event) => {
     event.preventDefault();
-
-    if (window.confirm("정말로 탈퇴하시겠습니까?")) {
-
-      authaxios
+    Swal.fire({
+      title: "정말로 탈퇴하시겠습니까?",
+      text: " ",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '확인',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        authaxios
         .delete("/api/v1/user/delete")
         .then(() => {
-          alert("탈퇴가 완료되었습니다.");
+          Swal.fire({
+            icon: "success",
+            title: "성공",
+            text: "탈퇴가 완료되었습니다.",
+          });
         })
         .then(() => {
           window.location.href = "/logout";
@@ -167,24 +259,73 @@ function Profile_update() {
         .catch((error) => {
           console.log(error);
         });
-    }
+        }
+    })
+    // if (window.confirm("정말로 탈퇴하시겠습니까?")) {
+
+    //   authaxios
+    //     .delete("/api/v1/user/delete")
+    //     .then(() => {
+    //       Swal.fire({
+    //         icon: "success",
+    //         title: "성공",
+    //         text: "탈퇴가 완료되었습니다.",
+    //       });
+    //     })
+    //     .then(() => {
+    //       window.location.href = "/logout";
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
   };
 
   // 회원수정
   const onRegisthandler = (event) => {
     event.preventDefault();
     if (!pwd_check && checkPassword(pwd) === false) {
-      alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
+      Swal.fire({
+        icon: "warning",
+        title: "비밀번호",
+        text: "8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.",
+      });
     } else if (pwd !== pwdRe) {
-      alert("'비밀번호 확인'을 다시 해주세요.");
+      Swal.fire({
+        icon: "warning",
+        title: "비밀번호 확인",
+        text: "'비밀번호 확인'을 다시 해주세요.",
+      });
     } else if (nick_check === false) {
-      alert("닉네임 중복확인이 필요합니다.");
+      Swal.fire({
+        icon: "warning",
+        title: "닉네임",
+        text: "닉네임 중복확인이 필요합니다.",
+      });
     } else if (birth === "") {
-      alert("생일을 선택해주세요.");
+      Swal.fire({
+        icon: "warning",
+        title: "생일",
+        text: "생일을 선택해주세요.",
+      });
+    } else if (checkAge(birth) < 10) {
+      Swal.fire({
+        icon: "warning",
+        title: "생일",
+        text: "10세 이상만 가입 가능합니다.",
+      });
     } else if (gender === "") {
-      alert("성별을 선택해주세요.");
-    } else if (mbti === "") {
-      alert("MBTI를 선택해주세요.");
+      Swal.fire({
+        icon: "warning",
+        title: "성별",
+        text: "성별을 선택해주세요.",
+      });
+    } else if (introduction.length > 60) {
+      Swal.fire({
+        icon: "warning",
+        title: "프로필 소개",
+        text: "소개는 60자 이하만 가능합니다.",
+      });
     } else {
       let body = {
         password: pwd,
@@ -192,7 +333,7 @@ function Profile_update() {
         birthday: birth,
         gender: gender,
         mbti: mbti,
-        introduction: "",
+        introduction: introduction,
       };
 
       console.log("회원수정");
@@ -213,7 +354,7 @@ function Profile_update() {
           }
         })
         .then(() => {
-          document.location.href = "/myprofile";
+          document.location.href = "/profile/" + user.user_id;
         })
         .catch(function (error) {
           console.log(error);
@@ -240,7 +381,7 @@ function Profile_update() {
                 <div className="login-register-wrapper">
                   <div className="login-register-tab-list nav">
                     <a>
-                      <h4> Update </h4>
+                      <h4> 사용자 설정 </h4>
                     </a>
                   </div>
                   <div className="tab-content">
@@ -299,6 +440,7 @@ function Profile_update() {
                               name="birthday"
                               placeholder="birthday"
                               type="date"
+                              max="9999-12-31"
                               onChange={onBirthhandler}
                               value={birth}
                             />
@@ -334,14 +476,14 @@ function Profile_update() {
                             </label>
                             <br />
                             <br />
-                            <label>MBTI</label>
+                            <label>MBTI (선택)</label>
                             <select
                               name="mbti"
                               className="form-select"
                               onChange={onMbtiHandler}
                               value={mbti}
                             >
-                              <option value="">선택</option>
+                              <option value="비공개">비공개</option>
                               <option value="ISTJ">ISTJ</option>
                               <option value="ISTP">ISTP</option>
                               <option value="ISFJ">ISFJ</option>
@@ -359,6 +501,14 @@ function Profile_update() {
                               <option value="ENFJ">ENFJ</option>
                               <option value="ENFP">ENFP</option>
                             </select>
+                            <label>프로필 소개 (선택)</label>
+                            <input
+                              name="introduction"
+                              placeholder="소개는 60자 이하만 가능합니다."
+                              type="text"
+                              onChange={onIntroduction}
+                              value={introduction}
+                            />
                             <div className="button-box">
                               <button type="submit">
                                 <span>Update</span>
@@ -366,7 +516,7 @@ function Profile_update() {
                             </div>
                             <div className="button-danger">
                               <button onClick={deleteUser}>
-                                <span>Delete</span>
+                                <span>회원 탈퇴</span>
                               </button>
                             </div>
                           </form>

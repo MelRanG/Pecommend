@@ -92,7 +92,7 @@ function Footer() {
             </div>
           </div> */}
           <div className="col-lg-4 col-md-12 col-sm-12">
-            <div className="footer-widget mb-30 ml-70">
+            <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
                 <div>CONTACT & INQUIRY</div>
               </div>

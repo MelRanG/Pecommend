@@ -1,11 +1,30 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {authaxios} from "../custom/customAxios";
 import "./nav3.css";
 import { useSelector } from "react-redux";
 
 function Nav3() {
   const isLogined = useSelector((state) => state.userStore.isLogined);
+  const [userprofile, setUserProfile] = useState([]);
+
+  const getUserInfo = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url: "/api/v1/user/myinfo",
+      });
+      if (response.status === 200) {
+        setUserProfile(response.data.user_id);
+      }    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
 
   const burgerbutton = () => {
     const menu = document.querySelector('.navbar__menu');
@@ -40,7 +59,7 @@ function Nav3() {
       {isLogined ?
         <ul className="navbar__icons">
           <li>
-            <Link to="/myprofile">MY PROFILE</Link>
+            <Link to={`/profile/${userprofile}`}>MY PROFILE</Link>
           </li>
           <li>
             <Link to="/logout">LOGOUT</Link>
