@@ -39,6 +39,9 @@ public class UserEntity {
     private String password;
     @Column(name = "birthday")
     private String birthday;
+
+    @Column(name = "age")
+    private int age;
     @Column(name = "gender")
     private String gender;
     @Column(name = "mbti")
