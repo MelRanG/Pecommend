@@ -17,4 +17,6 @@ public interface CommentService {
     String addLike(Long userId, Long commentId);
 
     String addDisLike(Long userId, Long commentId);
+
+    List<CommentsResponseDto> getProfileComments(Long id);
 }

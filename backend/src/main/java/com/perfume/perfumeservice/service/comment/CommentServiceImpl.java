@@ -7,6 +7,7 @@ import com.perfume.perfumeservice.domain.user.UserEntity;
 import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.comment.CommentsRequestDto;
 import com.perfume.perfumeservice.dto.comment.CommentsResponseDto;
+import com.perfume.perfumeservice.dto.posts.PostsResponseDto;
 import com.perfume.perfumeservice.exception.comment.CommentNotFoundException;
 import com.perfume.perfumeservice.exception.community.PostNotFoundException;
 import com.perfume.perfumeservice.exception.user.UserNotFoundException;
@@ -133,5 +134,13 @@ public class CommentServiceImpl implements CommentService{
                             .build());
             return "ADD";
         }
+    }
+
+    @Override
+    public List<CommentsResponseDto> getProfileComments(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return commentRepository.findByWriter(user).stream()
+                .map(comment -> CommentsResponseDto.from(comment))
+                .collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package com.perfume.perfumeservice.domain.comment;
 
+import com.perfume.perfumeservice.domain.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +14,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
                     " where c.community_id = :communityId" +
                     " order by c.parent_id Is Null DESC, c.created_date ")
     List<Comment> findCommentByCommunityId(@Param("communityId") Long communityId);
+
+    List<Comment> findByWriter(UserEntity user);
 }
