@@ -42,12 +42,22 @@ const PerfumeDetail = () => {
   const [perfumeDetail, setPerfumeDetail] = useState({}); //이름같은거
   const [noteDetail, setNoteDetail] = useState([]); //노트
   const [tagDetail, setTagDetail] = useState([]); //해시태그
+<<<<<<< HEAD
   const [ldlRate, setLdlRate] = useState(0);
   const [review, setReview] = useState([]); //리뷰
   const [reviewContent, setReviewContent] = useState(""); //리뷰작성내용
   const [reviewOrder, setReviewOrder] = useState("new"); //리뷰정렬 기본 최신순
   const [ldList, setLdList] = useState({});
   const [updaterating, setUpdateRating] = useState(0);
+=======
+  const [likeList, setLikeList] = useState([]); // 좋아요
+  const [dislikeList, setDislikeList] = useState([]); // 싫어요
+  // let likeDislike = 0; //좋아요 싫어요 비율
+  const [ldlRate, setLdlRate] = useState(0);
+
+  const [ldList, setLdList] = useState({});
+
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   let [tab, setTab] = useState(1); // 좋아싫어탭
 
   const getPerfumeDetail = async () => {
@@ -68,8 +78,13 @@ const PerfumeDetail = () => {
         setPerfumeDetail(response.data.pDto);
         setNoteDetail(response.data.nDto);
         setTagDetail(response.data.ptDto);
+<<<<<<< HEAD
         // setLikeList(response.data.plDto);
         // setDislikeList(response.data.pdDto);
+=======
+        setLikeList(response.data.plDto);
+        setDislikeList(response.data.pdDto);
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
         setLdlRate(response.data.likeRatio);
 
         console.log("비율", ldlRate);
@@ -103,6 +118,7 @@ const PerfumeDetail = () => {
     }
   };
 
+<<<<<<< HEAD
   //리뷰불러오기
   const getReview = async () => {
     console.log("리뷰정렬", reviewOrder);
@@ -125,6 +141,14 @@ const PerfumeDetail = () => {
     getPerfumeDetail();
     get좋아싫어리스트();
     getReview();
+=======
+  useEffect(() => {
+    getPerfumeDetail();
+    get좋아싫어리스트();
+    // waitFor(1000);
+    // setNote(noteDetail);
+    // calLikeDislike();
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   }, []);
 
   //노트구분하기 -> 안씀
@@ -160,6 +184,7 @@ const PerfumeDetail = () => {
 
   // Catch Rating value 별점
   const handleRating = (rate: number) => {
+<<<<<<< HEAD
     setRating(rate / 20);
     // other logic
     console.log("별점", rating);
@@ -167,6 +192,10 @@ const PerfumeDetail = () => {
 
   const handleUpdateRating = (rate: number) => {
     setUpdateRating(rate / 20);
+=======
+    setRating(rate);
+    // other logic
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   };
 
   //좋아요
@@ -193,12 +222,22 @@ const PerfumeDetail = () => {
             userId: user.user_id,
           };
           console.log("temp", temp);
+<<<<<<< HEAD
+=======
+          // setLikeList(...likeList, temp);
+          setLikeList(likeList.concat(temp));
+          console.log("like up", likeList);
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
         }
         if (response.data == "CANCEL") {
           alert("싫어요누른사람");
         }
         if (response.data == "DELETE") {
+<<<<<<< HEAD
           // setLikeList(likeList.filter((temp) => temp.userId != 4));
+=======
+          setLikeList(likeList.filter((temp) => temp.userId != 4));
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
           console.log("like down", likeList);
         }
       }
@@ -230,12 +269,22 @@ const PerfumeDetail = () => {
             userId: user.user_id,
           };
           console.log("temp", temp);
+<<<<<<< HEAD
+=======
+          // setLikeList(...likeList, temp);
+          setDislikeList(dislikeList.concat(temp));
+          console.log("like up", dislikeList);
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
         }
         if (response.data == "CANCEL") {
           alert("좋아요누른사람");
         }
         if (response.data == "DELETE") {
+<<<<<<< HEAD
           // setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
+=======
+          setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
           console.log("like down", dislikeList);
         }
       }
@@ -244,6 +293,7 @@ const PerfumeDetail = () => {
     }
   };
 
+<<<<<<< HEAD
   //리뷰 작성
   const reviewWrite = async (e) => {
     e.preventDefault();
@@ -433,6 +483,8 @@ const PerfumeDetail = () => {
     // console.log(reviewContent);
   };
 
+=======
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   let [btnActive, setBtnActive] = useState(false); //버튼
   const toggleActive = (e) => {
     setBtnActive((prev) => {
@@ -580,7 +632,10 @@ const PerfumeDetail = () => {
                 </div>
 
                 {/* 좋아요 싫어요 */}
+<<<<<<< HEAD
                 <i class="fa-regular fa-thumbs-down"></i>
+=======
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                 <div className="pro-details-likeDislike row">
                   <div className="col-2">
                     {/* <i className="fa fa-heart-o"></i> */}
@@ -703,7 +758,11 @@ const PerfumeDetail = () => {
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
                     <span className="glyphicon glyphicon-thumbs-up"></span>
+<<<<<<< HEAD
                     <span className="ldltext">추천해요</span>
+=======
+                    <span className="ldltext">1추천해요</span>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                   </div>
                   {ldList.likelike &&
                     ldList.likelike.map((data) => (
@@ -747,7 +806,11 @@ const PerfumeDetail = () => {
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
                     <span className="glyphicon glyphicon-thumbs-up"></span>
+<<<<<<< HEAD
                     <span className="ldltext">추천해요</span>
+=======
+                    <span className="ldltext">2추천해요</span>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                   </div>
                   {ldList.dislikelike &&
                     ldList.dislikelike.map((data) => (
@@ -824,12 +887,18 @@ const PerfumeDetail = () => {
               <div className="comment_input_wrap">
                 <div className="comment_input img_add">
                   <textarea
+<<<<<<< HEAD
                     id="reviewValue"
                     className="reviewValue"
                     placeholder="향수에 대한 리뷰를 남겨주세요."
                     disabled=""
                     maxLength={255}
                     onChange={reviewChange}
+=======
+                    className="scrollbar"
+                    placeholder="향수에 대한 리뷰를 남겨주세요."
+                    disabled=""
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                   ></textarea>
                 </div>
                 <div className="comment_input_bot">
@@ -841,12 +910,18 @@ const PerfumeDetail = () => {
                     <i className="fa fa-star"></i>
                   </div> */}
                   <Rating
+<<<<<<< HEAD
                     showTooltip
                     onClick={handleRating}
                     ratingValue={rating} /* Available Props */
                     fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
                   />
                   {/* {rating}점 */}
+=======
+                    onClick={handleRating}
+                    ratingValue={rating} /* Available Props */
+                  />
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                   <div className="image_add_wrap">
                     <button type="button" className="btn_image_add">
                       해시태그 선택
@@ -855,6 +930,7 @@ const PerfumeDetail = () => {
                   </div>
                   <span className="comment_count">
                     {" "}
+<<<<<<< HEAD
                     <em>{reviewContent.length}</em>/255자{" "}
                   </span>
                 </div>
@@ -863,6 +939,12 @@ const PerfumeDetail = () => {
                   className="btnSizeL comment_submit"
                   onClick={reviewWrite}
                 >
+=======
+                    <em>0</em>/1000자{" "}
+                  </span>
+                </div>
+                <button type="button" className="btnSizeL comment_submit">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                   댓글 등록
                 </button>
               </div>
@@ -896,6 +978,7 @@ const PerfumeDetail = () => {
               {/* 좋아요 / 싫어요 / 최신순 정렬 */}
               <div className="detail-review-sort mt-10">
                 <div>
+<<<<<<< HEAD
                   <div
                     className="form-check"
                     onClick={() => {
@@ -903,6 +986,9 @@ const PerfumeDetail = () => {
                       getReview();
                     }}
                   >
+=======
+                  <div className="form-check">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                     <input
                       className="form-check-input"
                       type="radio"
@@ -915,6 +1001,7 @@ const PerfumeDetail = () => {
                       className="form-check-label"
                       htmlFor="flexRadioDefault1"
                     >
+<<<<<<< HEAD
                       최신순
                     </label>
                   </div>
@@ -925,6 +1012,12 @@ const PerfumeDetail = () => {
                       getReview();
                     }}
                   >
+=======
+                      전체
+                    </label>
+                  </div>
+                  <div className="form-check">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                     <input
                       className="form-check-input"
                       type="radio"
@@ -935,6 +1028,7 @@ const PerfumeDetail = () => {
                       className="form-check-label"
                       htmlFor="flexRadioDefault2"
                     >
+<<<<<<< HEAD
                       추천순
                     </label>
                   </div>
@@ -945,10 +1039,17 @@ const PerfumeDetail = () => {
                       getReview();
                     }}
                   >
+=======
+                      좋아요
+                    </label>
+                  </div>
+                  <div className="form-check">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                     <input
                       className="form-check-input"
                       type="radio"
                       name="flexRadioDefault"
+<<<<<<< HEAD
                       id="flexRadioDefault3"
                     />
 
@@ -957,6 +1058,15 @@ const PerfumeDetail = () => {
                       htmlFor="flexRadioDefault3"
                     >
                       오래된순
+=======
+                      id="flexRadioDefault1"
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexRadioDefault1"
+                    >
+                      싫어요
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                     </label>
                   </div>
                 </div>
@@ -976,6 +1086,7 @@ const PerfumeDetail = () => {
                     aria-labelledby="dropdownMenuButton1"
                   >
                     <li>
+<<<<<<< HEAD
                       <a className="dropdown-item" onClick={getReview}>
                         전체
                       </a>
@@ -995,6 +1106,22 @@ const PerfumeDetail = () => {
                         오래된순
                       </a>
                     </li> */}
+=======
+                      <a className="dropdown-item" href="#">
+                        최신순
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        추천순
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        오래된순
+                      </a>
+                    </li>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                   </ul>
                 </div>
               </div>
@@ -1002,6 +1129,7 @@ const PerfumeDetail = () => {
               <div className="detail-line"></div>
 
               {/* 리뷰내용 */}
+<<<<<<< HEAD
               {review.map((data) => (
                 <div className="row mt-10">
                   <div className="ratting-form-wrapper">
@@ -1009,12 +1137,21 @@ const PerfumeDetail = () => {
                       <form action="#">
                         <div className="row review-text-line">
                           {/* <div className="col-md-3">
+=======
+              <div className="row mt-10">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row review-text-line">
+                        {/* <div className="col-md-3">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                           <div className="review-profile review-text mb-10 pt-10">
                             <img src="assets/img/testimonial/1.jpg" alt="" />
                             <p>닉네임</p>
                           </div>
                         </div> */}
 
+<<<<<<< HEAD
 
                           <div className="col-md-9 review-text-profile">
                             <span className="review-text-profile-img">
@@ -1144,6 +1281,8 @@ const PerfumeDetail = () => {
                       <div className="row review-text-line">
              
 
+=======
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                         <div className="col-md-12">
                           <div className="review-rating mb-10">
                             <i className="fa fa-star"></i>
@@ -1181,6 +1320,183 @@ const PerfumeDetail = () => {
                     </form>
                   </div>
                 </div>
+<<<<<<< HEAD
+=======
+              </div>
+              <div className="row mt-10">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row review-text-line">
+                        {/* <div className="col-md-3">
+                          <div className="review-profile review-text mb-10 pt-10">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                            <p>닉네임</p>
+                          </div>
+                        </div> */}
+
+                        <div className="col-md-12">
+                          <div className="review-rating mb-10">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                          <div className="review-text form-submit">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-md-9 review-text-profile">
+                          <span className="review-text-profile-img">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </span>
+                          <span>&nbsp; 어쩌구저쩌구 님</span>
+                        </div>
+                        <div className="col-md-3 review-text-like">
+                          <span className="glyphicon glyphicon-thumbs-up"></span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span className="glyphicon glyphicon-thumbs-down"></span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div className="row mt-10">
+                <div className="ratting-form-wrapper">
+                  <div className="ratting-form">
+                    <form action="#">
+                      <div className="row review-text-line">
+                        {/* <div className="col-md-3">
+                          <div className="review-profile review-text mb-10 pt-10">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                            <p>닉네임</p>
+                          </div>
+                        </div> */}
+
+                        <div className="col-md-12">
+                          <div className="review-rating mb-10">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                          <div className="review-text form-submit">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-md-9 review-text-profile">
+                          <span className="review-text-profile-img">
+                            <img src="assets/img/testimonial/1.jpg" alt="" />
+                          </span>
+                          <span>&nbsp; 어쩌구저쩌구 님</span>
+                        </div>
+                        <div className="col-md-3 review-text-like">
+                          <span className="glyphicon glyphicon-thumbs-up"></span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span className="glyphicon glyphicon-thumbs-down"></span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div id="des-details3" className="">
+                <div className="row">
+                  <div className="col-lg-7">
+                    <div className="review-wrapper">
+                      <div className="single-review">
+                        <div className="review-img">
+                          <img src="assets/img/testimonial/1.jpg" alt="" />
+                        </div>
+                        <div className="review-content">
+                          <div className="review-top-wrap">
+                            <div className="review-left">
+                              <div className="review-name">
+                                <h4>White Lewis</h4>
+                              </div>
+                              <div className="review-rating">
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                              </div>
+                            </div>
+                            <div className="review-left">
+                              <a href="#">Reply</a>
+                            </div>
+                          </div>
+                          <div className="review-bottom">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Suspendisse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula. Phasellus quam nisi, congue id nulla.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="single-review child-review">
+                        <div className="review-img">
+                          <img src="assets/img/testimonial/2.jpg" alt="" />
+                        </div>
+                        <div className="review-content">
+                          <div className="review-top-wrap">
+                            <div className="review-left">
+                              <div className="review-name">
+                                <h4>White Lewis</h4>
+                              </div>
+                              <div className="review-rating">
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                                <i className="fa fa-star"></i>
+                              </div>
+                            </div>
+                            <div className="review-left">
+                              <a href="#">Reply</a>
+                            </div>
+                          </div>
+                          <div className="review-bottom">
+                            <p>
+                              Vestibulum ante ipsum primis aucibus orci
+                              luctustrices posuere cubilia Curae Sus pen disse
+                              viverra ed viverra. Mauris ullarper euismod
+                              vehicula.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
               </div> */}
             </div>
           </div>

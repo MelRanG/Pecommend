@@ -12,6 +12,7 @@ function Topbutton() {
     return (
         <div className="topbutton">
             <button onClick={topB}><BsChevronDoubleUp /></button>
+            <button className="glyphicon glyphicon-triangle-top" onClick={topB}></button>
         </div>
     )
 }

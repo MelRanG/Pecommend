@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { authaxios, freeaxios } from "custom/customAxios";
+<<<<<<< HEAD
 import { Rating } from "react-simple-star-rating";
+=======
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
 import "./perfumeMain.css";
 // import $ from "jquery";
 // import jQuery from "jquery";
@@ -11,10 +14,13 @@ import "./perfumeMain.css";
 // 향수 메인 페이지
 const PerfumeMain = () => {
   const [hottag, setHottag] = useState([]); // 별점
+<<<<<<< HEAD
   const [popularPerfume, setPopularPerfume] = useState([]); // 별점
   const [newReview, setNewReview] = useState([]);
   const [newReview1, setNewReview1] = useState([]); //최신리뷰 1-3
   const [newReview2, setNewReview2] = useState([]); //최신리뷰 4-6
+=======
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
 
   const getPerfumeHashTag = async () => {
     try {
@@ -29,7 +35,11 @@ const PerfumeMain = () => {
       });
       // console.log(response);
       if (response.status === 200) {
+<<<<<<< HEAD
         console.log("향수 메인 인기 키워드");
+=======
+        console.log("향수메인");
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
         console.log(response.data);
         setHottag(response.data);
       }
@@ -38,6 +48,7 @@ const PerfumeMain = () => {
     }
   };
 
+<<<<<<< HEAD
   // 인기향수 데려오기
   const getPerfumePopularDetail = async () => {
     try {
@@ -93,6 +104,10 @@ const PerfumeMain = () => {
     getPerfumeHashTag();
     getPerfumePopularDetail();
     getNewReview();
+=======
+  useEffect(() => {
+    getPerfumeHashTag();
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   }, []);
 
   return (
@@ -112,7 +127,39 @@ const PerfumeMain = () => {
                 {hottag.map((data, index) => (
                   <div className="" key={index}>#{data.tName}</div>
                 ))}
+<<<<<<< HEAD
                 {/* <div className="">#30대</div> */}
+=======
+                <div className="">#30대</div>
+                {/* <div className="">#장미</div>
+                <div className="">#ESTP</div>
+                <div className="">#해시태그가어디까지길어지는거죠?</div>
+                <div className="">#30대</div>
+                <div className="">#복숭아</div>
+                <div className="">#봄</div>
+                <div className="">#시트러스</div>
+                <div className="">#INFP</div>
+                <div className="">#장미</div>
+                <div className="">#여름</div>
+                <div className="">#30대</div>
+                <div className="">#엄청긴해시태그가등장</div>
+                <div className="">#ESTP</div>
+                <div className="">#코튼향</div>
+                <div className="">#10대</div>
+                <div className="">#시트러스</div>
+                <div className="">#해시태그가길다길어</div>
+                <div className="">#30대</div>
+                <div className="">#INFP</div>
+                <div className="">#장미</div>
+                <div className="">#여름</div>
+                <div className="">#시트러스</div>
+                <div className="">#ESTP</div>
+                <div className="">#코튼향</div>
+                <div className="">#10대</div>
+                <div className="">#복숭아</div>
+                <div className="">#장미</div>
+                <div className="">#30대</div> */}
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
               </div>
             </div>
           </div>
@@ -145,6 +192,7 @@ const PerfumeMain = () => {
                   </div>
                   <p>향수명</p>
                 </div> */}
+<<<<<<< HEAD
 
 
                 {popularPerfume.map(data => (
@@ -181,6 +229,11 @@ const PerfumeMain = () => {
 
                 {/* <div className="product-wrap perfume-popular-item mb-25 scroll-zoom col-lg-2">
                   <div className="product-img">
+=======
+                <div className="product-wrap perfume-popular-item mb-25 scroll-zoom col-lg-2">
+                  <div className="product-img">
+                    {/* <a href="product-details.html"> */}
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                     <Link to="../detail">
                       <div className="text_photo">
                         <div className="explain">
@@ -198,6 +251,10 @@ const PerfumeMain = () => {
                           alt=""
                         />
                       </div>
+<<<<<<< HEAD
+=======
+                      {/* </a> */}
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                     </Link>
                     <span className="purple">New</span>
                   </div>
@@ -206,8 +263,62 @@ const PerfumeMain = () => {
                       향수명1
                     </h3>
                   </div>
+<<<<<<< HEAD
                 </div> */}
 
+=======
+                </div>
+
+
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+              </div>
+              <div className="perfume-popular-items row pl-20 pr-20">
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+              </div>
+              <div className="perfume-popular-items row pl-20 pr-20">
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+                <div className="perfume-popular-item col-lg-2">
+                  <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
+                  <p>향수명</p>
+                </div>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
               </div>
             </div>
           </div>
@@ -227,6 +338,7 @@ const PerfumeMain = () => {
             {/* 캐러셀 - 전체를 Link로 감싸기 detail로 이동 */}
             <div id="carouselExampleControls" className="carousel d-none d-sm-block slide" data-bs-ride="carousel">
               <div className="carousel-inner per_main_review">
+<<<<<<< HEAD
 
 
                 <div className="carousel-item active">
@@ -262,6 +374,11 @@ const PerfumeMain = () => {
 
                     ))}
                     {/* <div className="card per_main_review_card">
+=======
+                <div className="carousel-item active">
+                  <div className="cards-wrapper">
+                    <div className="card per_main_review_card">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                       <div className="image-wrapper">
                         <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
                         <div>
@@ -278,13 +395,60 @@ const PerfumeMain = () => {
                       </div>
                       <div className="card-body">
                         <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+<<<<<<< HEAD
                       </div>
                     </div> */}
 
+=======
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                      </div>
+                    </div>
+                    <div className="card per_main_review_card">
+                      <div className="image-wrapper">
+                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
+                        <div>
+                          <h5 className="card-title">한글이름(영어이름)</h5>
+                          <h5 className="card-title">닉네임 님</h5>
+                          <div className="review-rating review-star">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                      </div>
+                    </div>
+                    <div className="card per_main_review_card">
+                      <div className="image-wrapper">
+                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
+                        <div>
+                          <h5 className="card-title">한글이름(영어이름)</h5>
+                          <h5 className="card-title">닉네임 님</h5>
+                          <div className="review-rating review-star">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                      </div>
+                    </div>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                   </div>
                 </div>
                 <div className="carousel-item">
                   <div className="cards-wrapper">
+<<<<<<< HEAD
 
                     {newReview2.map((data, index) => (
                       <div key={index} className="card per_main_review_card">
@@ -380,6 +544,9 @@ const PerfumeMain = () => {
                 {/* <div className="carousel-item">
                   <div className="cards-wrapper">
                     <div className="card per_main_review_card">
+=======
+                    <div className="card per_main_review_card">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                       <div className="image-wrapper">
                         <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
                         <div>
@@ -396,6 +563,10 @@ const PerfumeMain = () => {
                       </div>
                       <div className="card-body">
                         <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+<<<<<<< HEAD
+=======
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                       </div>
                     </div>
                     <div className="card per_main_review_card">
@@ -415,6 +586,10 @@ const PerfumeMain = () => {
                       </div>
                       <div className="card-body">
                         <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+<<<<<<< HEAD
+=======
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                       </div>
                     </div><div className="card per_main_review_card">
                       <div className="image-wrapper">
@@ -433,6 +608,7 @@ const PerfumeMain = () => {
                       </div>
                       <div className="card-body">
                         <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+<<<<<<< HEAD
                       </div>
                     </div>
                   </div>
@@ -445,6 +621,77 @@ const PerfumeMain = () => {
 
 
 
+=======
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="carousel-item">
+                  <div className="cards-wrapper">
+                    <div className="card per_main_review_card">
+                      <div className="image-wrapper">
+                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
+                        <div>
+                          <h5 className="card-title">한글이름(영어이름)</h5>
+                          <h5 className="card-title">닉네임 님</h5>
+                          <div className="review-rating review-star">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                      </div>
+                    </div>
+                    <div className="card per_main_review_card">
+                      <div className="image-wrapper">
+                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
+                        <div>
+                          <h5 className="card-title">한글이름(영어이름)</h5>
+                          <h5 className="card-title">닉네임 님</h5>
+                          <div className="review-rating review-star">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                      </div>
+                    </div><div className="card per_main_review_card">
+                      <div className="image-wrapper">
+                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
+                        <div>
+                          <h5 className="card-title">한글이름(영어이름)</h5>
+                          <h5 className="card-title">닉네임 님</h5>
+                          <div className="review-rating review-star">
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                            <i className="fa fa-star"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
+                        {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span className="visually-hidden">Previous</span>

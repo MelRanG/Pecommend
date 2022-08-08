@@ -30,14 +30,22 @@ function PerfumeList() {
       console.log(response);
       if (response.status === 200) {
         setDataList(response.data);
+<<<<<<< HEAD
         // console.log("확인", dataList);
         // console.log(dataList[1].tDto[0].tagName);
+=======
+        console.log("확인", dataList);
+        console.log(dataList[1].tDto[0].tagName);
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
       }
     } catch (error) {
       console.log(error);
     }
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   useEffect(() => {
     getPerfumeList();
   }, []);
@@ -428,21 +436,31 @@ function PerfumeList() {
 
             <div className="col-lg-9">
               <div className="shop-top-bar">
+<<<<<<< HEAD
                 <div className="select-shoing-wrap pl-20" style={{ width: "100%" }}>
                   <div className="shop-select" >
+=======
+                <div className="select-shoing-wrap ml-20">
+                  <div className="shop-select">
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                     <select>
                       <option defaultValue="">정렬</option>
                       <option defaultValue="">추천순</option>
                       <option defaultValue="">추천비율순</option>
                     </select>
                   </div>
+<<<<<<< HEAD
                   <div className="pr-20" style={{ marginLeft: "auto" }}>총 {dataSize}개</div>
+=======
+                  <p>총 {dataSize}개</p>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                 </div>
               </div>
               <div className="shop-bottom-area mt-35">
                 <div className="tab-content jump">
                   <div id="shop-1" className="tab-pane active">
                     <div className="row">
+<<<<<<< HEAD
                       {dataList.length === 0 ?
                         <div>
                           <div className="mt-50 mb-50" style={{ textAlign: "center", fontSize: "25px" }}> 해당 조건에 맞는 향수가 없습니다.</div>
@@ -496,6 +514,54 @@ function PerfumeList() {
                       }
 
 
+=======
+                      {dataList
+                        .slice(offset, offset + limitData)
+                        .map((data) => (
+                          <div
+                            key={data.pDto.perfumeId}
+                            className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
+                          >
+                            <div className="product-wrap mb-25 scroll-zoom ">
+                              <div className="product-img">
+                                <Link
+                                  to={`/perfume/detail/${data.pDto.perfumeId}`}
+                                >
+                                  <div className="text_photo">
+                                    <div className="explain">
+                                      <div className="list-hashtag">
+                                        {data.tDto.map((temp) => (
+                                          <div className="">
+                                            #{temp.tagName}
+                                          </div>
+                                        ))}
+
+                                        {/* <div className="">
+                                          #해시태그가어디까지길어지는거죠?
+                                        </div>
+                                        <div className="">#복숭아</div> */}
+                                      </div>
+                                    </div>
+                                    <img
+                                      className="default-img"
+                                      src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                                      alt=""
+                                    />
+                                  </div>
+                                  {/* </a> */}
+                                </Link>
+                                {/* <span className="purple">New</span> */}
+                              </div>
+                              <div className="product-content text-center perfume_list_name">
+                                <div className="product-content-koName">
+                                  {data.pDto.koName}
+                                </div>
+                                <div>({data.pDto.enName})</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                       {/* 
                       <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
                         <div className="product-wrap mb-25 scroll-zoom">
@@ -554,7 +620,11 @@ function PerfumeList() {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
     </div >
+=======
+    </div>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   );
 }
 

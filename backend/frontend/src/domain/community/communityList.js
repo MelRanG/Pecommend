@@ -232,7 +232,17 @@ function CommunityList() {
       <div className="pb-100">
         <div className="container">
           <div className="row flex-row-reverse">
+<<<<<<< HEAD
             <div className="col-lg-12 mt-5">
+=======
+            <div className="col-lg-12">
+              <div>
+                <h4 className="mt-5" style={{ "text-align": "center" }}>
+                  {titleName[categorys]} 게시판
+                </h4>
+              </div>
+              <hr></hr>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
               <div className="row">
                 <div className="community-top-box col-lg-6 col-sm-12">
                   <button className="community-top-box-active" onClick={clickButton1} id="button1">ㆍ최신</button>
@@ -291,6 +301,7 @@ function CommunityList() {
                               className="community-list-titlebox"
                               to={`/commu/detail/${data.id}`}
                             >
+<<<<<<< HEAD
                               {
                                 data.commentCount > 0
                                 ?<>
@@ -300,6 +311,9 @@ function CommunityList() {
                                 {data.title}
                                 </>
                               }
+=======
+                              {data.title}
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                             </Link>
                           </td>
                           {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
@@ -312,7 +326,11 @@ function CommunityList() {
                               {data.writer}
                             </Link>
                           </td>
+<<<<<<< HEAD
                           <td>{data.createDateYMD}</td>
+=======
+                          <td>{data.date}2022.08.20</td>
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
                           <td>{data.communityLike}</td>
                         </tr>
                       ))}

@@ -43,7 +43,11 @@
   margin: 16px 8px 0 0;
   padding: 7px 15px 9px 15px;
   border-radius: 16px;
+<<<<<<< HEAD
   color: #667d8e;
+=======
+  color: #373f57;
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   font-size: 14px;
   letter-spacing: -0.5px;
   line-height: 16px;
@@ -279,7 +283,11 @@ padding: 20px 20px;
   margin: auto;
 }
 
+<<<<<<< HEAD
 @media screen and (min-width:768px){
+=======
+@media screen and (min-width:568px){
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   .cards-wrapper{
     display: flex;
   }
@@ -297,7 +305,11 @@ padding: 20px 20px;
   }
 }
 /* 보고 max-width픽셀 타블렛쪽으로 바꾸기 */
+<<<<<<< HEAD
 @media screen and (max-width:767px){
+=======
+@media screen and (max-width:567px){
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
   .card:not(:first-child){
     display: none;
 
@@ -315,7 +327,10 @@ padding: 20px 20px;
   background-color: #f4f6fa;
   border-radius: 12px;
   padding: 10px 12px;
+<<<<<<< HEAD
   height: 170px;
+=======
+>>>>>>> 7ac4ccbfcff5a789dbe01a1439a05ed8f72bee21
 }
 
 .per_main_review_card{
