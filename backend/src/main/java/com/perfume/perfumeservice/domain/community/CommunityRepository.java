@@ -13,7 +13,7 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     List<Community> findByCategoryOrderByIdDesc(int category);
     public List<Community> findAllByOrderByIdDesc();
     List<Community> findByTitleLike(String title);
-    List<Community> findByWriterOOrderByIdDesc(UserEntity user);
+    List<Community> findByWriterOrderByIdDesc(UserEntity user);
 
     @Query(nativeQuery = true, value =
         "select * from community c where category=:category " +

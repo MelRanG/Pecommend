@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -39,7 +42,6 @@ public class UserEntity {
     private String password;
     @Column(name = "birthday")
     private String birthday;
-
     @Column(name = "age")
     private int age;
     @Column(name = "gender")
@@ -101,6 +103,17 @@ public class UserEntity {
         this.gender = dto.getGender();
         this.mbti = dto.getMbti();
         this.introduction = dto.getIntroduction();
+    }
+
+    public void setAge(){
+        int newAge = 0;
+        int year = Integer.parseInt(this.birthday.split("-")[0]);
+        LocalDate nowld = LocalDate.now(ZoneId.of("Asia/Seoul"));
+        int now = Integer.parseInt(nowld.format(DateTimeFormatter.ofPattern("yyyy")));
+
+        newAge = now - year;
+
+        this.age = newAge;
     }
 
     public void changePW(String pw) {

@@ -67,7 +67,9 @@ public class UserServiceImpl implements UserService{
 
         if(entity.isPresent()){
             entity.get().saveToken(tokenDto.getRefreshToken());
+            entity.get().setAge();
         }
+
 
         // 토큰 발급
         return tokenDto;

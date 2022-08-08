@@ -81,7 +81,7 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<PostsResponseDto> getListByUser(Long userId){
         UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        List<Community> c_list = communityRepository.findByWriterOOrderByIdDesc(user);
+        List<Community> c_list = communityRepository.findByWriterOrderByIdDesc(user);
 
         List<PostsResponseDto> p_list = new LinkedList<>();
 
@@ -248,7 +248,7 @@ public class CommunityServiceImpl implements CommunityService {
         List<PostsResponseDto> result = new ArrayList<>();
         for (UserEntity item: user) {
             result.addAll(
-                    communityRepository.findByWriterOOrderByIdDesc(item).stream()
+                    communityRepository.findByWriterOrderByIdDesc(item).stream()
                             .map(community -> PostsResponseDto.from(community))
                             .collect(Collectors.toList())
             );}
