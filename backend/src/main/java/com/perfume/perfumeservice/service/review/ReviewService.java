@@ -1,8 +1,10 @@
 package com.perfume.perfumeservice.service.review;
 
 import com.perfume.perfumeservice.domain.perfume.Perfume;
+import com.perfume.perfumeservice.domain.perfume.Tag;
 import com.perfume.perfumeservice.domain.review.Review;
 import com.perfume.perfumeservice.domain.review.ReviewTag;
+import com.perfume.perfumeservice.dto.perfume.TagResponseDto;
 import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
 import com.perfume.perfumeservice.dto.review.ReviewResponseDto;
 
@@ -19,4 +21,6 @@ public interface ReviewService {
     List<ReviewResponseDto> getLikeList(Long id);
     List<ReviewResponseDto> getDisLikeList(Long id);
     List<Map<String, Object>> getNewReview();
+
+    List<Tag> getTagAll();
 }
