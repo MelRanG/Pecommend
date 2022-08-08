@@ -103,6 +103,7 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public PostsResponseDto getPost(Long id){
         Community community = communityRepository.findById(id).orElseThrow(PostNotFoundException::new);
+
         return PostsResponseDto.from(community);
     }
 

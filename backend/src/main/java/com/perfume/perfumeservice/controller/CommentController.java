@@ -59,4 +59,14 @@ public class CommentController {
         String result = commentService.addLike(userId, commentId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @PostMapping("/dislike")
+    @ApiOperation(value = "댓글 비추천")
+    public ResponseEntity<String> addDisLike(@RequestBody Map<String, Long> map){
+        Long userId = map.get("userId");
+        Long commentId = map.get("commentId");
+
+        String result = commentService.addDisLike(userId, commentId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
