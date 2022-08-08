@@ -24,11 +24,19 @@ function Profile() {
   let [tab, setTab] = useState(1);
   const [likelist, setLikeList] = useState([]);
   const [dislikelist, setDisLikeList] = useState([]);
-  // const [reveiwlist, setReviewList] = useState('new');
   const [cummuProfile, setCummuProfile] = useState([]);
+  const [commentProfile, setCommentProfile] = useState([]);
   const [limitData, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limitData;
+
+  const titleName = [
+    '전체',
+    '자유',
+    '향수',
+    '인기',
+    '공지'
+  ]
 
 
   const getUserInfo = async () => {
@@ -64,22 +72,6 @@ function Profile() {
     }
   };
 
-  // const getReviewInfo = async (e) => {
-  //   try {
-  //     const response = await authaxios({
-  //       method: "get",
-  //       url: "/api/v1/review/list/" + e.target.id,
-  //     });
-  //     console.log(response)
-  //     if (response.status === 200) {
-  //       setDisLikeList(response.data);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     document.location.href = "/NotFound"
-  //   }
-  // };
-
   const getDisLikeInfo = async () => {
     try {
       const response = await authaxios({
@@ -112,11 +104,28 @@ function Profile() {
     }
   };
 
+  const getCommentInfo = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url: "/api/v1/comment/profile/" + number,
+      });
+      console.log(response.data)
+      if (response.status === 200) {
+        setCommentProfile(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      document.location.href = "/NotFound"
+    }
+  };
+
   useEffect(() => {
     getUserInfo();
     getLikeInfo();
     getDisLikeInfo();
-    getCummuInfo()
+    getCummuInfo();
+    getCommentInfo();
   }, []);
 
   const getGender = (data) => {
@@ -183,30 +192,6 @@ function Profile() {
           </div>
         </div>
 
-            {/*
-            <div className="row profile-maindiv">
-              <div className="col-sm-6 profile-perfume-item d-flex justify-content-center">
-                <div className="col-sm-6 perfume-img-box">
-                  <img
-                    className="perfume-img"
-                    alt="?"
-                    src="./assets/tempImg/280 (2).jpg"
-                  />
-                </div>
-                <div className="col-sm-6">
-                  <h4>불가리 뿌르옴므</h4>
-                  <br></br>
-                  <div className=" review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <span> (62)</span>
-                  </div>
-                </div>
-              </div>
-            </div> */}
         <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 pt-50 pb-100 rightbox">
           <div className="profile-description">
             <div className="container-fluid">
@@ -282,9 +267,19 @@ function Profile() {
                                   {data.koName}
                                 </Link>
                                 {/* <div id={`${data.perfumeId}`} ></div> */}
+                                
                                 </div>
                               </div>
-                            ))}
+                              )
+                            )}
+                        </div>
+                        <div>
+                          <Pagination
+                            total={dislikelist.length}
+                            limit={limitData}
+                            page={page}
+                            setPage={setPage}
+                          />
                         </div>
                       </div>)
                       : ( tab === 3
@@ -306,33 +301,60 @@ function Profile() {
                                     className="community-list-titlebox"
                                     to={`/commu/detail/${data.id}`}
                                   >
-                                    {data.title}
+                                    [{titleName[data.category]}] {data.title}
                                   </Link>
                                 </td>
-                                {/* <td>{(data.createdDate).getFullYear()}</td> */}
+                                <td>{data.createDateYMD}</td>
+                                {/* <td>{data.createDateHMS}</td> */}
                                 <td>{data.communityLike}</td>
                               </tr>
                             ))}
                           </tbody>
-                        </table>
-                        <div>
+                          </table>
+                          <div>
                           <Pagination
                             total={cummuProfile.length}
                             limit={limitData}
                             page={page}
                             setPage={setPage}
                           />
-                        </div></div>
+                          </div></div>
                           )
                           : ( tab === 4
-                              ? (
-                                  <div>
-                                    <div className="detail-likeDislikeList-items detail-ldl-first row">
-                                      <div className="col-lg-3 col-sm-12">
-                                        tap4
-                                      </div>
-                                    </div>
-                                  </div>)
+                            ? (
+                              <div className="mt-20">
+                              <table className="table table-hover">
+                              <thead>
+                                <tr className="table-top rightbox-in">
+                                  <th scope="col">댓글</th>
+                                  <th scope="col">작성일</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {commentProfile.slice(offset, offset + limitData).map((data) => (
+                                  <tr className="table-bottom">
+                                    <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                                      <Link
+                                        className="community-list-titlebox"
+                                        to={`/commu/detail/${data.id}`}
+                                      >
+                                        {data.content}
+                                      </Link>
+                                    </td>
+                                    <td>{data.createDateYMD}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                            <div>
+                              <Pagination
+                                total={cummuProfile.length}
+                                limit={limitData}
+                                page={page}
+                                setPage={setPage}
+                              />
+                            </div></div>
+                              )
                               : null)))
                 }
               </div>

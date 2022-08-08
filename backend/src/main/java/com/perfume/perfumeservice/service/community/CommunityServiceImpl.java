@@ -81,8 +81,8 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<PostsResponseDto> getListByUser(Long userId){
         UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        //List<Community> c_list = communityRepository.findByWriter(userId);
-        Set<Community> c_list = user.getPosts();
+        List<Community> c_list = communityRepository.findByWriterOrderByIdDesc(user);
+        //Set<Community> c_list = user.getPosts();
         List<PostsResponseDto> p_list = new LinkedList<>();
 
         for(Community c: c_list){
@@ -96,8 +96,10 @@ public class CommunityServiceImpl implements CommunityService {
     public PostsResponseDto writePost(PostsRequestDto dto) {
         UserEntity user = userRepository.findById(dto.getWriter()).orElseThrow(UserNotFoundException::new);
 
-        userRepository.save(user);
-        return PostsResponseDto.from(communityRepository.save(dto.toEntity(user)));
+        //userRepository.save(user);
+        Community community = dto.toEntity(user);
+        communityRepository.save(community);
+        return PostsResponseDto.from(community);
     }
 
     @Override
@@ -249,7 +251,7 @@ public class CommunityServiceImpl implements CommunityService {
         List<PostsResponseDto> result = new ArrayList<>();
         for (UserEntity item: user) {
             result.addAll(
-                    communityRepository.findByWriter(item).stream()
+                    communityRepository.findByWriterOrderByIdDesc(item).stream()
                             .map(community -> PostsResponseDto.from(community))
                             .collect(Collectors.toList())
             );}

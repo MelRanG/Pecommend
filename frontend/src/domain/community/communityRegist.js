@@ -62,6 +62,7 @@ function CommunityRegist ()  {
         else {
             e.target.setAttribute("disabled",'true')
             e.target.classList.add("disabled")
+
             try {
               const response = await authaxios({
                 method: "post",
@@ -74,6 +75,7 @@ function CommunityRegist ()  {
                     category: formValue.category,
                 },
               });
+
               console.log(response);
               if (response.status === 200) {
                 console.log(response.data);
