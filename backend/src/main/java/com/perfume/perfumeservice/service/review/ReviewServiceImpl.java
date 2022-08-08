@@ -4,7 +4,6 @@ import com.perfume.perfumeservice.domain.perfume.*;
 import com.perfume.perfumeservice.domain.review.*;
 import com.perfume.perfumeservice.domain.user.UserEntity;
 import com.perfume.perfumeservice.domain.user.UserRepository;
-import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
 import com.perfume.perfumeservice.dto.review.ReviewResponseDto;
 import com.perfume.perfumeservice.exception.Review.ReviewExistException;
@@ -18,7 +17,10 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -267,26 +269,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<Map<String, Object>> getNewReview() {
-        List<Map<String, Object>> list = new LinkedList<>();
-
-        List<Review> rList = reviewRepository.findAllByOrderByIdDesc();
-
-        int idx = 0;
-        for(Review r: rList){
-            ReviewResponseDto rDto = ReviewResponseDto.from(r);
-            PerfumeResponseDto pDto = PerfumeResponseDto.from(r.getPerfume());
-
-            Map<String, Object> map = new LinkedHashMap<>();
-            map.put("rDto", rDto);
-            map.put("pDto", pDto);
-
-            list.add(map);
-
-            idx++;
-            if(idx==6) break;
-        }
-
-        return list;
+    public List<Tag> getTagAll() {
+        return tagRepository.findAllByOrderByTagName();
     }
 }
