@@ -43,6 +43,7 @@ const PerfumeDetail = () => {
 
   let useParam = useParams();
   let number = parseInt(useParam.num);
+  let navigate = useNavigate();
   const [rating, setRating] = useState(0); // 별점
   const [perfumeDetail, setPerfumeDetail] = useState({}); //이름같은거
   const [noteDetail, setNoteDetail] = useState([]); //노트
@@ -1236,6 +1237,15 @@ const PerfumeDetail = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="backButton">
+              <button
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                목록
+              </button>
             </div>
           </div>
         </div>
