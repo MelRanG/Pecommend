@@ -475,8 +475,8 @@ function PerfumeList() {
                                       <div className="text_photo">
                                         <div className="explain">
                                           <div className="list-hashtag">
-                                            {data.tDto.map((temp) => (
-                                              <div className="">
+                                            {data.tDto.map((temp, index) => (
+                                              <div className="" key={index}>
                                                 #{temp.tagName}
                                               </div>
                                             ))}

@@ -720,3 +720,11 @@ margin-top: 10px;
   margin: 0px !important;
   margin-bottom: 10px !important;
 }
+
+
+/* 모달 */
+.checked {
+  color: white !important;
+  background-color: #6e64ff !important;
+  /* pointer-events: none; */
+}
