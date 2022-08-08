@@ -5,6 +5,9 @@ import com.perfume.perfumeservice.domain.community.CommunityLike;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @Getter
@@ -18,12 +21,20 @@ public class PostsResponseDto {
     private String title;
     private String content;
     private int communityLike;
-    private String createdDate;
-    private String modifiedDate;
+    private int commentCount;
+    private String createDateYMD;
+    private String createDateHMS;
+    private String modifiedDateYMD;
+    private String modifiedDateHMS;
 
     public static PostsResponseDto from(Community community){
         Set<CommunityLike> set = community.getLikes();
         int likes = set == null ? 0 : set.size();
+        String createDateYMD = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(community.getCreatedDate()).toString();
+        String createDateHMS = DateTimeFormatter.ofPattern("HH:mm:ss").format(community.getCreatedDate()).toString();
+
+        String modifiedDateYMD = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(community.getModifiedDate()).toString();
+        String modifiedDateHMS = DateTimeFormatter.ofPattern("HH:mm:ss").format(community.getModifiedDate()).toString();
 
         return PostsResponseDto.builder()
                 .id(community.getId())
@@ -33,8 +44,11 @@ public class PostsResponseDto {
                 .title(community.getTitle())
                 .content(community.getContent())
                 .communityLike(likes)
-                .createdDate(community.getCreatedDate().toString())
-                .modifiedDate(community.getModifiedDate().toString())
+                .commentCount(community.getComments().size())
+                .createDateYMD(createDateYMD)
+                .createDateHMS(createDateHMS)
+                .modifiedDateYMD(modifiedDateYMD)
+                .modifiedDateHMS(modifiedDateHMS)
                 .build();
     }
 }
