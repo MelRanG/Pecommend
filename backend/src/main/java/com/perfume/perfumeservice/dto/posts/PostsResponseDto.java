@@ -29,7 +29,8 @@ public class PostsResponseDto {
 
     public static PostsResponseDto from(Community community){
         Set<CommunityLike> set = community.getLikes();
-        int likes = (set == null) ? 0 : set.size();
+        int likes = set == null ? 0 : set.size();
+        int commentCount = community.getComments() == null ? 0 : community.getComments().size();
         String createDateYMD = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(community.getCreatedDate()).toString();
         String createDateHMS = DateTimeFormatter.ofPattern("HH:mm:ss").format(community.getCreatedDate()).toString();
 
@@ -44,7 +45,7 @@ public class PostsResponseDto {
                 .title(community.getTitle())
                 .content(community.getContent())
                 .communityLike(likes)
-                //.commentCount(community.getComments().size())
+                .commentCount(commentCount)
                 .createDateYMD(createDateYMD)
                 .createDateHMS(createDateHMS)
                 .modifiedDateYMD(modifiedDateYMD)

@@ -341,7 +341,7 @@ function Profile() {
                                         {data.content}
                                       </Link>
                                     </td>
-                                    <td>{data.createDateYMD}</td>
+                                    <td>{data.createdDate}</td>
                                   </tr>
                                 ))}
                               </tbody>
