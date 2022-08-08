@@ -57,8 +57,12 @@
 .long-item-article.active{
 /* background-color: #c7b9b0; */
 /* background-color: #efd9cc; */
-background-color: #f7e9db;
-color: #373f57;
+/* background-color: #f7e9db; */
+background-color: #ffffff;
+/* color: #373f57; */
+color: #000000;
+border: 2px solid #eeeeee;
+height: 250px;
 }
 
 .long-item-article.active div.long-item-popular{

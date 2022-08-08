@@ -291,7 +291,15 @@ function CommunityList() {
                               className="community-list-titlebox"
                               to={`/commu/detail/${data.id}`}
                             >
-                              {data.title}
+                              {
+                                data.commentCount > 0
+                                ?<>
+                                {data.title}<span style={{color:"#333333", fontSize:"12px"}}>({data.commentCount})</span>
+                                </>
+                                :<>
+                                {data.title}
+                                </>
+                              }
                             </Link>
                           </td>
                           {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
@@ -304,7 +312,7 @@ function CommunityList() {
                               {data.writer}
                             </Link>
                           </td>
-                          <td>{data.date}2022.08.20</td>
+                          <td>{data.createDateYMD}</td>
                           <td>{data.communityLike}</td>
                         </tr>
                       ))}

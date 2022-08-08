@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
 import Pagination from "./pagination";
 import { useSelector } from "react-redux";
-
+import { BsFillXSquareFill, BsCheckSquareFill, BsFillTrashFill, BsFillPencilFill } from "react-icons/bs"
 
 function CommunityDetail () {
     const articleCategory = [
@@ -210,6 +210,8 @@ function CommunityDetail () {
     }
 
     const clickCommentEdit = (e) => {
+        console.log(e.target.id)
+        console.log(e.target)
         const commentBox = document.getElementById("comment-content-"+e.target.id)
         console.log(commentBox)
         commentBox.setAttribute("name",commentBox.value)
@@ -223,6 +225,7 @@ function CommunityDetail () {
     }
 
     const clickCommentEditRemove = (e) => {
+        console.log(e.target.id)
         const commentBox = document.getElementById("comment-content-"+e.target.id)
         const commentButtonBox1 = document.getElementById("comment-button-set1-"+e.target.id)
         const commentButtonBox2 = document.getElementById("comment-button-set2-"+e.target.id)
@@ -254,6 +257,9 @@ function CommunityDetail () {
                     window.location.reload()
                     console.log("like down",pageDetail.communityLike)
                 }
+                if (response.data == "X") {
+
+                }
                 console.log(e.target)
             }
         } catch(error) {
@@ -261,8 +267,34 @@ function CommunityDetail () {
         }
     }
 
-    const clickCommentDislike = (e) => {
-
+    const clickCommentDislike = async (e) => {
+        try {
+            const response = await authaxios({
+                method: "post",
+                url: "/api/v1/comment/dislike",
+                data: {
+                    userId: user.user_id,
+                    commentId: e.target.id
+                }
+            });
+            console.log(response)
+            if (response.status === 200) {
+                if (response.data == "ADD") {
+                    window.location.reload()
+                    console.log("like up", pageDetail.communityDisLike)
+                }
+                if (response.data == "CANCEL") {
+                    window.location.reload()
+                    console.log("like down",pageDetail.communityDisLike)
+                }
+                if (response.data == "X") {
+                    
+                }
+                console.log(e.target)
+            }
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     const clickCommentEditCommit = async (e) => {
@@ -302,6 +334,42 @@ function CommunityDetail () {
     const clickEdit = () => {
         navigate("/commu/edit/" + number, { replace: true });
     }
+
+    const commentClick = (e) => {
+        alert(e.target.id)
+        const targetComment = document.getElementById("community-"+e.target.id)
+        console.log(targetComment)
+        const replyBox = document.getElementsByClassName("reply")
+        console.log(replyBox)
+        if (replyBox.length > 0) {
+            replyBox[0].remove()
+        }
+        const newDiv = document.createElement("div")
+        const newTextArea = document.createElement("textarea")
+        const newSubDiv = document.createElement("div")
+        const newRemoveButton = document.createElement("button")
+        const newSubmitButton = document.createElement("button")
+
+        newDiv.classList.add("reply")
+        newSubDiv.classList.add("reply-sub")
+        newRemoveButton.classList.add("reply-remove")
+        newRemoveButton.classList.add("fa-solid")
+        newRemoveButton.classList.add("fa-eraser")
+        newSubmitButton.classList.add("reply-submit")
+        newSubmitButton.classList.add("fa-solid")
+        newSubmitButton.classList.add("fa-pen")
+
+        newTextArea.setAttribute("id","replyline")
+        newTextArea.setAttribute("rows","3")
+        newTextArea.setAttribute("name","content")
+        newDiv.setAttribute("id",e.target.id)
+
+        newSubDiv.appendChild(newRemoveButton)
+        newSubDiv.appendChild(newSubmitButton)
+        newDiv.appendChild(newTextArea)
+        newDiv.appendChild(newSubDiv)
+        targetComment.appendChild(newDiv)
+    }
     return (
         <div className="communityDetail">
             <div class="pt-95 pb-100">
@@ -338,14 +406,14 @@ function CommunityDetail () {
                                 </div>
                                 <hr></hr>
                                 <div className="community-detail-subtextbox">
-                                    {/* <h5>{pageDetail.createdDate.slice(0,10)}일 {pageDetail.createdDate.slice(11,19)} 작성됨</h5> */}
-                                    {/* <h5>{pageDetail.modifiedDate.substr(0,10)}일 {pageDetail.modifiedDate.substr(11,8)} 수정됨</h5> */}
+                                    <h5>{pageDetail.createDateYMD} {pageDetail.createDateHMS} 작성됨</h5>
+                                    <h5>{pageDetail.modifiedDateYMD} {pageDetail.modifiedDateHMS} 수정됨</h5>
                                     {
                                         user.user_id === pageDetail.writer_id
                                         ?
                                         <>
-                                        <button class="community-button-remove" onClick={clickRemove}>삭제</button>
-                                        <button class="community-button-edit" onClick={clickEdit}>수정</button>
+                                        <button class="community-button-remove fa-solid fa-trash-can" onClick={clickRemove}></button>
+                                        <button class="community-button-edit fa-solid fa-pen" onClick={clickEdit}></button>
                                         </>
                                         :
                                         <></>
@@ -374,64 +442,84 @@ function CommunityDetail () {
                   </select>
                 </div> */}
 
-                <hr></hr>
-                <div className="backButton mb-5">
+                {/* <div className="backButton mb-5">
                     <button onClick={()=>{navigate(-1)}}>목록</button>
-                </div>
+                </div> */}
                 {/* 이 부분은 for문을 통해 comment 값들을 불러와 출력합니다. */}
-                <div className="community-comment-list">
+                {/* <div className="community-comment-list">
                     {pageComment.map((data) => (
                         <div className="community-comment-card d-flex">
-                            <span>{data.writer}</span>
-                            <textarea readOnly rows="3" name="" id={`comment-content-${data.id}`} onChange={commentEditChange}>{data.content}</textarea>
-                            {/* <div className="comment-button-set" id={`comment-button-set1-${data.id}`}>
-                                <button className="comment-remove" onClick={clickCommentRemove} id={`${data.id}`}>삭제</button>
-                                <button className="comment-edit" onClick={clickCommentEdit} id={`${data.id}`}>수정</button> 
-                            </div>
-                            <div className="comment-button-set" id={`comment-button-set2-${data.id}`} hidden>
-                                <button className="edit-remove" onClick={clickCommentEditRemove} id={`${data.id}`}>취소</button>
-                                <button className="edit-commit" onClick={clickCommentEditCommit} id={`${data.id}`}>확인</button>
-                            </div> */}
-                            <div className="comment-box">
-                                <span className="glyphicon glyphicon-thumbs-up">{data.commentLike}</span>
+                            <div className="community-comment-data">
+                                <span>{data.writer}</span>
+                                <textarea readOnly rows="3" name="" id={`comment-content-${data.id}`} onChange={commentEditChange}>{data.content}</textarea>
                             </div>
                             {
-                                user.user_id === data.writerId
+                                (user.user_id === data.writerId) && (data.deleted === false)
                                 ? <>
                                 <div className="comment-button-set" id={`comment-button-set1-${data.id}`}>
-                                    <button className="comment-remove" onClick={clickCommentRemove} id={`${data.id}`}>삭제</button>
-                                    <button className="comment-edit" onClick={clickCommentEdit} id={`${data.id}`}>수정</button>
+                                    <button className="comment-remove fa-solid fa-trash-can" onClick={clickCommentRemove} id={`${data.id}`}></button>
+                                    <span className="comment-like-count">{data.commentLike}</span>
+                                    <button className="comment-edit fa-solid fa-pen" onClick={clickCommentEdit} id={`${data.id}`}></button>
                                 </div>
                                 <div className="comment-button-set" id={`comment-button-set2-${data.id}`} hidden>
-                                    <button className="edit-remove" onClick={clickCommentEditRemove} id={`${data.id}`}>취소</button>
-                                    <button className="edit-commit" onClick={clickCommentEditCommit} id={`${data.id}`}>확인</button>
+                                    <button className="edit-remove fa-solid fa-xmark" onClick={clickCommentEditRemove} id={`${data.id}`}></button>
+                                    <span className="comment-like-count">{data.commentLike}</span>
+                                    <button className="edit-commit fa-solid fa-pen" onClick={clickCommentEditCommit} id={`${data.id}`}></button>
                                 </div>
                                 </>
                                 : <>
                                 <div className="comment-button-set">
-                                    <button className="comment-like" onClick={clickCommentLike} id={`${data.id}`}>추천</button>
-                                    <button className="comment-dislike" onClick={clickCommentDislike} id={`${data.id}`}>비추</button>
+                                    <button className="comment-like fa-solid fa-angle-up" onClick={clickCommentLike} id={`${data.id}`}></button>
+                                    <span className="comment-like-count">{data.commentLike}</span>
+                                    <button className="comment-dislike fa-solid fa-angle-down" onClick={clickCommentDislike} id={`${data.id}`}></button>
                                 </div>
                                 </>
                             }
                         </div>
                       ))}
-                      {/* {pageComment.map((data) => (
-                        <div className="community-comment-card d-flex">
-                        <span>{data.writer}</span>
-                        <textarea readOnly rows="3" name="" id={`comment-content-${data.id}`} onChange={commentEditChange}>{data.content}</textarea>
-                        <div id={`comment-button-set1-${data.id}`}>
-                            <button className="comment-remove" onClick={clickCommentRemove} id={`${data.id}`}>삭제</button>
-                            <button className="comment-edit" onClick={clickCommentEdit} id={`${data.id}`}>수정</button> 
-                        </div>
-                        <div id={`comment-button-set2-${data.id}`} hidden>
-                            <button className="edit-remove" onClick={clickCommentEditRemove} id={`${data.id}`}>취소</button>
-                            <button className="edit-commit" onClick={clickCommentEditCommit} id={`${data.id}`}>확인</button>
-                        </div>
-                    </div>
-                      ))
+                </div> */}
 
-                      } */}
+                {/* 새로운 버전! */}
+                <div className="community-comment-list">
+                    {pageComment.map((data) => (
+                        <div className="community-comment-card" id={`community-comment-content-${data.id}`}>
+                            <div className="community-comment-box d-flex">
+                            <div className="community-comment-data">
+                                <span>{data.writer}</span>
+                                <textarea readOnly rows="3" name="" id={`comment-content-${data.id}`} onChange={commentEditChange} onClick={commentClick}>{data.content}</textarea>
+                            </div>
+                            {
+                                (user.user_id === data.writerId) && (data.deleted === false)
+                                ? <>
+                                <div className="comment-button-set" id={`comment-button-set1-${data.id}`}>
+                                    <button className="comment-remove fa-solid fa-trash-can" onClick={clickCommentRemove} id={`${data.id}`}></button>
+                                    <span className="comment-like-count">{data.commentLike}</span>
+                                    <button className="comment-edit fa-solid fa-pen" onClick={clickCommentEdit} id={`${data.id}`}></button>
+                                </div>
+                                <div className="comment-button-set" id={`comment-button-set2-${data.id}`} hidden>
+                                    <button className="edit-remove fa-solid fa-xmark" onClick={clickCommentEditRemove} id={`${data.id}`}></button>
+                                    <span className="comment-like-count">{data.commentLike}</span>
+                                    <button className="edit-commit fa-solid fa-pen" onClick={clickCommentEditCommit} id={`${data.id}`}></button>
+                                </div>
+                                </>
+                                : (
+                                    (data.deleted === false)
+                                    ?
+                                    <>
+                                    <div className="comment-button-set">
+                                        <button className="comment-like fa-solid fa-angle-up" onClick={clickCommentLike} id={`${data.id}`}></button>
+                                        <span className="comment-like-count">{data.commentLike}</span>
+                                        <button className="comment-dislike fa-solid fa-angle-down" onClick={clickCommentDislike} id={`${data.id}`}></button>
+                                    </div>
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                                )
+                            }
+                            </div>
+                        </div>
+                        ))}
                 </div>
 
                 <div className="backButton mt-5">

@@ -118,7 +118,7 @@ function CommunityEdit ()  {
 
     const returnPage = (e) => {
         e.preventDefault()
-        navigate(-1)
+        navigate("/commu/detail/" + number, {replace: true});
     }
 
     return (
