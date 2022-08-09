@@ -19,4 +19,6 @@ public interface PerfumeService {
     String getImg(String img);
     List<PerfumeResponseDto> getBestList();
 
+    List<Perfume> getListByIdList(List<Long> perfumes);
+
 }

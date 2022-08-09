@@ -31,4 +31,9 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
 
     public List<Perfume> findByKoNameLikeOrEnNameLikeIgnoreCase(String koName, String enName);
 
+    @Query(nativeQuery = true, value =
+            "select * from perfume where perfume_id in(:perfumes)"
+    )
+    public List<Perfume> findByIds(List<Long> perfumes);
+
 }

@@ -104,31 +104,27 @@ public class PerfumeController {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @PostMapping("/list/filter")
-    @ApiOperation(value = "필터로 향수 목록 가져오기 (유저 목록 받아온 것까지 확인)")
-    public ResponseEntity<List<Long>> getListFilter(@RequestBody Map<String, Object> map){
-        List<Long> result = null;
+    @ApiOperation(value = "필터로 향수 목록 가져오기 (해시태그 없음)")
+    public ResponseEntity<List<PerfumeResponseDto>> getListFilter(@RequestBody Map<String, Object> map){
+        List<PerfumeResponseDto> pDto = new LinkedList<>();
         List<Integer> ages = (List<Integer>) map.get("ages");
         List<String> genders = (List<String>) map.get("gender");
         List<String> mbtis = (List<String>) map.get("mbti");
 
         List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages);
         
-        // 유저가 좋아하는 향수 목록 찾기
-        List<Long> perfumes = perfumeLikeService.getLikeByUserList(users);
-        
-        
-        
-        
+        // 유저가 좋아하는 향수 id 찾기 // 일단 좋아요가 많은 순서로 정렬
+        List<Long> pIdList = perfumeLikeService.getLikeByUserList(users);
+    
+        // 근데 여기서 가져오면서 강제적으로 orderby가 되고 있음 ------------------------------------------------------------------------------------ 수정할 것
+        List<Perfume> perfumes= perfumeService.getListByIdList(pIdList);
+
+        for (Perfume perfume : perfumes) {
+            pDto.add(PerfumeResponseDto.from(perfume));
+        }
 
 
-
-
-        // 리스트의 중복을 제거
-
-        // 좋아요가 많은 순서로 정렬
-
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(pDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

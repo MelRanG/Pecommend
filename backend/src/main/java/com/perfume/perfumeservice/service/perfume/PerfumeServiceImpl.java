@@ -115,5 +115,10 @@ public class PerfumeServiceImpl implements PerfumeService {
         return list;
     }
 
+    @Override
+    public List<Perfume> getListByIdList(List<Long> perfumes) {
+        return perfumeRepository.findByIds(perfumes);
+    }
+
 
 }
