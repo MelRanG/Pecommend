@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,8 @@ public class CommentsResponseDto {
     private Long writerId;
     private String writer;
     private int commentLike;
+    private String createdDate;
+    private String updatedDate;
     private int depth;
     private Long parentId;
     private boolean isDeleted;
@@ -47,6 +50,8 @@ public class CommentsResponseDto {
                 .writerId(comment.getWriter().getId())
                 .writer(comment.getWriter().getNickname())
                 .commentLike(likes - disLikes)
+                .createdDate(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(comment.getCreatedDate()).toString())
+                .updatedDate(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(comment.getModifiedDate()).toString())
                 .depth(comment.getDepth())
                 .parentId(parentId)
                 .isDeleted(comment.isDeleted())
