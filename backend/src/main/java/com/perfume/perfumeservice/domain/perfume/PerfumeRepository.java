@@ -34,7 +34,7 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
     // 나이 해당하는 사람 가져오기
     @Query(nativeQuery = true, value =
 //            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
-            "SELECT STR_TO_DATE(birthday, '%Y-%m-%d') AS"
+            "SELECT user_id AS id FROM users WHERE TRUNCATE(age, -1) IN (:ages);" // 잘 돌아가는 것 확인
     )
     public List<Long> findByAge(List<Integer> ages);
 //    public List<Perfume> findByTags(List<Integer> ages, List<String> genders, List<String> mbtis);
