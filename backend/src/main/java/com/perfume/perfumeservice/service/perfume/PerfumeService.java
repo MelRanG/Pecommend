@@ -19,8 +19,12 @@ public interface PerfumeService {
     String getImg(String img);
     List<PerfumeResponseDto> getBestList();
 
-    // 나이로 유저 찾기
+    // 나이로 유저 찾기 - 나중에는 합칠 것
     List<Long> getUserByAge(List<Integer> ages);
+
+    // 성별로 유저 찾기 - 나중에는 합칠 것
+    List<Long> getUserByGender(List<String> genders);
+
 
 
 }
