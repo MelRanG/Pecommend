@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService{
         if(entity.isPresent()){
             entity.get().saveToken(tokenDto.getRefreshToken());
             entity.get().setAge();
+            userRepository.save(entity.get());
         }
 
 
@@ -194,6 +195,7 @@ public class UserServiceImpl implements UserService{
 
         if(entity.isPresent()){
             entity.get().saveToken("");
+            userRepository.save(entity.get());
             return;
         }
 
