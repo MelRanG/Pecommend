@@ -4,6 +4,8 @@ import com.perfume.perfumeservice.dto.jwt.TokenDto;
 import com.perfume.perfumeservice.dto.jwt.TokenRequestDto;
 import com.perfume.perfumeservice.dto.user.*;
 
+import java.util.List;
+
 public interface UserService {
 
     boolean checkEmail(String email);
@@ -18,5 +20,8 @@ public interface UserService {
     UserResponseDto getMyInfo();
     TokenDto refresh(TokenRequestDto requestDto);
     void logout();
+
+    // 엠벼랑 성별과 나이로 유저 찾기
+    List<Long> getUserByMbtiAndGenderAndAge(List<String> mbtis, List<String> genders, List<Integer> ages);
 
 }
