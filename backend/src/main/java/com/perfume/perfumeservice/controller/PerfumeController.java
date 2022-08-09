@@ -172,11 +172,11 @@ public class PerfumeController {
     public ResponseEntity<List<Long>> getListFilter(@RequestBody Map<String, Object> map){
         List<Integer> ages = (List<Integer>) map.get("ages");
         List<String> genders = (List<String>) map.get("gender");
-        List<String> mbti = (List<String>) map.get("mbti");
+        List<String> mbtis = (List<String>) map.get("mbti");
 
 //        Map<String, Object> result = new HashMap<>();
 //        List<Long> result = perfumeService.getUserByAge(ages);
-        List<Long> result = perfumeService.getUserByGender(genders);
+        List<Long> result = perfumeService.getUserByMbti(mbtis);
 
         // 나이로 가져오기
         // 해당 나이인 사용자가 좋아요한 향수

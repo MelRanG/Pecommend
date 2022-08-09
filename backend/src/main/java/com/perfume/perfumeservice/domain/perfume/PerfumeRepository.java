@@ -41,10 +41,15 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
 
     // 성별로 해당하는 사람 가져오기
     @Query(nativeQuery = true, value =
-//            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
             "SELECT user_id AS id FROM users WHERE gender IN (:genders)" // 잘 돌아가는 것 확인
     )
     public List<Long> findByGender(List<String> genders);
+
+    // mbti로 해당하는 사람 가져오기
+    @Query(nativeQuery = true, value =
+            "SELECT user_id AS id FROM users WHERE mbti IN (:mbtis)" // 잘 돌아가는 것 확인
+    )
+    public List<Long> findByMbti(List<String> mbtis);
 
     @Query(nativeQuery = true, value =
 //            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
