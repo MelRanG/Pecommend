@@ -305,4 +305,11 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
             return 0;
         }
     }
+
+    @Override
+    public List<Long> getLikeByUserList(List<Long> users) {
+        return perfumeLikeRepository.findPerfumeIdByUserList(users);
+    }
+
+
 }

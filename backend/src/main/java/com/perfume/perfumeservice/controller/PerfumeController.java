@@ -101,6 +101,7 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @PostMapping("/list/filter")
     @ApiOperation(value = "필터로 향수 목록 가져오기 (유저 목록 받아온 것까지 확인)")
@@ -113,7 +114,7 @@ public class PerfumeController {
         List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages);
         
         // 유저가 좋아하는 향수 목록 찾기
-        //List<Long> perfumes = perfumeLikeService.getLikeByUserList(users);
+        List<Long> perfumes = perfumeLikeService.getLikeByUserList(users);
         
         
         

@@ -42,4 +42,9 @@ public interface PerfumeLikeRepository extends JpaRepository<PerfumeLike, Long> 
     )
     List<PerfumeLDCount> findPerfumeDislikeLikeWithJPQL(Long id);
     List<PerfumeLike> findByUser(UserEntity user);
+
+    @Query(nativeQuery = true, value =
+            "SELECT  distinct pl.perfume_id FROM perfume_like pl WHERE user_id IN (:users)"
+    )
+    List<Long> findPerfumeIdByUserList(List<Long> users);
 }
