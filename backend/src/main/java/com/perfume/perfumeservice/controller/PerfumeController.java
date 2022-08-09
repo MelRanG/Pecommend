@@ -667,6 +667,4 @@ public class PerfumeController {
     public ResponseEntity<Integer> checkLike(@RequestParam Long userId, Long perfumeId){
         return new ResponseEntity<>(perfumeLikeService.checkLike(userId, perfumeId), HttpStatus.OK);
     }
-
-
 }
