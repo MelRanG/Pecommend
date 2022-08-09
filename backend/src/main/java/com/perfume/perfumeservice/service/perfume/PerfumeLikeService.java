@@ -5,6 +5,7 @@ import com.perfume.perfumeservice.domain.perfume.PerfumeLDCount;
 import com.perfume.perfumeservice.domain.perfume.PerfumeLikeCount;
 import com.perfume.perfumeservice.dto.perfume.PerfumeDislikeResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeLikeResponseDto;
+import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 
 import java.util.List;
 
@@ -34,5 +35,8 @@ public interface PerfumeLikeService {
     List<PerfumeLDCount> getDislikeLike(Long id);
 
     List<PerfumeLDCount> getDislikeDislike(Long id);
+    List<PerfumeResponseDto> getLikeList(Long userId);
+    List<PerfumeResponseDto> getDisLikeList(Long userId);
 
+    int checkLike(Long userId, Long perfumeId);
 }

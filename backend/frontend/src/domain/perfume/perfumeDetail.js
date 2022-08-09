@@ -5,8 +5,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./perfumeDetail.css";
 import { Rating } from "react-simple-star-rating";
 import { useSelector } from "react-redux";
-import { Nav } from "react-bootstrap";
+import { Modal, Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 import styled, { keyframes } from "styled-components";
+// import PerfumeTagModal from "./perfumeTagModal";
+import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
+
 // import { waitFor } from "@testing-library/react";
 
 // function Note({ note }) {
@@ -35,20 +39,48 @@ const stack = (props) => keyframes`
 // 향수 상세 페이지
 const PerfumeDetail = () => {
   const user = useSelector((state) => state.userStore.nowLoginUser);
+  const isLogined = useSelector((state) => state.userStore.isLogined);
 
   let useParam = useParams();
   let number = parseInt(useParam.num);
+  let navigate = useNavigate();
   const [rating, setRating] = useState(0); // 별점
   const [perfumeDetail, setPerfumeDetail] = useState({}); //이름같은거
   const [noteDetail, setNoteDetail] = useState([]); //노트
   const [tagDetail, setTagDetail] = useState([]); //해시태그
   const [ldlRate, setLdlRate] = useState(0);
+  const [dislikeCnt, setDislikeCnt] = useState(0); //싫어요 개수
+  const [likeCnt, setLikeCnt] = useState(0); //좋아요 개수
+  const [reviewScore, setReviewScore] = useState(""); // 리뷰 전체 평점
   const [review, setReview] = useState([]); //리뷰
+  const [reviewCount, setReviewCount] = useState(0); //리뷰 개수
   const [reviewContent, setReviewContent] = useState(""); //리뷰작성내용
   const [reviewOrder, setReviewOrder] = useState("new"); //리뷰정렬 기본 최신순
   const [ldList, setLdList] = useState({});
   const [updaterating, setUpdateRating] = useState(0);
+  const [likeOrDisLike, setLikeOrDisLike] = useState(0); //해당 유저가 이 향수를 좋아하는지 싫어하는지 1 : 좋아 -1 : 싫어 0:안누름
   let [tab, setTab] = useState(1); // 좋아싫어탭
+  const [tagList, setTagList] = useState([]); //태그선택모달창의 해시태그리스트
+  const [choiceTag, setChoiceTag] = useState([]); //모달 태그 선택
+  const [sendChoiceTag, setSendChoiceTag] = useState([]); //모달 태그 선택
+
+  //모달
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleSave = () => {
+    setShow(false);
+    const temp = [];
+    console.log("태그저장", sendChoiceTag);
+    //int 변환
+    choiceTag.forEach((element) => {
+      temp.push(parseInt(element));
+    });
+    console.log("int변환", temp);
+
+    setSendChoiceTag(temp);
+  };
+  const handleShow = () => setShow(true);
 
   const getPerfumeDetail = async () => {
     try {
@@ -71,14 +103,77 @@ const PerfumeDetail = () => {
         // setLikeList(response.data.plDto);
         // setDislikeList(response.data.pdDto);
         setLdlRate(response.data.likeRatio);
-
-        console.log("비율", ldlRate);
+        setLikeCnt(response.data.likeCnt);
+        setDislikeCnt(response.data.dislikeCnt);
+        // console.log("비율", ldlRate);
         // console.log("noteDetail");
         // console.log(noteDetail);
         // setNote(noteDetail);
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  // 해시태그선택용 해시태그불러오기
+  const getTagList = async () => {
+    try {
+      const response = await freeaxios({
+        method: "get",
+        url: "/api/v1/review/tag",
+        // headers: { "Content-Type": "multipart/form-data" },
+      });
+      // console.log(response);
+      if (response.status === 200) {
+        console.log("전체 태그 리스트", response.data);
+        setTagList(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //모달창에서 태그 선택시
+  const clickReviewTag = (e) => {
+    // console.log("확이니ㅣ", e.target.id);
+    if (choiceTag.length <= 2) {
+      if (choiceTag.length != 0) {
+        if (choiceTag.includes(e.target.id)) {
+          // const temp = choiceTag;
+          console.log(choiceTag);
+          // console.log(
+          //   Object.values(choiceTag).filter((data) => data === e.target.id)
+          // );
+          setChoiceTag(
+            Object.values(choiceTag).filter((data) => data !== e.target.id)
+          );
+        } else {
+          const temp = [...choiceTag, e.target.id];
+          setChoiceTag(temp);
+        }
+      } else {
+        setChoiceTag(e.target.id);
+      }
+      console.log(choiceTag);
+
+      // console.log("태그선택", choiceTag);
+
+      const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
+      const tempclass = "choice-tag-" + e.target.id + "-checked";
+      // Tag[0].classList.add("checked");
+      Tag[0].classList.toggle("checked");
+      console.log("Tag", Tag);
+    } else if (choiceTag.includes(e.target.id)) {
+      setChoiceTag(
+        Object.values(choiceTag).filter((data) => data !== e.target.id)
+      );
+      const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
+      const tempclass = "choice-tag-" + e.target.id + "-checked";
+      // Tag[0].classList.add("checked");
+      Tag[0].classList.toggle("checked");
+      console.log("Tag", Tag);
+    } else {
+      alert("해시태그선택은3개까지만");
     }
   };
 
@@ -112,19 +207,42 @@ const PerfumeDetail = () => {
         url: "/api/v1/review/list/" + number + "?order=" + reviewOrder,
       });
       console.log("review", response.data);
+      setReviewScore(response.data.score_avg);
       // const commentdata = response.data
       // setPageComment(commentdata)
       // console.log("댓글", pageComment)
-      setReview(response.data);
+      setReview(response.data.review);
+      setReviewCount(response.data.review_count);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //해당유저가 좋아하는지 싫어하는지
+  const getLikeOrDisLike = async () => {
+    try {
+      const response = await authaxios({
+        method: "get",
+        url:
+          "/api/v1/perfume/check/like?userId=" +
+          user.user_id +
+          "&perfumeId=" +
+          number,
+      });
+      setLikeOrDisLike(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
+    if (isLogined) {
+      getLikeOrDisLike();
+    }
     getPerfumeDetail();
     get좋아싫어리스트();
     getReview();
+    getTagList();
   }, []);
 
   //노트구분하기 -> 안씀
@@ -201,6 +319,8 @@ const PerfumeDetail = () => {
           // setLikeList(likeList.filter((temp) => temp.userId != 4));
           console.log("like down", likeList);
         }
+        getPerfumeDetail();
+        getLikeOrDisLike();
       }
     } catch (error) {
       console.log(error);
@@ -238,6 +358,8 @@ const PerfumeDetail = () => {
           // setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
           console.log("like down", dislikeList);
         }
+        getPerfumeDetail();
+        getLikeOrDisLike();
       }
     } catch (error) {
       console.log(error);
@@ -255,7 +377,7 @@ const PerfumeDetail = () => {
           content: reviewContent,
           perfume_id: perfumeDetail.perfumeId,
           score: rating,
-          tags: [1, 2],
+          tags: sendChoiceTag,
           user_id: user.user_id,
         };
         console.log(data);
@@ -303,12 +425,11 @@ const PerfumeDetail = () => {
       getReview();
     } else {
       // alert("삭제를 취소했습니다.")
-      //취소하면 메인으로 이동당함 
+      //취소하면 메인으로 이동당함
     }
   };
 
-
-  //좋아요 리뷰만 
+  //좋아요 리뷰만
   const clickReviewLIKEList = async () => {
     // console.log("좋아요 리뷰만");
     try {
@@ -324,7 +445,7 @@ const PerfumeDetail = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //싫어요 리뷰만
   const clickReviewDISLIKEList = async () => {
@@ -342,7 +463,7 @@ const PerfumeDetail = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //리뷰수정 여기도 1000자 ?
   const clickReviewEditCommit = async (e) => {
@@ -350,7 +471,7 @@ const PerfumeDetail = () => {
     console.log("리뷰수정", e.target.id);
     try {
       const commentBox = document.getElementById(
-        "review-content-" + e.target.id,
+        "review-content-" + e.target.id
       );
       const response = await authaxios({
         method: "patch",
@@ -369,16 +490,20 @@ const PerfumeDetail = () => {
       console.log(response);
       if (response.status === 200) {
         const commentBox = document.getElementById(
-          "review-content-" + e.target.id,
+          "review-content-" + e.target.id
         );
         const commentButtonBox1 = document.getElementById(
-          "review-button-set1-" + e.target.id,
+          "review-button-set1-" + e.target.id
         );
         const commentButtonBox2 = document.getElementById(
-          "review-button-set2-" + e.target.id,
+          "review-button-set2-" + e.target.id
+        );
+        const commentButtonBox3 = document.getElementById(
+          "review-button-set3-" + e.target.id
         );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
+        commentButtonBox3.hidden = true;
         commentBox.readOnly = true;
         getReview();
       }
@@ -395,14 +520,18 @@ const PerfumeDetail = () => {
     console.log(commentBox);
     commentBox.setAttribute("name", commentBox.value);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id,
+      "review-button-set1-" + e.target.id
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id,
+      "review-button-set2-" + e.target.id
+    );
+    const commentButtonBox3 = document.getElementById(
+      "review-button-set3-" + e.target.id
     );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = true;
     commentButtonBox2.hidden = false;
+    commentButtonBox3.hidden = false;
     console.log(commentBox);
     commentBox.readOnly = false;
   };
@@ -412,14 +541,18 @@ const PerfumeDetail = () => {
     e.preventDefault();
     const commentBox = document.getElementById("review-content-" + e.target.id);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id,
+      "review-button-set1-" + e.target.id
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id,
+      "review-button-set2-" + e.target.id
+    );
+    const commentButtonBox3 = document.getElementById(
+      "review-button-set3-" + e.target.id
     );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = false;
     commentButtonBox2.hidden = true;
+    commentButtonBox3.hidden = true;
     commentBox.value = commentBox.getAttribute("name");
     commentBox.readOnly = true;
     getArticleComment();
@@ -440,6 +573,47 @@ const PerfumeDetail = () => {
     });
   };
 
+  //리뷰 좋아요
+  const clickReviewLike = async (e) => {
+    // console.log("리뷰 좋아요", user);
+    try {
+      let data = {
+        reviewId: e.target.id,
+        userId: user.user_id,
+      };
+      // console.log("유저아이디", data);
+      const response = await authaxios({
+        method: "post",
+        url: "/api/v1/review/add/like",
+        data: data,
+      });
+      // console.log(response);
+      if (response.status === 200) {
+        // console.log("완료")
+        if (response.data == "ADD") {
+          // let temp = {
+          //   id: 0,
+          //   perfumeId: perfumeDetail.perfumeId,
+          //   userId: user.user_id,
+          // };
+          // console.log("temp", temp);
+          // alert("좋아요");
+        }
+        if (response.data == "CANCEL") {
+          // alert("이미 싫어요 누름. 싫어요 취소");
+        }
+        if (response.data == "X") {
+          // setLikeList(likeList.filter((temp) => temp.userId != 4));
+          // console.log("like down", likeList);
+          // alert("이미 좋아요 누름");
+        }
+        getReview();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="perfumeDetail">
       <div className="shop-area pt-100 pb-100">
@@ -453,7 +627,7 @@ const PerfumeDetail = () => {
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
                 {/* <span>-29%</span> */}
-                <span>new</span>
+                {/* <span>new</span> */}
               </div>
             </div>
             <div className="col-lg-8 col-md-6 col-sm-12">
@@ -462,35 +636,29 @@ const PerfumeDetail = () => {
                   {perfumeDetail.koName}({perfumeDetail.enName})
                 </h2>
                 <div className="pro-details-rating-wrap ">
-                  {/* <div className="pro-details-rating">
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o yellow"></i>
-                    <i className="fa fa-star-o"></i>
-                    <i className="fa fa-star-o"></i>
-                  </div> */}
                   <div className="review-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
+                    <Rating
+                      /* Available Props */
+                      initialValue={`${reviewScore}`}
+                      readonly
+                      size={"20px"}
+                    />
                   </div>
 
-                  <span>
-                    <a href="#">3 Reviews</a>
-                  </span>
+                  <span className="">({reviewScore})</span>
+                  <span className="ml-10">{reviewCount}개의 리뷰</span>
                 </div>
                 {/* 이부분에 해시태그 */}
                 <div className="detail-product-hashtag">
                   {/* <span>$18.00 </span>
                   <span className="old">$20.00 </span> */}
                   <ul>
-                    {tagDetail.map((data, index) => (
-                      <li className="" key={index}>
-                        #{data.tagName}
-                      </li>
-                    ))}
+                    {tagDetail &&
+                      tagDetail.map((data, index) => (
+                        <li className="" key={index}>
+                          #{data.tagName}
+                        </li>
+                      ))}
                     {/* <li className="">#봄</li>
                     <li className="">#여름</li>
                     <li className="">#가을</li>
@@ -507,50 +675,16 @@ const PerfumeDetail = () => {
                 </p>
 
                 <div className="detail-pro-details-list-row">
-                  {/* <div className="col-lg-1">
-                  </div> */}
                   <div className="detail-pro-details-list1">
                     <ul>
                       {/* 탑노트/미들노트 설명 */}
-                      {/* {
-                        topNote.length != 0
-                          ? topNote.map((data, index) => (
-                            <li key={index}>탑노트 : {data}</li>
-                          ))
-                          : null
-                      }
-                      {
-                        middleNote.length != 0
-                          ? middleNote.map((data, index) => (
-                            <li key={index}>미들노트 : {data}</li>
-                          ))
-                          : null
-                      }
-                      {
-                        baseNote.length != 0
-                          ? baseNote.map((data, index) => (
-                            <li key={index}>베이스노트 : {data}</li>
-                          ))
-                          : null
-                      }
-                      {
-                        singleNote.length != 0
-                          ? singleNote.map((data, index) => (
-                            <li key={index}>싱글노트 : {data}</li>
-                          ))
-                          : null
-                      } */}
 
-                      {noteDetail.map((data, index) => (
-                        // if (data.noteCl == "single") {
-                        //   <li key={data.noteId}>싱글노트</li>
-                        // } else {
-                        //   <li key={data.noteId}>싱글아님</li>
-                        // }
-                        <li key={index} className={data.noteCl}>
-                          {data.materialName}
-                        </li>
-                      ))}
+                      {noteDetail &&
+                        noteDetail.map((data, index) => (
+                          <li key={index} className={data.noteCl}>
+                            {data.materialName}
+                          </li>
+                        ))}
                     </ul>
                     <div className="perfume_detail_note_ex">
                       <div className="single note_ex_color">
@@ -580,19 +714,36 @@ const PerfumeDetail = () => {
                 </div>
 
                 {/* 좋아요 싫어요 */}
-                <i class="fa-regular fa-thumbs-down"></i>
+                {/* <i class="fa-regular fa-thumbs-down"></i> */}
                 <div className="pro-details-likeDislike row">
                   <div className="col-2">
                     {/* <i className="fa fa-heart-o"></i> */}
-                    <a
-                      className="articleButton"
-                      onClick={() => {
-                        recommend();
-                        toggleActive();
-                      }}
+                    <OverlayTrigger
+                      key={"top"}
+                      placement={"top"}
+                      overlay={
+                        <Tooltip
+                          id={`tooltip-top`}
+                          style={{ fontSize: "15px" }}
+                        >
+                          {likeCnt}
+                        </Tooltip>
+                      }
                     >
-                      <span className="glyphicon glyphicon-thumbs-up"></span>
-                    </a>
+                      <div
+                        className=" fa-regular fa-thumbs-up likeOrDislike"
+                        style={
+                          likeOrDisLike === 1
+                            ? { color: "rgb(72 118 239)" }
+                            : { color: "#ccc" }
+                        }
+                        onClick={() => {
+                          recommend();
+                          toggleActive();
+                        }}
+                      ></div>
+                      {/* <div>{likeCnt}</div> */}
+                    </OverlayTrigger>
                   </div>
                   <div className="col-8 ">
                     <div className="detail-likeDislikeGraph">
@@ -602,15 +753,32 @@ const PerfumeDetail = () => {
                     </div>
                   </div>
                   <div className="col-2">
-                    <a
-                      className="articleButton"
-                      onClick={() => {
-                        disrecommend();
-                        toggleActive();
-                      }}
+                    <OverlayTrigger
+                      key={"top"}
+                      placement={"top"}
+                      overlay={
+                        <Tooltip
+                          id={`tooltip-top`}
+                          style={{ fontSize: "15px" }}
+                        >
+                          {dislikeCnt}
+                        </Tooltip>
+                      }
                     >
-                      <span className="glyphicon glyphicon-thumbs-down"></span>
-                    </a>
+                      <div
+                        className="fa-regular fa-thumbs-down likeOrDislike"
+                        style={
+                          likeOrDisLike === -1
+                            ? { color: "rgb(255 97 97)" }
+                            : { color: "#ccc" }
+                        }
+                        onClick={() => {
+                          disrecommend();
+                          toggleActive();
+                        }}
+                      ></div>
+                    </OverlayTrigger>
+                    {/* <div>{dislikeCnt}</div> */}
                   </div>
                 </div>
               </div>
@@ -658,46 +826,6 @@ const PerfumeDetail = () => {
               </Nav.Item>
             </Nav>
 
-            {/* <ul className="nav nav-tabs detail-navtab mb-20">
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled detail-navtab-disa"
-                  href="#;"
-                  tabIndex="-1"
-                  aria-disabled="true"
-                >
-                  이 향수를
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link active detail-nav-link"
-                  aria-current="true"
-                  onClick={() => setTab(0)}
-                >
-                  좋아
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link detail-nav-link"
-                  aria-current="true"
-                  onClick={() => setTab(1)}
-                >
-                  싫어
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled detail-navtab-disa"
-                  href="#;"
-                  tabIndex="-1"
-                  aria-disabled="true"
-                >
-                  한다면?
-                </a>
-              </li>
-            </ul> */}
             {tab === 1 ? (
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
@@ -840,18 +968,35 @@ const PerfumeDetail = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div> */}
+                  {sendChoiceTag}
                   <Rating
+                    className="ml-10"
                     showTooltip
                     onClick={handleRating}
                     ratingValue={rating} /* Available Props */
-                    fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
+                    fillColorArray={[
+                      "#f17a45",
+                      "#f19745",
+                      "#f1a545",
+                      "#f1b345",
+                      "#f1d045",
+                    ]}
                   />
                   {/* {rating}점 */}
                   <div className="image_add_wrap">
-                    <button type="button" className="btn_image_add">
+                    {/* <!-- Button trigger modal --> */}
+                    <Button variant="primary" onClick={handleShow}>
+                      해시태그 선택
+                    </Button>
+
+                    {/* <button
+                      onClick={() => setTagModal(!tagModal)}
+                      className="btn_image_add"
+                    >
                       해시태그 선택
                     </button>
-                    *필수사항X
+                    *필수사항X */}
+                    {/* {tagModal === true ? <PerfumeTagModal /> : null} */}
                   </div>
                   <span className="comment_count">
                     {" "}
@@ -981,12 +1126,18 @@ const PerfumeDetail = () => {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" onClick={clickReviewLIKEList}>
+                      <a
+                        className="dropdown-item"
+                        onClick={clickReviewLIKEList}
+                      >
                         좋아요
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" onClick={clickReviewDISLIKEList}>
+                      <a
+                        className="dropdown-item"
+                        onClick={clickReviewDISLIKEList}
+                      >
                         싫어요
                       </a>
                     </li>
@@ -1002,190 +1153,210 @@ const PerfumeDetail = () => {
               <div className="detail-line"></div>
 
               {/* 리뷰내용 */}
-              {review.map((data) => (
-                <div className="row mt-10">
-                  <div className="ratting-form-wrapper">
-                    <div className="ratting-form">
-                      <form action="#">
-                        <div className="row review-text-line">
-                          {/* <div className="col-md-3">
+              {review &&
+                review.map((data) => (
+                  <div className="row mt-10">
+                    <div className="ratting-form-wrapper">
+                      <div className="ratting-form">
+                        <form>
+                          <div className="row review-text-line">
+                            {/* <div className="col-md-3">
                           <div className="review-profile review-text mb-10 pt-10">
                             <img src="assets/img/testimonial/1.jpg" alt="" />
                             <p>닉네임</p>
                           </div>
                         </div> */}
 
-
-                          <div className="col-md-9 review-text-profile">
-                            <span className="review-text-profile-img">
-                              <img src="assets/img/testimonial/1.jpg" alt="" />
-                            </span>
-                            <span>
-                              &nbsp; {data.user} 님
-                            </span>
-                          </div>
-
-                          <div className="col-md-12">
-                            <div className="review-rating mb-10">
-                              {/* <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i>
-                              <i className="fa fa-star"></i> */}
-                              <Rating
-                                /* Available Props */
-                                tooltipDefaultText="4"
-                                initialValue={`${data.score}`}
-                                readonly
-                                size={"20px"}
-                              />
+                            <div className="col-md-9 review-text-profile">
+                              <div className="review-text-profile-img">
+                                <img
+                                  src="assets/img/testimonial/1.jpg"
+                                  alt=""
+                                />
+                              </div>
+                              <div className="review-text-profile-user ml-10">
+                                <div className="review-rating mb-10 ">
+                                  <Rating
+                                    /* Available Props */
+                                    // tooltipDefaultText="4"
+                                    initialValue={`${data.score}`}
+                                    readonly
+                                    size={"20px"}
+                                  />
+                                </div>
+                                <div>
+                                  {data.user} 님 | {data.modifiedDate}
+                                </div>
+                              </div>
+                              <div
+                                className="ml-15"
+                                id={`review-button-set3-${data.id}`}
+                                hidden
+                              >
+                                <Rating
+                                  onClick={handleUpdateRating}
+                                  ratingValue={
+                                    updaterating
+                                  } /* Available Props */
+                                  size={"25px"}
+                                />
+                                {updaterating}점
+                                <div className="image_add_wrap">
+                                  <button
+                                    type="button"
+                                    className="btn_image_add"
+                                  >
+                                    해시태그 선택
+                                  </button>
+                                  *필수사항X
+                                </div>
+                              </div>
                             </div>
-                            <div className="col-md-3 review-text-like">
-                              {user.user_id === data.user_id ? (
-                                <>
-                                  <div
-                                    className="review-button-set"
-                                    id={`review-button-set1-${data.id}`}
-                                  >
-                                    <button
-                                      className="review-remove"
-                                      onClick={clickReviewRemove}
-                                      id={`${data.id}`}
+
+                            <div className="col-md-3">
+                              <div
+                                className="review-text-like"
+                                style={{ verticalAlign: "middle" }}
+                              >
+                                {user.user_id === data.user_id ? (
+                                  <>
+                                    <div
+                                      className="review-button-set"
+                                      id={`review-button-set1-${data.id}`}
                                     >
-                                      삭제
-                                    </button>
-                                    <button
-                                      className="review-edit"
-                                      onClick={clickReviewEdit}
-                                      id={`${data.id}`}
+                                      <button
+                                        className="review-remove"
+                                        onClick={clickReviewRemove}
+                                        id={`${data.id}`}
+                                      >
+                                        삭제
+                                      </button>
+                                      <button
+                                        className="review-edit"
+                                        onClick={clickReviewEdit}
+                                        id={`${data.id}`}
+                                      >
+                                        수정
+                                      </button>
+                                    </div>
+                                    <div
+                                      className="review-button-set"
+                                      id={`review-button-set2-${data.id}`}
+                                      hidden
                                     >
-                                      수정
-                                    </button>
-                                  </div>
-                                  <div
-                                    className="review-button-set"
-                                    id={`review-button-set2-${data.id}`}
-                                    hidden
-                                  >
-                                    <span>
-                                      <Rating
-                                        onClick={handleUpdateRating}
-                                        ratingValue={
-                                          updaterating
-                                        } /* Available Props */
-                                      />
-                                      {updaterating}점
-                                      <div className="image_add_wrap">
-                                        <button
-                                          type="button"
-                                          className="btn_image_add"
-                                        >
-                                          해시태그 선택
-                                        </button>
-                                        *필수사항X
-                                      </div>
+                                      <button
+                                        className="edit-remove"
+                                        onClick={clickReviewEditRemove}
+                                        id={`${data.id}`}
+                                      >
+                                        취소
+                                      </button>
+                                      <button
+                                        className="edit-commit"
+                                        onClick={clickReviewEditCommit}
+                                        id={`${data.id}`}
+                                      >
+                                        확인
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    {/* <i class="fa-regular fa-thumbs-down"></i> */}
+                                    <span
+                                      className="fa-regular fa-thumbs-up mr-10"
+                                      onClick={clickReviewLike}
+                                      style={{
+                                        color: "rgb(72 118 239)",
+                                        fontSize: "25px",
+                                        verticalAlign: "middle",
+                                        lineHeight: "25px",
+                                      }}
+                                      id={`${data.id}`}
+                                    ></span>
+                                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
+                                    <span style={{ fontSize: "25px" }}>
+                                      {data.reviewLike}
                                     </span>
-                                    <button
-                                      className="edit-remove"
-                                      onClick={clickReviewEditRemove}
-                                      id={`${data.id}`}
-                                    >
-                                      취소
-                                    </button>
-                                    <button
-                                      className="edit-commit"
-                                      onClick={clickReviewEditCommit}
-                                      id={`${data.id}`}
-                                    >
-                                      확인
-                                    </button>
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  <span className="glyphicon glyphicon-thumbs-up"></span>
-                                  <span className="glyphicon glyphicon-thumbs-down"></span>
-                                </>
-                              )}
+                                  </>
+                                )}
+                              </div>
                             </div>
                             <div className="review-text form-submit">
                               <textarea
                                 readOnly
                                 rows="3"
                                 name=""
+                                maxLength={255}
                                 id={`review-content-${data.id}`}
                               >
                                 {data.content}
                               </textarea>
                             </div>
+                            <div className="detail-product-hashtag review-hashtag col-12">
+                              <ul>
+                                {data.tagNames &&
+                                  data.tagNames.map((data2, index) => (
+                                    <li className="" key={index}>
+                                      #{data2}
+                                    </li>
+                                  ))}
+                              </ul>
+                            </div>
                           </div>
-                          <div className="detail-product-hashtag">
-                            <ul>
-                              {data.tagNames.map((data2, index) => (
-                                <li className="" key={index}>
-                                  #{data2}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-
-                        </div>
-                      </form>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-
-              {/* <div className="row mt-10">
-                <div className="ratting-form-wrapper">
-                  <div className="ratting-form">
-                    <form action="#">
-                      <div className="row review-text-line">
-             
-
-                        <div className="col-md-12">
-                          <div className="review-rating mb-10">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                          <div className="review-text form-submit">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="col-md-9 review-text-profile">
-                          <span className="review-text-profile-img">
-                            <img src="assets/img/testimonial/1.jpg" alt="" />
-                          </span>
-                          <span>&nbsp; 어쩌구저쩌구 님</span>
-                        </div>
-                        <div className="col-md-3 review-text-like">
-                          <span className="glyphicon glyphicon-thumbs-up"></span>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <span className="glyphicon glyphicon-thumbs-down"></span>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div> */}
+                ))}
+            </div>
+            <div className="backButton">
+              <button
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                목록
+              </button>
             </div>
           </div>
         </div>
       </div>
+      {/* <!-- Modal --> */}
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>해시태그 선택</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          <div className="product-hashtag modal-tag">
+            {tagList &&
+              tagList.map((data, index) => (
+                <div
+                  className={`choice-tag-${data.tagId}`}
+                  key={index}
+                  id={`${data.tagId}`}
+                  onClick={clickReviewTag}
+                >
+                  #{data.tagName}
+                </div>
+              ))}
+            {/* <div className="">#30대</div> */}
+          </div>
+          {/* <Button variant="secondary" onClick={() => setChoiceTag([])}>
+            선택 초기화
+          </Button> */}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            초기화 & 취소
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            선택 저장
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/*  */}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +42,19 @@ public class ReviewController {
 
     @GetMapping("/list/{id}")
     @ApiOperation(value = "향수 리뷰 전체 조회")
-    public ResponseEntity<List<ReviewResponseDto>> getList(@PathVariable Long id, @RequestParam String order){
-        return new ResponseEntity<>(reviewService.getList(id, order), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getList(@PathVariable Long id, @RequestParam String order){
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ReviewResponseDto> list = reviewService.getList(id, order);
+        double score = 0.0;
+        for(ReviewResponseDto r: list){
+            score += (double)r.getScore();
+        }
+
+        score = score / list.size();
+        map.put("review_count", list.size());
+        map.put("review", list);
+        map.put("score_avg", String.format("%.1f", score));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping("/list/like/{id}")
@@ -57,15 +69,21 @@ public class ReviewController {
         return new ResponseEntity<>(reviewService.getDisLikeList(id), HttpStatus.OK);
     }
 
-    @PostMapping("/review/like")
+    @PostMapping("/add/like")
     @ApiOperation(value = "향수 리뷰 좋아요")
     public ResponseEntity<String> addLike(@RequestBody Map<String, Long> map){
         return new ResponseEntity<>(reviewService.addLike(map), HttpStatus.OK);
     }
 
-    @PostMapping("/review/dislike")
+    @PostMapping("/add/dislike")
     @ApiOperation(value = "향수 리뷰 싫어요")
     public ResponseEntity<String> addDisLike(@RequestBody Map<String, Long> map){
         return new ResponseEntity<>(reviewService.addDisLike(map), HttpStatus.OK);
+    }
+
+    @GetMapping("/new")
+    @ApiOperation(value = "최신 리뷰 6개")
+    public ResponseEntity<List<Map<String, Object>>> getNewReview(){
+        return new ResponseEntity<>(reviewService.getNewReview(), HttpStatus.OK);
     }
 }

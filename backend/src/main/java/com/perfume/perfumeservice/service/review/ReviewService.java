@@ -18,4 +18,5 @@ public interface ReviewService {
     String addDisLike(Map<String, Long> map);
     List<ReviewResponseDto> getLikeList(Long id);
     List<ReviewResponseDto> getDisLikeList(Long id);
+    List<Map<String, Object>> getNewReview();
 }
