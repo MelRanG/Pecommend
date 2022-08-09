@@ -18,6 +18,7 @@
     align-items: center;
     flex-direction: column;
     border : none;
+    
 }
 
 /* 테스트 타이틀 */
@@ -50,14 +51,41 @@
     color: #222222;
     border: none;
 }
+.test-start-button:hover {
+    /* width: 35%; */
+    height: 50px;
+    font-size: 25px;
+    background-color: #373F57;
+    color: #ffffff;
+}
 
 /* 질문 */
 .test-dialog {
-    font-size: 20px;
+    font-size: 23px;
     color: #000000;
     text-align: center;
-    margin-bottom: 15px;
+    /* margin: 10px 10px 20px 10px; */
+    /* width: 60%; */
+    white-space: pre-wrap;
+    line-height: 1.8;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+    /* width: 70%; */
+    width: 100%;
 }
+
+.test-dialog-border {
+    margin: 10px 0px;
+    border-radius: 25px;
+    padding: 10px 25px 10px 25px;
+    border: 3px solid #c4c4c4;
+    width: 95%;
+}
+
+
 
 .test-button-box {
     display: flex;
@@ -67,26 +95,28 @@
     height: 25%;
     min-height: 100px;
     width: 100%;
+    border-radius: 25px;
 }
 
 /* css 동시적용시 */
 .test-button-box button {
     margin: 8px 0px 8px 0px;
-    font-size: 15px;
+    font-size: 18px;
     color: #000000;
     text-align: center;
     width: 70%;
-    height: 30px;
+    height: 50px;
     border: none;
+    border-radius: 25px;
 }
 
 /* 버튼에 커서 올릴경우 */
 .test-button-box button:hover {
-    font-size: 17px;
-    height: 40px;
+    font-size: 18px;
+    height: 50px;
     width: 80%;
     color: #ffffff;
-    background-color: #000000;
+    background-color: #373F57;
 }
 
 /* 따로 css 작성시 */
@@ -138,7 +168,8 @@
 
 .test-result-button {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     margin: 10px 0px 10px 0px;
     align-items: center;
     height: 120px;
@@ -146,10 +177,11 @@
 
 /* 결과 공유 버튼 */
 .test-share-button {
+    border-radius: 25px;
     width: 30%;
-    height: 40px;
+    height: 50px;
     border: none;
-    margin: 20px 0px 20px 0px;
+    margin: 20px 10px 20px 10px;
     font-size: 18px;
     background-color: #EEEEEE;
     color:#000000;
@@ -157,28 +189,29 @@
 
 /* 버튼 커서 올릴경우 */
 .test-share-button:hover {
-    width: 38%;
+    /* width: 35%; */
     height: 50px;
     font-size: 20px;
-    background-color: #111111;
+    background-color: #373F57;
     color: #ffffff;
 }
 
 /* 다시하기 버튼 */
 .test-restart {
+    border-radius: 25px;
     width: 30%;
-    height: 40px;
+    height: 50px;
     border: none;
-    margin: 10px 0px 10px 0px;
+    margin: 20px 10px 20px 10px;
     font-size: 18px;
     background-color: #EEEEEE;
     color:#000000;
 }
 
 .test-restart:hover {
-    width: 38%;
+    /* width: 35%; */
     height: 50px;
     font-size: 20px;
-    background-color: #111111;
+    background-color: #373F57;
     color: #ffffff;
 }
