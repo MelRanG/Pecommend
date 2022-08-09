@@ -35,8 +35,8 @@ public class Perfume {
 //    @Column(name = "dislike") // dislike인지 dislikes 인지?
 //    private int perfumeDislike;
 
-    @Column(name = "density") // 데이터 없음
-    private String density;
+//    @Column(name = "density") // 데이터 없음
+//    private String density;
 
     // note 노트 정보
     @OneToMany(mappedBy = "perfume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

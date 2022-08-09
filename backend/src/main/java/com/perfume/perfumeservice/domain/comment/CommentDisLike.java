@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class CommentDisLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_dislike_id")
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")

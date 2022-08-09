@@ -29,8 +29,6 @@ public class Community extends BaseTime {
     @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<CommunityImage> images = new ArrayList<>();
-    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CommunityLike> likes = new LinkedHashSet<>();
 
     public void patch(Community community){

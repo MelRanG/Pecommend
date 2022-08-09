@@ -22,7 +22,7 @@ public class PerfumeResponseDto {
     // private Double score; // 평점
 //    private int perfumeLike;
 //    private int perfumeDisLike;
-    private String density;
+//    private String density;
 //    private List<Note> notesId;
 //    private List<PerfumeTag> tags;
 
@@ -43,7 +43,7 @@ public class PerfumeResponseDto {
                 .enName(perfume.getEnName())
 //                .perfumeLike(perfume.getPerfumeLike())
 //                .perfumeDisLike(perfume.getPerfumeDislike())
-                .density(perfume.getDensity())
+//                .density(perfume.getDensity())
 //                .notesId(perfume.getNotes()) // 일단 보류(리스트 날리는 거 때문에)
                 .build();
     }

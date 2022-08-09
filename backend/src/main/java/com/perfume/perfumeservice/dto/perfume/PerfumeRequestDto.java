@@ -16,7 +16,7 @@ public class PerfumeRequestDto {
     // private Double score; // 평점
 //    private int perfumeLike;
 //    private int perfumeDisLike;
-    private String density;
+//    private String density;
 
     public Perfume toEntity(Perfume perfume){
         return Perfume.builder()
@@ -24,7 +24,7 @@ public class PerfumeRequestDto {
                 .enName(enName)
 //                .perfumeLike(perfumeLike)
 //                .perfumeDislike(perfumeDisLike)
-                .density(density)
+//                .density(density)
                 .build();
 
     }

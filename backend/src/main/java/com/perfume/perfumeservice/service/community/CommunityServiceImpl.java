@@ -2,10 +2,7 @@ package com.perfume.perfumeservice.service.community;
 
 import com.perfume.perfumeservice.domain.community.*;
 import com.perfume.perfumeservice.domain.community.Community;
-import com.perfume.perfumeservice.domain.community.CommunityImage;
-import com.perfume.perfumeservice.domain.community.CommunityImageRepository;
 import com.perfume.perfumeservice.domain.community.CommunityRepository;
-import com.perfume.perfumeservice.domain.image.Image;
 import com.perfume.perfumeservice.domain.user.UserEntity;
 import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.posts.PostsRequestDto;
@@ -16,17 +13,12 @@ import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.transaction.Transactional;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -40,7 +32,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class CommunityServiceImpl implements CommunityService {
-    private final CommunityImageRepository communityImageRepository;
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final CommunityLikeRepository communityLikeRepository;
