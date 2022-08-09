@@ -156,8 +156,11 @@ function CommunityMain() {
               </div> */}
               <div className="community-long-box">
                 <div className="long-item-box">
-                  <div className="long-item-article active">
+                  <div className="long-item-article active d-flex justify-content-between">
                     <h4>인기글</h4>
+                    <h5><Link to={`/commu/list/3`}>더보기 {">"}</Link></h5>
+                    
+                  </div>
                     <div className="community-article-box">
                       <ul>
                         {
@@ -182,7 +185,6 @@ function CommunityMain() {
                         }
                       </ul>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>

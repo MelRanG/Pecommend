@@ -43,7 +43,7 @@ public class UserEntity {
     @Column(name = "birthday")
     private String birthday;
     @Column(name = "age")
-    private int age;
+    private Integer age;
     @Column(name = "gender")
     private String gender;
     @Column(name = "mbti")

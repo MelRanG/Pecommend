@@ -15,5 +15,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
                     " order by c.parent_id Is Null DESC, c.created_date ")
     List<Comment> findCommentByCommunityId(@Param("communityId") Long communityId);
 
-    List<Comment> findByWriter(UserEntity user);
+    List<Comment> findByWriterOrderByIdDesc(UserEntity user);
 }

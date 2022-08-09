@@ -139,7 +139,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<CommentsResponseDto> getProfileComments(Long id) {
         UserEntity user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        return commentRepository.findByWriter(user).stream()
+        return commentRepository.findByWriterOrderByIdDesc(user).stream()
                 .map(comment -> CommentsResponseDto.from(comment))
                 .collect(Collectors.toList());
     }

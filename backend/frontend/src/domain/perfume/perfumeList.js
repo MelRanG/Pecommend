@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { authaxios, freeaxios } from "custom/customAxios";
@@ -428,29 +427,41 @@ function PerfumeList() {
 
             <div className="col-lg-9">
               <div className="shop-top-bar">
-                <div className="select-shoing-wrap pl-20" style={{ width: "100%" }}>
-                  <div className="shop-select" >
-                    <select>
+                <div
+                  className="select-shoing-wrap pl-20"
+                  style={{ width: "100%" }}
+                >
+                  <div className="shop-select">
+                    <select style={{ display: "none" }}>
                       <option defaultValue="">정렬</option>
                       <option defaultValue="">추천순</option>
                       <option defaultValue="">추천비율순</option>
                     </select>
                   </div>
-                  <div className="pr-20" style={{ marginLeft: "auto" }}>총 {dataSize}개</div>
+                  <div className="pr-20" style={{ marginLeft: "auto" }}>
+                    총 {dataSize}개
+                  </div>
                 </div>
               </div>
               <div className="shop-bottom-area mt-35">
                 <div className="tab-content jump">
                   <div id="shop-1" className="tab-pane active">
                     <div className="row">
-                      {dataList.length === 0 ?
+                      {dataList.length === 0 ? (
                         <div>
-                          <div className="mt-50 mb-50" style={{ textAlign: "center", fontSize: "25px" }}> 해당 조건에 맞는 향수가 없습니다.</div>
+                          <div
+                            className="mt-50 mb-50"
+                            style={{ textAlign: "center", fontSize: "25px" }}
+                          >
+                            {" "}
+                            해당 조건에 맞는 향수가 없습니다.
+                          </div>
                         </div>
-                        :
+                      ) : (
                         <>
-                          {
-                            dataList.slice(offset, offset + limitData).map((data) => (
+                          {dataList
+                            .slice(offset, offset + limitData)
+                            .map((data) => (
                               <div
                                 key={data.pDto.perfumeId}
                                 className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
@@ -463,13 +474,11 @@ function PerfumeList() {
                                       <div className="text_photo">
                                         <div className="explain">
                                           <div className="list-hashtag">
-                                            {data.tDto.map((temp) => (
-                                              <div className="">
+                                            {data.tDto.map((temp, index) => (
+                                              <div className="" key={index}>
                                                 #{temp.tagName}
                                               </div>
                                             ))}
-
-
                                           </div>
                                         </div>
                                         <img
@@ -478,9 +487,7 @@ function PerfumeList() {
                                           alt=""
                                         />
                                       </div>
-
                                     </Link>
-
                                   </div>
                                   <div className="product-content text-center perfume_list_name">
                                     <div className="product-content-koName">
@@ -490,11 +497,9 @@ function PerfumeList() {
                                   </div>
                                 </div>
                               </div>
-                            ))
-                          }
+                            ))}
                         </>
-                      }
-
+                      )}
 
                       {/* 
                       <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
@@ -554,7 +559,7 @@ function PerfumeList() {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 
