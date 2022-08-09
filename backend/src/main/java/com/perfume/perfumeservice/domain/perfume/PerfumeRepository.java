@@ -59,12 +59,23 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
     )
     public List<Long> findByMbtiAndAge(List<String> mbtis, List<Integer> ages);
 
+    // 엠벼랑 성별이랑 나이로 거르기
+
     @Query(nativeQuery = true, value =
-//            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
-//            "SELECT FORMATDATETIME(birthday, 'yyyy-MM-dd') FROM user;"
-//            "SELECT to_date(birthday, 'YYYY-MM-DD') FROM user"
-            "SELECT to_char(to_date(u.birthday, 'YYYY-mm-dd'), 'yyyy/mm/dd') FROM user u"
+            "SELECT u1.user_id AS id FROM users u1, " +
+                    "(SELECT u2.user_id FROM users u2, " +
+                        "(SELECT user_id FROM users WHERE mbti IN (:mbtis)) sq2 " +
+                    "WHERE u2.user_id = sq2.user_id AND gender IN (:genders)) sq1 " +
+                    "WHERE u1.user_id = sq1.user_id AND TRUNCATE(u1.age, -1) IN (:ages)"
     )
-    public List<String> test();
+    public List<Long> findByMbtiAndGenderAndAge(List<String> mbtis, List<String> genders, List<Integer> ages);
+
+//    @Query(nativeQuery = true, value =
+////            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
+////            "SELECT FORMATDATETIME(birthday, 'yyyy-MM-dd') FROM user;"
+////            "SELECT to_date(birthday, 'YYYY-MM-DD') FROM user"
+//            "SELECT to_char(to_date(u.birthday, 'YYYY-mm-dd'), 'yyyy/mm/dd') FROM user u"
+//    )
+//    public List<String> test();
 
 }

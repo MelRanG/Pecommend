@@ -176,7 +176,7 @@ public class PerfumeController {
 
 //        Map<String, Object> result = new HashMap<>();
 //        List<Long> result = perfumeService.getUserByAge(ages);
-        List<Long> result = perfumeService.getUserByMbtiAndAge(mbtis, ages, genders);
+        List<Long> result = perfumeService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages);
 
         // 나이로 가져오기
         // 해당 나이인 사용자가 좋아요한 향수
