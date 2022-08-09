@@ -236,7 +236,7 @@ const PerfumeMain = () => {
                         <div className="image-wrapper">
                           <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
                           <div>
-                            <h5 className="card-title">{data.pDto.koName}({data.pDto.enName})</h5>
+                            <h4 className="card-title">{data.pDto.koName}</h4>
                             <h5 className="card-title">{data.rDto.user} 님</h5>
                             <div className="review-rating review-star">
                               {/* <i className="fa fa-star"></i>
@@ -290,7 +290,7 @@ const PerfumeMain = () => {
                         <div className="image-wrapper">
                           <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
                           <div>
-                            <h5 className="card-title">{data.pDto.koName}({data.pDto.enName})</h5>
+                            <h4 className="card-title">{data.pDto.koName}</h4>
                             <h5 className="card-title">{data.rDto.user} 님</h5>
                             <div className="review-rating review-star">
                               {/* <i className="fa fa-star"></i>

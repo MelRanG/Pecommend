@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { authaxios, freeaxios } from "custom/customAxios";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../community/pagination";
 import "./perfumeList.css";
 // import "./perfumeList.scss";
 
@@ -532,27 +533,29 @@ function PerfumeList() {
                     </div>
                   </div>
                 </div>
-                <div className="pro-pagination-style text-center mt-30">
-                  <ul>
-                    <li>
-                      <a className="prev" href="#">
-                        <i className="fa fa-angle-double-left"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a className="active" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">2</a>
-                    </li>
-                    <li>
-                      <a className="next" href="#">
-                        <i className="fa fa-angle-double-right"></i>
-                      </a>
-                    </li>
-                  </ul>
+                <div>
+                  <label>
+                    페이지 당 표시할 게시물 수:&nbsp;
+                    <select
+                      type="number"
+                      value={limitData}
+                      onChange={({ target: { value } }) => setLimit(Number(value))}
+                    >
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div>
+                  <Pagination
+                    total={dataList.length}
+                    limit={limitData}
+                    page={page}
+                    setPage={setPage}
+                  />
                 </div>
               </div>
             </div>
