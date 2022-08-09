@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { authaxios, freeaxios } from "custom/customAxios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -245,37 +244,6 @@ const PerfumeDetail = () => {
     getTagList();
   }, []);
 
-  //노트구분하기 -> 안씀
-  const setNote = (datas) => {
-    // console.log("setNote 호출");
-    // console.log(datas);
-    let topArr = [];
-    let middleArr = [];
-    let baseArr = [];
-    let singleArr = [];
-    datas.forEach((data) => {
-      // console.log(data);
-      if (data.noteCl == "top") {
-        topArr.push(data.materialName);
-      } else if (data.noteCl == "middle") {
-        middleArr.push(data.materialName);
-      } else if (data.noteCl == "base") {
-        baseArr.push(data.materialName);
-      } else {
-        singleArr.push(data.materialName);
-      }
-    });
-
-    // console.log(singleArr);
-    setTopNote(topArr);
-    setMiddleNote(middleArr);
-    setBaseNote(baseArr);
-    setSingleNote(singleArr);
-
-    // console.log(topNote);
-    // console.log(singleNote);
-  };
-
   // Catch Rating value 별점
   const handleRating = (rate: number) => {
     setRating(rate / 20);
@@ -317,7 +285,7 @@ const PerfumeDetail = () => {
         }
         if (response.data == "DELETE") {
           // setLikeList(likeList.filter((temp) => temp.userId != 4));
-          console.log("like down", likeList);
+          // console.log("like down", likeList);
         }
         getPerfumeDetail();
         getLikeOrDisLike();
@@ -356,7 +324,7 @@ const PerfumeDetail = () => {
         }
         if (response.data == "DELETE") {
           // setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
-          console.log("like down", dislikeList);
+          // console.log("like down", dislikeList);
         }
         getPerfumeDetail();
         getLikeOrDisLike();
@@ -555,7 +523,7 @@ const PerfumeDetail = () => {
     commentButtonBox3.hidden = true;
     commentBox.value = commentBox.getAttribute("name");
     commentBox.readOnly = true;
-    getArticleComment();
+    getReview();
   };
 
   // 리뷰내용변경될때마다. 1000자 제한걸기
