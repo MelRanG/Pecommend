@@ -168,7 +168,7 @@ public class PerfumeController {
 //    }
 
     @PostMapping("/list/filter")
-    @ApiOperation(value = "필터로 향수 목록 가져오기 (나이만)")
+    @ApiOperation(value = "필터로 향수 목록 가져오기 (테스트 중)")
     public ResponseEntity<List<Long>> getListFilter(@RequestBody Map<String, Object> map){
         List<Integer> ages = (List<Integer>) map.get("ages");
         List<String> genders = (List<String>) map.get("gender");
@@ -176,7 +176,7 @@ public class PerfumeController {
 
 //        Map<String, Object> result = new HashMap<>();
 //        List<Long> result = perfumeService.getUserByAge(ages);
-        List<Long> result = perfumeService.getUserByMbti(mbtis);
+        List<Long> result = perfumeService.getUserByMbtiAndAge(mbtis, ages, genders);
 
         // 나이로 가져오기
         // 해당 나이인 사용자가 좋아요한 향수
@@ -202,10 +202,10 @@ public class PerfumeController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/list/list/list")
-    public List<String> getTest(){
-        return perfumeRepository.test();
-    }
+//    @GetMapping("/list/list/list")
+//    public List<String> getTest(){
+//        return perfumeRepository.test();
+//    }
 
 //    @GetMapping("/{id}")
 //    @ApiOperation(value = "향수 디테일 가져오기(노트, 평점, 이미지, 해시태그, 선호도 없음)")

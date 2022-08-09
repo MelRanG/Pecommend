@@ -28,6 +28,10 @@ public interface PerfumeService {
     // mbti로 유저 찾기 - 나중에는 합칠 것
     List<Long> getUserByMbti(List<String> mbtis);
 
+    // 엠벼랑 성별로 유저 찾기 - 나중에는 합칠 것
+    List<Long> getUserByMbtiAndAge(List<String> mbtis, List<Integer> ages, List<String> genders);
+
+
 
 
 }

@@ -130,5 +130,10 @@ public class PerfumeServiceImpl implements PerfumeService {
         return perfumeRepository.findByMbti(mbtis);
     }
 
+    @Override
+    public List<Long> getUserByMbtiAndAge(List<String> mbtis, List<Integer> ages, List<String> genders) {
+        return perfumeRepository.findByMbtiAndAge(mbtis, ages);
+    }
+
 
 }
