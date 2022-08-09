@@ -7,6 +7,7 @@ import com.perfume.perfumeservice.domain.review.ReviewTag;
 import com.perfume.perfumeservice.dto.perfume.TagResponseDto;
 import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
 import com.perfume.perfumeservice.dto.review.ReviewResponseDto;
+import com.perfume.perfumeservice.dto.review.ReviewUpdateDto;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
 public interface ReviewService {
     ReviewResponseDto writeReview(ReviewRequestDto reviewDto);
     ReviewResponseDto updateReview(Long id, ReviewRequestDto reviewDto);
+    ReviewResponseDto updateReviewNoTag(Long id, ReviewUpdateDto dto);
     void deleteReview(Long id);
     List<ReviewResponseDto> getList(Long id, String order);
     String addLike(Map<String, Long> map);

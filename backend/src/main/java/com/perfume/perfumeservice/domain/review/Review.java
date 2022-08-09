@@ -4,6 +4,7 @@ import com.perfume.perfumeservice.domain.baseTime.BaseTime;
 import com.perfume.perfumeservice.domain.perfume.Perfume;
 import com.perfume.perfumeservice.domain.user.UserEntity;
 import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
+import com.perfume.perfumeservice.dto.review.ReviewUpdateDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -59,6 +60,11 @@ public class Review extends BaseTime {
     private List<ReviewDisLike> reviewDisLikeList = new ArrayList<>();
 
     public void update(ReviewRequestDto requestDto){
+        this.content = requestDto.getContent();
+        this.score = requestDto.getScore();
+    }
+
+    public void update(ReviewUpdateDto requestDto){
         this.content = requestDto.getContent();
         this.score = requestDto.getScore();
     }

@@ -483,7 +483,8 @@ function PerfumeList() {
                                         </div>
                                         <img
                                           className="default-img"
-                                          src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                                          //src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
                                           alt=""
                                         />
                                       </div>

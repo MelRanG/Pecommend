@@ -5,6 +5,7 @@ import com.perfume.perfumeservice.domain.perfume.Tag;
 import com.perfume.perfumeservice.dto.perfume.TagResponseDto;
 import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
 import com.perfume.perfumeservice.dto.review.ReviewResponseDto;
+import com.perfume.perfumeservice.dto.review.ReviewUpdateDto;
 import com.perfume.perfumeservice.service.review.ReviewService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +31,17 @@ public class ReviewController {
         return new ResponseEntity<>(reviewService.writeReview(reviewDto), HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
-    @ApiOperation(value = "향수 리뷰 수정")
+    @PatchMapping("/update/{id}")
+    @ApiOperation(value = "향수 리뷰 수정, 해시태그 O")
     public ResponseEntity<ReviewResponseDto> updateReview(@PathVariable Long id, @RequestBody ReviewRequestDto reviewDto){
 
         return new ResponseEntity<>(reviewService.updateReview(id, reviewDto), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    @ApiOperation(value = "향수 리뷰 수정, 해시태그 X")
+    public ResponseEntity<ReviewResponseDto> updateReviewNoTag(@PathVariable Long id, @RequestBody ReviewUpdateDto dto){
+        return new ResponseEntity<>(reviewService.updateReviewNoTag(id, dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

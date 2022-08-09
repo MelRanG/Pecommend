@@ -144,7 +144,7 @@ const PerfumeDetail = () => {
           //   Object.values(choiceTag).filter((data) => data === e.target.id)
           // );
           setChoiceTag(
-            Object.values(choiceTag).filter((data) => data !== e.target.id)
+            Object.values(choiceTag).filter((data) => data !== e.target.id),
           );
         } else {
           const temp = [...choiceTag, e.target.id];
@@ -164,7 +164,7 @@ const PerfumeDetail = () => {
       console.log("Tag", Tag);
     } else if (choiceTag.includes(e.target.id)) {
       setChoiceTag(
-        Object.values(choiceTag).filter((data) => data !== e.target.id)
+        Object.values(choiceTag).filter((data) => data !== e.target.id),
       );
       const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
       const tempclass = "choice-tag-" + e.target.id + "-checked";
@@ -439,7 +439,7 @@ const PerfumeDetail = () => {
     console.log("리뷰수정", e.target.id);
     try {
       const commentBox = document.getElementById(
-        "review-content-" + e.target.id
+        "review-content-" + e.target.id,
       );
       const response = await authaxios({
         method: "patch",
@@ -458,16 +458,16 @@ const PerfumeDetail = () => {
       console.log(response);
       if (response.status === 200) {
         const commentBox = document.getElementById(
-          "review-content-" + e.target.id
+          "review-content-" + e.target.id,
         );
         const commentButtonBox1 = document.getElementById(
-          "review-button-set1-" + e.target.id
+          "review-button-set1-" + e.target.id,
         );
         const commentButtonBox2 = document.getElementById(
-          "review-button-set2-" + e.target.id
+          "review-button-set2-" + e.target.id,
         );
         const commentButtonBox3 = document.getElementById(
-          "review-button-set3-" + e.target.id
+          "review-button-set3-" + e.target.id,
         );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
@@ -488,13 +488,13 @@ const PerfumeDetail = () => {
     console.log(commentBox);
     commentBox.setAttribute("name", commentBox.value);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id
+      "review-button-set1-" + e.target.id,
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id
+      "review-button-set2-" + e.target.id,
     );
     const commentButtonBox3 = document.getElementById(
-      "review-button-set3-" + e.target.id
+      "review-button-set3-" + e.target.id,
     );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = true;
@@ -509,13 +509,13 @@ const PerfumeDetail = () => {
     e.preventDefault();
     const commentBox = document.getElementById("review-content-" + e.target.id);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id
+      "review-button-set1-" + e.target.id,
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id
+      "review-button-set2-" + e.target.id,
     );
     const commentButtonBox3 = document.getElementById(
-      "review-button-set3-" + e.target.id
+      "review-button-set3-" + e.target.id,
     );
     console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = false;
@@ -590,7 +590,8 @@ const PerfumeDetail = () => {
             <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="detail-product-details dec-img-wrap">
                 <img
-                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                  // src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                  src={`http://localhost:8081/api/v1/perfume/getimg/${perfumeDetail.enName}`}
                   alt=""
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
