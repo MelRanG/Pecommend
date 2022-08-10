@@ -104,34 +104,33 @@ public class PerfumeController {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @PostMapping("/list/filter")
-    @ApiOperation(value = "필터로 향수 목록 가져오기 (해시태그 없음)")
-    public ResponseEntity<List<PerfumeResponseDto>> getListFilter(@RequestBody Map<String, Object> map){
-        List<PerfumeResponseDto> pDto = new LinkedList<>();
+    @ApiOperation(value = "필터로 향수 목록 가져오기 (해시태그 있음)")
+    public ResponseEntity<List<Map<String, Object>>> getListFilter(@RequestBody Map<String, Object> map){
         List<Integer> ages = (List<Integer>) map.get("ages");
         List<String> genders = (List<String>) map.get("gender");
         List<String> mbtis = (List<String>) map.get("mbti");
 
-        List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages);
-
+        List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages); // 조건에 맞는 유저 가져오기
+        
         // 1) 이렇게 하거나
 //
 //        // 유저가 좋아하는 향수 id 찾기 // 일단 좋아요가 많은 순서로 정렬
 //        List<Long> pIdList = perfumeLikeService.getLikeByUserList(users);
 //
 //        // 근데 여기서 가져오면서 강제적으로 orderby가 되고 있음 ------------------------------------------------------------------------------------ 수정할 것
-//        List<Perfume> perfumes= perfumeService.getListByIdList(pIdList);
-//
-//        for (Perfume perfume : perfumes) {
-//            pDto.add(PerfumeResponseDto.from(perfume));
-//        }
-        // 2) 이렇게 하거나
-        List<Perfume> perfumes = perfumeService.getByUserList(users);
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListByIdList(pIdList);
 
-        for (Perfume perfume : perfumes) {
-            pDto.add(PerfumeResponseDto.from(perfume));
+        // 2) 이렇게 하거나 - 이걸로
+        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getByUserList(users);
+        List<Map<String, Object>> dtoList = new LinkedList<>(); // 결과
+        for(PerfumeResponseDto pd: perfumeDtoList){
+            Map<String, Object> temp = new LinkedHashMap<>();
+            temp.put("pDto",pd);
+            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+            temp.put("tDto", td);
+            dtoList.add(temp);
         }
-
-        return new ResponseEntity<>(pDto, HttpStatus.OK);
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

@@ -116,13 +116,23 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public List<Perfume> getListByIdList(List<Long> perfumes) {
-        return perfumeRepository.findByIds(perfumes);
+    public List<PerfumeResponseDto> getListByIdList(List<Long> perfumes) {
+        List<Perfume> perfumeList = perfumeRepository.findByIds(perfumes);
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeList){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        return dtoList;
     }
 
     @Override
-    public List<Perfume> getByUserList(List<Long> users) {
-        return perfumeRepository.findByUsers(users);
+    public List<PerfumeResponseDto> getByUserList(List<Long> users) {
+        List<Perfume> perfumeList = perfumeRepository.findByUsers(users);
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeList){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        return dtoList;
     }
 
 
