@@ -135,16 +135,18 @@ function Profile() {
     return parseInt(age / 10) * 10;
   };
 
-  // const getDataList = (event) => {
-  //   event.preventDefault();
-  //   console.log(userprofile);
-  //   freeaxios
-  //     .get("/api/v1/perfume/likelist/" + userprofile.user_id)
-  //     .then(function(response) {
-  //       console.log(response)
-  //     })
-  //   };
-
+  const getToday = (data) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+    const dateString = year + '-' + month  + '-' + day;
+    if (dateString === data) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <div className="profile">
@@ -294,8 +296,9 @@ function Profile() {
                                     [{titleName[data.category]}] {data.title}
                                   </Link>
                                 </td>
-                                <td>{data.createDateYMD}</td>
-                                {/* <td>{data.createDateHMS}</td> */}
+                                { getToday(data.createDateYMD) === true
+                                  ? <td>{data.createDateHMS.slice(0,5)}</td>
+                                  : <td>{data.createDateYMD}</td>}
                                 <td>{data.communityLike}</td>
                               </tr>
                             ))}
@@ -331,7 +334,9 @@ function Profile() {
                                         {data.content}
                                       </Link>
                                     </td>
-                                    <td>{data.createdDate}</td>
+                                    { getToday(data.createDateYMD) === true
+                                      ? <td>{data.createDateHMS.slice(0,5)}</td>
+                                      : <td>{data.createDateYMD}</td>}
                                   </tr>
                                 ))}
                               </tbody>
