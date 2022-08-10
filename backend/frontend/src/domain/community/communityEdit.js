@@ -7,6 +7,7 @@ import { data } from 'jquery';
 import Editor from './editor';
 import userReducer from 'redux/user_reducer';
 import { useSelector } from 'react-redux';
+import Swal from "sweetalert2";
 
 // async function handleSubmit(e) {
 //     e.preventDefault()
@@ -55,7 +56,11 @@ function CommunityEdit ()  {
             setContent(response.data.content)
           }
           if (response.data.writer_id != user.user_id) {
-            alert("올바르지 못한 접근입니다!")
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "올바르지 못한 접근입니다!",
+            });
             navigate("/commu/main", { replace: true })
           }
         } catch (error) {
@@ -108,7 +113,11 @@ function CommunityEdit ()  {
           console.log("patch: " + response);
           if (response.status === 200) {
             console.log("!!!");
-            alert("수정되었습니다");
+            Swal.fire({
+                icon: "success",
+                title: "성공",
+                text: "수정되었습니다.",
+            });
             navigate("/commu/detail/" + number, { replace: true });
           }
         } catch (error) {
@@ -177,10 +186,10 @@ function CommunityEdit ()  {
                 />
             </div>
             <div className='community-regist-bottombar'>
-                <button className="regist-submit">
+                <button className="registBtn">
                     등록하기
                 </button>
-                <button className='regist-cancel' onClick={returnPage}>
+                <button className='cancleBtn' onClick={returnPage}>
                     취소하기
                 </button>
             </div>
