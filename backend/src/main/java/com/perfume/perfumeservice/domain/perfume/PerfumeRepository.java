@@ -1,6 +1,8 @@
 package com.perfume.perfumeservice.domain.perfume;
 
 import com.perfume.perfumeservice.domain.user.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +13,8 @@ import java.util.List;
 public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
 
     public List<Perfume> findAllByOrderByKoName();
+
+    public Page<Perfume> findAll(Pageable pageable);
 
     public List<Perfume> findByKoNameLike(String keyword);
 
@@ -44,5 +48,7 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
                     "ORDER BY COUNT(pl.perfume_id) DESC, pl.perfume_id ASC;"
     )
     public List<Perfume> findByUsers(List<Long> users);
+
+
 
 }

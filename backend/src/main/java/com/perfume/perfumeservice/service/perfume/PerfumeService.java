@@ -4,6 +4,7 @@ import com.perfume.perfumeservice.domain.perfume.Perfume;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PerfumeService {
 
@@ -22,5 +23,7 @@ public interface PerfumeService {
     List<PerfumeResponseDto> getListByIdList(List<Long> perfumes);
 
     List<PerfumeResponseDto> getByUserList(List<Long> users);
+
+    Map<String, Object> getListAllPage(int page);
 
 }

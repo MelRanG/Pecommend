@@ -71,6 +71,16 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/list/page/{page}")
+    @ApiOperation(value = "전체 향수 목록, 개수 가져오기(해시태그X, 페이징, 개수 변경 불가능, 페이징 번호 제한X)")
+    public ResponseEntity<Map<String, Object>> getListPages(@PathVariable int page){
+        Map<String, Object> result = perfumeService.getListAllPage(page);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("/list/{keyword}")
     @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그 + 대소문자 무시)")
     public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){
@@ -102,7 +112,7 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @PostMapping("/list/filter")
     @ApiOperation(value = "필터로 향수 목록 가져오기 (해시태그 있음)")
@@ -112,7 +122,7 @@ public class PerfumeController {
         List<String> mbtis = (List<String>) map.get("mbti");
 
         List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages); // 조건에 맞는 유저 가져오기
-        
+
         // 1) 이렇게 하거나
 //
 //        // 유저가 좋아하는 향수 id 찾기 // 일단 좋아요가 많은 순서로 정렬

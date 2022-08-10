@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.query.criteria.internal.predicate.LikePredicate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +39,26 @@ public class PerfumeServiceImpl implements PerfumeService {
              dtoList.add(PerfumeResponseDto.from(p));
         }
         return dtoList;
+    }
+
+    public Map<String, Object> getListAllPage(int page){
+        // 페이지 범위 설정(일단 최소만)
+//        page--;
+//        if(page < 0){
+//            page = 0;
+//        }
+        Page<Perfume> perfumePage = perfumeRepository.findAll(PageRequest.of(page, 16, Sort.by("koName")));
+        // int pageCount = perfumePage.getTotalPages();
+        long TotalCount = perfumePage.getTotalElements();
+        List<Perfume> perfumes = perfumePage.getContent();
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumes){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalCnt", TotalCount);
+        map.put("pDto", dtoList);
+        return map;
     }
 
 
@@ -134,6 +157,4 @@ public class PerfumeServiceImpl implements PerfumeService {
         }
         return dtoList;
     }
-
-
 }
