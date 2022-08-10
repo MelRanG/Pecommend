@@ -112,7 +112,7 @@ public class PerfumeController {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/list/{keyword}/page/{page}")
-    @ApiOperation(value = "향수 이름으로 검색 - limit (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
+    @ApiOperation(value = "향수 이름으로 검색 - page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
     public ResponseEntity<Map<String, Object>> getListPages(@PathVariable String keyword, @PathVariable int page){
         Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page);
 
@@ -152,7 +152,7 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-
+    // limit으로 페이징 하기 -------------------------------------------------------------------------------------------------------------------------
 
     @PostMapping("/list/filter")
     @ApiOperation(value = "필터로 향수 목록 가져오기 (해시태그 있음)")
