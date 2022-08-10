@@ -2,22 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { authaxios, freeaxios } from "custom/customAxios";
 import { useNavigate } from "react-router-dom";
-import Pagination from "../community/pagination";
+// import Pagination from "../community/pagination";
+import Pagination from '@mui/material/Pagination';
 import "./perfumeList.css";
 // import "./perfumeList.scss";
 
 const PerfumeList = () => {
 
+  // let useParam = useParams();
+  // let page = parseInt(useParam.num);
   const [dataList, setDataList] = useState([]); //향수리스트
   // const [callData, setCallData] = useState(1);
   const [limitData, setLimit] = useState(16); //한페이지당?
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limitData;
-  const dataSize = dataList.length;
+  const [dataSize, setDataSize] = useState(0);
   const mbtiList = ['ISTJ', 'ISTP', 'ISFJ', "ISFP", "INTJ", "INTP", "INFJ", "INFP", "ESTJ", "ESTP", "ESFJ", "ESFP", "ENTJ", "ENTP", "ENFJ", "ENFP"];
 
   // 필터링
-  const [seachFilter, setSearchFilter] = useState({
+  const [searchFilter, setSearchFilter] = useState({
     "ages": [],
     "gender": [],
     "mbti": []
@@ -63,8 +66,12 @@ const PerfumeList = () => {
 
   useEffect(() => {
     console.log("useEffect222");
-    changeFilter();
-  }, [seachFilter]);
+    if (checkedMbti.length === 0 && checkedAge.length === 0 && checkedGender.length === 0) {
+    } else {
+      changeFilter();
+
+    }
+  }, [searchFilter]);
 
   const changeState = () => {
     setSearchFilter({
@@ -75,24 +82,26 @@ const PerfumeList = () => {
   }
   //change 할때마다 seachFilter에 담아서 요청보내기
   const changeFilter = async () => {
-    console.log("changeFilter호출", seachFilter);
-    try {
-      const response = await freeaxios({
-        method: "post",
-        url: "/api/v1/perfume/list/filter",
-        // headers: { "Content-Type": "multipart/form-data" },
-        data: seachFilter,
-        responseType: 'json',
-        charset: 'utf-8',
-        responseEncodig: 'utf-8',
-      });
-      console.log(response);
-      if (response.status === 200) {
-        setDataList(response.data);
-        console.log("changeFilter확인", response.data);
+    console.log("changeFilter호출", searchFilter);
+    if (searchFilter !== null) {
+      try {
+        const response = await freeaxios({
+          method: "post",
+          url: "/api/v1/perfume/list/filter",
+          // headers: { "Content-Type": "multipart/form-data" },
+          data: searchFilter,
+          responseType: 'json',
+          charset: 'utf-8',
+          responseEncodig: 'utf-8',
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setDataList(response.data);
+          console.log("changeFilter확인", response.data);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
 
   };
@@ -102,16 +111,19 @@ const PerfumeList = () => {
 
 
 
+  useEffect(() => {
+    getPerfumeList();
+    if (keyWord.length != 0) {
+      getPerfumeSearchList();
+    }
+  }, []);
 
-
-  const [keyWord, setKeyWord] = useState(""); //검색키워드
-  const [inputKeyWord, setInputKeyWord] = useState("");
 
   const getPerfumeList = async () => {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list",
+        url: "/api/v1/perfume/list/page/1",
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -119,20 +131,47 @@ const PerfumeList = () => {
       });
       console.log(response);
       if (response.status === 200) {
-        setDataList(response.data);
+        console.log("getPerfumeList", response.data);
+        setDataList(response.data.pDto);
+        setDataSize(response.data.totalCnt);
         // console.log("확인", dataList);
         // console.log(dataList[1].tDto[0].tagName);
       }
     } catch (error) {
       console.log(error);
     }
+
+
+
+
+
+
+    // try {
+    //   const response = await freeaxios({
+    //     method: "get",
+    //     url: "/api/v1/perfume/list",
+    //     // data: registwrite,
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //     // headers: { "Content-Type" : ""}
+    //     // JSON.stringify()
+    //   });
+    //   console.log(response);
+    //   if (response.status === 200) {
+    //     setDataList(response.data);
+    //     // console.log("확인", dataList);
+    //     // console.log(dataList[1].tDto[0].tagName);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
-  useEffect(() => {
-    getPerfumeList();
-  }, []);
 
+
+  const [keyWord, setKeyWord] = useState(""); //검색키워드
+  const [inputKeyWord, setInputKeyWord] = useState("");
   const getPerfumeSearchList = async () => {
+    console.log("key", keyWord);
     try {
       const response = await freeaxios({
         method: "get",
@@ -142,7 +181,7 @@ const PerfumeList = () => {
         // headers: { "Content-Type" : ""}
         // JSON.stringify()
       });
-      console.log(response);
+      console.log("getPerfumeSearchList", response);
       if (response.status === 200) {
         setDataList(response.data);
         // console.log(dataList);
@@ -151,9 +190,10 @@ const PerfumeList = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getPerfumeSearchList();
-  }, []);
+
+  // useEffect(() => {
+
+  // }, [keyWord]);
 
   const keywordSearch = (e) => {
     e.preventDefault();
@@ -596,30 +636,29 @@ const PerfumeList = () => {
                       ) : (
                         <>
                           {dataList
-                            .slice(offset, offset + limitData)
                             .map((data) => (
                               <div
-                                key={data.pDto.perfumeId}
+                                key={data.perfumeId}
                                 className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
                               >
                                 <div className="product-wrap mb-25 scroll-zoom ">
                                   <div className="product-img">
                                     <Link
-                                      to={`/perfume/detail/${data.pDto.perfumeId}`}
+                                      to={`/perfume/detail/${data.perfumeId}`}
                                     >
                                       <div className="text_photo">
                                         <div className="explain">
                                           <div className="list-hashtag">
-                                            {data.tDto.map((temp, index) => (
+                                            {/* {data.tDto.map((temp, index) => (
                                               <div className="" key={index}>
                                                 #{temp.tagName}
                                               </div>
-                                            ))}
+                                            ))} */}
                                           </div>
                                         </div>
                                         <img
                                           className="default-img"
-                                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
+                                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
                                           alt=""
                                         />
                                       </div>
@@ -627,9 +666,9 @@ const PerfumeList = () => {
                                   </div>
                                   <div className="product-content text-center perfume_list_name">
                                     <div className="product-content-koName">
-                                      {data.pDto.koName}
+                                      {data.koName}
                                     </div>
-                                    <div>({data.pDto.enName})</div>
+                                    <div>({data.enName})</div>
                                   </div>
                                 </div>
                               </div>
@@ -668,7 +707,7 @@ const PerfumeList = () => {
                     </div>
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <label>
                     페이지 당 표시할 게시물 수:&nbsp;
                     <select
@@ -682,15 +721,16 @@ const PerfumeList = () => {
                       <option value="100">100</option>
                     </select>
                   </label>
-                </div>
+                </div> */}
 
                 <div>
-                  <Pagination
+                  {/* <Pagination
                     total={dataList.length}
                     limit={limitData}
                     page={page}
                     setPage={setPage}
-                  />
+                  /> */}
+                  <Pagination count={{ dataSize } / 16} />
                 </div>
               </div>
             </div>
