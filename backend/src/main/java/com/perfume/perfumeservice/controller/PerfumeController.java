@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -328,6 +329,7 @@ public class PerfumeController {
         String img = name.replaceAll(" ", "_");
 
         String path = perfumeService.getImg(img);
+
         Resource resource = new FileSystemResource(path);
 
         HttpHeaders header = new HttpHeaders();

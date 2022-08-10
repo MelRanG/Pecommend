@@ -96,7 +96,7 @@ public class PerfumeServiceImpl implements PerfumeService {
 
     @Override
     public String getImg(String img) {
-        return uploadPath + File.separator + "PERFUME" + File.separator + img;
+        return uploadPath + File.separator + "PERFUME" + File.separator + img + ".png";
     }
 
     @Override

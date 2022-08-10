@@ -7,6 +7,7 @@ import com.perfume.perfumeservice.domain.user.UserRepository;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
 import com.perfume.perfumeservice.dto.review.ReviewRequestDto;
 import com.perfume.perfumeservice.dto.review.ReviewResponseDto;
+import com.perfume.perfumeservice.dto.review.ReviewUpdateDto;
 import com.perfume.perfumeservice.exception.Review.ReviewExistException;
 import com.perfume.perfumeservice.exception.Review.ReviewNotFoundException;
 import com.perfume.perfumeservice.exception.perfume.PerfumeNotFoundException;
@@ -290,5 +291,15 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public List<Tag> getTagAll() {
         return tagRepository.findAllByOrderByTagName();
+    }
+
+    @Override
+    public ReviewResponseDto updateReviewNoTag(Long id, ReviewUpdateDto dto) {
+        Review review = reviewRepository.findById(id).orElseThrow(ReviewNotFoundException::new);
+        review.update(dto);
+        List<ReviewTag> tagList = review.getReviewTags();
+        reviewRepository.save(review);
+
+        return ReviewResponseDto.from(review, tagList);
     }
 }

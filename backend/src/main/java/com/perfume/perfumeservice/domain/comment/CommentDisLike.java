@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @Getter
+@Table(name = "comment_dislike")
 public class CommentDisLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
