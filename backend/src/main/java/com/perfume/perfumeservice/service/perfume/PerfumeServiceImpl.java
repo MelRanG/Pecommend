@@ -120,5 +120,10 @@ public class PerfumeServiceImpl implements PerfumeService {
         return perfumeRepository.findByIds(perfumes);
     }
 
+    @Override
+    public List<Perfume> getByUserList(List<Long> users) {
+        return perfumeRepository.findByUsers(users);
+    }
+
 
 }

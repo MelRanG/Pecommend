@@ -112,17 +112,24 @@ public class PerfumeController {
         List<String> mbtis = (List<String>) map.get("mbti");
 
         List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages);
-        
-        // 유저가 좋아하는 향수 id 찾기 // 일단 좋아요가 많은 순서로 정렬
-        List<Long> pIdList = perfumeLikeService.getLikeByUserList(users);
-    
-        // 근데 여기서 가져오면서 강제적으로 orderby가 되고 있음 ------------------------------------------------------------------------------------ 수정할 것
-        List<Perfume> perfumes= perfumeService.getListByIdList(pIdList);
+
+        // 1) 이렇게 하거나
+//
+//        // 유저가 좋아하는 향수 id 찾기 // 일단 좋아요가 많은 순서로 정렬
+//        List<Long> pIdList = perfumeLikeService.getLikeByUserList(users);
+//
+//        // 근데 여기서 가져오면서 강제적으로 orderby가 되고 있음 ------------------------------------------------------------------------------------ 수정할 것
+//        List<Perfume> perfumes= perfumeService.getListByIdList(pIdList);
+//
+//        for (Perfume perfume : perfumes) {
+//            pDto.add(PerfumeResponseDto.from(perfume));
+//        }
+        // 2) 이렇게 하거나
+        List<Perfume> perfumes = perfumeService.getByUserList(users);
 
         for (Perfume perfume : perfumes) {
             pDto.add(PerfumeResponseDto.from(perfume));
         }
-
 
         return new ResponseEntity<>(pDto, HttpStatus.OK);
     }

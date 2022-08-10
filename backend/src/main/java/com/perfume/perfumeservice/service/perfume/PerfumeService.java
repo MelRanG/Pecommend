@@ -21,4 +21,6 @@ public interface PerfumeService {
 
     List<Perfume> getListByIdList(List<Long> perfumes);
 
+    List<Perfume> getByUserList(List<Long> users);
+
 }
