@@ -86,9 +86,10 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
         if(like.isPresent()) {
             perfumeLikeRepository.delete(like.get());
             return "DELETE";
-        }
-        else if(dislike.isPresent()) return "CANCEL";
-        else{
+        }else{
+            if(dislike.isPresent()){
+                perfumeDislikeRepository.delete(dislike.get());
+            }
             perfumeLikeRepository.save(PerfumeLike.builder()
                     .perfume(perfume)
                     .user(user)
@@ -113,8 +114,10 @@ public class PerfumeLikeServiceImpl implements PerfumeLikeService{
             perfumeDislikeRepository.delete(dislike.get());
             return "DELETE";
         }
-        else if(like.isPresent()) return "CANCEL";
         else{
+            if(like.isPresent()){
+                perfumeLikeRepository.delete(like.get());
+            }
             perfumeDislikeRepository.save(PerfumeDislike.builder()
                     .perfume(perfume)
                     .user(user)

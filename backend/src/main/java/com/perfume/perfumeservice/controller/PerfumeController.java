@@ -215,14 +215,14 @@ public class PerfumeController {
 //        return new ResponseEntity<>(pdDto, HttpStatus.OK);
 //
 //    }
-//
+////
 //    @GetMapping("/likelist")
 //    @ApiOperation(value = "전체 향수 좋아요 목록")
 //    public ResponseEntity<List<PerfumeLikeResponseDto>> getPerfumeLikeAll(){ // 일단 확인용으로 만들어 봄
 //        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikeAll();
 //        return new ResponseEntity<>(plDto, HttpStatus.OK);
 //    }
-//
+////
 //    @GetMapping("/dislikelist")
 //    @ApiOperation(value = "전체 향수 싫어요 목록")
 //    public ResponseEntity<List<PerfumeDislikeResponseDto>> getPerfumeDislikeAll(){ // 일단 확인용으로 만들어 봄
