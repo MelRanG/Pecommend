@@ -247,12 +247,12 @@ function CommunityList() {
           <div className="row flex-row-reverse">
             <div className="col-lg-12 mt-5">
               <div className="row">
-                <div className="community-top-box col-lg-6 col-sm-12">
+                <div className="community-top-box col-lg-6 col-sm-6 col-xs-6">
                   <button className="community-top-box-active" onClick={clickButton1} id="button1">ㆍ최신</button>
                   <button className="community-top-box-wait" onClick={clickButton2} id="button2">ㆍ추천</button>
                   <button className="community-top-box-wait" onClick={clickButton3} id="button3">ㆍHOT</button>
                 </div>
-                <div className="col-lg-6 community-top-regist col-sm-12">
+                <div className="community-top-regist col-lg-6 col-sm-6 col-xs-6">
                   {
                     (user.user_id == null)
                     ? <>
@@ -299,7 +299,7 @@ function CommunityList() {
                         <th scope="col">제목</th>
                         <th scope="col">작성자</th>
                         <th scope="col">작성일</th>
-                        <th scope="col">추천수</th>
+                        <th scope="col">추천</th>
                       </tr>
                     </thead>
                     <tbody>
