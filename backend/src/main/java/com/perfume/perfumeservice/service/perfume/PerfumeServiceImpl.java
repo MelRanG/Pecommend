@@ -3,6 +3,7 @@ package com.perfume.perfumeservice.service.perfume;
 import com.perfume.perfumeservice.domain.perfume.*;
 import com.perfume.perfumeservice.dto.perfume.NoteResponseDto;
 import com.perfume.perfumeservice.dto.perfume.PerfumeResponseDto;
+import com.perfume.perfumeservice.dto.perfume.PerfumeTagResponseDto;
 import com.perfume.perfumeservice.exception.perfume.PerfumeNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -49,14 +50,50 @@ public class PerfumeServiceImpl implements PerfumeService {
 //        }
         Page<Perfume> perfumePage = perfumeRepository.findAll(PageRequest.of(page, 16, Sort.by("koName")));
         // int pageCount = perfumePage.getTotalPages();
-        long TotalCount = perfumePage.getTotalElements();
+        long totalCount = perfumePage.getTotalElements();
         List<Perfume> perfumes = perfumePage.getContent();
         List<PerfumeResponseDto> dtoList = new LinkedList<>();
         for(Perfume p: perfumes){
             dtoList.add(PerfumeResponseDto.from(p));
         }
+
         Map<String, Object> map = new HashMap<>();
-        map.put("totalCnt", TotalCount);
+        map.put("totalCnt", totalCount);
+        map.put("pDto", dtoList);
+        return map;
+    }
+
+//    @Override
+//    public List<PerfumeResponseDto> getListKeyword(String keyword) {
+//
+//
+//        List<Perfume> perfumeList = perfumeRepository.findByKoNameLikeOrEnNameLikeIgnoreCase("%"+keyword+"%", "%"+keyword+"%");
+//
+//        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+//        for(Perfume p: perfumeList){
+//            dtoList.add(PerfumeResponseDto.from(p));
+//        }
+//
+//        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
+//        return new ArrayList<>(dtoList);
+//
+//    }
+
+    @Override
+    public Map<String, Object> getListKeywordPage(String keyword, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 16);
+        Page<Perfume> perfumePage = perfumeRepository.findByKoNameLikeOrEnNameLikeIgnoreCase(pageRequest, "%"+keyword+"%", "%"+keyword+"%");
+
+        // int pageCount = perfumePage.getTotalPages();
+        long totalCount = perfumePage.getTotalElements();
+        List<Perfume> perfumes = perfumePage.getContent();
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumes){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalCnt", totalCount);
         map.put("pDto", dtoList);
         return map;
     }
@@ -74,20 +111,11 @@ public class PerfumeServiceImpl implements PerfumeService {
         return dtoList;
     }
 
-    @Override
-    public List<PerfumeResponseDto> getListKeyword(String keyword) {
 
-        List<Perfume> perfumeList = perfumeRepository.findByKoNameLikeOrEnNameLikeIgnoreCase("%"+keyword+"%", "%"+keyword+"%");
 
-        List<PerfumeResponseDto> dtoList = new LinkedList<>();
-        for(Perfume p: perfumeList){
-            dtoList.add(PerfumeResponseDto.from(p));
-        }
 
-        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
-        return new ArrayList<>(dtoList);
 
-    }
+
 //    @Override
 //    public List<PerfumeResponseDto> getListKoKeyword(String keyword) {
 //        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");

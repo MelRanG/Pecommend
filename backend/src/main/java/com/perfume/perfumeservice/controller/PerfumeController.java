@@ -73,28 +73,68 @@ public class PerfumeController {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/list/page/{page}")
-    @ApiOperation(value = "전체 향수 목록, 개수 가져오기(해시태그X, 페이징, 개수 변경 불가능, 페이징 번호 제한X)")
+    @ApiOperation(value = "전체 향수 목록, 개수 가져오기 - Page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
     public ResponseEntity<Map<String, Object>> getListPages(@PathVariable int page){
-        Map<String, Object> result = perfumeService.getListAllPage(page);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @GetMapping("/list/{keyword}")
-    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그 + 대소문자 무시)")
-    public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){
-        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
+        Map<String, Object> perfumes = perfumeService.getListAllPage(page);
+        // 해시태그
+        List<PerfumeResponseDto> pDto = (List<PerfumeResponseDto>) perfumes.get("pDto"); //perfumeDto
+        long totalCnt = (long) perfumes.get("totalCnt"); // totalCnt
         List<Map<String, Object>> dtoList = new LinkedList<>();
-        for(PerfumeResponseDto pd: perfumeDtoList){
+        for (PerfumeResponseDto pd: pDto){
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("pDto",pd);
             List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
             map.put("tDto", td);
             dtoList.add(map);
         }
-        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("totalCnt", totalCnt);
+        map.put("dtoList", dtoList);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//    @GetMapping("/list/{keyword}")
+//    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그 + 대소문자 무시)")
+//    public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
+//        List<Map<String, Object>> dtoList = new LinkedList<>();
+//        for(PerfumeResponseDto pd: perfumeDtoList){
+//            Map<String, Object> map = new LinkedHashMap<>();
+//            map.put("pDto",pd);
+//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+//            map.put("tDto", td);
+//            dtoList.add(map);
+//        }
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/list/{keyword}/page/{page}")
+    @ApiOperation(value = "향수 이름으로 검색 - limit (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
+    public ResponseEntity<Map<String, Object>> getListPages(@PathVariable String keyword, @PathVariable int page){
+        Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page);
+
+        //Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page);
+        // 해시태그
+        List<PerfumeResponseDto> pDto = (List<PerfumeResponseDto>) perfumes.get("pDto"); //perfumeDto
+        long totalCnt = (long) perfumes.get("totalCnt"); // totalCnt
+        List<Map<String, Object>> dtoList = new LinkedList<>();
+        for (PerfumeResponseDto pd: pDto){
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("pDto",pd);
+            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+            map.put("tDto", td);
+            dtoList.add(map);
+        }
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("totalCnt", totalCnt);
+        map.put("dtoList", dtoList);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping("/list/hashtag")
     @ApiOperation(value = "해시태그로 향수 검색")

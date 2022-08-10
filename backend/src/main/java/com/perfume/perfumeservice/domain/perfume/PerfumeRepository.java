@@ -33,7 +33,8 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
     public List<Perfume> findAllOrderByLikes();
     //public List<Perfume> findByKoNameLikeOrEnNameLike(String koName, String enName);
 
-    public List<Perfume> findByKoNameLikeOrEnNameLikeIgnoreCase(String koName, String enName);
+    public Page<Perfume> findByKoNameLikeOrEnNameLikeIgnoreCase(Pageable pageable, String koName, String enName);
+
 
     @Query(nativeQuery = true, value =
             "select * from perfume where perfume_id in(:perfumes)"
