@@ -18,7 +18,7 @@ function Profile() {
   const [dislikelist, setDisLikeList] = useState([]);
   const [cummuProfile, setCummuProfile] = useState([]);
   const [commentProfile, setCommentProfile] = useState([]);
-  const [limitData, setLimit] = useState(10);
+  const [limitData, setLimit] = useState(9);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limitData;
 
@@ -161,7 +161,7 @@ function Profile() {
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 profile-top">
           <div className="profileBox">
             {(user.user_id === userprofile.user_id) && 
-              <button className="profile-edit-button" type="button" title="ddd">
+              <button className="profile-edit-button" type="button">
                 <Link to="/profile/update"><i className="fa-solid fa-gear"> 사용자 설정</i></Link>
               </button>}
             <div>
@@ -186,7 +186,7 @@ function Profile() {
               <div>
                 <Nav className="mt-5 profile-navtab" variant="tabs" defaultActiveKey="link-1">
                   <Nav.Item>
-                    <Nav.Link className="" eventKey="link-1" onClick={() => setTab(1)}>
+                    <Nav.Link eventKey="link-1" onClick={() => setTab(1)}>
                       &nbsp;Like&nbsp;
                     </Nav.Link>
                   </Nav.Item>
@@ -195,12 +195,12 @@ function Profile() {
                       &nbsp;Dislike&nbsp;
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item className="nav-second">
+                  <Nav.Item className="rightbox-nav">
                     <Nav.Link eventKey="link-3" onClick={() => setTab(3)}>
                       &nbsp;게시글&nbsp;
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item className="nav-second">
+                  <Nav.Item className="rightbox-nav">
                     <Nav.Link eventKey="link-4" onClick={() => setTab(4)}>
                       &nbsp;댓글&nbsp;
                     </Nav.Link>
@@ -211,18 +211,24 @@ function Profile() {
                   ? (
                       <div>
                         <div className="detail-likeDislikeList-items detail-ldl-first row">
-                            {likelist.slice(offset, offset + limitData).map((data) => (
-                              <div className="col-lg-4 col-sm-12">
-                                <div className="col-sm-6 col-xs-6 mt-30 mb-30 rightbox-in-perfume">
-                                  <div>사진</div>
-                                  <Link
-                                    to={`/perfume/detail/${data.perfumeId}`}
-                                  >
-                                    {data.koName}
-                                  </Link>
+                          {likelist.slice(offset, offset + limitData).map((data) => (
+                            <div className="col-lg-4 col-sm-6 col-xs-12">
+                              <div className="col-sm-6 col-xs-6 mt-30 mb-30 rightbox-in-perfume">
+                                <div>
+                                  <img
+                                    className="profile-perfume-img"
+                                    src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
+                                    alt=""
+                                  />
                                 </div>
+                                <Link
+                                  to={`/perfume/detail/${data.perfumeId}`}
+                                >
+                                  {data.koName}
+                                </Link>
                               </div>
-                            ))}
+                            </div>
+                          ))}
                         </div>
                         <div>
                           <Pagination
@@ -238,24 +244,24 @@ function Profile() {
                     ? (
                       <div>
                         <div className="detail-likeDislikeList-items detail-ldl-first row">
-                            {dislikelist.slice(offset, offset + limitData).map((data) => (
-                              <div className="col-lg-6 col-sm-12">
-                                <div className="col-sm-6 col-xs-6">
-                                  사진
-                                </div>
-                                <div className="col-sm-6 col-xs-6">
-                                <Link
-                                  // className="community-list-titlebox"
-                                  to={`/perfume/detail/${data.perfumeId}`}
-                                >
-                                  {data.koName}
-                                </Link>
-                                {/* <div id={`${data.perfumeId}`} ></div> */}
-                                
-                                </div>
+                          {dislikelist.slice(offset, offset + limitData).map((data) => (
+                            <div className="col-lg-4 col-sm-6 col-xs-12">
+                            <div className="col-sm-6 col-xs-6 mt-30 mb-30 rightbox-in-perfume">
+                              <div>
+                                <img
+                                  className="profile-perfume-img"
+                                  src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
+                                  alt=""
+                                />
                               </div>
-                              )
-                            )}
+                              <Link
+                                to={`/perfume/detail/${data.perfumeId}`}
+                              >
+                                {data.koName}
+                              </Link>
+                            </div>
+                          </div>
+                          ))}
                         </div>
                         <div>
                           <Pagination
@@ -274,7 +280,7 @@ function Profile() {
                             <tr className="table-top rightbox-in">
                               <th scope="col">제목</th>
                               <th scope="col">작성일</th>
-                              <th scope="col">추천수</th>
+                              <th scope="col">추천</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -332,7 +338,7 @@ function Profile() {
                             </table>
                             <div>
                               <Pagination
-                                total={cummuProfile.length}
+                                total={commentProfile.length}
                                 limit={limitData}
                                 page={page}
                                 setPage={setPage}
