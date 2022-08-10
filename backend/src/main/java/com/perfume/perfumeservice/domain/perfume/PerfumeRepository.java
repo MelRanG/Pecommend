@@ -45,7 +45,7 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
                     "FROM perfume_like pl, perfume p " +
                     "WHERE pl.perfume_id = p.perfume_id AND pl.user_id IN (:users) " +
                     "GROUP BY pl.perfume_id " +
-                    "ORDER BY COUNT(pl.perfume_id) DESC, pl.perfume_id ASC;"
+                    "ORDER BY COUNT(pl.perfume_id) DESC, p.perfume_name_ko ASC;"
     )
     public List<Perfume> findByUsers(List<Long> users);
 
