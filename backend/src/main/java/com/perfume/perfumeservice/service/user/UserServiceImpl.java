@@ -211,6 +211,27 @@ public class UserServiceImpl implements UserService{
                 ages.add(age);
             }
         }
+
+        // 리스트가 null일 때에에에엥에에ㅔㅇ에에ㅔㅇ
+        if(mbtis.size() ==0){
+            String allMbtis[] = { "ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ" };
+            for (String s:allMbtis){
+                mbtis.add(s);
+            }
+        }
+        if(genders.size() == 0){
+            String allGenders[] = {"male", "female"};
+            for (String s:allGenders){
+                genders.add(s);
+            }
+        }
+        if(ages.size() == 0){
+            int allAges[] = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+            for (int i:allAges){
+                ages.add(i);
+            }
+        }
+
         return userRepository.findByMbtiAndGenderAndAge(mbtis, genders, ages);
     }
 }
