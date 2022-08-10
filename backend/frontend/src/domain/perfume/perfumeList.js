@@ -6,7 +6,8 @@ import Pagination from "../community/pagination";
 import "./perfumeList.css";
 // import "./perfumeList.scss";
 
-function PerfumeList() {
+const PerfumeList = () => {
+
   const [dataList, setDataList] = useState([]); //향수리스트
   // const [callData, setCallData] = useState(1);
   const [limitData, setLimit] = useState(16); //한페이지당?
@@ -31,7 +32,6 @@ function PerfumeList() {
       setCheckedGender(checkedGender.filter(button => button !== id));
       console.log("성별체크해제");
     }
-    changeFilter();
   };
   //연령
   const [checkedAge, setCheckedAge] = useState([]);
@@ -42,9 +42,7 @@ function PerfumeList() {
     } else {
       setCheckedAge(checkedAge.filter(button => button !== id));
       console.log("연령체크해제");
-
     }
-    changeFilter();
   };
   //mbti
   const [checkedMbti, setCheckedMbti] = useState([]);
@@ -56,27 +54,37 @@ function PerfumeList() {
       setCheckedMbti(checkedMbti.filter(button => button !== id));
       console.log("mbti체크해제");
     }
-    changeFilter();
   };
 
+  useEffect(() => {
+    console.log("useEffect111");
+    changeState();
+  }, [checkedMbti, checkedAge, checkedGender]);
+
+  useEffect(() => {
+    console.log("useEffect222");
+    changeFilter();
+  }, [seachFilter]);
+
+  const changeState = () => {
+    setSearchFilter({
+      "ages": checkedAge,
+      "gender": checkedGender,
+      "mbti": checkedMbti,
+    });
+  }
   //change 할때마다 seachFilter에 담아서 요청보내기
   const changeFilter = async () => {
-    try {
-      const temp = await setSearchFilter({
-        "ages": checkedAge,
-        "gender": checkedGender,
-        "mbti": checkedMbti
-      });
-    } catch (error) {
-      console.log(error);
-    }
     console.log("changeFilter호출", seachFilter);
     try {
       const response = await freeaxios({
         method: "post",
         url: "/api/v1/perfume/list/filter",
-        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type": "multipart/form-data" },
         data: seachFilter,
+        responseType: 'json',
+        charset: 'utf-8',
+        responseEncodig: 'utf-8',
       });
       console.log(response);
       if (response.status === 200) {
@@ -692,5 +700,6 @@ function PerfumeList() {
     </div>
   );
 }
+
 
 export default PerfumeList;
