@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -205,6 +206,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<Long> getUserByMbtiAndGenderAndAge(List<String> mbtis, List<String> genders, List<Integer> ages) {
+        if(ages.contains(40)){
+            for (int age=50; age<= 100; age+=10){
+                ages.add(age);
+            }
+        }
         return userRepository.findByMbtiAndGenderAndAge(mbtis, genders, ages);
     }
 }
