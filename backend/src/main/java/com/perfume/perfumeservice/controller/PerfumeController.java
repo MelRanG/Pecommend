@@ -173,7 +173,7 @@ public class PerfumeController {
 
         // 2) 이렇게 하거나 - 이걸로
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getByUserList(users);
-        List<Map<String, Object>> dtoList = new LinkedList<>(); // 결과
+        List<Map<String, Object>> dtoList = new LinkedList<>(); // 결과 - 페이징
         for(PerfumeResponseDto pd: perfumeDtoList){
             Map<String, Object> temp = new LinkedHashMap<>();
             temp.put("pDto",pd);
