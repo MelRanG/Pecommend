@@ -184,9 +184,9 @@
 
 .pro-details-rating-wrap {
   display: inline-flex;
-
+  font-size: 16px;
   border-left: 1px solid rgb(170, 170, 170);
-  margin-left: 14px;
+  /* margin-left: 14px; */
   padding-left: 14px;
 }
 

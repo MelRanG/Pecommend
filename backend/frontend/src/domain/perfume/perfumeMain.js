@@ -162,7 +162,7 @@ const PerfumeMain = () => {
                           </div>
                           <img
                             className="default-img"
-                            src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                            src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
                             alt=""
                           />
                         </div>
@@ -234,9 +234,9 @@ const PerfumeMain = () => {
                     {newReview1.map((data, index) => (
                       <div key={index} className="card per_main_review_card">
                         <div className="image-wrapper">
-                          <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
+                          <img src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`} className="card-img-top" alt="..." />
                           <div>
-                            <h5 className="card-title">{data.pDto.koName}({data.pDto.enName})</h5>
+                            <h4 className="card-title">{data.pDto.koName}</h4>
                             <h5 className="card-title">{data.rDto.user} 님</h5>
                             <div className="review-rating review-star">
                               {/* <i className="fa fa-star"></i>
@@ -290,7 +290,7 @@ const PerfumeMain = () => {
                         <div className="image-wrapper">
                           <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
                           <div>
-                            <h5 className="card-title">{data.pDto.koName}({data.pDto.enName})</h5>
+                            <h4 className="card-title">{data.pDto.koName}</h4>
                             <h5 className="card-title">{data.rDto.user} 님</h5>
                             <div className="review-rating review-star">
                               {/* <i className="fa fa-star"></i>

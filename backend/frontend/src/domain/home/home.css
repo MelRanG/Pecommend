@@ -5,11 +5,17 @@
     /* height: 80%; */
     /* content: url("../../../public/assets/tempImg/pexels-anastasiya-lobanovskaya-4110343222.jpg"); */
     background-image: url("../../../public/assets/tempImg/pexels-anastasiya-lobanovskaya-4110343222.jpg");
-    /* opacity: 0.3; */
-	background-position: center !important;
-	background-repeat: no-repeat;
-    background-size: cover;
 }
+.home1::before{
+    /* opacity: 0.3; */
+    background-position: center !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+    
+
+}
+
 .home-parent{
     align-items: center;
     margin: auto;
@@ -26,12 +32,13 @@
     
 }
 .home-title p{
-    font-family: 'Recipekorea';
-    font-size: 60px;
+    font-family: 'CBNUJIKJI';
+    font-size: 80px;
     color: #ffffff;
 }
 .home-title h2{
     color: #765c4b;
+    font-weight: bold;
 }
 
 

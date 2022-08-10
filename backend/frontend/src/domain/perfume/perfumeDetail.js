@@ -62,11 +62,17 @@ const PerfumeDetail = () => {
   const [tagList, setTagList] = useState([]); //태그선택모달창의 해시태그리스트
   const [choiceTag, setChoiceTag] = useState([]); //모달 태그 선택
   const [sendChoiceTag, setSendChoiceTag] = useState([]); //모달 태그 선택
+  const [editTag, setEditTag] = useState([]);
 
   //모달
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setChoiceTag([]);
+    console.log("초기화", choiceTag);
+  };
+
   const handleSave = () => {
     setShow(false);
     const temp = [];
@@ -134,7 +140,7 @@ const PerfumeDetail = () => {
 
   //모달창에서 태그 선택시
   const clickReviewTag = (e) => {
-    // console.log("확이니ㅣ", e.target.id);
+    console.log("확이니ㅣ", e.target.id);
     if (choiceTag.length <= 2) {
       if (choiceTag.length != 0) {
         if (choiceTag.includes(e.target.id)) {
@@ -147,18 +153,23 @@ const PerfumeDetail = () => {
             Object.values(choiceTag).filter((data) => data !== e.target.id)
           );
         } else {
-          const temp = [...choiceTag, e.target.id];
+          const tempNum = e.target.id;
+          console.log("tempNum", tempNum);
+          const temp = [...choiceTag, tempNum];
           setChoiceTag(temp);
+          console.log("xx", choiceTag);
         }
       } else {
-        setChoiceTag(e.target.id);
+        const tempNum = e.target.id;
+        console.log("tempNum", tempNum);
+        setChoiceTag([e.target.id]);
       }
       console.log(choiceTag);
 
       // console.log("태그선택", choiceTag);
 
       const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
-      const tempclass = "choice-tag-" + e.target.id + "-checked";
+      // const tempclass = "choice-tag-" + e.target.id + "-checked";
       // Tag[0].classList.add("checked");
       Tag[0].classList.toggle("checked");
       console.log("Tag", Tag);
@@ -167,7 +178,7 @@ const PerfumeDetail = () => {
         Object.values(choiceTag).filter((data) => data !== e.target.id)
       );
       const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
-      const tempclass = "choice-tag-" + e.target.id + "-checked";
+      // const tempclass = "choice-tag-" + e.target.id + "-checked";
       // Tag[0].classList.add("checked");
       Tag[0].classList.toggle("checked");
       console.log("Tag", Tag);
@@ -257,80 +268,90 @@ const PerfumeDetail = () => {
 
   //좋아요
   const recommend = async () => {
-    console.log("좋아요", user);
-    try {
-      let data = {
-        perfumeId: perfumeDetail.perfumeId,
-        userId: user.user_id,
-      };
-      // console.log("유저아이디", data);
-      const response = await authaxios({
-        method: "post",
-        url: "/api/v1/perfume/like",
-        data: data,
-      });
-      console.log(response);
-      if (response.status === 200) {
-        // console.log("완료")
-        if (response.data == "ADD") {
-          let temp = {
-            id: 0,
-            perfumeId: perfumeDetail.perfumeId,
-            userId: user.user_id,
-          };
-          console.log("temp", temp);
+    if (user.user_id == null) {
+      alert("로그인 후 사용할 수 있습니다.");
+      navigate("/login");
+    } else {
+      console.log("좋아요", user);
+      try {
+        let data = {
+          perfumeId: perfumeDetail.perfumeId,
+          userId: user.user_id,
+        };
+        // console.log("유저아이디", data);
+        const response = await authaxios({
+          method: "post",
+          url: "/api/v1/perfume/like",
+          data: data,
+        });
+        console.log(response);
+        if (response.status === 200) {
+          // console.log("완료")
+          if (response.data == "ADD") {
+            let temp = {
+              id: 0,
+              perfumeId: perfumeDetail.perfumeId,
+              userId: user.user_id,
+            };
+            console.log("temp", temp);
+          }
+          if (response.data == "CANCEL") {
+            // alert("싫어요누른사람");
+          }
+          if (response.data == "DELETE") {
+            // setLikeList(likeList.filter((temp) => temp.userId != 4));
+            // console.log("like down", likeList);
+          }
+          getPerfumeDetail();
+          getLikeOrDisLike();
         }
-        if (response.data == "CANCEL") {
-          alert("싫어요누른사람");
-        }
-        if (response.data == "DELETE") {
-          // setLikeList(likeList.filter((temp) => temp.userId != 4));
-          // console.log("like down", likeList);
-        }
-        getPerfumeDetail();
-        getLikeOrDisLike();
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
   //싫어요
   const disrecommend = async () => {
-    try {
-      let data = {
-        perfumeId: perfumeDetail.perfumeId,
-        userId: user.user_id,
-      };
-      // console.log(data)
-      const response = await authaxios({
-        method: "post",
-        url: "/api/v1/perfume/dislike",
-        data: data,
-      });
-      console.log(response);
-      if (response.status === 200) {
-        // console.log("완료")
-        if (response.data == "ADD") {
-          let temp = {
-            id: 0,
-            perfumeId: perfumeDetail.perfumeId,
-            userId: user.user_id,
-          };
-          console.log("temp", temp);
+    if (user.user_id == null) {
+      alert("로그인 후 사용할 수 있습니다.")
+      navigate("/login");
+    } else {
+      try {
+        let data = {
+          perfumeId: perfumeDetail.perfumeId,
+          userId: user.user_id,
+        };
+        // console.log(data)
+        const response = await authaxios({
+          method: "post",
+          url: "/api/v1/perfume/dislike",
+          data: data,
+        });
+        console.log(response);
+        if (response.status === 200) {
+          // console.log("완료")
+          if (response.data == "ADD") {
+            let temp = {
+              id: 0,
+              perfumeId: perfumeDetail.perfumeId,
+              userId: user.user_id,
+            };
+            console.log("temp", temp);
+          }
+          if (response.data == "CANCEL") {
+            // alert("좋아요누른사람");
+          }
+          if (response.data == "DELETE") {
+            // setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
+            // console.log("like down", dislikeList);
+          }
+          getPerfumeDetail();
+          getLikeOrDisLike();
         }
-        if (response.data == "CANCEL") {
-          alert("좋아요누른사람");
-        }
-        if (response.data == "DELETE") {
-          // setDislikeList(dislikeList.filter((temp) => temp.userId != 4));
-          // console.log("like down", dislikeList);
-        }
-        getPerfumeDetail();
-        getLikeOrDisLike();
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -338,33 +359,38 @@ const PerfumeDetail = () => {
   const reviewWrite = async (e) => {
     e.preventDefault();
     console.log("리뷰작성", user.user_id);
+    navigate("/login");
+    if (user.user_id == null) {
+      alert("로그인 후 사용할 수 있습니다.")
+    } else {
 
-    if (rating != 0) {
-      try {
-        let data = {
-          content: reviewContent,
-          perfume_id: perfumeDetail.perfumeId,
-          score: rating,
-          tags: sendChoiceTag,
-          user_id: user.user_id,
-        };
-        console.log(data);
-        // console.log("유저아이디", data);
-        const response = await authaxios({
-          method: "post",
-          url: "/api/v1/review",
-          data: data,
-        });
-        console.log(response);
-        if (response.status === 200) {
-          console.log("리뷰작성완료");
-          //리뷰작성창 초기화
-          document.getElementById("reviewValue").value = "";
-          //다시불러오기
-          getReview();
+      if (rating != 0) {
+        try {
+          let data = {
+            content: reviewContent,
+            perfume_id: perfumeDetail.perfumeId,
+            score: rating,
+            tags: sendChoiceTag,
+            user_id: user.user_id,
+          };
+          console.log(data);
+          // console.log("유저아이디", data);
+          const response = await authaxios({
+            method: "post",
+            url: "/api/v1/review",
+            data: data,
+          });
+          console.log(response);
+          if (response.status === 200) {
+            console.log("리뷰작성완료");
+            //리뷰작성창 초기화
+            document.getElementById("reviewValue").value = "";
+            //다시불러오기
+            getReview();
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
     }
   };
@@ -447,7 +473,7 @@ const PerfumeDetail = () => {
         data: {
           content: commentBox.value,
           score: updaterating,
-          tags: [3],
+          // tags: [3],
           perfume_id: perfumeDetail.perfumeId,
           user_id: user.user_id,
         },
@@ -590,7 +616,7 @@ const PerfumeDetail = () => {
             <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="detail-product-details dec-img-wrap">
                 <img
-                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                  src={`http://localhost:8081/api/v1/perfume/getimg/${perfumeDetail.enName}`}
                   alt=""
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
@@ -603,7 +629,8 @@ const PerfumeDetail = () => {
                 <h2 className="detail-product-title">
                   {perfumeDetail.koName}({perfumeDetail.enName})
                 </h2>
-                <div className="pro-details-rating-wrap ">
+                <br />
+                <div className="pro-details-rating-wrap mt-10">
                   <div className="review-rating">
                     <Rating
                       /* Available Props */
@@ -636,11 +663,11 @@ const PerfumeDetail = () => {
                   </ul>
                 </div>
 
-                <p>
+                {/* <p>
                   향수 설명 Lorem ipsum dolor sit amet, consectetur adipisic
                   elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut
                   enim ad minim venialo quis nostrud exercitation ullamco
-                </p>
+                </p> */}
 
                 <div className="detail-pro-details-list-row">
                   <div className="detail-pro-details-list1">
@@ -811,10 +838,10 @@ const PerfumeDetail = () => {
                         <p>{data.pName}</p>
                       </div>
                     ))}
-                  <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
+                  {/* <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                     <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
                     <p>향수명</p>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="detail-likeDislikeList-items row">
@@ -832,10 +859,10 @@ const PerfumeDetail = () => {
                         <p>{data.pName}</p>
                       </div>
                     ))}
-                  <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
+                  {/* <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
                     <img src=".\assets\tempImg\400x400.jpg" alt="" />
                     <p>향수명</p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ) : (
@@ -936,7 +963,6 @@ const PerfumeDetail = () => {
                     <i className="fa fa-star"></i>
                     <i className="fa fa-star"></i>
                   </div> */}
-                  {sendChoiceTag}
                   <Rating
                     className="ml-10"
                     showTooltip
@@ -976,7 +1002,7 @@ const PerfumeDetail = () => {
                   className="btnSizeL comment_submit"
                   onClick={reviewWrite}
                 >
-                  댓글 등록
+                  리뷰 등록
                 </button>
               </div>
 
@@ -1169,7 +1195,7 @@ const PerfumeDetail = () => {
                                   size={"25px"}
                                 />
                                 {updaterating}점
-                                <div className="image_add_wrap">
+                                {/* <div className="image_add_wrap">
                                   <button
                                     type="button"
                                     className="btn_image_add"
@@ -1177,7 +1203,7 @@ const PerfumeDetail = () => {
                                     해시태그 선택
                                   </button>
                                   *필수사항X
-                                </div>
+                                </div> */}
                               </div>
                             </div>
 
@@ -1278,7 +1304,7 @@ const PerfumeDetail = () => {
                   </div>
                 ))}
             </div>
-            <div className="backButton">
+            <div className="backButton mt-20">
               <button
                 onClick={() => {
                   navigate(-1);
@@ -1311,6 +1337,7 @@ const PerfumeDetail = () => {
               ))}
             {/* <div className="">#30대</div> */}
           </div>
+          <div style={{ float: "right", marginTop: "10px" }}>* 최대 3개 선택 가능</div>
           {/* <Button variant="secondary" onClick={() => setChoiceTag([])}>
             선택 초기화
           </Button> */}
@@ -1325,7 +1352,7 @@ const PerfumeDetail = () => {
         </Modal.Footer>
       </Modal>
       {/*  */}
-    </div>
+    </div >
   );
 };
 export default PerfumeDetail;
