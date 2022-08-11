@@ -17,10 +17,6 @@ public interface PerfumeLikeService {
 
     String addDislike(Long perfumeId, Long userId);
 
-//    String deleteLike(Long perfumeId, Long userId); // String 반환 하는 버전
-
-//    void deleteLike(Long perfumeId, Long userId); // String 반환 안 하는 버전
-
     List<PerfumeLikeResponseDto> getLikePerfume(Long id);
     List<PerfumeDislikeResponseDto> getDislikePerfume(Long id);
 

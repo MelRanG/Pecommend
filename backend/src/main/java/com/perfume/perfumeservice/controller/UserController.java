@@ -147,13 +147,13 @@ public class UserController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    @GetMapping("/info/id/{id}")
+    @GetMapping("/info.do/id/{id}")
     @ApiOperation(value = "회원 정보 조회")
     public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable Long id){
         return new ResponseEntity<>(userService.getUserInfo(id), HttpStatus.OK);
     }
 
-    @GetMapping("/info/email/{email}")
+    @GetMapping("/info.do/email/{email}")
     @ApiOperation(value = "회원 정보 조회")
     public ResponseEntity<UserResponseDto> getUserInfo(@PathVariable String email){
         return new ResponseEntity<>(userService.getUserInfo(email), HttpStatus.OK);

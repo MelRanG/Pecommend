@@ -33,7 +33,7 @@ function CommunityList() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list/like/" + categorys,
+          url: "/api/v1/community/list.do/like/" + categorys,
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}
@@ -52,7 +52,7 @@ function CommunityList() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list/like",
+          url: "/api/v1/community/list.do/like",
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}
@@ -75,7 +75,7 @@ function CommunityList() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list/best/" + categorys,
+          url: "/api/v1/community/list.do/best/" + categorys,
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}
@@ -94,7 +94,7 @@ function CommunityList() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list/best",
+          url: "/api/v1/community/list.do/best",
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}
@@ -117,7 +117,7 @@ function CommunityList() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list/" + categorys,
+          url: "/api/v1/community/list.do/" + categorys,
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}
@@ -136,7 +136,7 @@ function CommunityList() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list",
+          url: "/api/v1/community/list.do",
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}
@@ -199,7 +199,7 @@ function CommunityList() {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/community/search",
+        url: "/api/v1/community/search.do",
         params : senddata,
       });
       console.log(response);

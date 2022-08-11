@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { freeaxios } from "custom/customAxios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "./Login.css";
 import Swal from 'sweetalert2'
@@ -28,8 +28,8 @@ function Search_pwd() {
         text: '이메일의 형식이 맞지 않습니다.',
       });
     } else {
-      axios
-        .get("/api/v1/user/info/email/" + email)
+      freeaxios
+        .get("/api/v1/user/info.do/email/" + email)
         .then(function (response) {
           if (response.status === 200) {
             console.log(birth);
@@ -43,7 +43,7 @@ function Search_pwd() {
               let body = {
                 email: email,
               };
-              axios
+              freeaxios
                 .put("/api/v1/user/findpw.do", body)
                 .then(function (response_2) {
                   Swal.fire({

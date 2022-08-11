@@ -20,7 +20,7 @@ const PerfumeMain = () => {
       // console.log("number", number);
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/hottag",
+        url: "/api/v1/perfume/hottag.do",
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -43,7 +43,7 @@ const PerfumeMain = () => {
       // console.log("number", number);
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/best",
+        url: "/api/v1/perfume/best.do",
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -66,7 +66,7 @@ const PerfumeMain = () => {
       // console.log("number", number);
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/review/new",
+        url: "/api/v1/review/new.do",
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -163,7 +163,7 @@ const PerfumeMain = () => {
                           </div>
                           <img
                             className="default-img"
-                            src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
+                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pDto.enName}`}
                             alt=""
                           />
                         </div>
@@ -230,7 +230,7 @@ const PerfumeMain = () => {
                       <div key={index} className="card per_main_review_card">
                         <div className="image-wrapper">
                           <img
-                            src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
+                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pDto.enName}`}
                             className="card-img-top"
                             alt="..."
                           />
@@ -268,7 +268,7 @@ const PerfumeMain = () => {
                       <div key={index} className="card per_main_review_card">
                         <div className="image-wrapper">
                           <img
-                            src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
+                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pDto.enName}`}
                             className="card-img-top"
                             alt="..."
                           />

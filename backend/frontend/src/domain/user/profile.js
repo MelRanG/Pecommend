@@ -33,9 +33,9 @@ function Profile() {
 
   const getUserInfo = async () => {
     try {
-      const response = await authaxios({
+      const response = await freeaxios({
         method: "get",
-        url: "/api/v1/user/info/id/" + number,
+        url: "/api/v1/user/info.do/id/" + number,
       });
       // console.log(response.data.user_id)
       if (response.status === 200) {
@@ -50,9 +50,9 @@ function Profile() {
 
   const getLikeInfo = async () => {
     try {
-      const response = await authaxios({
+      const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/likelist/" + number,
+        url: "/api/v1/perfume/likelist.do/" + number,
       });
       // console.log(response.data)
       if (response.status === 200) {
@@ -66,9 +66,9 @@ function Profile() {
 
   const getDisLikeInfo = async () => {
     try {
-      const response = await authaxios({
+      const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/dislikelist/" + number,
+        url: "/api/v1/perfume/dislikelist.do/" + number,
       });
       // console.log(response)
       if (response.status === 200) {
@@ -82,9 +82,9 @@ function Profile() {
 
   const getCummuInfo = async () => {
     try {
-      const response = await authaxios({
+      const response = await freeaxios({
         method: "get",
-        url: "/api/v1/community/list/user/" + number,
+        url: "/api/v1/community/list.do/user/" + number,
       });
       console.log(response.data)
       if (response.status === 200) {
@@ -98,9 +98,9 @@ function Profile() {
 
   const getCommentInfo = async () => {
     try {
-      const response = await authaxios({
+      const response = await freeaxios({
         method: "get",
-        url: "/api/v1/comment/profile/" + number,
+        url: "/api/v1/comment/profile.do/" + number,
       });
       console.log(response.data)
       if (response.status === 200) {
@@ -221,7 +221,7 @@ function Profile() {
                                 <div>
                                   <img
                                     className="profile-perfume-img"
-                                    src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
+                                    src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg/${data.enName}`}
                                     alt=""
                                   />
                                 </div>
@@ -254,7 +254,7 @@ function Profile() {
                               <div>
                                 <img
                                   className="profile-perfume-img"
-                                  src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
+                                  src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg/${data.enName}`}
                                   alt=""
                                 />
                               </div>

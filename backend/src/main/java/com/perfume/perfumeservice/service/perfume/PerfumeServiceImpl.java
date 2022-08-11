@@ -61,21 +61,6 @@ public class PerfumeServiceImpl implements PerfumeService {
         return map;
     }
 
-//    @Override
-//    public List<PerfumeResponseDto> getListKeyword(String keyword) {
-//
-//
-//        List<Perfume> perfumeList = perfumeRepository.findByKoNameLikeOrEnNameLikeIgnoreCase("%"+keyword+"%", "%"+keyword+"%");
-//
-//        List<PerfumeResponseDto> dtoList = new LinkedList<>();
-//        for(Perfume p: perfumeList){
-//            dtoList.add(PerfumeResponseDto.from(p));
-//        }
-//
-//        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
-//        return new ArrayList<>(dtoList);
-//
-//    }
 
     @Override
     public Map<String, Object> getListKeywordPage(String keyword, int page) {
@@ -137,34 +122,6 @@ public class PerfumeServiceImpl implements PerfumeService {
         return dtoList;
     }
 
-
-
-
-
-
-//    @Override
-//    public List<PerfumeResponseDto> getListKoKeyword(String keyword) {
-//        List<Perfume> perfumeListKo = perfumeRepository.findByKoNameLike("%"+keyword+"%");
-//        List<PerfumeResponseDto> dtoList = new LinkedList<>();
-//        for(Perfume p: perfumeListKo){
-//            dtoList.add(PerfumeResponseDto.from(p));
-//        }
-//        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
-//        return new ArrayList<>(dtoList);
-//    }
-//
-//    @Override
-//    public List<PerfumeResponseDto> getListEnKeyword(String keyword) {
-//        List<Perfume> perfumeListEn = perfumeRepository.findByEnNameLike("%"+keyword+"%");
-//        List<PerfumeResponseDto> dtoList = new LinkedList<>();
-//        for(Perfume p: perfumeListEn){
-//            dtoList.add(PerfumeResponseDto.from(p));
-//        }
-//        // 정렬 안하고 내보냄 => 필요하면 정렬하는 코드 추가 필요
-//        return new ArrayList<>(dtoList);
-//    }
-
-
     @Override
     public Perfume getPerfume(Long id) {
         Perfume perfume = perfumeRepository.findById(id).orElseThrow(PerfumeNotFoundException::new);
@@ -173,7 +130,7 @@ public class PerfumeServiceImpl implements PerfumeService {
 
     @Override
     public String getImg(String img) {
-        return uploadPath + File.separator + "PERFUME" + File.separator + img + ".png";
+        return uploadPath + File.separator + img + ".png";
     }
 
     @Override

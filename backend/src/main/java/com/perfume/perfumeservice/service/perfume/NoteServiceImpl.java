@@ -21,7 +21,6 @@ import java.util.List;
 public class NoteServiceImpl implements NoteService{
 
     private final PerfumeRepository perfumeRepository;
-    private final NoteRepository noteRepository;
 
     @Override
     public List<NoteResponseDto> getNotes(Long id) { // 향수 id로 노트 정보 가져오기
@@ -34,10 +33,5 @@ public class NoteServiceImpl implements NoteService{
         return dtoList;
     }
 
-//    @Override
-//    public Perfume getNotes(Long id) { // 향수 id로 검색해서 나온 note 리스트 반환
-//        Perfume perfume = perfumeRepository.findById(id).orElseThrow(null);
-//        return perfume;
-//    }
 
 }

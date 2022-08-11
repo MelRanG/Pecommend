@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "PerfumeTagResponseDto", description = "향수태그 정보 응답 Dto")
 public class PerfumeTagResponseDto {
     private long perfumeTagId;
-    //private int count;
     private long perfumeId;
     private long tagId;
     private String tagName;
@@ -24,7 +23,6 @@ public class PerfumeTagResponseDto {
 
         return PerfumeTagResponseDto.builder()
                 .perfumeTagId(perfumeTag.getId())
-                //.count(perfumeTag.getCount())
                 .perfumeId(perfumeTag.getPerfume().getId())
                 .tagId(perfumeTag.getTag().getId())
                 .tagName(perfumeTag.getTag().getTagName())

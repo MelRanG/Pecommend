@@ -37,13 +37,13 @@ public class CommunityController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detail.do/{id}")
     @ApiOperation(value = "게시글 조회하기")
     public ResponseEntity<PostsResponseDto> getPost(@PathVariable long id){
         return new ResponseEntity<>(communityService.getPost(id), HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search.do")
     @ApiOperation(value = "게시글 이름으로 검색하기")
     public ResponseEntity<List<PostsResponseDto>> searchPostTitle(@RequestParam String type, @RequestParam String word){
         if(type.equals("title"))
@@ -65,20 +65,20 @@ public class CommunityController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @GetMapping("/list/user/{userid}")
+    @GetMapping("/list.do/user/{userid}")
     @ApiOperation(value = "해당 유저가 쓴 글 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getListByUser(@PathVariable Long userid){
         return new ResponseEntity<>(communityService.getListByUser(userid), HttpStatus.OK);
     }
 
-    @GetMapping("/list/{category}")
+    @GetMapping("/list.do/{category}")
     @ApiOperation(value = "해당 카테고리 게시글 목록 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getList(@PathVariable int category){
         List<PostsResponseDto> postsDtoList = communityService.getList(category);
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list.do")
     @ApiOperation(value = "전체게시글 목록 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getListAll(){
         List<PostsResponseDto> postsDtoList = communityService.getListAll();
@@ -101,35 +101,35 @@ public class CommunityController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/list/like/{category}")
+    @GetMapping("/list.do/like/{category}")
     @ApiOperation(value = "해당 카테고리 게시글 목록 추천 순으로 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getListByLike(@PathVariable int category){
         List<PostsResponseDto> postsDtoList = communityService.getListByLike(category);
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/list/like")
+    @GetMapping("/list.do/like")
     @ApiOperation(value = "전체 게시글 목록 추천 순으로 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getListByLike(){
         List<PostsResponseDto> postsDtoList = communityService.getListByLike();
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/list/best/{category}")
+    @GetMapping("/list.do/best/{category}")
     @ApiOperation(value = "카테고리 별 게시글 목록 추천 10개 이상 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getBestListByCategory(@PathVariable int category){
         List<PostsResponseDto> postsDtoList = communityService.getBestListByCategory(category);
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/list/best")
+    @GetMapping("/list.do/best")
     @ApiOperation(value = "전체 게시글 목록 추천 10개 이상 가져오기")
     public ResponseEntity<List<PostsResponseDto>> getBestList(){
         List<PostsResponseDto> postsDtoList = communityService.getBestList();
         return new ResponseEntity<>(postsDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/list/main")
+    @GetMapping("/list.do/main")
     @ApiOperation(value = "메인에 쓸 게시글 목록(5가지 카테고리) 가져오기")
     public ResponseEntity<Map<String, Object>> getMain(){
         return new ResponseEntity<>(communityService.getMain(), HttpStatus.OK);

@@ -436,7 +436,7 @@ function Login() {
                       </div>
                       <div className="d-grid gap-2">
                         <a
-                          href="http://localhost:8081/oauth2/authorization/naver"
+                          href="https://i7e205.p.ssafy.io/oauth2/authorization/naver"
                           className="naver-login-btn mb-3"
                         >
                           <button
@@ -448,7 +448,7 @@ function Login() {
                         </a>
                         <a
                           className="google-login-btn"
-                          href="http://localhost:8081/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com"
+                          href="https://i7e205.p.ssafy.io/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com"
                         >
                           <button type="submit" className="google-login-btn">
                             구글 로그인

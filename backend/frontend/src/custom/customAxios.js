@@ -3,7 +3,7 @@ import { logOut } from "redux/user_reducer";
 import { useDispatch } from "react-redux";
 
 export const freeaxios = axios.create({
-  baseURL: "http://localhost:8081/",
+  baseURL: "https://i7e205.p.ssafy.io/",
 });
 
 freeaxios.interceptors.request.use((config) => {
@@ -20,7 +20,7 @@ freeaxios.interceptors.response.use(
 );
 
 export const authaxios = axios.create({
-  baseURL: "http://localhost:8081/",
+  baseURL: "https://i7e205.p.ssafy.io/",
 });
 
 authaxios.interceptors.request.use((config) => {

@@ -9,18 +9,6 @@ import userReducer from 'redux/user_reducer';
 import { useSelector } from 'react-redux';
 import Swal from "sweetalert2";
 
-// async function handleSubmit(e) {
-//     e.preventDefault()
-//     let registwrite = {writer : 1, title: "타이틀", content : "내용", category : 1};
-//     console.log(registwrite)
-//     try {
-//         // const response = await axios.post("/api/v1/community",registwrite);
-//         const response = await axios.get("/api/v1/community/test.do");
-//         console.log(response)
-//     } catch(error) {
-//         console.log(error)
-//     }
-// }
 
 function CommunityEdit ()  {
     const user = useSelector(state => state.userStore.nowLoginUser)
@@ -41,7 +29,7 @@ function CommunityEdit ()  {
             console.log(number);
           const response = await freeaxios({
             method: "get",
-            url: "/api/v1/community/"+number,
+            url: "/api/v1/community/detail.do/"+number,
             // data: registwrite,
             headers: { "Content-Type": "multipart/form-data" },
           });

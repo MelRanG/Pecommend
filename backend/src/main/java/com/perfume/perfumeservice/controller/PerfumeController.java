@@ -36,40 +36,7 @@ public class PerfumeController {
     private final UserService userService;
 
 
-//    @GetMapping("/list")
-//    @ApiOperation(value = "전체 향수 목록 가져오기 (해시태그 X)")
-//    public ResponseEntity<List<PerfumeResponseDto>> getListAll(){
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
-//        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
-//    }
-//
-
-
-//    @GetMapping("/list/{keyword}")
-//    @ApiOperation(value = "향수 이름으로 검색 (해시태그 X)")
-//    public ResponseEntity<List<PerfumeResponseDto>> getListKeyword(@PathVariable String keyword){
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
-//        return new ResponseEntity<>(perfumeDtoList, HttpStatus.OK);
-//    }
-//
-
-//    @GetMapping("/list")
-//    @ApiOperation(value = "전체 향수 목록 가져오기 (+ 해시태그)")
-//    public ResponseEntity<List<Map<String, Object>>> getListAll(){ // 페이징 없는 버전
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
-//        List<Map<String, Object>> dtoList = new LinkedList<>();
-//        for(PerfumeResponseDto pd: perfumeDtoList){
-//            Map<String, Object> map = new LinkedHashMap<>();
-//            map.put("pDto",pd);
-//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-//            map.put("tDto", td);
-//            dtoList.add(map);
-//        }
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
-
-
-    @GetMapping("/list/page/{page}")
+    @GetMapping("/list.do/page/{page}")
     @ApiOperation(value = "전체 향수 목록, 향수 개수, 페이지 수 가져오기 - Page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
     public ResponseEntity<Map<String, Object>> getListPages(@PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
         Map<String, Object> perfumes = perfumeService.getListAllPage(page-1);
@@ -93,23 +60,7 @@ public class PerfumeController {
     }
 
 
-//    @GetMapping("/list/{keyword}")
-//    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그 + 대소문자 무시)")
-//    public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){ // 페이징 없는 버전
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
-//        List<Map<String, Object>> dtoList = new LinkedList<>();
-//        for(PerfumeResponseDto pd: perfumeDtoList){
-//            Map<String, Object> map = new LinkedHashMap<>();
-//            map.put("pDto",pd);
-//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-//            map.put("tDto", td);
-//            dtoList.add(map);
-//        }
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
-
-
-    @GetMapping("/list/{keyword}/page/{page}")
+    @GetMapping("/list.do/{keyword}/page/{page}")
     @ApiOperation(value = "향수 이름으로 검색 - page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
     public ResponseEntity<Map<String, Object>> getListPages(@PathVariable String keyword, @PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
         Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page-1);
@@ -132,7 +83,7 @@ public class PerfumeController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PostMapping("/list/filter")
+    @PostMapping("/list.do/filter")
     @ApiOperation(value = "필터로 향수 목록 가져오기 (해시태그 있음)")
     public ResponseEntity<List<Map<String, Object>>> getListFilter(@RequestBody Map<String, Object> map){
         List<Integer> ages = (List<Integer>) map.get("ages");
@@ -153,7 +104,7 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-    @PostMapping("/list/filter/page/{page}")
+    @PostMapping("/list.do/filter/page/{page}")
     @ApiOperation(value = "필터로 향수 목록 가져오기 - Page 페이징 (해시태그 있음)")
     public ResponseEntity<Map<String, Object>> getListFilterPage(@RequestBody Map<String, Object> map, @PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
         List<Integer> ages = (List<Integer>) map.get("ages"); // 나이
@@ -189,7 +140,7 @@ public class PerfumeController {
     }
 
 
-    @GetMapping("/list/hashtag")
+    @GetMapping("/list.do/hashtag")
     @ApiOperation(value = "해시태그로 향수 검색")
     public ResponseEntity<List<Map<String, Object>>> getListHashTag(@RequestParam List<Long> tags){
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListHashTag(tags);
@@ -205,7 +156,7 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detail.do/{id}")
     @ApiOperation(value = "향수 디테일 가져오기(노트, 태그, 좋아요/싫어요 목록, 좋아요/싫어요 비율, 좋아요수/싫어요수만 추가)")
     public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
         PerfumeResponseDto pDto = PerfumeResponseDto.from(perfumeService.getPerfume(id));
@@ -255,53 +206,7 @@ public class PerfumeController {
 
     }
 
-//    @GetMapping("/likelist/perfume/{id}")
-//    @ApiOperation(value = "향수 좋아요 목록(param: 향수ID)")
-//    public ResponseEntity<List<PerfumeLikeResponseDto>> getLikePerfume(@PathVariable Long id){ // 일단 확인용으로 만들어 봄
-//        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikePerfume(id);
-//        return new ResponseEntity<>(plDto, HttpStatus.OK);
-//
-//    }
-//
-//    @GetMapping("/dislikelist/perfume/{id}")
-//    @ApiOperation(value = "향수 싫어요 목록(param: 향수ID)")
-//    public ResponseEntity<List<PerfumeDislikeResponseDto>> getDislikePerfume(@PathVariable Long id){ // 일단 확인용으로 만들어 봄
-//        List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislikePerfume(id);
-//        return new ResponseEntity<>(pdDto, HttpStatus.OK);
-//
-//    }
-//
-//    @GetMapping("/likelist/user/{id}")
-//    @ApiOperation(value = "향수 좋아요 목록(param: 유저ID)")
-//    public ResponseEntity<List<PerfumeLikeResponseDto>> getLikeUser(@PathVariable Long id){ // 일단 확인용으로 만들어 봄
-//        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikeUser(id);
-//        return new ResponseEntity<>(plDto, HttpStatus.OK);
-//
-//    }
-//
-//    @GetMapping("/dislikelist/user/{id}")
-//    @ApiOperation(value = "향수 싫어요 목록(param: 유저ID)")
-//    public ResponseEntity<List<PerfumeDislikeResponseDto>> getDislikeUser(@PathVariable Long id){ // 일단 확인용으로 만들어 봄
-//        List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislikeUser(id);
-//        return new ResponseEntity<>(pdDto, HttpStatus.OK);
-//
-//    }
-////
-//    @GetMapping("/likelist")
-//    @ApiOperation(value = "전체 향수 좋아요 목록")
-//    public ResponseEntity<List<PerfumeLikeResponseDto>> getPerfumeLikeAll(){ // 일단 확인용으로 만들어 봄
-//        List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikeAll();
-//        return new ResponseEntity<>(plDto, HttpStatus.OK);
-//    }
-////
-//    @GetMapping("/dislikelist")
-//    @ApiOperation(value = "전체 향수 싫어요 목록")
-//    public ResponseEntity<List<PerfumeDislikeResponseDto>> getPerfumeDislikeAll(){ // 일단 확인용으로 만들어 봄
-//        List<PerfumeDislikeResponseDto> pdDto = perfumeLikeService.getDislikeAll();
-//        return new ResponseEntity<>(pdDto, HttpStatus.OK);
-//    }
-
-    @GetMapping("/ldlist/{id}")
+    @GetMapping("/ldlist.do/{id}")
     @ApiOperation(value = "좋아요싫어요좋아요싫어요 리스트(4개 모두)")
     public ResponseEntity<Map<String, Object>> getLDList(@PathVariable Long id){
         Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -384,7 +289,7 @@ public class PerfumeController {
     }
 
     // 인기 해시태그 가져오기
-    @GetMapping("/hottag")
+    @GetMapping("/hottag.do")
     @ApiOperation(value = "인기 해시태그 리스트")
     public ResponseEntity<List<Map<String, Object>>> getHotTagAll(){
         List<PerfumeTagCount> queryResult = perfumeTagService.getHotTagAll(); // 해시태그 인기순
@@ -401,7 +306,7 @@ public class PerfumeController {
 
     }
 
-    @GetMapping("/getimg/{name}")
+    @GetMapping("/getimg.do/{name}")
     @ApiOperation(value = "향수 이미지 가져오기")
     public ResponseEntity<Resource> getImg(@PathVariable String name){
         String img = name.replaceAll(" ", "_");
@@ -420,19 +325,19 @@ public class PerfumeController {
         return new ResponseEntity<>(resource, header, HttpStatus.OK);
     }
 
-    @GetMapping("/likelist/{userId}")
+    @GetMapping("/likelist.do/{userId}")
     @ApiOperation(value = "선호 리스트")
     public ResponseEntity<List<PerfumeResponseDto>> getLikeList(@PathVariable Long userId){
         return new ResponseEntity<>(perfumeLikeService.getLikeList(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/dislikelist/{userId}")
+    @GetMapping("/dislikelist.do/{userId}")
     @ApiOperation(value = "비선호 리스트")
     public ResponseEntity<List<PerfumeResponseDto>> getDisLikeList(@PathVariable Long userId){
         return new ResponseEntity<>(perfumeLikeService.getDisLikeList(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/best")
+    @GetMapping("/best.do")
     @ApiOperation(value = "인기 향수 리스트 12개")
     public ResponseEntity<List<Map<String, Object>>> getBestList(){
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getBestList();

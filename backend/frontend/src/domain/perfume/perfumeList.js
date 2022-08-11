@@ -108,7 +108,7 @@ const PerfumeList = () => {
       try {
         const response = await freeaxios({
           method: "post",
-          url: "/api/v1/perfume/list/filter/page/" + page,
+          url: "/api/v1/perfume/list.do/filter/page/" + page,
           // headers: { "Content-Type": "multipart/form-data" },
           data: searchFilter,
           responseType: "json",
@@ -153,7 +153,7 @@ const PerfumeList = () => {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list/page/" + page,
+        url: "/api/v1/perfume/list.do/page/" + page,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -199,7 +199,7 @@ const PerfumeList = () => {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list/" + keyWord + "/page/" + page,
+        url: "/api/v1/perfume/list.do/" + keyWord + "/page/" + page,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -556,7 +556,7 @@ const PerfumeList = () => {
                                       </div>
                                       <img
                                         className="default-img"
-                                        src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
+                                        src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pDto.enName}`}
                                         alt=""
                                       />
                                     </div>

@@ -18,7 +18,7 @@ export default function Editor({ handleChange, SetContent, content}) {
             authaxios.post(`${API_URL}/${UPLOAD_ENDPOINT}`, body)
               .then((res) => {
                 resolve({
-                    default: `http://localhost:8081/api/v1/file/getimg/${res.data}`
+                    default: `https://i7e205.p.ssafy.io/api/v1/file/getimg.do/${res.data}`
                   });})
               .catch((err) => {
                 reject(err);

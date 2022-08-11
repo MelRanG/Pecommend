@@ -11,10 +11,8 @@ import java.util.Map;
 public interface CommunityService {
     String writePostAndImage(PostsRequestDto dto, MultipartFile[] file);
     PostsResponseDto writePost(PostsRequestDto dto);
-    //String fileUpload(Community community, MultipartFile[] file);
     PostsResponseDto updatePost(Long id, PostsRequestDto dto);
     List<PostsResponseDto> getList(int category);
-    //String getImagePath(Long id);
     PostsResponseDto getPost(Long id);
     public String addLike(Long userId, Long communityId);
     List<PostsResponseDto> getListByUser(Long userId);

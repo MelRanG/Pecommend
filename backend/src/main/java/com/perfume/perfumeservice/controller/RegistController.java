@@ -45,13 +45,13 @@ public class RegistController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/list.do")
     @ApiOperation(value = "향수 등록 신청 목록")
     public ResponseEntity<List<RegistResponseDto>> getList(){
         return new ResponseEntity<>(registService.getList(), HttpStatus.OK);
     }
 
-    @GetMapping("/img/{img}")
+    @GetMapping("/img.do/{img}")
     @ApiOperation(value = "이미지 가져오기")
     public ResponseEntity<Resource> getImg(@PathVariable String img){
         String path = registService.getImg(img);

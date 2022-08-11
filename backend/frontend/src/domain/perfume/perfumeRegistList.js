@@ -17,7 +17,7 @@ function PerfumeRegistList() {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/regist",
+        url: "/api/v1/regist/list.do",
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(response);
@@ -77,7 +77,7 @@ function PerfumeRegistList() {
                     <img
                       className="perfumeImg"
                       alt=""
-                      src={`http://localhost:8081/api/v1/regist/img/${data.img}`}
+                      src={`https://i7e205.p.ssafy.io/api/v1/regist/img.do/${data.img}`}
                     />
                   </div>
                   <div className="col-md-7 perfumeText d-flex flex-column justify-content-center align-items-start">

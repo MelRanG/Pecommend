@@ -25,7 +25,7 @@ function CommunityMain() {
       try {
         const response = await freeaxios({
           method: "get",
-          url: "/api/v1/community/list/main",
+          url: "/api/v1/community/list.do/main",
           // data: registwrite,
           headers: { "Content-Type": "multipart/form-data" },
           // headers: { "Content-Type" : ""}

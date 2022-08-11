@@ -51,7 +51,7 @@ function CommunityDetail () {
             console.log("number", number);
           const response = await freeaxios({
             method: "get",
-            url: "/api/v1/community/"+number,
+            url: "/api/v1/community/detail.do/"+number,
             headers: { "Content-Type": "multipart/form-data" },
           });
           console.log(response);
@@ -70,7 +70,7 @@ function CommunityDetail () {
         try {
             const response = await freeaxios ({
                 method: "get",
-                url: "/api/v1/comment/"+number,
+                url: "/api/v1/comment/list.do/"+number,
             });
             // console.log("comment",response.data);
             const commentdata = response.data

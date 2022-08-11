@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class PostsRequestDto {
-    //private Long id;
     private int category;
     private Long writer;
     private String title;
@@ -19,7 +18,6 @@ public class PostsRequestDto {
                 .writer(user)
                 .title(title)
                 .content(content)
-      //          .communityLike(communityLike)
                 .build();
     }
 

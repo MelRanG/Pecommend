@@ -51,7 +51,7 @@ public class ReviewController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    @GetMapping("/list/{id}")
+    @GetMapping("/list.do/{id}")
     @ApiOperation(value = "향수 리뷰 전체 조회")
     public ResponseEntity<Map<String, Object>> getList(@PathVariable Long id, @RequestParam String order) {
         Map<String, Object> map = new LinkedHashMap<>();
@@ -68,13 +68,13 @@ public class ReviewController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @GetMapping("/list/like/{id}")
+    @GetMapping("/list.do/like/{id}")
     @ApiOperation(value = "선호하는 사람이 작성한 향수 리뷰 조회")
     public ResponseEntity<List<ReviewResponseDto>> getLikeList(@PathVariable Long id){
         return new ResponseEntity<>(reviewService.getLikeList(id), HttpStatus.OK);
     }
 
-    @GetMapping("/list/dislike/{id}")
+    @GetMapping("/list.do/dislike/{id}")
     @ApiOperation(value = "비선호하는 사람이 작성한 향수 리뷰 조회")
     public ResponseEntity<List<ReviewResponseDto>> getDisLikeList(@PathVariable Long id){
         return new ResponseEntity<>(reviewService.getDisLikeList(id), HttpStatus.OK);
@@ -92,13 +92,13 @@ public class ReviewController {
         return new ResponseEntity<>(reviewService.addDisLike(map), HttpStatus.OK);
     }
 
-    @GetMapping("/new")
+    @GetMapping("/new.do")
     @ApiOperation(value = "최신 리뷰 6개")
     public ResponseEntity<List<Map<String, Object>>> getNewReview() {
         return new ResponseEntity<>(reviewService.getNewReview(), HttpStatus.OK);
     }
 
-    @GetMapping("/tag")
+    @GetMapping("/tag.do")
     @ApiOperation(value = "해시태그 전체 리스트")
     public ResponseEntity<List<TagResponseDto>> getTagAll(){
         List<Tag> tags = reviewService.getTagAll();

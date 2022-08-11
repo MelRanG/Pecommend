@@ -20,7 +20,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/list.do/{id}")
     @ApiOperation(value = "댓글 조회")
     public ResponseEntity<List<CommentsResponseDto>> getList(@PathVariable Long id){
         return new ResponseEntity<>(commentService.getList(id), HttpStatus.OK);
@@ -69,7 +69,7 @@ public class CommentController {
         String result = commentService.addDisLike(userId, commentId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    @GetMapping("/profile/{id}")
+    @GetMapping("/profile.do/{id}")
     @ApiOperation(value = "프로필 댓글 목록 조회")
     public ResponseEntity<List<CommentsResponseDto>> getProfileComments(@PathVariable Long id){
         return new ResponseEntity<>(commentService.getProfileComments(id), HttpStatus.OK);

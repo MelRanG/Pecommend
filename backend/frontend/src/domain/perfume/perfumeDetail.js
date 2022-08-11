@@ -84,7 +84,7 @@ const PerfumeDetail = () => {
       // console.log("number", number);
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/" + number,
+        url: "/api/v1/perfume/detail.do/" + number,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -111,7 +111,7 @@ const PerfumeDetail = () => {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/review/tag",
+        url: "/api/v1/review/tag.do",
         // headers: { "Content-Type": "multipart/form-data" },
       });
       // console.log(response);
@@ -171,7 +171,7 @@ const PerfumeDetail = () => {
       // console.log("number", number);
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/ldlist/" + number,
+        url: "/api/v1/perfume/ldlist.do/" + number,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -191,7 +191,7 @@ const PerfumeDetail = () => {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/review/list/" + number + "?order=" + reviewOrder,
+        url: "/api/v1/review/list.do/" + number + "?order=" + reviewOrder,
       });
       console.log("review", response.data);
       setReviewScore(response.data.score_avg);
@@ -418,7 +418,7 @@ if (!isLogined) {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/review/list/like/" + number,
+        url: "/api/v1/review/list.do/like/" + number,
       });
       console.log("좋아요 리뷰만", response.data);
 
@@ -434,7 +434,7 @@ if (!isLogined) {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/review/list/dislike/" + number,
+        url: "/api/v1/review/list.do/dislike/" + number,
       });
       console.log("싫어요 리뷰만", response.data);
 
@@ -602,7 +602,7 @@ if (!isLogined) {
             <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="detail-product-details dec-img-wrap">
                 <img
-                  src={`http://localhost:8081/api/v1/perfume/getimg/${perfumeDetail.enName}`}
+                  src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${perfumeDetail.enName}`}
                   alt=""
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
@@ -805,7 +805,7 @@ if (!isLogined) {
                       <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                         <img
                           // src=".\assets\tempImg\123359405127241D28.jpg"
-                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.pNameEn}`}
+                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
                           alt=""
                         />
                         <p>{data.pNameKo}</p>
@@ -832,7 +832,7 @@ if (!isLogined) {
                     ldList.likedislike.map((data) => (
                       <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
                         <img
-                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.pNameEn}`}
+                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
                           alt=""
                         />
                         <p>{data.pNameKo}</p>
@@ -861,7 +861,7 @@ if (!isLogined) {
                     ldList.dislikelike.map((data) => (
                       <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                         <img
-                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.pNameEn}`}
+                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
                           alt=""
                         />
                         <p>{data.pNameKo}</p>
@@ -884,7 +884,7 @@ if (!isLogined) {
                     ldList.dislikedislike.map((data) => (
                       <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
                         <img
-                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.pNameEn}`}
+                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
                           alt=""
                         />
                         <p>{data.pNameKo}</p>

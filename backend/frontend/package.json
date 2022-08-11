@@ -2,7 +2,7 @@
   "name": "test",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8081",
+  "proxy": "https://i7e205.p.ssafy.io",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@ckeditor/ckeditor5-build-classic": "^34.2.0",

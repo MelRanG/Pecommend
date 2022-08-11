@@ -58,9 +58,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Community> posts = new LinkedHashSet<>();
 
-    // preference
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Preference> preference = new ArrayList<>();
 
     // perfume_like
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -69,17 +66,6 @@ public class UserEntity {
     // perfume_dislike
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PerfumeDislike> perfumeDislikes = new ArrayList<>();
-
-    // perfume_review
-    // 여기도 writer로 해도 되는겨?
-    // @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade =
-    // CascadeType.ALL)
-    // private List<PerfumeReview> reviews = new ArrayList<>();
-
-    // review_like
-    // @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade =
-    // CascadeType.ALL)
-    // private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
     @Column(name = "token")
     private String token;
