@@ -272,10 +272,9 @@ const PerfumeDetail = () => {
     if (user.user_id == null) {
       Swal.fire({
         icon: "info",
-        title: "Loading",
+        title: "Information",
         text: "로그인 후 사용할 수 있습니다.",
       });
-      // alert("로그인 후 사용할 수 있습니다.");
       navigate("/login");
     } else {
       console.log("좋아요", user);
@@ -322,7 +321,7 @@ const PerfumeDetail = () => {
     if (user.user_id == null) {
       Swal.fire({
         icon: "info",
-        title: "Loading",
+        title: "Information",
         text: "로그인 후 사용할 수 있습니다.",
       });
       // alert("로그인 후 사용할 수 있습니다.")
@@ -374,7 +373,7 @@ const PerfumeDetail = () => {
     if (user.user_id == null) {
       Swal.fire({
         icon: "info",
-        title: "Loading",
+        title: "Information",
         text: "로그인 후 사용할 수 있습니다.",
       });
       // alert("로그인 후 사용할 수 있습니다.")
@@ -436,7 +435,6 @@ const PerfumeDetail = () => {
             title: "성공",
             text: "삭제했습니다!",
           });
-          // alert("삭제했습니다!");
           window.location.reload();
         }
       } catch (error) {
