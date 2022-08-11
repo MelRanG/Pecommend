@@ -53,7 +53,7 @@ public class CommentsResponseDto {
 
         return CommentsResponseDto.builder()
                 .id(comment.getId())
-                .communityId(comment.getId())
+                .communityId(comment.getCommunity().getId())
                 .content(comment.getContent())
                 .writerId(comment.getWriter().getId())
                 .writer(comment.getWriter().getNickname())

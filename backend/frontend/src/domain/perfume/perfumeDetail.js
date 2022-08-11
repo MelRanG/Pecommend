@@ -8,6 +8,7 @@ import { Modal, Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 import styled, { keyframes } from "styled-components";
 // import PerfumeTagModal from "./perfumeTagModal";
 import Button from "react-bootstrap/Button";
+import Swal from "sweetalert2";
 // import Modal from "react-bootstrap/Modal";
 
 // import { waitFor } from "@testing-library/react";
@@ -269,7 +270,12 @@ const PerfumeDetail = () => {
   //좋아요
   const recommend = async () => {
     if (user.user_id == null) {
-      alert("로그인 후 사용할 수 있습니다.");
+      Swal.fire({
+        icon: "info",
+        title: "Loading",
+        text: "로그인 후 사용할 수 있습니다.",
+      });
+      // alert("로그인 후 사용할 수 있습니다.");
       navigate("/login");
     } else {
       console.log("좋아요", user);
@@ -314,7 +320,12 @@ const PerfumeDetail = () => {
   //싫어요
   const disrecommend = async () => {
     if (user.user_id == null) {
-      alert("로그인 후 사용할 수 있습니다.")
+      Swal.fire({
+        icon: "info",
+        title: "Loading",
+        text: "로그인 후 사용할 수 있습니다.",
+      });
+      // alert("로그인 후 사용할 수 있습니다.")
       navigate("/login");
     } else {
       try {
@@ -361,7 +372,12 @@ const PerfumeDetail = () => {
     console.log("리뷰작성", user.user_id);
     navigate("/login");
     if (user.user_id == null) {
-      alert("로그인 후 사용할 수 있습니다.")
+      Swal.fire({
+        icon: "info",
+        title: "Loading",
+        text: "로그인 후 사용할 수 있습니다.",
+      });
+      // alert("로그인 후 사용할 수 있습니다.")
     } else {
 
       if (rating != 0) {
@@ -382,7 +398,12 @@ const PerfumeDetail = () => {
           });
           console.log(response);
           if (response.status === 200) {
-            console.log("리뷰작성완료");
+            Swal.fire({
+              icon: "success",
+              title: "성공",
+              text: "리뷰작성완료",
+            });
+            // console.log("리뷰작성완료");
             //리뷰작성창 초기화
             document.getElementById("reviewValue").value = "";
             //다시불러오기
@@ -410,7 +431,12 @@ const PerfumeDetail = () => {
         });
         console.log(response);
         if (response.status === 200) {
-          alert("삭제했습니다!");
+          Swal.fire({
+            icon: "success",
+            title: "성공",
+            text: "삭제했습니다!",
+          });
+          // alert("삭제했습니다!");
           window.location.reload();
         }
       } catch (error) {

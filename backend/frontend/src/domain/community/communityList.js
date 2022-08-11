@@ -340,7 +340,7 @@ function CommunityList() {
                           { getToday(data.createDateYMD) === 0
                             ? <td>{data.createDateHMS.slice(0,5)}</td>
                             : (getToday(data.createDateYMD) === 1
-                              ? <td>{data.createDateYMD.slice(-5)}</td>
+                              ? <td>{data.createDateYMD.slice(5,7)}/{data.createDateYMD.slice(8,10)}</td>
                               : <td>{data.createDateYMD}</td>)}
                           <td>{data.communityLike}</td>
                         </tr>

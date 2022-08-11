@@ -37,7 +37,7 @@ function Profile() {
         method: "get",
         url: "/api/v1/user/info/id/" + number,
       });
-      console.log(response.data.user_id)
+      // console.log(response.data.user_id)
       if (response.status === 200) {
         setUserProfile(response.data);
       }
@@ -54,7 +54,7 @@ function Profile() {
         method: "get",
         url: "/api/v1/perfume/likelist/" + number,
       });
-      console.log(response.data)
+      // console.log(response.data)
       if (response.status === 200) {
         setLikeList(response.data);
       }
@@ -70,7 +70,7 @@ function Profile() {
         method: "get",
         url: "/api/v1/perfume/dislikelist/" + number,
       });
-      console.log(response)
+      // console.log(response)
       if (response.status === 200) {
         setDisLikeList(response.data);
       }
@@ -142,9 +142,11 @@ function Profile() {
     const day = ('0' + today.getDate()).slice(-2);
     const dateString = year + '-' + month  + '-' + day;
     if (dateString === data) {
-      return true;
+      return 0;
+    } else if (data.slice(0,4) == year) {
+      return 1;
     } else {
-      return false;
+      return 2;
     }
   }
 
@@ -297,9 +299,11 @@ function Profile() {
                                     [{titleName[data.category]}] {data.title}
                                   </Link></div>
                                 </td>
-                                { getToday(data.createDateYMD) === true
-                                  ? <td>{data.createDateHMS.slice(0,5)}</td>
-                                  : <td>{data.createDateYMD}</td>}
+                                { getToday(data.createDateYMD) === 0
+                                ? <td>{data.createDateHMS.slice(0,5)}</td>
+                                : (getToday(data.createDateYMD) === 1
+                                  ? <td>{data.createDateYMD.slice(5,7)}/{data.createDateYMD.slice(8,10)}</td>
+                                  : <td>{data.createDateYMD}</td>)}
                                 <td>{data.communityLike}</td>
                               </tr>
                             ))}
@@ -330,14 +334,16 @@ function Profile() {
                                     <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
                                       <Link
                                         className="community-list-titlebox"
-                                        to={`/commu/detail/${data.id}`}
+                                        to={`/commu/detail/${data.communityId}`}
                                       >
                                         {data.content}
                                       </Link>
                                     </td>
-                                    { getToday(data.createDateYMD) === true
-                                      ? <td>{data.createDateHMS.slice(0,5)}</td>
-                                      : <td>{data.createDateYMD}</td>}
+                                    { getToday(data.createDateYMD) === 0
+                                    ? <td>{data.createDateHMS.slice(0,5)}</td>
+                                    : (getToday(data.createDateYMD) === 1
+                                      ? <td>{data.createDateYMD.slice(5,7)}/{data.createDateYMD.slice(8,10)}</td>
+                                      : <td>{data.createDateYMD}</td>)}
                                   </tr>
                                 ))}
                               </tbody>
