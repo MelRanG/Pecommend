@@ -627,7 +627,7 @@ function CommunityDetail () {
                             {/* <div className="community-comment-box d-flex"> */}
                             <div className="community-comment-box d-flex">
                                 <div className="community-comment-data">
-                                    <span>{data.writer}</span>
+                                    <span>{data.writer} | {data.createdDate}</span>
                                     {
                                         data.deleted === false
                                         ? <>
@@ -679,7 +679,7 @@ function CommunityDetail () {
                                                 {/* 아이콘 넣으려면 넣어도되요 */}
                                             </div>
                                             <div className="community-comment-data">
-                                                <span>{dataR.writer}</span>
+                                                <span>{dataR.writer} | {dataR.createdDate}</span>
                                                 {
                                                     dataR.deleted === false
                                                     ?<>
@@ -731,7 +731,7 @@ function CommunityDetail () {
                                                             {/* 아이콘 넣으려면 넣어도되요 */}
                                                         </div>
                                                         <div className="community-comment-data">
-                                                            <span>{dataRR.writer}</span>
+                                                            <span>{dataRR.writer} | {dataRR.createdDate}</span>
                                                             {
                                                                 dataRR.deleted === false
                                                                 ? <>
