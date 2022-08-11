@@ -163,7 +163,7 @@ const PerfumeMain = () => {
                           </div>
                           <img
                             className="default-img"
-                            src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                            src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
                             alt=""
                           />
                         </div>
@@ -230,7 +230,7 @@ const PerfumeMain = () => {
                       <div key={index} className="card per_main_review_card">
                         <div className="image-wrapper">
                           <img
-                            src=".\assets\tempImg\123359405127241D28.jpg"
+                            src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
                             className="card-img-top"
                             alt="..."
                           />
@@ -260,25 +260,6 @@ const PerfumeMain = () => {
                         </div>
                       </div>
                     ))}
-                    {/* <div className="card per_main_review_card">
-                      <div className="image-wrapper">
-                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
-                        <div>
-                          <h5 className="card-title">한글이름(영어이름)</h5>
-                          <h5 className="card-title">닉네임 님</h5>
-                          <div className="review-rating review-star">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
                 <div className="carousel-item">
@@ -287,7 +268,7 @@ const PerfumeMain = () => {
                       <div key={index} className="card per_main_review_card">
                         <div className="image-wrapper">
                           <img
-                            src=".\assets\tempImg\123359405127241D28.jpg"
+                            src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
                             className="card-img-top"
                             alt="..."
                           />
@@ -317,126 +298,8 @@ const PerfumeMain = () => {
                         </div>
                       </div>
                     ))}
-
-                    {/* <div className="card per_main_review_card">
-                      <div className="image-wrapper">
-                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
-                        <div>
-                          <h5 className="card-title">한글이름(영어이름)</h5>
-                          <h5 className="card-title">닉네임 님</h5>
-                          <div className="review-rating review-star">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                      </div>
-                    </div>
-                    <div className="card per_main_review_card">
-                      <div className="image-wrapper">
-                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
-                        <div>
-                          <h5 className="card-title">한글이름(영어이름)</h5>
-                          <h5 className="card-title">닉네임 님</h5>
-                          <div className="review-rating review-star">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                      </div>
-                    </div>
-                    <div className="card per_main_review_card">
-                      <div className="image-wrapper">
-                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
-                        <div>
-                          <h5 className="card-title">한글이름(영어이름)</h5>
-                          <h5 className="card-title">닉네임 님</h5>
-                          <div className="review-rating review-star">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
-                {/* <div className="carousel-item">
-                  <div className="cards-wrapper">
-                    <div className="card per_main_review_card">
-                      <div className="image-wrapper">
-                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
-                        <div>
-                          <h5 className="card-title">한글이름(영어이름)</h5>
-                          <h5 className="card-title">닉네임 님</h5>
-                          <div className="review-rating review-star">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                      </div>
-                    </div>
-                    <div className="card per_main_review_card">
-                      <div className="image-wrapper">
-                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
-                        <div>
-                          <h5 className="card-title">한글이름(영어이름)</h5>
-                          <h5 className="card-title">닉네임 님</h5>
-                          <div className="review-rating review-star">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                      </div>
-                    </div><div className="card per_main_review_card">
-                      <div className="image-wrapper">
-                        <img src=".\assets\tempImg\123359405127241D28.jpg" className="card-img-top" alt="..." />
-                        <div>
-                          <h5 className="card-title">한글이름(영어이름)</h5>
-                          <h5 className="card-title">닉네임 님</h5>
-                          <div className="review-rating review-star">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p className="card-text per_main_review_text">리뷰내용이어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</p>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
 
               <button

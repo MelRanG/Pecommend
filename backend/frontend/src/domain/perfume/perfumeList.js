@@ -630,7 +630,7 @@ const PerfumeList = () => {
                   /> */}
                   {/* <Pagination count={{ dataSize } / 16} /> */}
                   <Button
-                    variant="secondary"
+                    variant="outline-secondary perfume_list_btn"
                     onClick={() => {
                       page <= 1 ? setPage(1) : setPage(page - 1);
                     }}
@@ -638,16 +638,16 @@ const PerfumeList = () => {
                     이전
                   </Button>
                   <div className="perfume_list_page_text">
-                    <div className="ml-10" style={{ color: "#0d6efd" }}>
+                    <div className="ml-15" style={{ color: "#0d6efd" }}>
                       {page}&nbsp;
                     </div>
-                    <div className="mr-10" style={{ fontWeight: "bold" }}>
+                    <div className="mr-15" style={{ fontWeight: "bold" }}>
                       {" "}
                       / {pageCnt}
                     </div>
                   </div>
                   <Button
-                    variant="secondary"
+                    variant="outline-secondary perfume_list_btn"
                     onClick={() => {
                       page >= pageCnt ? setPage(pageCnt) : setPage(page + 1);
                     }}

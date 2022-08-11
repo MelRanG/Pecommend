@@ -448,12 +448,18 @@ const PerfumeDetail = () => {
         const commentButtonBox2 = document.getElementById(
           "review-button-set2-" + e.target.id
         );
-        const commentButtonBox3 = document.getElementById(
-          "review-button-set3-" + e.target.id
+        // const commentButtonBox3 = document.getElementById(
+        //   "review-button-set3-" + e.target.id
+        // );
+        const rateBox1 = document.getElementById("review-rate-" + e.target.id);
+        const rateBox2 = document.getElementById(
+          "review-rateEdit-" + e.target.id
         );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
-        commentButtonBox3.hidden = true;
+        // commentButtonBox3.hidden = true;
+        rateBox1.hidden = false;
+        rateBox2.hidden = true;
         commentBox.readOnly = true;
         getReview();
       }
@@ -467,7 +473,7 @@ const PerfumeDetail = () => {
     // console.log("clickReviewEdit", data);
     e.preventDefault();
     const commentBox = document.getElementById("review-content-" + e.target.id);
-    console.log(commentBox);
+    // console.log(commentBox);
     commentBox.setAttribute("name", commentBox.value);
     const commentButtonBox1 = document.getElementById(
       "review-button-set1-" + e.target.id
@@ -475,14 +481,18 @@ const PerfumeDetail = () => {
     const commentButtonBox2 = document.getElementById(
       "review-button-set2-" + e.target.id
     );
-    const commentButtonBox3 = document.getElementById(
-      "review-button-set3-" + e.target.id
-    );
-    console.log(commentButtonBox1, commentButtonBox2);
+    // const commentButtonBox3 = document.getElementById(
+    //   "review-button-set3-" + e.target.id
+    // );
+    const rateBox1 = document.getElementById("review-rate-" + e.target.id);
+    const rateBox2 = document.getElementById("review-rateEdit-" + e.target.id);
+    console.log(rateBox1);
     commentButtonBox1.hidden = true;
     commentButtonBox2.hidden = false;
-    commentButtonBox3.hidden = false;
-    console.log(commentBox);
+    // commentButtonBox3.hidden = false;
+    rateBox1.hidden = true;
+    rateBox2.hidden = false;
+    // console.log(commentBox);
     commentBox.readOnly = false;
   };
 
@@ -496,13 +506,17 @@ const PerfumeDetail = () => {
     const commentButtonBox2 = document.getElementById(
       "review-button-set2-" + e.target.id
     );
-    const commentButtonBox3 = document.getElementById(
-      "review-button-set3-" + e.target.id
-    );
-    console.log(commentButtonBox1, commentButtonBox2);
+    // const commentButtonBox3 = document.getElementById(
+    //   "review-button-set3-" + e.target.id
+    // );
+    const rateBox1 = document.getElementById("review-rate-" + e.target.id);
+    const rateBox2 = document.getElementById("review-rateEdit-" + e.target.id);
+    // console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = false;
     commentButtonBox2.hidden = true;
-    commentButtonBox3.hidden = true;
+    // commentButtonBox3.hidden = true;
+    rateBox1.hidden = false;
+    rateBox2.hidden = true;
     commentBox.value = commentBox.getAttribute("name");
     commentBox.readOnly = true;
     getReview();
@@ -562,7 +576,7 @@ const PerfumeDetail = () => {
             <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="detail-product-details dec-img-wrap">
                 <img
-                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                  src={`http://localhost:8081/api/v1/perfume/getimg/${perfumeDetail.enName}`}
                   alt=""
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
@@ -751,8 +765,14 @@ const PerfumeDetail = () => {
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-up"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(97 109 255)" }}
+                    >
+                      추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.likelike &&
                     ldList.likelike.map((data) => (
@@ -773,8 +793,14 @@ const PerfumeDetail = () => {
 
                 <div className="detail-likeDislikeList-items row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-down"></span>
-                    <span className="ldltext"> 비추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(255 97 97)" }}
+                    >
+                      비추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.likedislike &&
                     ldList.likedislike.map((data) => (
@@ -796,8 +822,14 @@ const PerfumeDetail = () => {
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-up"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(97 109 255)" }}
+                    >
+                      추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.dislikelike &&
                     ldList.dislikelike.map((data) => (
@@ -813,8 +845,14 @@ const PerfumeDetail = () => {
 
                 <div className="detail-likeDislikeList-items row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-down"></span>
-                    <span className="ldltext"> 비추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(255 97 97)" }}
+                    >
+                      비추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.dislikedislike &&
                     ldList.dislikedislike.map((data) => (
@@ -1008,13 +1046,13 @@ const PerfumeDetail = () => {
                           <div className="row review-text-line">
                             <div className="col-md-9 review-text-profile">
                               <div className="review-text-profile-img">
-                                <img
-                                  src="assets/img/testimonial/1.jpg"
-                                  alt=""
-                                />
+                                <img src="assets/tempImg/person.png" alt="" />
                               </div>
                               <div className="review-text-profile-user ml-10">
-                                <div className="review-rating mb-10 ">
+                                <div
+                                  className="review-rating mb-10 "
+                                  id={`review-rate-${data.id}`}
+                                >
                                   <Rating
                                     /* Available Props */
                                     // tooltipDefaultText="4"
@@ -1023,33 +1061,21 @@ const PerfumeDetail = () => {
                                     size={"20px"}
                                   />
                                 </div>
+                                <div
+                                  className="review-rating ml-5"
+                                  id={`review-rateEdit-${data.id}`}
+                                  hidden
+                                >
+                                  <Rating
+                                    onClick={handleUpdateRating}
+                                    showTooltip
+                                    ratingValue={updaterating}
+                                    size={"25px"}
+                                  />
+                                </div>
                                 <div>
                                   {data.user} 님 | {data.modifiedDate}
                                 </div>
-                              </div>
-                              <div
-                                className="ml-15"
-                                id={`review-button-set3-${data.id}`}
-                                hidden
-                              >
-                                <Rating
-                                  onClick={handleUpdateRating}
-                                  showTooltip
-                                  ratingValue={
-                                    updaterating
-                                  } /* Available Props */
-                                  size={"25px"}
-                                />
-                                {updaterating}점
-                                {/* <div className="image_add_wrap">
-                                  <button
-                                    type="button"
-                                    className="btn_image_add"
-                                  >
-                                    해시태그 선택
-                                  </button>
-                                  *필수사항X
-                                </div> */}
                               </div>
                             </div>
 
