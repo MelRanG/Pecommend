@@ -62,12 +62,12 @@ function Nav3() {
             <Link to={`/profile/${userprofile}`}>MY PROFILE</Link>
           </li>
           <li>
-            <Link to="/logout">LOGOUT</Link>
+            <Link to="/logout">SIGN OUT</Link>
           </li>
         </ul> :
         <ul className="navbar__icons">
           <li>
-            <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
+            <Link to="/login">SIGN IN&nbsp;|&nbsp;SIGN UP</Link>
           </li>
         </ul>
       }
