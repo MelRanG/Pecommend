@@ -314,7 +314,7 @@ const PerfumeDetail = () => {
   //싫어요
   const disrecommend = async () => {
     if (user.user_id == null) {
-      alert("로그인 후 사용할 수 있습니다.")
+      alert("로그인 후 사용할 수 있습니다.");
       navigate("/login");
     } else {
       try {
@@ -361,9 +361,8 @@ const PerfumeDetail = () => {
     console.log("리뷰작성", user.user_id);
     navigate("/login");
     if (user.user_id == null) {
-      alert("로그인 후 사용할 수 있습니다.")
+      alert("로그인 후 사용할 수 있습니다.");
     } else {
-
       if (rating != 0) {
         try {
           let data = {
@@ -1337,7 +1336,9 @@ const PerfumeDetail = () => {
               ))}
             {/* <div className="">#30대</div> */}
           </div>
-          <div style={{ float: "right", marginTop: "10px" }}>* 최대 3개 선택 가능</div>
+          <div style={{ float: "right", marginTop: "10px" }}>
+            * 최대 3개 선택 가능
+          </div>
           {/* <Button variant="secondary" onClick={() => setChoiceTag([])}>
             선택 초기화
           </Button> */}
@@ -1352,7 +1353,7 @@ const PerfumeDetail = () => {
         </Modal.Footer>
       </Modal>
       {/*  */}
-    </div >
+    </div>
   );
 };
 export default PerfumeDetail;

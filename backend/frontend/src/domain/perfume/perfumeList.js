@@ -1,29 +1,47 @@
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 import { Link, Routes, Route } from "react-router-dom";
 import { authaxios, freeaxios } from "custom/customAxios";
 import { useNavigate } from "react-router-dom";
 // import Pagination from "../community/pagination";
-import Pagination from '@mui/material/Pagination';
+// import Pagination from "@mui/material/Pagination";
 import "./perfumeList.css";
 // import "./perfumeList.scss";
 
 const PerfumeList = () => {
-
   // let useParam = useParams();
   // let page = parseInt(useParam.num);
   const [dataList, setDataList] = useState([]); //향수리스트
   // const [callData, setCallData] = useState(1);
-  const [limitData, setLimit] = useState(16); //한페이지당?
+  // const [limitData, setLimit] = useState(16); //한페이지당?
+  // const offset = (page - 1) * limitData;
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * limitData;
-  const [dataSize, setDataSize] = useState(0);
-  const mbtiList = ['ISTJ', 'ISTP', 'ISFJ', "ISFP", "INTJ", "INTP", "INFJ", "INFP", "ESTJ", "ESTP", "ESFJ", "ESFP", "ENTJ", "ENTP", "ENFJ", "ENFP"];
+  const [totalCnt, setTotalCnt] = useState(0);
+  const [pageCnt, setPageCnt] = useState(1);
+  const mbtiList = [
+    "ISTJ",
+    "ISTP",
+    "ISFJ",
+    "ISFP",
+    "INTJ",
+    "INTP",
+    "INFJ",
+    "INFP",
+    "ESTJ",
+    "ESTP",
+    "ESFJ",
+    "ESFP",
+    "ENTJ",
+    "ENTP",
+    "ENFJ",
+    "ENFP",
+  ];
 
   // 필터링
   const [searchFilter, setSearchFilter] = useState({
-    "ages": [],
-    "gender": [],
-    "mbti": []
+    ages: [],
+    gender: [],
+    mbti: [],
   });
   //성별
   const [checkedGender, setCheckedGender] = useState([]);
@@ -32,7 +50,7 @@ const PerfumeList = () => {
       setCheckedGender([...checkedGender, id]);
       console.log("성별체크");
     } else {
-      setCheckedGender(checkedGender.filter(button => button !== id));
+      setCheckedGender(checkedGender.filter((button) => button !== id));
       console.log("성별체크해제");
     }
   };
@@ -43,7 +61,7 @@ const PerfumeList = () => {
       setCheckedAge([...checkedAge, id]);
       console.log("연령체크");
     } else {
-      setCheckedAge(checkedAge.filter(button => button !== id));
+      setCheckedAge(checkedAge.filter((button) => button !== id));
       console.log("연령체크해제");
     }
   };
@@ -54,7 +72,7 @@ const PerfumeList = () => {
       setCheckedMbti([...checkedMbti, id]);
       console.log("mbti체크");
     } else {
-      setCheckedMbti(checkedMbti.filter(button => button !== id));
+      setCheckedMbti(checkedMbti.filter((button) => button !== id));
       console.log("mbti체크해제");
     }
   };
@@ -66,20 +84,23 @@ const PerfumeList = () => {
 
   useEffect(() => {
     console.log("useEffect222");
-    if (checkedMbti.length === 0 && checkedAge.length === 0 && checkedGender.length === 0) {
+    if (
+      checkedMbti.length === 0 &&
+      checkedAge.length === 0 &&
+      checkedGender.length === 0
+    ) {
     } else {
       changeFilter();
-
     }
   }, [searchFilter]);
 
   const changeState = () => {
     setSearchFilter({
-      "ages": checkedAge,
-      "gender": checkedGender,
-      "mbti": checkedMbti,
+      ages: checkedAge,
+      gender: checkedGender,
+      mbti: checkedMbti,
     });
-  }
+  };
   //change 할때마다 seachFilter에 담아서 요청보내기
   const changeFilter = async () => {
     console.log("changeFilter호출", searchFilter);
@@ -87,43 +108,52 @@ const PerfumeList = () => {
       try {
         const response = await freeaxios({
           method: "post",
-          url: "/api/v1/perfume/list/filter",
+          url: "/api/v1/perfume/list/filter/page/" + page,
           // headers: { "Content-Type": "multipart/form-data" },
           data: searchFilter,
-          responseType: 'json',
-          charset: 'utf-8',
-          responseEncodig: 'utf-8',
+          responseType: "json",
+          charset: "utf-8",
+          responseEncodig: "utf-8",
         });
         console.log(response);
         if (response.status === 200) {
-          setDataList(response.data);
+          // setDataList(response.data);
+          setDataList(response.data.dtoList);
+          setTotalCnt(response.data.totalCnt);
+          setPageCnt(response.data.pageCnt);
           console.log("changeFilter확인", response.data);
         }
       } catch (error) {
         console.log(error);
       }
     }
-
   };
 
-
-
-
-
-
+  // useEffect(() => {
+  //   getPerfumeList();
+  // }, []);
   useEffect(() => {
-    getPerfumeList();
-    if (keyWord.length != 0) {
+    if (keyWord.length !== 0) {
       getPerfumeSearchList();
+    } else if (
+      !(
+        checkedMbti.length === 0 &&
+        checkedAge.length === 0 &&
+        checkedGender.length === 0
+      )
+    ) {
+      changeFilter();
+    } else {
+      getPerfumeList();
     }
-  }, []);
-
+  }, [page]);
 
   const getPerfumeList = async () => {
+    console.log("getPerfumeList 호출", page);
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list/page/1",
+        url: "/api/v1/perfume/list/page/" + page,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -132,19 +162,15 @@ const PerfumeList = () => {
       console.log(response);
       if (response.status === 200) {
         console.log("getPerfumeList", response.data);
-        setDataList(response.data.pDto);
-        setDataSize(response.data.totalCnt);
+        setDataList(response.data.dtoList);
+        setTotalCnt(response.data.totalCnt);
+        setPageCnt(response.data.pageCnt);
         // console.log("확인", dataList);
         // console.log(dataList[1].tDto[0].tagName);
       }
     } catch (error) {
       console.log(error);
     }
-
-
-
-
-
 
     // try {
     //   const response = await freeaxios({
@@ -166,16 +192,14 @@ const PerfumeList = () => {
     // }
   };
 
-
-
   const [keyWord, setKeyWord] = useState(""); //검색키워드
-  const [inputKeyWord, setInputKeyWord] = useState("");
+  // const [inputKeyWord, setInputKeyWord] = useState("");
   const getPerfumeSearchList = async () => {
     console.log("key", keyWord);
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list/" + keyWord,
+        url: "/api/v1/perfume/list/" + keyWord + "/page/" + page,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -183,8 +207,9 @@ const PerfumeList = () => {
       });
       console.log("getPerfumeSearchList", response);
       if (response.status === 200) {
-        setDataList(response.data);
-        // console.log(dataList);
+        setDataList(response.data.dtoList);
+        setTotalCnt(response.data.totalCnt);
+        setPageCnt(response.data.pageCnt);
       }
     } catch (error) {
       console.log(error);
@@ -196,6 +221,7 @@ const PerfumeList = () => {
   // }, [keyWord]);
 
   const keywordSearch = (e) => {
+    setPage(1);
     e.preventDefault();
     // setKeyWord();
     console.log(keyWord);
@@ -235,7 +261,7 @@ const PerfumeList = () => {
                           onKeyPress={onKeyPress}
                           defaultValue=""
                         />
-                        <button onClick={keywordSearch}>
+                        <button onClick={(e) => keywordSearch(e)}>
                           <i className="pe-7s-search"></i>
                         </button>
                       </form>
@@ -271,10 +297,15 @@ const PerfumeList = () => {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
-                                onChange={e => {
-                                  genderChangeHandler(e.currentTarget.checked, 'male');
+                                onChange={(e) => {
+                                  genderChangeHandler(
+                                    e.currentTarget.checked,
+                                    "male"
+                                  );
                                 }}
-                                checked={checkedGender.includes('male') ? true : false}
+                                checked={
+                                  checkedGender.includes("male") ? true : false
+                                }
                               />
                               남성
                             </li>
@@ -284,10 +315,17 @@ const PerfumeList = () => {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
-                                onChange={e => {
-                                  genderChangeHandler(e.currentTarget.checked, 'female');
+                                onChange={(e) => {
+                                  genderChangeHandler(
+                                    e.currentTarget.checked,
+                                    "female"
+                                  );
                                 }}
-                                checked={checkedGender.includes('female') ? true : false}
+                                checked={
+                                  checkedGender.includes("female")
+                                    ? true
+                                    : false
+                                }
                               />
                               여성
                             </li>
@@ -320,7 +358,7 @@ const PerfumeList = () => {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
-                                onChange={e => {
+                                onChange={(e) => {
                                   ageChangeHandler(e.currentTarget.checked, 10);
                                 }}
                                 checked={checkedAge.includes(10) ? true : false}
@@ -333,7 +371,7 @@ const PerfumeList = () => {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
-                                onChange={e => {
+                                onChange={(e) => {
                                   ageChangeHandler(e.currentTarget.checked, 20);
                                 }}
                                 checked={checkedAge.includes(20) ? true : false}
@@ -346,7 +384,7 @@ const PerfumeList = () => {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
-                                onChange={e => {
+                                onChange={(e) => {
                                   ageChangeHandler(e.currentTarget.checked, 30);
                                 }}
                                 checked={checkedAge.includes(30) ? true : false}
@@ -359,7 +397,7 @@ const PerfumeList = () => {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
-                                onChange={e => {
+                                onChange={(e) => {
                                   ageChangeHandler(e.currentTarget.checked, 40);
                                 }}
                                 checked={checkedAge.includes(40) ? true : false}
@@ -389,23 +427,32 @@ const PerfumeList = () => {
                       <div className="col">
                         <div className="collapse" id="Collapse3">
                           <ul className="list-group list-group">
-                            <li className="list-group-item border-0 justify-content-between row pl-10"
+                            <li
+                              className="list-group-item border-0 justify-content-between row pl-10"
                               style={{ display: "flex", marginLeft: "0" }}
                             >
                               {mbtiList.map((data, index) => (
                                 <div
                                   style={{ width: "50%", marginBottom: "5px" }}
                                   // className="col-6"
-                                  key={index}>
+                                  key={index}
+                                >
                                   <input
                                     className="form-check-input me-2"
                                     type="checkbox"
                                     defaultValue=""
                                     aria-label="..."
-                                    onChange={e => {
-                                      mbtiChangeHandler(e.currentTarget.checked, `${data}`);
+                                    onChange={(e) => {
+                                      mbtiChangeHandler(
+                                        e.currentTarget.checked,
+                                        `${data}`
+                                      );
                                     }}
-                                    checked={checkedMbti.includes(`${data}`) ? true : false}
+                                    checked={
+                                      checkedMbti.includes(`${data}`)
+                                        ? true
+                                        : false
+                                    }
                                   />
                                   {data}
                                 </div>
@@ -615,7 +662,7 @@ const PerfumeList = () => {
                     </select>
                   </div>
                   <div className="pr-20" style={{ marginLeft: "auto" }}>
-                    총 {dataSize}개
+                    총 {totalCnt}개
                   </div>
                 </div>
               </div>
@@ -635,44 +682,43 @@ const PerfumeList = () => {
                         </div>
                       ) : (
                         <>
-                          {dataList
-                            .map((data) => (
-                              <div
-                                key={data.perfumeId}
-                                className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
-                              >
-                                <div className="product-wrap mb-25 scroll-zoom ">
-                                  <div className="product-img">
-                                    <Link
-                                      to={`/perfume/detail/${data.perfumeId}`}
-                                    >
-                                      <div className="text_photo">
-                                        <div className="explain">
-                                          <div className="list-hashtag">
-                                            {/* {data.tDto.map((temp, index) => (
-                                              <div className="" key={index}>
-                                                #{temp.tagName}
-                                              </div>
-                                            ))} */}
-                                          </div>
+                          {dataList.map((data) => (
+                            <div
+                              key={data.pDto.perfumeId}
+                              className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
+                            >
+                              <div className="product-wrap mb-25 scroll-zoom ">
+                                <div className="product-img">
+                                  <Link
+                                    to={`/perfume/detail/${data.pDto.perfumeId}`}
+                                  >
+                                    <div className="text_photo">
+                                      <div className="explain">
+                                        <div className="list-hashtag">
+                                          {data.tDto.map((temp, index) => (
+                                            <div className="" key={index}>
+                                              #{temp.tagName}
+                                            </div>
+                                          ))}
                                         </div>
-                                        <img
-                                          className="default-img"
-                                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
-                                          alt=""
-                                        />
                                       </div>
-                                    </Link>
-                                  </div>
-                                  <div className="product-content text-center perfume_list_name">
-                                    <div className="product-content-koName">
-                                      {data.koName}
+                                      <img
+                                        className="default-img"
+                                        src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
+                                        alt=""
+                                      />
                                     </div>
-                                    <div>({data.enName})</div>
+                                  </Link>
+                                </div>
+                                <div className="product-content text-center perfume_list_name">
+                                  <div className="product-content-koName">
+                                    {data.pDto.koName}
                                   </div>
+                                  <div>({data.pDto.enName})</div>
                                 </div>
                               </div>
-                            ))}
+                            </div>
+                          ))}
                         </>
                       )}
 
@@ -723,14 +769,34 @@ const PerfumeList = () => {
                   </label>
                 </div> */}
 
-                <div>
+                <div style={{ display: "flex" }} className="perfume_list_page">
                   {/* <Pagination
                     total={dataList.length}
                     limit={limitData}
                     page={page}
                     setPage={setPage}
                   /> */}
-                  <Pagination count={{ dataSize } / 16} />
+                  {/* <Pagination count={{ dataSize } / 16} /> */}
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      page <= 1 ? setPage(1) : setPage(page - 1);
+                    }}
+                  >
+                    이전
+                  </Button>
+                  <div className="perfume_list_page_text">
+                    <div>{page}</div>
+                    <div>/ {pageCnt}</div>
+                  </div>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      page >= pageCnt ? setPage(pageCnt) : setPage(page + 1);
+                    }}
+                  >
+                    다음
+                  </Button>
                 </div>
               </div>
             </div>
@@ -739,7 +805,6 @@ const PerfumeList = () => {
       </div>
     </div>
   );
-}
-
+};
 
 export default PerfumeList;

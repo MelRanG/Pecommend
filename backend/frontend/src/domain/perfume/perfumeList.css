@@ -119,3 +119,21 @@
 .product-content-koName{
   font-size: 16px;
 }
+
+.perfume_list_page{
+  /* margin: auto; */
+  justify-content: center;
+  margin-top: 20px;
+}
+.perfume_list_page div{
+ line-height: 34px;
+ font-size: 16px;
+ /* margin: 0px 10px; */
+}
+
+.perfume_list_page_text{
+  display: flex;
+}
+.perfume_list_page_text div{
+  margin: 0xp;
+}
