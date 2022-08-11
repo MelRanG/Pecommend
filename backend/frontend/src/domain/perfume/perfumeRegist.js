@@ -1,8 +1,110 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Nav from "../../components/nav";
 import "./perfumeRegist.css";
+import {authaxios, freeaxios} from "../../custom/customAxios";
 
-function perfumeRegist() {
+function PerfumeRegist() {
+  const user = useSelector(state => state.userStore.nowLoginUser);
+  let navigate = useNavigate()
+  const[content,setContent] = useState("")
+  const [imageFile, setImgFile] = useState([])
+  const [formValue, setForm] = useState({
+    writer: user.user_id,
+    title: '',
+    company: '',
+    describe: '',
+  });
+
+  const imgChange = (e) => {
+    setImgFile([]);
+    for(var i=0;i<e.target.files.length;i++){
+        if (e.target.files[i]) {
+          let reader = new FileReader();
+          reader.readAsDataURL(e.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
+          // 파일 상태 업데이트
+          reader.onloadend = () => {
+            // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+            const base64 = reader.result;
+            console.log(base64)
+            if (base64) {
+            //  images.push(base64.toString())
+            var base64Sub = base64.toString()
+               
+            setImgFile(imageFile => [...imageFile, base64Sub]);
+            //  setImgBase64(newObj);
+              // 파일 base64 상태 업데이트
+            //  console.log(images)
+            }
+          }
+        }
+    }
+}
+
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    console.log(value,name)
+    setForm({
+        ...formValue,
+        [name]: value
+    })
+    console.log(formValue)
+}
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formValue.title.replace(/^\s+|\s+$/gm,'') == '') {
+        alert("제목을 입력해주세요")
+    }
+    else {
+        let registwrite = new FormData();
+        let datas =
+        {
+            user: user.nickname,
+            name: formValue.title,
+            company: formValue.company,
+            describe: formValue.describe,
+            status: 0,
+        };
+        let jsond = JSON.stringify(datas);
+        let file = document.getElementById("img").files[0];
+        let blob = new Blob([jsond], { type: "application/json"});
+        registwrite.append("file", file)
+        registwrite.append("request",blob)
+        
+        console.log(registwrite);
+
+        e.target.setAttribute("disabled",'true')
+        e.target.classList.add("disabled")
+        try {
+          const response = await authaxios({
+            method: "post",
+            url: "/api/v1/regist",
+            data:registwrite
+          });
+          console.log(response);
+          if (response.status === 200) {
+            console.log(response.data);
+            alert("작성 완료되었습니다.")
+            navigate(`/perfume/reglist`, { replace: true });
+          }
+          else {
+            e.target.classList.remove("disabled")
+          }
+        } catch (error) {
+          console.log(error);
+        }
+    }
+    e.target.removeAttribute("disabled")
+  };
+
+const cancelSubmit = async(e) => {
+    e.preventDefault()
+    alert("취소했습니다")
+    navigate(`/perfume/reglist` , {replace:true});
+}
+
   return (
     <div className="perfumeRegist">
       <form className="mt-80 mb-100">
@@ -16,13 +118,15 @@ function perfumeRegist() {
               className="name-input"
               type="text"
               placeholder="필수 항목 입니다."
+              name="title"
+              onChange={handleChange}
             />
           </div>
           <div className="MakerBox">
             <label for="maker" className="maker-label">
               제조사
             </label>
-            <input id="maker" className="maker-input" type="text" />
+            <input id="maker" className="maker-input" type="text" name="company" onChange={handleChange}/>
           </div>
           <div className="DescriptionBox">
             <label for="description" className="description-label">
@@ -32,6 +136,8 @@ function perfumeRegist() {
               id="description"
               className="description-input"
               rows={5}
+              name="describe"
+              onChange={handleChange}
             ></textarea>
           </div>
           <div className="FileBox">
@@ -40,13 +146,15 @@ function perfumeRegist() {
             </label>
             <input
               className="form-control form-control-sm"
-              id="file"
+              id="img"
               type="file"
+              accept="image/*"
+              onChange={imgChange}
             />
           </div>
           <div className="ButtonArea">
-            <button className="BackButton">뒤로</button>
-            <button className="AcceptButton" type="submit">
+            <button className="BackButton" onClick={cancelSubmit}>뒤로</button>
+            <button className="AcceptButton" onClick={handleSubmit}>
               확인
             </button>
           </div>
@@ -56,4 +164,4 @@ function perfumeRegist() {
   );
 }
 
-export default perfumeRegist;
+export default PerfumeRegist;

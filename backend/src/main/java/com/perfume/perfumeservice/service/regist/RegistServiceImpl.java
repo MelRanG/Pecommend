@@ -38,7 +38,8 @@ public class RegistServiceImpl implements RegistService{
             try{
                 file.transferTo(path);
             }catch (Exception e){
-                throw new RuntimeException("이미지 업로드 중 에러가 발생했습니다.");
+                //throw new RuntimeException("이미지 업로드 중 에러가 발생했습니다.");
+                e.printStackTrace();
             }
         }else{
             request.setImg(null);

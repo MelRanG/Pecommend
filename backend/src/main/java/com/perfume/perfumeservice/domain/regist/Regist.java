@@ -17,6 +17,7 @@ public class Regist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "regist_id")
     private Long id;
+    @Column(name = "user_name")
     private String userName;
     private String name;
     private String company;
