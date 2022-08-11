@@ -28,5 +28,7 @@ public interface PerfumeService {
 
     Map<String, Object> getListKeywordPage(String keyword, int page);
 
+    Map<String, Object> getByUserListPage(List<Long> users, int page);
+
 
 }

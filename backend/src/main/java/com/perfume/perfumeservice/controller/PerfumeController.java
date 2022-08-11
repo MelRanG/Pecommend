@@ -29,13 +29,10 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/perfume")
 public class PerfumeController {
-
     private final PerfumeService perfumeService;
     private final NoteService noteService;
     private final PerfumeTagService perfumeTagService;
-
     private final PerfumeLikeService perfumeLikeService;
-
     private final UserService userService;
 
 
@@ -71,7 +68,7 @@ public class PerfumeController {
 //        return new ResponseEntity<>(dtoList, HttpStatus.OK);
 //    }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("/list/page/{page}")
     @ApiOperation(value = "전체 향수 목록, 향수 개수, 페이지 수 가져오기 - Page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
     public ResponseEntity<Map<String, Object>> getListPages(@PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
@@ -95,7 +92,6 @@ public class PerfumeController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //    @GetMapping("/list/{keyword}")
 //    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그 + 대소문자 무시)")
@@ -112,15 +108,15 @@ public class PerfumeController {
 //        return new ResponseEntity<>(dtoList, HttpStatus.OK);
 //    }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("/list/{keyword}/page/{page}")
     @ApiOperation(value = "향수 이름으로 검색 - page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
     public ResponseEntity<Map<String, Object>> getListPages(@PathVariable String keyword, @PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
         Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page-1);
-        // 해시태그
         List<PerfumeResponseDto> pDto = (List<PerfumeResponseDto>) perfumes.get("pDto"); //perfumeDto
         long totalCnt = (long) perfumes.get("totalCnt"); // totalCnt
         long pageCnt = (long) perfumes.get("pageCnt"); // pageCnt
+        // 해시태그
         List<Map<String, Object>> dtoList = new LinkedList<>();
         for (PerfumeResponseDto pd: pDto){
             Map<String, Object> map = new LinkedHashMap<>();
@@ -136,9 +132,6 @@ public class PerfumeController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
     @PostMapping("/list/filter")
     @ApiOperation(value = "필터로 향수 목록 가져오기 (해시태그 있음)")
     public ResponseEntity<List<Map<String, Object>>> getListFilter(@RequestBody Map<String, Object> map){
@@ -148,17 +141,8 @@ public class PerfumeController {
 
         List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages); // 조건에 맞는 유저 가져오기
 
-        // 1) 이렇게 하거나
-//
-//        // 유저가 좋아하는 향수 id 찾기 // 일단 좋아요가 많은 순서로 정렬
-//        List<Long> pIdList = perfumeLikeService.getLikeByUserList(users);
-//
-//        // 근데 여기서 가져오면서 강제적으로 orderby가 되고 있음 ------------------------------------------------------------------------------------ 수정할 것
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListByIdList(pIdList);
-
-        // 2) 이렇게 하거나 - 이걸로
         List<PerfumeResponseDto> perfumeDtoList = perfumeService.getByUserList(users);
-        List<Map<String, Object>> dtoList = new LinkedList<>(); // 결과 - 페이징
+        List<Map<String, Object>> dtoList = new LinkedList<>(); // 결과
         for(PerfumeResponseDto pd: perfumeDtoList){
             Map<String, Object> temp = new LinkedHashMap<>();
             temp.put("pDto",pd);
@@ -169,52 +153,37 @@ public class PerfumeController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @PostMapping("/list/filter/page/{page}")
+    @ApiOperation(value = "필터로 향수 목록 가져오기 - Page 페이징 (해시태그 있음)")
+    public ResponseEntity<Map<String, Object>> getListFilterPage(@RequestBody Map<String, Object> map, @PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
+        List<Integer> ages = (List<Integer>) map.get("ages"); // 나이
+        List<String> genders = (List<String>) map.get("gender"); // 성별
+        List<String> mbtis = (List<String>) map.get("mbti"); // mbti
 
-    // limit으로 페이징 하기 -------------------------------------------------------------------------------------------------------------------------
+        List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages); // 조건에 맞는 유저 가져오기
 
-//    @PostMapping("/list/filter/page/{page}")
-//    @ApiOperation(value = "필터로 향수 목록 가져오기 - limit 페이징 (해시태그 있음)")
-//    public ResponseEntity<List<Map<String, Object>>> getListFilterPage(@RequestBody Map<String, Object> map){
-//        List<Integer> ages = (List<Integer>) map.get("ages"); // 나이
-//        List<String> genders = (List<String>) map.get("gender"); // 성별
-//        List<String> mbtis = (List<String>) map.get("mbti"); // mbti
-//
-//        List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages); // 조건에 맞는 유저 가져오기
-//
-//        // 페이징 해서 결과 가져오기
-//        Map<String, Object> perfumes = perfumeService.getListAllPage(page);
-//        // 해시태그
-//        List<PerfumeResponseDto> pDto = (List<PerfumeResponseDto>) perfumes.get("pDto"); //perfumeDto
-//        long totalCnt = (long) perfumes.get("totalCnt"); // totalCnt
-//        List<Map<String, Object>> dtoList = new LinkedList<>();
-//        for (PerfumeResponseDto pd: pDto){
-//            Map<String, Object> map = new LinkedHashMap<>();
-//            map.put("pDto",pd);
-//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-//            map.put("tDto", td);
-//            dtoList.add(map);
-//        }
-//        Map<String, Object> map = new LinkedHashMap<>();
-//        map.put("totalCnt", totalCnt);
-//        map.put("dtoList", dtoList);
-//        return new ResponseEntity<>(map, HttpStatus.OK);
-//
-//
-//
-//
-//
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getByUserList(users);
-//        List<Map<String, Object>> dtoList = new LinkedList<>(); // 결과 - 페이징
-//        for(PerfumeResponseDto pd: perfumeDtoList){
-//            Map<String, Object> temp = new LinkedHashMap<>();
-//            temp.put("pDto",pd);
-//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-//            temp.put("tDto", td);
-//            dtoList.add(temp);
-//        }
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
+        // 페이징 해서 결과 가져오기
+        Map<String, Object> perfumes = perfumeService.getByUserListPage(users, page-1);
+        List<PerfumeResponseDto> pDto = (List<PerfumeResponseDto>) perfumes.get("pDto"); //perfumeDto
+        long totalCnt = (long) perfumes.get("totalCnt"); // totalCnt
+        long pageCnt = (long) perfumes.get("pageCnt"); // pageCnt
+
+        // 해시태그
+        List<Map<String, Object>> dtoList = new LinkedList<>();
+        for (PerfumeResponseDto pd: pDto){
+            Map<String, Object> temp = new LinkedHashMap<>();
+            temp.put("pDto",pd);
+            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+            temp.put("tDto", td);
+            dtoList.add(temp);
+        }
+
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("totalCnt", totalCnt);
+        result.put("pageCnt", pageCnt);
+        result.put("dtoList", dtoList);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 
     @GetMapping("/list/hashtag")
@@ -407,7 +376,6 @@ public class PerfumeController {
     @GetMapping("/hottag")
     @ApiOperation(value = "인기 해시태그 리스트")
     public ResponseEntity<List<Map<String, Object>>> getHotTagAll(){
-//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
         List<PerfumeTagCount> queryResult = perfumeTagService.getHotTagAll(); // 해시태그 인기순
         List<Map<String, Object>> result = new LinkedList<>();
         for(PerfumeTagCount ptc: queryResult){
@@ -426,11 +394,8 @@ public class PerfumeController {
     @ApiOperation(value = "향수 이미지 가져오기")
     public ResponseEntity<Resource> getImg(@PathVariable String name){
         String img = name.replaceAll(" ", "_");
-
         String path = perfumeService.getImg(img);
-
         Resource resource = new FileSystemResource(path);
-
         HttpHeaders header = new HttpHeaders();
         Path filePath = null;
 

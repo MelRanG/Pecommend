@@ -43,11 +43,6 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     public Map<String, Object> getListAllPage(int page){
-        // 페이지 범위 설정(일단 최소만)
-//        page--;
-//        if(page < 0){
-//            page = 0;
-//        }
         Page<Perfume> perfumePage = perfumeRepository.findAll(PageRequest.of(page, 16, Sort.by("koName")));
         // int pageCount = perfumePage.getTotalPages();
         long totalCount = perfumePage.getTotalElements();
@@ -87,6 +82,34 @@ public class PerfumeServiceImpl implements PerfumeService {
         PageRequest pageRequest = PageRequest.of(page, 16);
         Page<Perfume> perfumePage = perfumeRepository.findByKoNameLikeOrEnNameLikeIgnoreCase(pageRequest, "%"+keyword+"%", "%"+keyword+"%");
 
+        long totalCount = perfumePage.getTotalElements();
+        long pageCount = perfumePage.getTotalPages();
+        List<Perfume> perfumes = perfumePage.getContent();
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumes){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalCnt", totalCount);
+        map.put("pageCnt", pageCount);
+        map.put("pDto", dtoList);
+        return map;
+    }
+
+    @Override
+    public List<PerfumeResponseDto> getByUserList(List<Long> users) {
+        List<Perfume> perfumeList = perfumeRepository.findByUsers(users);
+        List<PerfumeResponseDto> dtoList = new LinkedList<>();
+        for(Perfume p: perfumeList){
+            dtoList.add(PerfumeResponseDto.from(p));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public Map<String, Object> getByUserListPage(List<Long> users, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 16);
+        Page<Perfume> perfumePage = perfumeRepository.findByUsersPage(pageRequest, users);
         long totalCount = perfumePage.getTotalElements();
         long pageCount = perfumePage.getTotalPages();
         List<Perfume> perfumes = perfumePage.getContent();
@@ -179,15 +202,11 @@ public class PerfumeServiceImpl implements PerfumeService {
         return dtoList;
     }
 
-    @Override
-    public List<PerfumeResponseDto> getByUserList(List<Long> users) {
-        List<Perfume> perfumeList = perfumeRepository.findByUsers(users);
-        List<PerfumeResponseDto> dtoList = new LinkedList<>();
-        for(Perfume p: perfumeList){
-            dtoList.add(PerfumeResponseDto.from(p));
-        }
-        return dtoList;
-    }
+
+
+
+
+
 
 
 }
