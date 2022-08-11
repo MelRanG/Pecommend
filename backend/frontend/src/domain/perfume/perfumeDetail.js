@@ -765,8 +765,14 @@ const PerfumeDetail = () => {
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-up"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(97 109 255)" }}
+                    >
+                      추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.likelike &&
                     ldList.likelike.map((data) => (
@@ -787,8 +793,14 @@ const PerfumeDetail = () => {
 
                 <div className="detail-likeDislikeList-items row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-down"></span>
-                    <span className="ldltext"> 비추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(255 97 97)" }}
+                    >
+                      비추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.likedislike &&
                     ldList.likedislike.map((data) => (
@@ -810,8 +822,14 @@ const PerfumeDetail = () => {
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-up"></span>
-                    <span className="ldltext">추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-up"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(97 109 255)" }}
+                    >
+                      추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.dislikelike &&
                     ldList.dislikelike.map((data) => (
@@ -827,8 +845,14 @@ const PerfumeDetail = () => {
 
                 <div className="detail-likeDislikeList-items row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="glyphicon glyphicon-thumbs-down"></span>
-                    <span className="ldltext"> 비추천해요</span>
+                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
+                    <span
+                      className="ldltext"
+                      style={{ color: "rgb(255 97 97)" }}
+                    >
+                      비추천
+                    </span>
+                    <span className="ldltext">해요</span>
                   </div>
                   {ldList.dislikedislike &&
                     ldList.dislikedislike.map((data) => (
