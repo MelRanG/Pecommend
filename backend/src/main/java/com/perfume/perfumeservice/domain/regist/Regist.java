@@ -20,6 +20,7 @@ public class Regist {
     private String userName;
     private String name;
     private String company;
+    @Column(name = "describes")
     private String describe;
     private int status;  // 0->검토중 1->추가 완료 2->반려됨
     private String img;
