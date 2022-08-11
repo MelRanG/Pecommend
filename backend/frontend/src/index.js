@@ -23,6 +23,7 @@ import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import ScrollToTop from "components/ScrollToTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 {
@@ -42,6 +43,7 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
         <BrowserRouter>
+        <ScrollToTop/>
           <App />
         </BrowserRouter>
       </React.StrictMode>
