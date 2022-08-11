@@ -249,10 +249,10 @@ const PerfumeList = () => {
                 }}
                 className=""
               >
-                <div className="sidebar-style mr-30">
+                <div className="sidebar-style">
                   <div className="sidebar-widget">
                     {/* <h4 className="pro-sidebar-title">Search </h4> */}
-                    <div className="pro-sidebar-search mb-50 mt-25">
+                    <div className="pro-sidebar-search mb-50 mt-10">
                       <form className="pro-sidebar-search-form">
                         <input
                           type="text"
@@ -276,11 +276,11 @@ const PerfumeList = () => {
                     <div className="side_button">
                       <span className="pro-sidebar-title">성별</span>
                       <button
-                        className="btn side_in_button side_btn collapsed"
+                        className="btn side_in_button side_btn"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#Collapse1"
-                        aria-expanded="true"
+                        aria-expanded="false"
                         aria-controls="Collapse1"
                       >
                         {/* <i className="bi bi-chevron-down"></i> */}
@@ -289,7 +289,7 @@ const PerfumeList = () => {
 
                     <div className="row">
                       <div className="col">
-                        <div className="collapse" id="Collapse1">
+                        <div className="collapse show" id="Collapse1">
                           <ul className="list-group list-group-horizontal">
                             <li className="list-group-item border-0">
                               <input
@@ -337,11 +337,11 @@ const PerfumeList = () => {
                     <div className="side_button">
                       <span className="pro-sidebar-title">연령대</span>
                       <button
-                        className="btn side_in_button side_btn collapsed"
+                        className="btn side_in_button side_btn"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#Collapse2"
-                        aria-expanded="false"
+                        aria-expanded="true"
                         aria-controls="Collapse2"
                       >
                         {/* <i className="bi bi-chevron-down"></i> */}
@@ -350,7 +350,7 @@ const PerfumeList = () => {
 
                     <div className="row">
                       <div className="col">
-                        <div className="collapse" id="Collapse2">
+                        <div className="collapse show" id="Collapse2">
                           <ul className="list-group list-group">
                             <li className="list-group-item border-0">
                               <input
@@ -412,11 +412,11 @@ const PerfumeList = () => {
                     <div className="side_button">
                       <span className="pro-sidebar-title">MBTI</span>
                       <button
-                        className="btn side_in_button side_btn collapsed"
+                        className="btn side_in_button side_btn"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#Collapse3"
-                        aria-expanded="false"
+                        aria-expanded="true"
                         aria-controls="Collapse3"
                       >
                         {/* <i className="bi bi-chevron-down"></i> */}
@@ -425,15 +425,23 @@ const PerfumeList = () => {
 
                     <div className="row">
                       <div className="col">
-                        <div className="collapse" id="Collapse3">
+                        <div className="collapse show" id="Collapse3">
                           <ul className="list-group list-group">
                             <li
                               className="list-group-item border-0 justify-content-between row pl-10"
-                              style={{ display: "flex", marginLeft: "0" }}
+                              style={{
+                                display: "flex",
+                                marginLeft: "0",
+                                width: "90%",
+                              }}
                             >
                               {mbtiList.map((data, index) => (
                                 <div
-                                  style={{ width: "50%", marginBottom: "5px" }}
+                                  style={{
+                                    width: "50%",
+                                    marginBottom: "10px",
+                                    // paddingRight: "0",
+                                  }}
                                   // className="col-6"
                                   key={index}
                                 >
@@ -457,165 +465,6 @@ const PerfumeList = () => {
                                   {data}
                                 </div>
                               ))}
-
-                              {/* <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISFP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INFP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESFP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENFP
-                              </div> */}
                             </li>
                           </ul>
                         </div>
@@ -623,7 +472,10 @@ const PerfumeList = () => {
                     </div>
                   </div>
                 </div>
-                <div className="sidebar-widget mt-50">
+                <div
+                  className="sidebar-widget mt-50"
+                  style={{ display: "none" }}
+                >
                   <h4 className="pro-sidebar-title">해시태그 </h4>
                   <div className="sidebar-widget-tag mt-25">
                     <ul>
@@ -786,8 +638,13 @@ const PerfumeList = () => {
                     이전
                   </Button>
                   <div className="perfume_list_page_text">
-                    <div>{page}</div>
-                    <div>/ {pageCnt}</div>
+                    <div className="ml-10" style={{ color: "#0d6efd" }}>
+                      {page}&nbsp;
+                    </div>
+                    <div className="mr-10" style={{ fontWeight: "bold" }}>
+                      {" "}
+                      / {pageCnt}
+                    </div>
                   </div>
                   <Button
                     variant="secondary"
