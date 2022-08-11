@@ -87,16 +87,16 @@ public class PerfumeServiceImpl implements PerfumeService {
         PageRequest pageRequest = PageRequest.of(page, 16);
         Page<Perfume> perfumePage = perfumeRepository.findByKoNameLikeOrEnNameLikeIgnoreCase(pageRequest, "%"+keyword+"%", "%"+keyword+"%");
 
-        // int pageCount = perfumePage.getTotalPages();
         long totalCount = perfumePage.getTotalElements();
+        long pageCount = perfumePage.getTotalPages();
         List<Perfume> perfumes = perfumePage.getContent();
         List<PerfumeResponseDto> dtoList = new LinkedList<>();
         for(Perfume p: perfumes){
             dtoList.add(PerfumeResponseDto.from(p));
         }
-
         Map<String, Object> map = new HashMap<>();
         map.put("totalCnt", totalCount);
+        map.put("pageCnt", pageCount);
         map.put("pDto", dtoList);
         return map;
     }

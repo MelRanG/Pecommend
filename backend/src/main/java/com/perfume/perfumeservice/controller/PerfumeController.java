@@ -56,25 +56,25 @@ public class PerfumeController {
 //    }
 //
 
-    @GetMapping("/list")
-    @ApiOperation(value = "전체 향수 목록 가져오기 (+ 해시태그)")
-    public ResponseEntity<List<Map<String, Object>>> getListAll(){
-        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
-        List<Map<String, Object>> dtoList = new LinkedList<>();
-        for(PerfumeResponseDto pd: perfumeDtoList){
-            Map<String, Object> map = new LinkedHashMap<>();
-            map.put("pDto",pd);
-            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
-            map.put("tDto", td);
-            dtoList.add(map);
-        }
-        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-    }
+//    @GetMapping("/list")
+//    @ApiOperation(value = "전체 향수 목록 가져오기 (+ 해시태그)")
+//    public ResponseEntity<List<Map<String, Object>>> getListAll(){ // 페이징 없는 버전
+//        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListAll();
+//        List<Map<String, Object>> dtoList = new LinkedList<>();
+//        for(PerfumeResponseDto pd: perfumeDtoList){
+//            Map<String, Object> map = new LinkedHashMap<>();
+//            map.put("pDto",pd);
+//            List<PerfumeTagResponseDto> td = perfumeTagService.getThreePerfumeTags(pd.getPerfumeId());
+//            map.put("tDto", td);
+//            dtoList.add(map);
+//        }
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/list/page/{page}")
-    @ApiOperation(value = "전체 향수 목록, 개수 가져오기 - Page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
-    public ResponseEntity<Map<String, Object>> getListPages(@PathVariable int page){
+    @ApiOperation(value = "전체 향수 목록, 향수 개수, 페이지 수 가져오기 - Page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
+    public ResponseEntity<Map<String, Object>> getListPages(@PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
         Map<String, Object> perfumes = perfumeService.getListAllPage(page-1);
         // 해시태그
         List<PerfumeResponseDto> pDto = (List<PerfumeResponseDto>) perfumes.get("pDto"); //perfumeDto
@@ -99,7 +99,7 @@ public class PerfumeController {
 
 //    @GetMapping("/list/{keyword}")
 //    @ApiOperation(value = "향수 이름으로 검색 (+ 해시태그 + 대소문자 무시)")
-//    public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){
+//    public ResponseEntity<List<Map<String, Object>>> getListKeyword(@PathVariable String keyword){ // 페이징 없는 버전
 //        List<PerfumeResponseDto> perfumeDtoList = perfumeService.getListKeyword(keyword);
 //        List<Map<String, Object>> dtoList = new LinkedList<>();
 //        for(PerfumeResponseDto pd: perfumeDtoList){
@@ -115,13 +115,12 @@ public class PerfumeController {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/list/{keyword}/page/{page}")
     @ApiOperation(value = "향수 이름으로 검색 - page (페이징, 개수 변경 불가능, 페이징 번호 제한X)")
-    public ResponseEntity<Map<String, Object>> getListPages(@PathVariable String keyword, @PathVariable int page){
-        Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page);
-
-        //Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page);
+    public ResponseEntity<Map<String, Object>> getListPages(@PathVariable String keyword, @PathVariable int page){ // 페이징 있는 버전, 1부터 pageCnt까지 데이터 있음
+        Map<String, Object> perfumes = perfumeService.getListKeywordPage(keyword, page-1);
         // 해시태그
         List<PerfumeResponseDto> pDto = (List<PerfumeResponseDto>) perfumes.get("pDto"); //perfumeDto
         long totalCnt = (long) perfumes.get("totalCnt"); // totalCnt
+        long pageCnt = (long) perfumes.get("pageCnt"); // pageCnt
         List<Map<String, Object>> dtoList = new LinkedList<>();
         for (PerfumeResponseDto pd: pDto){
             Map<String, Object> map = new LinkedHashMap<>();
@@ -132,6 +131,7 @@ public class PerfumeController {
         }
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("totalCnt", totalCnt);
+        map.put("pageCnt", pageCnt);
         map.put("dtoList", dtoList);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
