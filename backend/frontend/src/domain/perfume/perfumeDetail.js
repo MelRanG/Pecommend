@@ -576,7 +576,7 @@ const PerfumeDetail = () => {
             <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="detail-product-details dec-img-wrap">
                 <img
-                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
+                  src={`http://localhost:8081/api/v1/perfume/getimg/${perfumeDetail.enName}`}
                   alt=""
                   style={{ width: "100%", marginBottom: "20px" }}
                 />

@@ -142,3 +142,8 @@ body {
   font-family: Pretendard;
   font-size: 16px;
   }
+
+  .perfume_list_btn {
+    color: #6c757d;
+    border-color: #6c757d;
+}
