@@ -51,6 +51,7 @@ public class PerfumeServiceImpl implements PerfumeService {
         Page<Perfume> perfumePage = perfumeRepository.findAll(PageRequest.of(page, 16, Sort.by("koName")));
         // int pageCount = perfumePage.getTotalPages();
         long totalCount = perfumePage.getTotalElements();
+        long pageCount = perfumePage.getTotalPages();
         List<Perfume> perfumes = perfumePage.getContent();
         List<PerfumeResponseDto> dtoList = new LinkedList<>();
         for(Perfume p: perfumes){
@@ -59,7 +60,9 @@ public class PerfumeServiceImpl implements PerfumeService {
 
         Map<String, Object> map = new HashMap<>();
         map.put("totalCnt", totalCount);
+        map.put("pageCnt", pageCount);
         map.put("pDto", dtoList);
+
         return map;
     }
 
@@ -185,4 +188,6 @@ public class PerfumeServiceImpl implements PerfumeService {
         }
         return dtoList;
     }
+
+
 }
