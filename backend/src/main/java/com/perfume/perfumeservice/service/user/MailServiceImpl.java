@@ -43,7 +43,7 @@ public class MailServiceImpl implements MailService{
         msgg+= ePw.toString()+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
-        message.setFrom(new InternetAddress("ksb5535@gmail.com","Pecommend"));//보내는 사람
+        message.setFrom(new InternetAddress("pecommend@gmail.com","Pecommend"));//보내는 사람
 
         return message;
     }
@@ -71,7 +71,7 @@ public class MailServiceImpl implements MailService{
         msgg+= ePw.toString()+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
-        message.setFrom(new InternetAddress("ksb5535@gmail.com","Pecommend"));//보내는 사람
+        message.setFrom(new InternetAddress("pecommend@gmail.com","Pecommend"));//보내는 사람
 
         return message;
     }
