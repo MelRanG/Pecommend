@@ -53,6 +53,10 @@ function CommunityMain() {
       }
     }
 
+    // const textLength = (data) => {
+    //   return
+    // }
+
   useEffect(() => {
     getArticleList()
 }, [])
@@ -169,7 +173,7 @@ function CommunityMain() {
                           <>
                             {article_hot.map((data) => (
                             // <li>[{titleName[data.category]}] {data.title}</li>
-                            <li>
+                            <li className="text-overflow">
                               <Link
                                 className="community-list-titlebox"
                                 to={`/commu/detail/${data.id}`}
@@ -221,7 +225,7 @@ function CommunityMain() {
                           <>
                             {article_all.map((data) => (
                             // <li>[{titleName[data.category]}] {data.title}</li>
-                            <li>
+                            <li className="text-overflow">
                               <Link
                                 className="community-list-titlebox"
                                 to={`/commu/detail/${data.id}`}
@@ -253,7 +257,7 @@ function CommunityMain() {
                           <>
                             {article_free.map((data) => (
                             // <li>[{titleName[data.category]}] {data.title}</li>
-                            <li>
+                            <li className="text-overflow">
                               <Link
                                 className="community-list-titlebox"
                                 to={`/commu/detail/${data.id}`}
@@ -285,7 +289,7 @@ function CommunityMain() {
                           <>
                             {article_perfume.map((data) => (
                             // <li>[{titleName[data.category]}] {data.title}</li>
-                            <li>
+                            <li className="text-overflow">
                               <Link
                                 className="community-list-titlebox"
                                 to={`/commu/detail/${data.id}`}
@@ -317,7 +321,7 @@ function CommunityMain() {
                           <>
                             {article_announce.map((data) => (
                             // <li>[{titleName[data.category]}] {data.title}</li>
-                            <li>
+                            <li className="text-overflow">
                               <Link
                                 className="community-list-titlebox"
                                 to={`/commu/detail/${data.id}`}

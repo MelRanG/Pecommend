@@ -289,12 +289,13 @@ function Profile() {
                             {cummuProfile.slice(offset, offset + limitData).map((data) => (
                               <tr className="table-bottom">
                                 <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                                  <div className="text-overflow">
                                   <Link
                                     className="community-list-titlebox"
                                     to={`/commu/detail/${data.id}`}
                                   >
                                     [{titleName[data.category]}] {data.title}
-                                  </Link>
+                                  </Link></div>
                                 </td>
                                 { getToday(data.createDateYMD) === true
                                   ? <td>{data.createDateHMS.slice(0,5)}</td>

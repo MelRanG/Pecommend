@@ -56,7 +56,7 @@ flex-direction: row-reverse;
     width: 10%;
 }
 .table-top th:nth-child(2){
-    width: 45%;
+    width: 45% !important;
 }
 .table-top th:nth-child(3){
     width: 15%;
@@ -136,4 +136,17 @@ flex-direction: row-reverse;
     justify-items: center;
     margin-right: 20px;
     border:1px solid #dcdcdc;
+}
+
+.text-overflow {
+    width:90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width:576px) {
+    .table {
+        width: 500px;
+        table-layout: fixed;
+    }
 }

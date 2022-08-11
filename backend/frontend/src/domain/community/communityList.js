@@ -226,9 +226,11 @@ function CommunityList() {
     const day = ('0' + today.getDate()).slice(-2);
     const dateString = year + '-' + month  + '-' + day;
     if (dateString === data) {
-      return true;
+      return 0;
+    } else if (data.slice(0,4) == year) {
+      return 1;
     } else {
-      return false;
+      return 2;
     }
   }
 
@@ -290,8 +292,6 @@ function CommunityList() {
               </div>
               <div className="shop-bottom-area mt-15">
                 <div className="tab-content jump">
-
-
                   <table className="table table-hover">
                     <thead>
                       <tr className="table-top">
@@ -310,6 +310,7 @@ function CommunityList() {
                             {data.id}
                           </th>
                           <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                            <div className="text-overflow">
                             <Link
                               className="community-list-titlebox"
                               to={`/commu/detail/${data.id}`}
@@ -323,21 +324,24 @@ function CommunityList() {
                                 {data.title}
                                 </>
                               }
-                            </Link>
+                            </Link></div>
                           </td>
                           {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
                           {/* <td>{data.writer}</td> */}
                           <td className="" style={{ textAlign: "center", paddingLeft: "15px" }}>
+                            <div className="text-overflow">
                             <Link
                               className=""
                               to={`/profile/${data.writer_id}`}
                             >
                               {data.writer}
-                            </Link>
+                            </Link></div>
                           </td>
-                          { getToday(data.createDateYMD) === true
+                          { getToday(data.createDateYMD) === 0
                             ? <td>{data.createDateHMS.slice(0,5)}</td>
-                            : <td>{data.createDateYMD}</td>}
+                            : (getToday(data.createDateYMD) === 1
+                              ? <td>{data.createDateYMD.slice(-5)}</td>
+                              : <td>{data.createDateYMD}</td>)}
                           <td>{data.communityLike}</td>
                         </tr>
                       ))}
