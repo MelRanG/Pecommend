@@ -7,6 +7,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Editor from "./editor"
 import {useSelector} from "react-redux"
+import Swal from "sweetalert2";
 
 function CommunityRegist ()  {
     const user = useSelector(state => state.userStore.nowLoginUser);
@@ -17,7 +18,11 @@ function CommunityRegist ()  {
 
     const usercheck = () => {
         if (user.user_id == null) {
-            alert("올바르지 못한 접근입니다!")
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "올바르지 못한 접근입니다!",
+            });
             navigate("/commu/main", { replace: true })
           }
     }
@@ -57,7 +62,11 @@ function CommunityRegist ()  {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formValue.title.replace(/^\s+|\s+$/gm,'') == '') {
-            alert("제목을 입력해주세요")
+            Swal.fire({
+                icon: "warning",
+                title: "실패",
+                text: "제목을 입력해주세요.",
+            });
         }
         else {
             e.target.setAttribute("disabled",'true')
@@ -77,7 +86,11 @@ function CommunityRegist ()  {
               console.log(response);
               if (response.status === 200) {
                 console.log(response.data);
-                alert("작성 완료되었습니다.")
+                Swal.fire({
+                    icon: "success",
+                    title: "성공",
+                    text: "작성 완료되었습니다.",
+                });
                 navigate(`/commu/detail/${response.data.id}`, { replace: true });
               }
               else {
@@ -92,7 +105,11 @@ function CommunityRegist ()  {
 
     const cancelSubmit = async(e) => {
         e.preventDefault()
-        alert("취소했습니다")
+        Swal.fire({
+            icon: "warning",
+            title: "실패",
+            text: "취소했습니다.",
+        });
         navigate(`/commu/main` , {replace:true});
     }
 
@@ -158,10 +175,10 @@ function CommunityRegist ()  {
             />
             </div>
             <div className='community-regist-bottombar'>
-                <button className="regist-submit" onClick={handleSubmit}>
+                <button className="registBtn" onClick={handleSubmit}>
                     등록하기
                 </button>
-                <button className='regist-cancel' onClick={cancelSubmit}>
+                <button className='cancleBtn' onClick={cancelSubmit}>
                     취소하기
                 </button>
             </div>

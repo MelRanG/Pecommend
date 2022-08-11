@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import Nav from "../../components/nav";
 import Footer from "../../components/footer";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 
 const Home = () => {
+  let navigate = useNavigate();
   return (
     <div className="home">
       <div className="home1 mb-50">
@@ -14,7 +16,7 @@ const Home = () => {
                 style={{
                   display: "inline",
                   textShadow:
-                    "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000",
+                    "-1px 0 rgb(92 92 92), 0 1px rgb(92 92 92), 1px 0 rgb(92 92 92), 0 -1px rgb(92 92 92)",
                 }}
               >
                 PECO
@@ -43,7 +45,7 @@ const Home = () => {
             <div className="col feature-box">
               <img src=".\assets\img/home/feature1.jpg" alt="" />
               <h3>교류</h3>
-              <p>유저들과의 소통과</p>
+              <p>회원들과의 소통과</p>
             </div>
             <div className="col feature-box">
               <img src=".\assets\img/home/feature2.jpg" alt="" />
@@ -61,7 +63,7 @@ const Home = () => {
 
       <div className="home3 mb-80">
         <div className="container">
-          <div className="home-banner">
+          <div className="home-banner" onClick={() => navigate("/perfume/main")}>
             <div className="banner-box">
               <div className="banner-total">
                 <div className="banner-title">PERFUME</div>
@@ -96,13 +98,13 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="home-banner2">
+          <div className="home-banner2" onClick={() => navigate("/commu/main")}>
             <div className="banner-box2">
               <div className="banner-total">
                 <div className="banner-title">COMMUNITY</div>
                 <div className="banner-text">
-                  다양한 게시판을 통해 다른 유저들과 의견을 나눠보세요! <br />
-                  인기 게시판과 베스트 게시판을 통해 유저들의 관심 게시글을
+                  다양한 게시판을 통해 다른 회원들과 의견을 나눠보세요! <br />
+                  인기 게시판과 베스트 게시판을 통해 회원들의 관심 게시글을
                   확인해보세요!
                 </div>
                 <div className="home-product-hashtag">
@@ -122,7 +124,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="home-banner3">
+          <div className="home-banner3 " onClick={() => navigate("/test")}>
             <div className="banner-box">
               <div className="banner-total">
                 <div className="banner-title">to be continue</div>

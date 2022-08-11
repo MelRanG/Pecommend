@@ -1,26 +1,159 @@
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 import { Link, Routes, Route } from "react-router-dom";
 import { authaxios, freeaxios } from "custom/customAxios";
 import { useNavigate } from "react-router-dom";
+// import Pagination from "../community/pagination";
+// import Pagination from "@mui/material/Pagination";
 import "./perfumeList.css";
 // import "./perfumeList.scss";
 
-function PerfumeList() {
+const PerfumeList = () => {
+  // let useParam = useParams();
+  // let page = parseInt(useParam.num);
   const [dataList, setDataList] = useState([]); //향수리스트
   // const [callData, setCallData] = useState(1);
-  const [limitData, setLimit] = useState(16); //한페이지당?
+  // const [limitData, setLimit] = useState(16); //한페이지당?
+  // const offset = (page - 1) * limitData;
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * limitData;
-  const dataSize = dataList.length;
+  const [totalCnt, setTotalCnt] = useState(0);
+  const [pageCnt, setPageCnt] = useState(1);
+  const mbtiList = [
+    "ISTJ",
+    "ISTP",
+    "ISFJ",
+    "ISFP",
+    "INTJ",
+    "INTP",
+    "INFJ",
+    "INFP",
+    "ESTJ",
+    "ESTP",
+    "ESFJ",
+    "ESFP",
+    "ENTJ",
+    "ENTP",
+    "ENFJ",
+    "ENFP",
+  ];
 
-  const [keyWord, setKeyWord] = useState(""); //검색키워드
-  const [inputKeyWord, setInputKeyWord] = useState("");
+  // 필터링
+  const [searchFilter, setSearchFilter] = useState({
+    ages: [],
+    gender: [],
+    mbti: [],
+  });
+  //성별
+  const [checkedGender, setCheckedGender] = useState([]);
+  const genderChangeHandler = (checked, id) => {
+    if (checked) {
+      setCheckedGender([...checkedGender, id]);
+      console.log("성별체크");
+    } else {
+      setCheckedGender(checkedGender.filter((button) => button !== id));
+      console.log("성별체크해제");
+    }
+  };
+  //연령
+  const [checkedAge, setCheckedAge] = useState([]);
+  const ageChangeHandler = (checked, id) => {
+    if (checked) {
+      setCheckedAge([...checkedAge, id]);
+      console.log("연령체크");
+    } else {
+      setCheckedAge(checkedAge.filter((button) => button !== id));
+      console.log("연령체크해제");
+    }
+  };
+  //mbti
+  const [checkedMbti, setCheckedMbti] = useState([]);
+  const mbtiChangeHandler = (checked, id) => {
+    if (checked) {
+      setCheckedMbti([...checkedMbti, id]);
+      console.log("mbti체크");
+    } else {
+      setCheckedMbti(checkedMbti.filter((button) => button !== id));
+      console.log("mbti체크해제");
+    }
+  };
+
+  useEffect(() => {
+    console.log("useEffect111");
+    changeState();
+  }, [checkedMbti, checkedAge, checkedGender]);
+
+  useEffect(() => {
+    console.log("useEffect222");
+    if (
+      checkedMbti.length === 0 &&
+      checkedAge.length === 0 &&
+      checkedGender.length === 0
+    ) {
+    } else {
+      changeFilter();
+    }
+  }, [searchFilter]);
+
+  const changeState = () => {
+    setSearchFilter({
+      ages: checkedAge,
+      gender: checkedGender,
+      mbti: checkedMbti,
+    });
+  };
+  //change 할때마다 seachFilter에 담아서 요청보내기
+  const changeFilter = async () => {
+    console.log("changeFilter호출", searchFilter);
+    if (searchFilter !== null) {
+      try {
+        const response = await freeaxios({
+          method: "post",
+          url: "/api/v1/perfume/list/filter/page/" + page,
+          // headers: { "Content-Type": "multipart/form-data" },
+          data: searchFilter,
+          responseType: "json",
+          charset: "utf-8",
+          responseEncodig: "utf-8",
+        });
+        console.log(response);
+        if (response.status === 200) {
+          // setDataList(response.data);
+          setDataList(response.data.dtoList);
+          setTotalCnt(response.data.totalCnt);
+          setPageCnt(response.data.pageCnt);
+          console.log("changeFilter확인", response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  // useEffect(() => {
+  //   getPerfumeList();
+  // }, []);
+  useEffect(() => {
+    if (keyWord.length !== 0) {
+      getPerfumeSearchList();
+    } else if (
+      !(
+        checkedMbti.length === 0 &&
+        checkedAge.length === 0 &&
+        checkedGender.length === 0
+      )
+    ) {
+      changeFilter();
+    } else {
+      getPerfumeList();
+    }
+  }, [page]);
 
   const getPerfumeList = async () => {
+    console.log("getPerfumeList 호출", page);
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list",
+        url: "/api/v1/perfume/list/page/" + page,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
@@ -28,43 +161,67 @@ function PerfumeList() {
       });
       console.log(response);
       if (response.status === 200) {
-        setDataList(response.data);
+        console.log("getPerfumeList", response.data);
+        setDataList(response.data.dtoList);
+        setTotalCnt(response.data.totalCnt);
+        setPageCnt(response.data.pageCnt);
         // console.log("확인", dataList);
         // console.log(dataList[1].tDto[0].tagName);
       }
     } catch (error) {
       console.log(error);
     }
+
+    // try {
+    //   const response = await freeaxios({
+    //     method: "get",
+    //     url: "/api/v1/perfume/list",
+    //     // data: registwrite,
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //     // headers: { "Content-Type" : ""}
+    //     // JSON.stringify()
+    //   });
+    //   console.log(response);
+    //   if (response.status === 200) {
+    //     setDataList(response.data);
+    //     // console.log("확인", dataList);
+    //     // console.log(dataList[1].tDto[0].tagName);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
-  useEffect(() => {
-    getPerfumeList();
-  }, []);
-
+  const [keyWord, setKeyWord] = useState(""); //검색키워드
+  // const [inputKeyWord, setInputKeyWord] = useState("");
   const getPerfumeSearchList = async () => {
+    console.log("key", keyWord);
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/perfume/list/" + keyWord,
+        url: "/api/v1/perfume/list/" + keyWord + "/page/" + page,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
         // headers: { "Content-Type" : ""}
         // JSON.stringify()
       });
-      console.log(response);
+      console.log("getPerfumeSearchList", response);
       if (response.status === 200) {
-        setDataList(response.data);
-        // console.log(dataList);
+        setDataList(response.data.dtoList);
+        setTotalCnt(response.data.totalCnt);
+        setPageCnt(response.data.pageCnt);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getPerfumeSearchList();
-  }, []);
+
+  // useEffect(() => {
+
+  // }, [keyWord]);
 
   const keywordSearch = (e) => {
+    setPage(1);
     e.preventDefault();
     // setKeyWord();
     console.log(keyWord);
@@ -92,10 +249,10 @@ function PerfumeList() {
                 }}
                 className=""
               >
-                <div className="sidebar-style mr-30">
+                <div className="sidebar-style">
                   <div className="sidebar-widget">
                     {/* <h4 className="pro-sidebar-title">Search </h4> */}
-                    <div className="pro-sidebar-search mb-50 mt-25">
+                    <div className="pro-sidebar-search mb-50 mt-10">
                       <form className="pro-sidebar-search-form">
                         <input
                           type="text"
@@ -104,14 +261,14 @@ function PerfumeList() {
                           onKeyPress={onKeyPress}
                           defaultValue=""
                         />
-                        <button onClick={keywordSearch}>
+                        <button onClick={(e) => keywordSearch(e)}>
                           <i className="pe-7s-search"></i>
                         </button>
                       </form>
                     </div>
                   </div>
                   <div className="sidebar-widget text-center">
-                    <h4>Filter (선호도)</h4>
+                    <h4>선호도 검색</h4>
                     <br></br>
                   </div>
 
@@ -119,11 +276,11 @@ function PerfumeList() {
                     <div className="side_button">
                       <span className="pro-sidebar-title">성별</span>
                       <button
-                        className="btn side_in_button side_btn collapsed"
+                        className="btn side_in_button side_btn"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#Collapse1"
-                        aria-expanded="true"
+                        aria-expanded="false"
                         aria-controls="Collapse1"
                       >
                         {/* <i className="bi bi-chevron-down"></i> */}
@@ -132,7 +289,7 @@ function PerfumeList() {
 
                     <div className="row">
                       <div className="col">
-                        <div className="collapse" id="Collapse1">
+                        <div className="collapse show" id="Collapse1">
                           <ul className="list-group list-group-horizontal">
                             <li className="list-group-item border-0">
                               <input
@@ -140,6 +297,15 @@ function PerfumeList() {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
+                                onChange={(e) => {
+                                  genderChangeHandler(
+                                    e.currentTarget.checked,
+                                    "male"
+                                  );
+                                }}
+                                checked={
+                                  checkedGender.includes("male") ? true : false
+                                }
                               />
                               남성
                             </li>
@@ -149,6 +315,17 @@ function PerfumeList() {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
+                                onChange={(e) => {
+                                  genderChangeHandler(
+                                    e.currentTarget.checked,
+                                    "female"
+                                  );
+                                }}
+                                checked={
+                                  checkedGender.includes("female")
+                                    ? true
+                                    : false
+                                }
                               />
                               여성
                             </li>
@@ -160,11 +337,11 @@ function PerfumeList() {
                     <div className="side_button">
                       <span className="pro-sidebar-title">연령대</span>
                       <button
-                        className="btn side_in_button side_btn collapsed"
+                        className="btn side_in_button side_btn"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#Collapse2"
-                        aria-expanded="false"
+                        aria-expanded="true"
                         aria-controls="Collapse2"
                       >
                         {/* <i className="bi bi-chevron-down"></i> */}
@@ -173,7 +350,7 @@ function PerfumeList() {
 
                     <div className="row">
                       <div className="col">
-                        <div className="collapse" id="Collapse2">
+                        <div className="collapse show" id="Collapse2">
                           <ul className="list-group list-group">
                             <li className="list-group-item border-0">
                               <input
@@ -181,6 +358,10 @@ function PerfumeList() {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
+                                onChange={(e) => {
+                                  ageChangeHandler(e.currentTarget.checked, 10);
+                                }}
+                                checked={checkedAge.includes(10) ? true : false}
                               />
                               10대
                             </li>
@@ -190,6 +371,10 @@ function PerfumeList() {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
+                                onChange={(e) => {
+                                  ageChangeHandler(e.currentTarget.checked, 20);
+                                }}
+                                checked={checkedAge.includes(20) ? true : false}
                               />
                               20대
                             </li>
@@ -199,6 +384,10 @@ function PerfumeList() {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
+                                onChange={(e) => {
+                                  ageChangeHandler(e.currentTarget.checked, 30);
+                                }}
+                                checked={checkedAge.includes(30) ? true : false}
                               />
                               30대
                             </li>
@@ -208,6 +397,10 @@ function PerfumeList() {
                                 type="checkbox"
                                 defaultValue=""
                                 aria-label="..."
+                                onChange={(e) => {
+                                  ageChangeHandler(e.currentTarget.checked, 40);
+                                }}
+                                checked={checkedAge.includes(40) ? true : false}
                               />
                               40대 이상
                             </li>
@@ -219,11 +412,11 @@ function PerfumeList() {
                     <div className="side_button">
                       <span className="pro-sidebar-title">MBTI</span>
                       <button
-                        className="btn side_in_button side_btn collapsed"
+                        className="btn side_in_button side_btn"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#Collapse3"
-                        aria-expanded="false"
+                        aria-expanded="true"
                         aria-controls="Collapse3"
                       >
                         {/* <i className="bi bi-chevron-down"></i> */}
@@ -232,167 +425,46 @@ function PerfumeList() {
 
                     <div className="row">
                       <div className="col">
-                        <div className="collapse" id="Collapse3">
+                        <div className="collapse show" id="Collapse3">
                           <ul className="list-group list-group">
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ISFP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                INFP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ESFP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENTJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENTP
-                              </div>
-                            </li>
-                            <li className="list-group-item border-0 d-flex justify-content-between">
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENFJ
-                              </div>
-                              <div style={{ width: "50%" }}>
-                                <input
-                                  className="form-check-input me-2"
-                                  type="checkbox"
-                                  defaultValue=""
-                                  aria-label="..."
-                                />
-                                ENFP
-                              </div>
+                            <li
+                              className="list-group-item border-0 justify-content-between row pl-10"
+                              style={{
+                                display: "flex",
+                                marginLeft: "0",
+                                width: "90%",
+                              }}
+                            >
+                              {mbtiList.map((data, index) => (
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    marginBottom: "10px",
+                                    // paddingRight: "0",
+                                  }}
+                                  // className="col-6"
+                                  key={index}
+                                >
+                                  <input
+                                    className="form-check-input me-2"
+                                    type="checkbox"
+                                    defaultValue=""
+                                    aria-label="..."
+                                    onChange={(e) => {
+                                      mbtiChangeHandler(
+                                        e.currentTarget.checked,
+                                        `${data}`
+                                      );
+                                    }}
+                                    checked={
+                                      checkedMbti.includes(`${data}`)
+                                        ? true
+                                        : false
+                                    }
+                                  />
+                                  {data}
+                                </div>
+                              ))}
                             </li>
                           </ul>
                         </div>
@@ -400,7 +472,10 @@ function PerfumeList() {
                     </div>
                   </div>
                 </div>
-                <div className="sidebar-widget mt-50">
+                <div
+                  className="sidebar-widget mt-50"
+                  style={{ display: "none" }}
+                >
                   <h4 className="pro-sidebar-title">해시태그 </h4>
                   <div className="sidebar-widget-tag mt-25">
                     <ul>
@@ -439,7 +514,7 @@ function PerfumeList() {
                     </select>
                   </div>
                   <div className="pr-20" style={{ marginLeft: "auto" }}>
-                    총 {dataSize}개
+                    총 {totalCnt}개
                   </div>
                 </div>
               </div>
@@ -459,46 +534,43 @@ function PerfumeList() {
                         </div>
                       ) : (
                         <>
-                          {dataList
-                            .slice(offset, offset + limitData)
-                            .map((data) => (
-                              <div
-                                key={data.pDto.perfumeId}
-                                className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
-                              >
-                                <div className="product-wrap mb-25 scroll-zoom ">
-                                  <div className="product-img">
-                                    <Link
-                                      to={`/perfume/detail/${data.pDto.perfumeId}`}
-                                    >
-                                      <div className="text_photo">
-                                        <div className="explain">
-                                          <div className="list-hashtag">
-                                            {data.tDto.map((temp, index) => (
-                                              <div className="" key={index}>
-                                                #{temp.tagName}
-                                              </div>
-                                            ))}
-                                          </div>
+                          {dataList.map((data) => (
+                            <div
+                              key={data.pDto.perfumeId}
+                              className="col-xl-3 col-md-3 col-lg-3 col-sm-6"
+                            >
+                              <div className="product-wrap mb-25 scroll-zoom ">
+                                <div className="product-img">
+                                  <Link
+                                    to={`/perfume/detail/${data.pDto.perfumeId}`}
+                                  >
+                                    <div className="text_photo">
+                                      <div className="explain">
+                                        <div className="list-hashtag">
+                                          {data.tDto.map((temp, index) => (
+                                            <div className="" key={index}>
+                                              #{temp.tagName}
+                                            </div>
+                                          ))}
                                         </div>
-                                        <img
-                                          className="default-img"
-                                          //src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                          src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
-                                          alt=""
-                                        />
                                       </div>
-                                    </Link>
-                                  </div>
-                                  <div className="product-content text-center perfume_list_name">
-                                    <div className="product-content-koName">
-                                      {data.pDto.koName}
+                                      <img
+                                        className="default-img"
+                                        src={`http://localhost:8081/api/v1/perfume/getimg/${data.pDto.enName}`}
+                                        alt=""
+                                      />
                                     </div>
-                                    <div>({data.pDto.enName})</div>
+                                  </Link>
+                                </div>
+                                <div className="product-content text-center perfume_list_name">
+                                  <div className="product-content-koName">
+                                    {data.pDto.koName}
                                   </div>
+                                  <div>({data.pDto.enName})</div>
                                 </div>
                               </div>
-                            ))}
+                            </div>
+                          ))}
                         </>
                       )}
 
@@ -533,27 +605,55 @@ function PerfumeList() {
                     </div>
                   </div>
                 </div>
-                <div className="pro-pagination-style text-center mt-30">
-                  <ul>
-                    <li>
-                      <a className="prev" href="#">
-                        <i className="fa fa-angle-double-left"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a className="active" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">2</a>
-                    </li>
-                    <li>
-                      <a className="next" href="#">
-                        <i className="fa fa-angle-double-right"></i>
-                      </a>
-                    </li>
-                  </ul>
+                {/* <div>
+                  <label>
+                    페이지 당 표시할 게시물 수:&nbsp;
+                    <select
+                      type="number"
+                      value={limitData}
+                      onChange={({ target: { value } }) => setLimit(Number(value))}
+                    >
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                  </label>
+                </div> */}
+
+                <div style={{ display: "flex" }} className="perfume_list_page">
+                  {/* <Pagination
+                    total={dataList.length}
+                    limit={limitData}
+                    page={page}
+                    setPage={setPage}
+                  /> */}
+                  {/* <Pagination count={{ dataSize } / 16} /> */}
+                  <Button
+                    variant="outline-secondary perfume_list_btn"
+                    onClick={() => {
+                      page <= 1 ? setPage(1) : setPage(page - 1);
+                    }}
+                  >
+                    이전
+                  </Button>
+                  <div className="perfume_list_page_text">
+                    <div className="ml-15" style={{ color: "#0d6efd" }}>
+                      {page}&nbsp;
+                    </div>
+                    <div className="mr-15" style={{ fontWeight: "bold" }}>
+                      {" "}
+                      / {pageCnt}
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline-secondary perfume_list_btn"
+                    onClick={() => {
+                      page >= pageCnt ? setPage(pageCnt) : setPage(page + 1);
+                    }}
+                  >
+                    다음
+                  </Button>
                 </div>
               </div>
             </div>
@@ -562,6 +662,6 @@ function PerfumeList() {
       </div>
     </div>
   );
-}
+};
 
 export default PerfumeList;

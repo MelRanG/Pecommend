@@ -60,25 +60,6 @@
     padding-right: 18px;
 }
 
-.regist-cancel {
-    margin : 0px 15px 0px 0px;
-    border: none;
-    background-color: #9c3737;
-    padding: 3px 6px 3px 6px;
-    color: #ffffff;
-    width: 90px;
-    height: 35px;
-}
-
-.regist-submit {
-    margin : 0px 15px 0px 0px;
-    border: none;
-    background-color: bisque;
-    padding: 3px 6px 3px 6px;
-    width: 90px;
-    height: 35px;
-}
-
 .fontS {
     font-size: 16px !important;
 }

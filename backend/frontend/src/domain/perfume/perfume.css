@@ -19,6 +19,8 @@
 
 .tac {
   text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .pernav .pernav-header .pernav-header-title span {

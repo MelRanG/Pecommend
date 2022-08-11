@@ -25,8 +25,10 @@ public class CommentsResponseDto {
     private Long writerId;
     private String writer;
     private int commentLike;
-    private String createdDate;
-    private String updatedDate;
+    private String createDateYMD;
+    private String createDateHMS;
+    private String modifiedDateYMD;
+    private String modifiedDateHMS;
     private int depth;
     private Long parentId;
     private boolean isDeleted;
@@ -42,17 +44,24 @@ public class CommentsResponseDto {
         int disLikes = disLikeSet == null ? 0 : disLikeSet.size();
         Long parentId = comment.getParent() == null ? null : comment.getParent().getId();
 
+        String createDateYMD = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(comment.getCreatedDate()).toString();
+        String createDateHMS = DateTimeFormatter.ofPattern("HH:mm:ss").format(comment.getCreatedDate()).toString();
+
+        String modifiedDateYMD = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(comment.getModifiedDate()).toString();
+        String modifiedDateHMS = DateTimeFormatter.ofPattern("HH:mm:ss").format(comment.getModifiedDate()).toString();
+
 
         return CommentsResponseDto.builder()
                 .id(comment.getId())
-                .communityId(comment.getId())
+                .communityId(comment.getCommunity().getId())
                 .content(comment.getContent())
                 .writerId(comment.getWriter().getId())
                 .writer(comment.getWriter().getNickname())
                 .commentLike(likes - disLikes)
-                .createdDate(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(comment.getCreatedDate()).toString())
-                .updatedDate(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(comment.getModifiedDate()).toString())
-                .depth(comment.getDepth())
+                .createDateYMD(createDateYMD)
+                .createDateHMS(createDateHMS)
+                .modifiedDateYMD(modifiedDateYMD)
+                .modifiedDateHMS(modifiedDateHMS).depth(comment.getDepth())
                 .parentId(parentId)
                 .isDeleted(comment.isDeleted())
                 .build();

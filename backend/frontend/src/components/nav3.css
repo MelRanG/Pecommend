@@ -26,6 +26,7 @@ a{
   margin-bottom: 0px;
   height: 100%;
   font-family: 'EarlyFontDiary';
+  font-weight: bold
 }
 
 .navbar__menu li {
@@ -62,7 +63,7 @@ a{
 }
 
 /* 반응형 */
-@media screen and (max-width:1200px) {
+@media screen and (max-width:1218px) {
   .navbar{
     flex-direction: column;
     align-items: flex-start;
