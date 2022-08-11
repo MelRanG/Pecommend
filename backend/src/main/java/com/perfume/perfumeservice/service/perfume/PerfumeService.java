@@ -15,7 +15,7 @@ public interface PerfumeService {
     // List<PerfumeResponseDto> getListKoKeyword(String keyword);
     // List<PerfumeResponseDto> getListEnKeyword(String keyword);
 
-    PerfumeResponseDto getPerfume(Long id);
+    Perfume getPerfume(Long id);
 
     String getImg(String img);
     List<PerfumeResponseDto> getBestList();

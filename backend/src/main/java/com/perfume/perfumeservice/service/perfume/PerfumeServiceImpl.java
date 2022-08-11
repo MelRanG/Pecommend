@@ -166,9 +166,9 @@ public class PerfumeServiceImpl implements PerfumeService {
 
 
     @Override
-    public PerfumeResponseDto getPerfume(Long id) {
+    public Perfume getPerfume(Long id) {
         Perfume perfume = perfumeRepository.findById(id).orElseThrow(PerfumeNotFoundException::new);
-        return PerfumeResponseDto.from(perfume);
+        return perfume;
     }
 
     @Override

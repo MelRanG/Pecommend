@@ -208,7 +208,7 @@ public class PerfumeController {
     @GetMapping("/{id}")
     @ApiOperation(value = "향수 디테일 가져오기(노트, 태그, 좋아요/싫어요 목록, 좋아요/싫어요 비율, 좋아요수/싫어요수만 추가)")
     public ResponseEntity<Map<String, Object>> getPerfume(@PathVariable Long id){
-        PerfumeResponseDto pDto = perfumeService.getPerfume(id);
+        PerfumeResponseDto pDto = PerfumeResponseDto.from(perfumeService.getPerfume(id));
         List<NoteResponseDto> nDto = noteService.getNotes(id);
         List<PerfumeTagResponseDto> ptDto = perfumeTagService.getPerfumeTags(id);
         List<PerfumeLikeResponseDto> plDto = perfumeLikeService.getLikePerfume(id);
@@ -314,10 +314,12 @@ public class PerfumeController {
             Map<String, Object> map = new LinkedHashMap<>();
             long pid = plc.getPerfumeId();
             // perfume name 구하기
-            String pname = perfumeService.getPerfume(pid).getKoName();
-            // perfume img 구하기
+            Perfume p = perfumeService.getPerfume(pid);
+            String pNameKo = p.getKoName();
+            String pNameEn = p.getEnName();
             map.put("pId", plc);
-            map.put("pName", pname);
+            map.put("pNameKo", pNameKo);
+            map.put("pNameEn", pNameEn);
             llResult.add(map);
         }
         resultMap.put("likelike", llResult);
@@ -331,10 +333,12 @@ public class PerfumeController {
             Map<String, Object> map = new LinkedHashMap<>();
             long pid = plc.getPerfumeId();
             // perfume name 구하기
-            String pname = perfumeService.getPerfume(pid).getKoName();
-            // perfume img 구하기
+            Perfume p = perfumeService.getPerfume(pid);
+            String pNameKo = p.getKoName();
+            String pNameEn = p.getEnName();
             map.put("pId", plc);
-            map.put("pName", pname);
+            map.put("pNameKo", pNameKo);
+            map.put("pNameEn", pNameEn);
             dlResult.add(map);
         }
         resultMap.put("dislikelike", dlResult);
@@ -347,10 +351,12 @@ public class PerfumeController {
             Map<String, Object> map = new LinkedHashMap<>();
             long pid = plc.getPerfumeId();
             // perfume name 구하기
-            String pname = perfumeService.getPerfume(pid).getKoName();
-            // perfume img 구하기
+            Perfume p = perfumeService.getPerfume(pid);
+            String pNameKo = p.getKoName();
+            String pNameEn = p.getEnName();
             map.put("pId", plc);
-            map.put("pName", pname);
+            map.put("pNameKo", pNameKo);
+            map.put("pNameEn", pNameEn);
             ldResult.add(map);
         }
         resultMap.put("likedislike", ldResult);
@@ -364,10 +370,12 @@ public class PerfumeController {
             Map<String, Object> map = new LinkedHashMap<>();
             long pid = plc.getPerfumeId();
             // perfume name 구하기
-            String pname = perfumeService.getPerfume(pid).getKoName();
-            // perfume img 구하기
+            Perfume p = perfumeService.getPerfume(pid);
+            String pNameKo = p.getKoName();
+            String pNameEn = p.getEnName();
             map.put("pId", plc);
-            map.put("pName", pname);
+            map.put("pNameKo", pNameKo);
+            map.put("pNameEn", pNameEn);
             ddResult.add(map);
         }
         resultMap.put("dislikedislike", ddResult);
