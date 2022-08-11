@@ -5,11 +5,20 @@ import "./perfumeRegistList.css";
 function PerfumeRegistList() {
   return (
     <div className="perfumeRegistList">
-
-      <div className="container mt-50 mb-100" style={{ width: "80%", minWidth: "500px" }}>
+      <div
+        className="container mt-50 mb-100"
+        style={{ width: "70%", minWidth: "500px" }}
+      >
+        <div>
+          <div class="alert alert-secondary" role="alert">
+            * 페코에서 보고싶은 미등록 향수가 있다면 신청해주세요.
+          </div>
+        </div>
         <div className="top-bar">
           <h4>향수 등록 신청 목록</h4>
-          <button><Link to={"../reg"}>신청하기</Link></button>
+          <button>
+            <Link to={"../reg"}>신청하기</Link>
+          </button>
         </div>
 
         <div className="perfume-list">
