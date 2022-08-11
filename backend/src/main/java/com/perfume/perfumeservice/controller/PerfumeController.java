@@ -161,6 +161,9 @@ public class PerfumeController {
         List<String> mbtis = (List<String>) map.get("mbti"); // mbti
 
         List<Long> users = userService.getUserByMbtiAndGenderAndAge(mbtis, genders, ages); // 조건에 맞는 유저 가져오기
+        for (Long user: users){
+            System.out.print(user+", ");
+        }
 
         // 페이징 해서 결과 가져오기
         Map<String, Object> perfumes = perfumeService.getByUserListPage(users, page-1);

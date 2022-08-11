@@ -56,7 +56,7 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
                     "WHERE pl.perfume_id = p.perfume_id AND pl.user_id IN (:users) " +
                     "GROUP BY pl.perfume_id " +
                     "ORDER BY COUNT(pl.perfume_id) DESC, p.perfume_name_ko ASC",
-            countQuery = "SELECT COUNT(pl.perfume_id) FROM perfume_like pl WHERE pl.user_id IN (:users)"
+            countQuery = "SELECT COUNT(distinct pl.perfume_id) FROM perfume_like pl WHERE pl.user_id IN (:users)"
     )
     public Page<Perfume> findByUsersPage(Pageable pageable, List<Long> users);
 
