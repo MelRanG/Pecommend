@@ -394,7 +394,7 @@ function Login() {
                     <h4> login </h4>
                   </a>
                   <a data-bs-toggle="tab" href="#lg2">
-                    <h4> register </h4>
+                    <h4> sign up </h4>
                   </a>
                 </div>
                 <div className="tab-content">
@@ -589,7 +589,7 @@ function Login() {
                           />
                           <div className="button-box">
                             <button type="submit">
-                              <span>Register</span>
+                              <span>Sign Up</span>
                             </button>
                           </div>
                         </form>

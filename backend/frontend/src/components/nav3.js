@@ -67,7 +67,7 @@ function Nav3() {
         </ul> :
         <ul className="navbar__icons">
           <li>
-            <Link to="/login">LOGIN&nbsp;/&nbsp;REGIST</Link>
+            <Link to="/login">LOGIN&nbsp;/&nbsp;SIGN UP</Link>
           </li>
         </ul>
       }
