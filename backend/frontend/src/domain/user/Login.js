@@ -391,10 +391,10 @@ function Login() {
               <div className="login-register-wrapper">
                 <div className="login-register-tab-list nav">
                   <a className="active" data-bs-toggle="tab" href="#lg1">
-                    <h4> login </h4>
+                    <h4> SIGN IN </h4>
                   </a>
                   <a data-bs-toggle="tab" href="#lg2">
-                    <h4> register </h4>
+                    <h4> SIGN UP </h4>
                   </a>
                 </div>
                 <div className="tab-content">
@@ -427,7 +427,7 @@ function Login() {
                             </div>
                             <div className="d-grid gap-2">
                               <button type="submit" className="bbb">
-                                <span>Login</span>
+                                <span>SIGN IN</span>
                               </button>
                               <div className="login_l m-4"></div>
                             </div>
@@ -589,7 +589,7 @@ function Login() {
                           />
                           <div className="button-box">
                             <button type="submit">
-                              <span>Register</span>
+                              <span>Sign Up</span>
                             </button>
                           </div>
                         </form>

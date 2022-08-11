@@ -219,6 +219,21 @@ function CommunityList() {
     data.innerText = e.target.innerText
   }
 
+  const getToday = (data) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+    const dateString = year + '-' + month  + '-' + day;
+    if (dateString === data) {
+      return 0;
+    } else if (data.slice(0,4) == year) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
   useEffect(() => {
     getArticleList();
     console.log(useParam, "category", categorys)
@@ -234,12 +249,12 @@ function CommunityList() {
           <div className="row flex-row-reverse">
             <div className="col-lg-12 mt-5">
               <div className="row">
-                <div className="community-top-box col-lg-6 col-sm-12">
+                <div className="community-top-box col-lg-6 col-sm-6 col-xs-6">
                   <button className="community-top-box-active" onClick={clickButton1} id="button1">ㆍ최신</button>
                   <button className="community-top-box-wait" onClick={clickButton2} id="button2">ㆍ추천</button>
                   <button className="community-top-box-wait" onClick={clickButton3} id="button3">ㆍHOT</button>
                 </div>
-                <div className="col-lg-6 community-top-regist col-sm-12">
+                <div className="community-top-regist col-lg-6 col-sm-6 col-xs-6">
                   {
                     (user.user_id == null)
                     ? <>
@@ -247,13 +262,13 @@ function CommunityList() {
                     : (
                       (user.role == "ROLE_ADMIN")
                       ? <>
-                        <button type="button" className="btn btn-secondary" onClick={() =>
+                        <button type="button" className="writingBtn" onClick={() =>
                       (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
                       </>
                       : (
                         (categorys < 4)
                         ? <>
-                          <button type="button" className="btn btn-secondary" onClick={() =>
+                          <button type="button" className="writingBtn" onClick={() =>
                         (navigate(`/commu/regist`, { replace: true }))}>글 작성</button>
                         </>
                         : <>
@@ -261,14 +276,22 @@ function CommunityList() {
                       )
                     )
                   }
-                   {/* <button type="button" className="btn btn-secondary" onClick={() => */}
-                    {/* (navigate(`/commu/regist`, { replace: true }))}>글 작성</button> */}
+                  <div className='selectdown'>
+                    <select
+                      type="number"
+                      value={limitData}
+                      onChange={({ target: { value } }) => setLimit(Number(value))}
+                    >
+                      <option value="10">10개</option>
+                      <option value="20">20개</option>
+                      <option value="50">50개</option>
+                      <option value="100">100개</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <div className="shop-bottom-area mt-15">
                 <div className="tab-content jump">
-
-
                   <table className="table table-hover">
                     <thead>
                       <tr className="table-top">
@@ -276,7 +299,7 @@ function CommunityList() {
                         <th scope="col">제목</th>
                         <th scope="col">작성자</th>
                         <th scope="col">작성일</th>
-                        <th scope="col">추천수</th>
+                        <th scope="col">추천</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -287,6 +310,7 @@ function CommunityList() {
                             {data.id}
                           </th>
                           <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                            <div className="text-overflow">
                             <Link
                               className="community-list-titlebox"
                               to={`/commu/detail/${data.id}`}
@@ -300,40 +324,29 @@ function CommunityList() {
                                 {data.title}
                                 </>
                               }
-                            </Link>
+                            </Link></div>
                           </td>
                           {/* <td><Route path="/commu/detail/:num" element={<CommunityDetail />} />{data. title}</td> */}
                           {/* <td>{data.writer}</td> */}
                           <td className="" style={{ textAlign: "center", paddingLeft: "15px" }}>
+                            <div className="text-overflow">
                             <Link
                               className=""
                               to={`/profile/${data.writer_id}`}
                             >
                               {data.writer}
-                            </Link>
+                            </Link></div>
                           </td>
-                          <td>{data.createDateYMD}</td>
+                          { getToday(data.createDateYMD) === 0
+                            ? <td>{data.createDateHMS.slice(0,5)}</td>
+                            : (getToday(data.createDateYMD) === 1
+                              ? <td>{data.createDateYMD.slice(5,7)}/{data.createDateYMD.slice(8,10)}</td>
+                              : <td>{data.createDateYMD}</td>)}
                           <td>{data.communityLike}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
-
-                  <div>
-                    <label>
-                      페이지 당 표시할 게시물 수:&nbsp;
-                      <select
-                        type="number"
-                        value={limitData}
-                        onChange={({ target: { value } }) => setLimit(Number(value))}
-                      >
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                      </select>
-                    </label>
-                  </div>
 
                   <div>
                     <Pagination
@@ -581,211 +594,6 @@ function CommunityList() {
                     </button>
                   </form>
                 </div> */}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* <!-- Modal --> */}
-      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="row">
-                <div className="col-md-5 col-sm-12 col-xs-12">
-                  <div className="tab-content quickview-big-img">
-                    <div id="pro-1" className="tab-pane fade show active">
-                      <img src="assets/img/product/quickview-l1.jpg" alt="" />
-                    </div>
-                    <div id="pro-2" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                    </div>
-                    <div id="pro-3" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l3.jpg" alt="" />
-                    </div>
-                    <div id="pro-4" className="tab-pane fade">
-                      <img src="assets/img/product/quickview-l2.jpg" alt="" />
-                    </div>
-                  </div>
-                  {/* <!-- Thumbnail Large Image End --> */}
-                  {/* <!-- Thumbnail Image End --> */}
-                  <div className="quickview-wrap mt-15">
-                    <div
-                      className="quickview-slide-active owl-carousel nav nav-style-1"
-                      role="tablist"
-                    >
-                      <a className="active" data-bs-toggle="tab" href="#pro-1">
-                        <img src="assets/img/product/quickview-s1.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-2">
-                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-3">
-                        <img src="assets/img/product/quickview-s3.jpg" alt="" />
-                      </a>
-                      <a data-bs-toggle="tab" href="#pro-4">
-                        <img src="assets/img/product/quickview-s2.jpg" alt="" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-7 col-sm-12 col-xs-12">
-                  <div className="product-details-content quickview-content">
-                    <h2>Products Name Here</h2>
-                    <div className="product-details-price">
-                      <span>$18.00 </span>
-                      <span className="old">$20.00 </span>
-                    </div>
-                    <div className="pro-details-rating-wrap">
-                      <div className="pro-details-rating">
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o yellow"></i>
-                        <i className="fa fa-star-o"></i>
-                        <i className="fa fa-star-o"></i>
-                      </div>
-                      <span>3 Reviews</span>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisic elit
-                      eiusm tempor incidid ut labore et dolore magna aliqua. Ut
-                      enim ad minim venialo quis nostrud exercitation ullamco
-                    </p>
-                    <div className="pro-details-list">
-                      <ul>
-                        <li>- 0.5 mm Dail</li>
-                        <li>- Inspired vector icons</li>
-                        <li>- Very modern style </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-size-color">
-                      <div className="pro-details-color-wrap">
-                        <span>Color</span>
-                        <div className="pro-details-color-content">
-                          <ul>
-                            <li className="blue"></li>
-                            <li className="maroon active"></li>
-                            <li className="gray"></li>
-                            <li className="green"></li>
-                            <li className="yellow"></li>
-                            <li className="white"></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="pro-details-size">
-                        <span>Size</span>
-                        <div className="pro-details-size-content">
-                          <ul>
-                            <li>
-                              <a href="#">s</a>
-                            </li>
-                            <li>
-                              <a href="#">m</a>
-                            </li>
-                            <li>
-                              <a href="#">l</a>
-                            </li>
-                            <li>
-                              <a href="#">xl</a>
-                            </li>
-                            <li>
-                              <a href="#">xxl</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pro-details-quality">
-                      <div className="cart-plus-minus">
-                        <input
-                          className="cart-plus-minus-box"
-                          type="text"
-                          name="qtybutton"
-                          value="2"
-                        />
-                      </div>
-                      <div className="pro-details-cart btn-hover">
-                        <a href="#">Add To Cart</a>
-                      </div>
-                      <div className="pro-details-wishlist">
-                        <a href="#">
-                          <i className="fa fa-heart-o"></i>
-                        </a>
-                      </div>
-                      <div className="pro-details-compare">
-                        <a href="#">
-                          <i className="pe-7s-shuffle"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="pro-details-meta">
-                      <span>Categories :</span>
-                      <ul>
-                        <li>
-                          <a href="#">Minimal,</a>
-                        </li>
-                        <li>
-                          <a href="#">Furniture,</a>
-                        </li>
-                        <li>
-                          <a href="#">Electronic</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-meta">
-                      <span>Tag :</span>
-                      <ul>
-                        <li>
-                          <a href="#">Fashion, </a>
-                        </li>
-                        <li>
-                          <a href="#">Furniture,</a>
-                        </li>
-                        <li>
-                          <a href="#">Electronic</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="pro-details-social">
-                      <ul>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-facebook"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-dribbble"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-pinterest-p"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-linkedin"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

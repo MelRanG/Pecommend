@@ -32,10 +32,10 @@ function Footer() {
                     <a href="/">HOME</a>
                   </li>
                   <li>
-                    <a href="/perfume">PERFUME</a>
+                    <a href="/perfume/main">PERFUME</a>
                   </li>
                   <li>
-                    <a href="/commu">COMMUNITY</a>
+                    <a href="/commu/main">COMMUNITY</a>
                   </li>
                   <li>
                     <a href="/test">TEST</a>

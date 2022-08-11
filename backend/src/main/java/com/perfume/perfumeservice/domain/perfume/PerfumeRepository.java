@@ -1,6 +1,8 @@
 package com.perfume.perfumeservice.domain.perfume;
 
 import com.perfume.perfumeservice.domain.user.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +13,8 @@ import java.util.List;
 public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
 
     public List<Perfume> findAllByOrderByKoName();
+
+    public Page<Perfume> findAll(Pageable pageable);
 
     public List<Perfume> findByKoNameLike(String keyword);
 
@@ -29,21 +33,31 @@ public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
     public List<Perfume> findAllOrderByLikes();
     //public List<Perfume> findByKoNameLikeOrEnNameLike(String koName, String enName);
 
-    public List<Perfume> findByKoNameLikeOrEnNameLikeIgnoreCase(String koName, String enName);
+    public Page<Perfume> findByKoNameLikeOrEnNameLikeIgnoreCase(Pageable pageable, String koName, String enName);
 
-    // 나이 해당하는 사람 가져오기
+
     @Query(nativeQuery = true, value =
-//            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
-            "SELECT STR_TO_DATE(birthday, '%Y-%m-%d') AS"
+            "select * from perfume where perfume_id in(:perfumes)"
     )
-    public List<Long> findByAge(List<Integer> ages);
-//    public List<Perfume> findByTags(List<Integer> ages, List<String> genders, List<String> mbtis);
+    public List<Perfume> findByIds(List<Long> perfumes);
+
     @Query(nativeQuery = true, value =
-//            "SELECT user_id AS age FROM user HAVING ROUND((TO_DAYS(NOW()) - (TO_DAYS(birthday))) / 365) in(:ages);"
-//            "SELECT FORMATDATETIME(birthday, 'yyyy-MM-dd') FROM user;"
-//            "SELECT to_date(birthday, 'YYYY-MM-DD') FROM user"
-            "SELECT to_char(to_date(u.birthday, 'YYYY-mm-dd'), 'yyyy/mm/dd') FROM user u"
+            "SELECT pl.perfume_id, p.perfume_name_ko, p.perfume_name_en " +
+                    "FROM perfume_like pl, perfume p " +
+                    "WHERE pl.perfume_id = p.perfume_id AND pl.user_id IN (:users) " +
+                    "GROUP BY pl.perfume_id " +
+                    "ORDER BY COUNT(pl.perfume_id) DESC, p.perfume_name_ko ASC;"
     )
-    public List<String> test();
+    public List<Perfume> findByUsers(List<Long> users);
+
+    @Query(nativeQuery = true, value =
+            "SELECT pl.perfume_id, p.perfume_name_ko, p.perfume_name_en " +
+                    "FROM perfume_like pl, perfume p " +
+                    "WHERE pl.perfume_id = p.perfume_id AND pl.user_id IN (:users) " +
+                    "GROUP BY pl.perfume_id " +
+                    "ORDER BY COUNT(pl.perfume_id) DESC, p.perfume_name_ko ASC",
+            countQuery = "SELECT COUNT(distinct pl.perfume_id) FROM perfume_like pl WHERE pl.user_id IN (:users)"
+    )
+    public Page<Perfume> findByUsersPage(Pageable pageable, List<Long> users);
 
 }

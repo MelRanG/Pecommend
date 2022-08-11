@@ -16,7 +16,7 @@ const Community = () => {
       <div className="container-temp">
         <div className="pernav">
           <div className="pernav-header">
-            <div className="pernav-header-title tac">
+            <div className="comnav-header-title tac">
               <span>COMMUNITY</span>
             </div>
           </div>
