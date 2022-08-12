@@ -5,10 +5,10 @@ import "./perfumeDetail.css";
 import { Rating } from "react-simple-star-rating";
 import { useSelector } from "react-redux";
 import { Modal, Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-
 
 const Box = styled.div`
   display: block;
@@ -116,7 +116,7 @@ const PerfumeDetail = () => {
       });
       // console.log(response);
       if (response.status === 200) {
-        console.log("전체 태그 리스트", response.data);
+        // console.log("전체 태그 리스트", response.data);
         setTagList(response.data);
       }
     } catch (error) {
@@ -126,43 +126,43 @@ const PerfumeDetail = () => {
 
   //모달창에서 태그 선택시
   const clickReviewTag = (e) => {
-    console.log("확이니ㅣ", e.target.id);
+    // console.log("확이니ㅣ", e.target.id);
     if (choiceTag.length <= 2) {
       if (choiceTag.length != 0) {
         if (choiceTag.includes(e.target.id)) {
           // const temp = choiceTag;
-          console.log(choiceTag);
+          // console.log(choiceTag);
           setChoiceTag(
-            Object.values(choiceTag).filter((data) => data !== e.target.id)
+            Object.values(choiceTag).filter((data) => data !== e.target.id),
           );
         } else {
           const tempNum = e.target.id;
-          console.log("tempNum", tempNum);
+          // console.log("tempNum", tempNum);
           const temp = [...choiceTag, tempNum];
           setChoiceTag(temp);
-          console.log("xx", choiceTag);
+          // console.log("xx", choiceTag);
         }
       } else {
         const tempNum = e.target.id;
-        console.log("tempNum", tempNum);
+        // console.log("tempNum", tempNum);
         setChoiceTag([e.target.id]);
       }
-      console.log(choiceTag);
+      // console.log(choiceTag);
 
       // console.log("태그선택", choiceTag);
 
       const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
       Tag[0].classList.toggle("checked");
-      console.log("Tag", Tag);
+      // console.log("Tag", Tag);
     } else if (choiceTag.includes(e.target.id)) {
       setChoiceTag(
-        Object.values(choiceTag).filter((data) => data !== e.target.id)
+        Object.values(choiceTag).filter((data) => data !== e.target.id),
       );
       const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
       Tag[0].classList.toggle("checked");
-      console.log("Tag", Tag);
+      // console.log("Tag", Tag);
     } else {
-      alert("해시태그선택은3개까지만");
+      alert("해시태그 선택은 3개까지 가능합니다.");
     }
   };
 
@@ -187,13 +187,13 @@ const PerfumeDetail = () => {
 
   //리뷰불러오기
   const getReview = async () => {
-    console.log("리뷰정렬", reviewOrder);
+    // console.log("리뷰정렬", reviewOrder);
     try {
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/review/list.do/" + number + "?order=" + reviewOrder,
       });
-      console.log("review", response.data);
+      // console.log("review", response.data);
       setReviewScore(response.data.score_avg);
       setReview(response.data.review);
       setReviewCount(response.data.review_count);
@@ -233,7 +233,7 @@ const PerfumeDetail = () => {
   const handleRating = (rate: number) => {
     setRating(rate / 20);
     // other logic
-    console.log("별점", rating);
+    // console.log("별점", rating);
   };
 
   const handleUpdateRating = (rate: number) => {
@@ -242,8 +242,7 @@ const PerfumeDetail = () => {
 
   //좋아요
   const recommend = async () => {
-
-if (!isLogined) {
+    if (!isLogined) {
       Swal.fire({
         icon: "info",
         title: "Information",
@@ -251,7 +250,7 @@ if (!isLogined) {
       });
       navigate("/login");
     } else {
-      console.log("좋아요", user);
+      // console.log("좋아요", user);
       try {
         let data = {
           perfumeId: perfumeDetail.perfumeId,
@@ -272,7 +271,7 @@ if (!isLogined) {
               perfumeId: perfumeDetail.perfumeId,
               userId: user.user_id,
             };
-            console.log("temp", temp);
+            // console.log("temp", temp);
           }
           if (response.data == "CANCEL") {
           }
@@ -289,8 +288,7 @@ if (!isLogined) {
 
   //싫어요
   const disrecommend = async () => {
-
-if (!isLogined) {
+    if (!isLogined) {
       Swal.fire({
         icon: "info",
         title: "Information",
@@ -319,7 +317,7 @@ if (!isLogined) {
               perfumeId: perfumeDetail.perfumeId,
               userId: user.user_id,
             };
-            console.log("temp", temp);
+            // console.log("temp", temp);
           }
           if (response.data == "CANCEL") {
             // alert("좋아요누른사람");
@@ -450,7 +448,7 @@ if (!isLogined) {
     console.log("리뷰수정", e.target.id);
     try {
       const commentBox = document.getElementById(
-        "review-content-" + e.target.id
+        "review-content-" + e.target.id,
       );
       const response = await authaxios({
         method: "patch",
@@ -466,20 +464,20 @@ if (!isLogined) {
       console.log(response);
       if (response.status === 200) {
         const commentBox = document.getElementById(
-          "review-content-" + e.target.id
+          "review-content-" + e.target.id,
         );
         const commentButtonBox1 = document.getElementById(
-          "review-button-set1-" + e.target.id
+          "review-button-set1-" + e.target.id,
         );
         const commentButtonBox2 = document.getElementById(
-          "review-button-set2-" + e.target.id
+          "review-button-set2-" + e.target.id,
         );
         // const commentButtonBox3 = document.getElementById(
         //   "review-button-set3-" + e.target.id
         // );
         const rateBox1 = document.getElementById("review-rate-" + e.target.id);
         const rateBox2 = document.getElementById(
-          "review-rateEdit-" + e.target.id
+          "review-rateEdit-" + e.target.id,
         );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
@@ -502,10 +500,10 @@ if (!isLogined) {
     // console.log(commentBox);
     commentBox.setAttribute("name", commentBox.value);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id
+      "review-button-set1-" + e.target.id,
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id
+      "review-button-set2-" + e.target.id,
     );
     // const commentButtonBox3 = document.getElementById(
     //   "review-button-set3-" + e.target.id
@@ -527,10 +525,10 @@ if (!isLogined) {
     e.preventDefault();
     const commentBox = document.getElementById("review-content-" + e.target.id);
     const commentButtonBox1 = document.getElementById(
-      "review-button-set1-" + e.target.id
+      "review-button-set1-" + e.target.id,
     );
     const commentButtonBox2 = document.getElementById(
-      "review-button-set2-" + e.target.id
+      "review-button-set2-" + e.target.id,
     );
     // const commentButtonBox3 = document.getElementById(
     //   "review-button-set3-" + e.target.id
@@ -803,12 +801,14 @@ if (!isLogined) {
                   {ldList.likelike &&
                     ldList.likelike.map((data) => (
                       <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
-                        <img
-                          // src=".\assets\tempImg\123359405127241D28.jpg"
-                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
-                          alt=""
-                        />
-                        <p>{data.pNameKo}</p>
+                        <a href={`/perfume/detail/${data.pId.perfumeId}`}>
+                          <img
+                            // src=".\assets\tempImg\123359405127241D28.jpg"
+                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            alt=""
+                          />
+                          <p>{data.pNameKo}</p>
+                        </a>
                       </div>
                     ))}
                   {/* <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
@@ -831,11 +831,13 @@ if (!isLogined) {
                   {ldList.likedislike &&
                     ldList.likedislike.map((data) => (
                       <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
-                        <img
-                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
-                          alt=""
-                        />
-                        <p>{data.pNameKo}</p>
+                        <a href={`/perfume/detail/${data.pId.perfumeId}`}>
+                          <img
+                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            alt=""
+                          />
+                          <p>{data.pNameKo}</p>
+                        </a>
                       </div>
                     ))}
                   {/* <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
@@ -860,11 +862,13 @@ if (!isLogined) {
                   {ldList.dislikelike &&
                     ldList.dislikelike.map((data) => (
                       <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
-                        <img
-                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
-                          alt=""
-                        />
-                        <p>{data.pNameKo}</p>
+                        <a href={`/perfume/detail/${data.pId.perfumeId}`}>
+                          <img
+                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            alt=""
+                          />
+                          <p>{data.pNameKo}</p>
+                        </a>
                       </div>
                     ))}
                 </div>
@@ -883,11 +887,13 @@ if (!isLogined) {
                   {ldList.dislikedislike &&
                     ldList.dislikedislike.map((data) => (
                       <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
-                        <img
-                          src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
-                          alt=""
-                        />
-                        <p>{data.pNameKo}</p>
+                        <a href={`/perfume/detail/${data.pId.perfumeId}`}>
+                          <img
+                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            alt=""
+                          />
+                          <p>{data.pNameKo}</p>
+                        </a>
                       </div>
                     ))}
                 </div>

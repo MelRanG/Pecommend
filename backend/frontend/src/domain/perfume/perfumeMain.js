@@ -99,8 +99,12 @@ const PerfumeMain = () => {
           {/* 해시태그 */}
           <div className="product-details-content mt-30">
             <div className="title row">
-              <h2 className="title-popular col-sm-6">인기 키워드</h2>
-              {/* <div className="title-sub col-sm-6">더보기 {">"}</div> */}
+              <h2 className="title-popular col-xs-6">인기 키워드</h2>
+              <div className="title-sub col-xs-6" style={{ display: "none" }}>
+                <Link to={"../list"} className="title-sub-link">
+                  <div>더보기 {">"}</div>
+                </Link>
+              </div>
             </div>
             <div className="perfume-popular-hashtag">
               {/* 이부분에 해시태그 */}
@@ -122,8 +126,12 @@ const PerfumeMain = () => {
           <div className="container">
             <div className="product-details-content">
               <div className="title row">
-                <h2 className="title-popular col-sm-6">인기 향수</h2>
-                <div className="title-sub col-sm-6">더보기 {">"}</div>
+                <h2 className="title-popular col-xs-6">인기 향수</h2>
+                <div className="title-sub col-xs-6">
+                  <Link to={"../list"} className="title-sub-link">
+                    <div>더보기 {">"}</div>
+                  </Link>
+                </div>
               </div>
               <div className="perfume-popular-items row pl-20 pr-20">
                 {/* <div className="perfume-popular-item col-lg-2">
@@ -162,7 +170,7 @@ const PerfumeMain = () => {
                             </div>
                           </div>
                           <img
-                            className="default-img"
+                            className="popular-item-img"
                             src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pDto.enName}`}
                             alt=""
                           />
@@ -213,8 +221,8 @@ const PerfumeMain = () => {
           {/* 최신리뷰 */}
           <div className="product-details-content mt-30">
             <div className="title row ">
-              <h2 className="title-popular col-sm-6">최신 리뷰</h2>
-              {/* <div className="title-sub col-sm-6">더보기 {">"}</div> */}
+              <h2 className="title-popular col-xs-6">최신 리뷰</h2>
+              <div className="title-sub col-xs-6">{/* 더보기 {">"} */}</div>
             </div>
 
             {/* 캐러셀 - 전체를 Link로 감싸기 detail로 이동 */}

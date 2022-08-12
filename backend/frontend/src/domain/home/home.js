@@ -63,7 +63,10 @@ const Home = () => {
 
       <div className="home3 mb-80">
         <div className="container">
-          <div className="home-banner" onClick={() => navigate("/perfume/main")}>
+          <div
+            className="home-banner"
+            onClick={() => navigate("/perfume/main")}
+          >
             <div className="banner-box">
               <div className="banner-total">
                 <div className="banner-title">PERFUME</div>
@@ -104,15 +107,14 @@ const Home = () => {
                 <div className="banner-title">COMMUNITY</div>
                 <div className="banner-text">
                   다양한 게시판을 통해 다른 회원들과 의견을 나눠보세요! <br />
-                  인기 게시판과 베스트 게시판을 통해 회원들의 관심 게시글을
-                  확인해보세요!
+                  인기 게시판을 통해 회원들의 관심 게시글을 확인해보세요!
                 </div>
                 <div className="home-product-hashtag">
                   <div
                     className=""
                     style={{ backgroundColor: "rgb(153 187 255)" }}
                   >
-                    #질문
+                    #향수
                   </div>
                   <div className="" style={{ backgroundColor: "#deb6ff" }}>
                     #자유
@@ -127,7 +129,7 @@ const Home = () => {
           <div className="home-banner3 " onClick={() => navigate("/test")}>
             <div className="banner-box">
               <div className="banner-total">
-                <div className="banner-title">to be continue</div>
+                <div className="banner-title">TEST</div>
                 <div className="banner-text">
                   {/* 향수를 처음 접하신다면? 간단한 Test를 통해서 향수를 추천받으며 향수를 접해보고 알아가보세요! */}
                   당신은 어떤 향수가 어울릴까요?
@@ -137,13 +139,13 @@ const Home = () => {
                     className=""
                     style={{ backgroundColor: "rgb(120 126 114)" }}
                   >
-                    #TEST
+                    #간단하게
                   </div>
                   <div
                     className=""
                     style={{ backgroundColor: "rgb(201 177 155)" }}
                   >
-                    #MBTI
+                    #향수추천
                   </div>
                 </div>
               </div>

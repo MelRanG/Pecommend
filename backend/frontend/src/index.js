@@ -43,11 +43,10 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
         <BrowserRouter>
-        <ScrollToTop/>
+          <ScrollToTop />
           <App />
         </BrowserRouter>
       </React.StrictMode>
-      ,
     </PersistGate>
   </Provider>,
 );

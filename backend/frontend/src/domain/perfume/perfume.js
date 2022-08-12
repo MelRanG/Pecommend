@@ -25,13 +25,34 @@ const Perfume = () => {
             <div className="per-nav n3">
               <ul className="mb-0">
                 <li>
-                  <NavLink to="main" className={({ isActive }) => (isActive ? "is-active" : "is-not")}>MAIN</NavLink>
+                  <NavLink
+                    to="main"
+                    className={({ isActive }) =>
+                      isActive ? "is-active" : "is-not"
+                    }
+                  >
+                    메인
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="list" className={({ isActive }) => (isActive ? "is-active" : "is-not")}>LIST</NavLink>
+                  <NavLink
+                    to="list"
+                    className={({ isActive }) =>
+                      isActive ? "is-active" : "is-not"
+                    }
+                  >
+                    목록
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="reglist" className={({ isActive }) => (isActive ? "is-active" : "is-not")}>REGIST</NavLink>
+                  <NavLink
+                    to="reglist"
+                    className={({ isActive }) =>
+                      isActive ? "is-active" : "is-not"
+                    }
+                  >
+                    신청
+                  </NavLink>
                 </li>
               </ul>
             </div>
