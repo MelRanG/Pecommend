@@ -15,9 +15,12 @@ const Home = () => {
               <p
                 style={{
                   display: "inline",
+                  // textShadow:
+                  //   "-2px 0 rgb(92 92 92), 0 2px rgb(92 92 92), 2px 0 rgb(92 92 92), 0 -2px rgb(92 92 92)",
                   textShadow:
-                    "-1px 0 rgb(92 92 92), 0 1px rgb(92 92 92), 1px 0 rgb(92 92 92), 0 -1px rgb(92 92 92)",
+                    "2px 2px 2px gray",
                 }}
+                className="mr-9"
               >
                 PECO
               </p>
@@ -30,7 +33,8 @@ const Home = () => {
               >
                 MMEND
               </p>
-              <h2>We bring you closer to your goals</h2>
+              {/* <h2>We bring you closer to your goals</h2> */}
+              <div className="mt-2"><span className="slogan">We bring you closer to your goals</span></div>
             </div>
           </div>
         </div>

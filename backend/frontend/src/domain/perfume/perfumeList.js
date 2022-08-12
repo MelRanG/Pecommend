@@ -48,10 +48,8 @@ const PerfumeList = () => {
   const genderChangeHandler = (checked, id) => {
     if (checked) {
       setCheckedGender([...checkedGender, id]);
-      console.log("성별체크");
     } else {
       setCheckedGender(checkedGender.filter((button) => button !== id));
-      console.log("성별체크해제");
     }
   };
   //연령
@@ -59,10 +57,8 @@ const PerfumeList = () => {
   const ageChangeHandler = (checked, id) => {
     if (checked) {
       setCheckedAge([...checkedAge, id]);
-      console.log("연령체크");
     } else {
       setCheckedAge(checkedAge.filter((button) => button !== id));
-      console.log("연령체크해제");
     }
   };
   //mbti
@@ -70,20 +66,16 @@ const PerfumeList = () => {
   const mbtiChangeHandler = (checked, id) => {
     if (checked) {
       setCheckedMbti([...checkedMbti, id]);
-      console.log("mbti체크");
     } else {
       setCheckedMbti(checkedMbti.filter((button) => button !== id));
-      console.log("mbti체크해제");
     }
   };
 
   useEffect(() => {
-    console.log("useEffect111");
     changeState();
   }, [checkedMbti, checkedAge, checkedGender]);
 
   useEffect(() => {
-    console.log("useEffect222");
     if (
       checkedMbti.length === 0 &&
       checkedAge.length === 0 &&
@@ -103,7 +95,6 @@ const PerfumeList = () => {
   };
   //change 할때마다 seachFilter에 담아서 요청보내기
   const changeFilter = async () => {
-    console.log("changeFilter호출", searchFilter);
     if (searchFilter !== null) {
       try {
         const response = await freeaxios({
@@ -115,13 +106,11 @@ const PerfumeList = () => {
           charset: "utf-8",
           responseEncodig: "utf-8",
         });
-        console.log(response);
         if (response.status === 200) {
           // setDataList(response.data);
           setDataList(response.data.dtoList);
           setTotalCnt(response.data.totalCnt);
           setPageCnt(response.data.pageCnt);
-          console.log("changeFilter확인", response.data);
         }
       } catch (error) {
         console.log(error);
@@ -149,7 +138,6 @@ const PerfumeList = () => {
   }, [page]);
 
   const getPerfumeList = async () => {
-    console.log("getPerfumeList 호출", page);
     try {
       const response = await freeaxios({
         method: "get",
@@ -159,53 +147,24 @@ const PerfumeList = () => {
         // headers: { "Content-Type" : ""}
         // JSON.stringify()
       });
-      console.log(response);
       if (response.status === 200) {
-        console.log("getPerfumeList", response.data);
         setDataList(response.data.dtoList);
         setTotalCnt(response.data.totalCnt);
         setPageCnt(response.data.pageCnt);
-        // console.log("확인", dataList);
-        // console.log(dataList[1].tDto[0].tagName);
       }
     } catch (error) {
       console.log(error);
     }
-
-    // try {
-    //   const response = await freeaxios({
-    //     method: "get",
-    //     url: "/api/v1/perfume/list",
-    //     // data: registwrite,
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //     // headers: { "Content-Type" : ""}
-    //     // JSON.stringify()
-    //   });
-    //   console.log(response);
-    //   if (response.status === 200) {
-    //     setDataList(response.data);
-    //     // console.log("확인", dataList);
-    //     // console.log(dataList[1].tDto[0].tagName);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   const [keyWord, setKeyWord] = useState(""); //검색키워드
-  // const [inputKeyWord, setInputKeyWord] = useState("");
   const getPerfumeSearchList = async () => {
-    console.log("key", keyWord);
     try {
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/perfume/list.do/" + keyWord + "/page/" + page,
-        // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
-        // headers: { "Content-Type" : ""}
-        // JSON.stringify()
       });
-      console.log("getPerfumeSearchList", response);
       if (response.status === 200) {
         setDataList(response.data.dtoList);
         setTotalCnt(response.data.totalCnt);
@@ -216,14 +175,9 @@ const PerfumeList = () => {
     }
   };
 
-  // useEffect(() => {
-
-  // }, [keyWord]);
-
   const keywordSearch = (e) => {
     setPage(1);
     e.preventDefault();
-    // setKeyWord();
     console.log(keyWord);
     getPerfumeSearchList();
   };
@@ -251,7 +205,6 @@ const PerfumeList = () => {
               >
                 <div className="sidebar-style">
                   <div className="sidebar-widget">
-                    {/* <h4 className="pro-sidebar-title">Search </h4> */}
                     <div className="pro-sidebar-search mb-50 mt-10">
                       <form className="pro-sidebar-search-form">
                         <input
@@ -282,9 +235,7 @@ const PerfumeList = () => {
                         data-bs-target="#Collapse1"
                         aria-expanded="false"
                         aria-controls="Collapse1"
-                      >
-                        {/* <i className="bi bi-chevron-down"></i> */}
-                      </button>
+                      ></button>
                     </div>
 
                     <div className="row">
@@ -300,7 +251,7 @@ const PerfumeList = () => {
                                 onChange={(e) => {
                                   genderChangeHandler(
                                     e.currentTarget.checked,
-                                    "male"
+                                    "male",
                                   );
                                 }}
                                 checked={
@@ -318,7 +269,7 @@ const PerfumeList = () => {
                                 onChange={(e) => {
                                   genderChangeHandler(
                                     e.currentTarget.checked,
-                                    "female"
+                                    "female",
                                   );
                                 }}
                                 checked={
@@ -343,9 +294,7 @@ const PerfumeList = () => {
                         data-bs-target="#Collapse2"
                         aria-expanded="true"
                         aria-controls="Collapse2"
-                      >
-                        {/* <i className="bi bi-chevron-down"></i> */}
-                      </button>
+                      ></button>
                     </div>
 
                     <div className="row">
@@ -418,9 +367,7 @@ const PerfumeList = () => {
                         data-bs-target="#Collapse3"
                         aria-expanded="true"
                         aria-controls="Collapse3"
-                      >
-                        {/* <i className="bi bi-chevron-down"></i> */}
-                      </button>
+                      ></button>
                     </div>
 
                     <div className="row">
@@ -440,9 +387,7 @@ const PerfumeList = () => {
                                   style={{
                                     width: "50%",
                                     marginBottom: "10px",
-                                    // paddingRight: "0",
                                   }}
-                                  // className="col-6"
                                   key={index}
                                 >
                                   <input
@@ -453,7 +398,7 @@ const PerfumeList = () => {
                                     onChange={(e) => {
                                       mbtiChangeHandler(
                                         e.currentTarget.checked,
-                                        `${data}`
+                                        `${data}`,
                                       );
                                     }}
                                     checked={
@@ -556,7 +501,7 @@ const PerfumeList = () => {
                                       </div>
                                       <img
                                         className="default-img"
-                                        src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pDto.enName}`}
+                                        src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.pDto.enName}`}
                                         alt=""
                                       />
                                     </div>
@@ -566,69 +511,20 @@ const PerfumeList = () => {
                                   <div className="product-content-koName">
                                     {data.pDto.koName}
                                   </div>
-                                  <div>({data.pDto.enName})</div>
+                                  <div className="product-content-enName">
+                                    ({data.pDto.enName})
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           ))}
                         </>
                       )}
-
-                      {/* 
-                      <div className="col-xl-3 col-md-3 col-lg-3 col-sm-6">
-                        <div className="product-wrap mb-25 scroll-zoom">
-                          <div className="product-img">
-                            <Link to="../detail">
-                              <div className="text_photo">
-                                <div className="explain">
-                                  <div className="list-hashtag">
-                                    <div className="">#장미</div>
-                                    <div className="">
-                                      #해시태그가어디까지길어지는거죠?
-                                    </div>
-                                    <div className="">#복숭아</div>
-                                  </div>
-                                </div>
-                                <img
-                                  className="default-img"
-                                  src="./assets\tempImg\style_5ea644901486c-534x700.jpg"
-                                  alt=""
-                                />
-                              </div>
-                            </Link>
-                          </div>
-                          <div className="product-content text-center">
-                            <h3>향수명</h3>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </div>
                 </div>
-                {/* <div>
-                  <label>
-                    페이지 당 표시할 게시물 수:&nbsp;
-                    <select
-                      type="number"
-                      value={limitData}
-                      onChange={({ target: { value } }) => setLimit(Number(value))}
-                    >
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="50">50</option>
-                      <option value="100">100</option>
-                    </select>
-                  </label>
-                </div> */}
 
                 <div style={{ display: "flex" }} className="perfume_list_page">
-                  {/* <Pagination
-                    total={dataList.length}
-                    limit={limitData}
-                    page={page}
-                    setPage={setPage}
-                  /> */}
-                  {/* <Pagination count={{ dataSize } / 16} /> */}
                   <Button
                     variant="outline-secondary perfume_list_btn"
                     onClick={() => {

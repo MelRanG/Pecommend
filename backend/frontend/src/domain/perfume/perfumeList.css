@@ -117,7 +117,10 @@
   margin: 10px 0 0 !important; 
 }
 .product-content-koName{
-  font-size: 17px;
+  font-size: 16px;
+}
+.product-content-enName{
+  font-size: 14px;
 }
 
 .perfume_list_page{

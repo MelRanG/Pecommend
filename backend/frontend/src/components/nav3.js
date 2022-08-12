@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { authaxios } from "../custom/customAxios";
 import "./nav3.css";
 import { useSelector } from "react-redux";
 
@@ -40,16 +41,16 @@ function Nav3() {
       {isLogined ? (
         <ul className="navbar__icons">
           <li>
-            <Link to={`/profile/${user.user_id}`}>MY PROFILE</Link>
+            <Link to={`/profile/${user.user_id}`}>마이페이지</Link>
           </li>
           <li>
-            <Link to="/logout">SIGN OUT</Link>
+            <Link to="/logout">로그아웃</Link>
           </li>
         </ul>
       ) : (
         <ul className="navbar__icons">
           <li>
-            <Link to="/login">SIGN IN&nbsp;|&nbsp;SIGN UP</Link>
+            <Link to="/login">로그인&nbsp;|&nbsp;회원가입</Link>
           </li>
         </ul>
       )}

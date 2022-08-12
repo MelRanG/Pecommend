@@ -32,7 +32,7 @@
   /* padding: 10px 0 10px; */
   /* margin: 8px 0; */
   margin: auto;
-  cursor: pointer;
+  /* cursor: pointer; */
   justify-content: center;
   flex-wrap: wrap;
   width: 80%;
@@ -76,8 +76,15 @@
   text-align: center;
   width: 90%;
 }
-
-
+.product-wrap{
+  min-height: 175px;
+}
+.product-img{
+  margin-top: 10px;
+}
+.product-content{
+  margin: 10px 0 !important;
+}
 
 
 
@@ -115,7 +122,7 @@
 
 .perfume-popular-item div img{
   /* width: 90%; */
-  height: 150px;
+  height: 158px;
   object-fit: cover;
 }
 
@@ -243,6 +250,9 @@ padding: 20px 20px;
 .review-card-title{
   display: flex;
 }
+.card-title{
+  font-size: 16px;
+}
 .review-card-title img,
 .review-card img{
   width: 80px;
@@ -292,7 +302,7 @@ padding: 20px 20px;
   }
 }
 
-@media screen and (min-width:768px){
+@media screen and (min-width:993px){
   .cards-wrapper{
     display: flex;
   }
@@ -311,10 +321,13 @@ padding: 20px 20px;
 
 }
 /* 보고 max-width픽셀 타블렛쪽으로 바꾸기 */
-@media screen and (max-width:767px){
+@media screen and (max-width:992px){
   .card:not(:first-child){
     display: none;
 
+  }
+  .image-wrapper{
+    display: flex;
   }
 }
 
@@ -324,7 +337,7 @@ vertical-align: middle;
 }
 .image-wrapper img, .popular-item-img{
   /* max-width: 50%; */
-  max-height: 100px;
+  max-height: 150px;
   max-width: 100px;
   object-fit: contain;
 }

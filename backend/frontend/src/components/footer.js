@@ -23,7 +23,7 @@ function Footer() {
           <div className="col-lg-5 col-md-12 col-sm-12">
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
-                <div>MENU</div>
+                <div>메뉴</div>
               </div>
 
               <div className="footer-list">
@@ -45,61 +45,15 @@ function Footer() {
               </div>
             </div>
           </div>
-          {/* <div className="col-lg-2 col-md-4 col-sm-4">
-            <div className="footer-widget mb-30 ml-50">
-              <div className="footer-title">
-                <h3>USEFUL LINKS</h3>
-              </div>
-              <div className="footer-list">
-                <ul>
-                  <li>
-                    <a href="#">Returns</a>
-                  </li>
-                  <li>
-                    <a href="#">Support Policy</a>
-                  </li>
-                  <li>
-                    <a href="#">Size guide</a>
-                  </li>
-                  <li>
-                    <a href="#">FAQs</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="footer-widget mb-30 ml-75">
-              <div className="footer-title">
-                <h3>FOLLOW US</h3>
-              </div>
-              <div className="footer-list">
-                <ul>
-                  <li>
-                    <a href="#">Facebook</a>
-                  </li>
-                  <li>
-                    <a href="#">Twitter</a>
-                  </li>
-                  <li>
-                    <a href="#">Instagram</a>
-                  </li>
-                  <li>
-                    <a href="#">Youtube</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div> */}
           <div className="col-lg-4 col-md-12 col-sm-12">
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
-                <div>CONTACT & INQUIRY</div>
+                <div>문의 & 피드백</div>
               </div>
               <div className="subscribe-style">
-                <hr />
+                {/* <hr /> */}
                 <p>
-                  팀장님메일@naver.com
+                  pecommend@gmail.com
                 </p>
               </div>
             </div>

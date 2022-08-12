@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { freeaxios } from "custom/customAxios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "./Login.css";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 function Search_pwd() {
   const [email, setEmail] = React.useState("");
@@ -18,27 +18,25 @@ function Search_pwd() {
 
   const sendMail = (event) => {
     event.preventDefault();
-    console.log(email);
     const regExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (regExp.test(email) === false) {
       Swal.fire({
-        icon: 'warning',
-        title: '실패',
-        text: '이메일의 형식이 맞지 않습니다.',
+        icon: "warning",
+        title: "실패",
+        text: "이메일의 형식이 맞지 않습니다.",
       });
     } else {
       freeaxios
         .get("/api/v1/user/info.do/email/" + email)
         .then(function (response) {
           if (response.status === 200) {
-            console.log(birth);
-            console.log(response.data.birthday);
             if (response.data.birthday === birth) {
               Swal.fire({
-                icon: 'info',
-                title: 'Loading',
-                text: '잠시만 기다려주세요.' 
+                icon: "info",
+                title: "Loading",
+                text: "잠시만 기다려주세요.",
+                showConfirmButton: false,
               });
               let body = {
                 email: email,
@@ -47,35 +45,34 @@ function Search_pwd() {
                 .put("/api/v1/user/findpw.do", body)
                 .then(function (response_2) {
                   Swal.fire({
-                    icon: 'success',
-                    title: '성공',
-                    text: '전송완료',
+                    icon: "success",
+                    title: "성공",
+                    text: "전송 완료",
                   });
                 })
                 .catch(function (error) {
                   console.log(error);
                   Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: '재시도 후 문의바랍니다.',
+                    icon: "error",
+                    title: "Error",
+                    text: "재시도 후 문의 바랍니다.",
                   });
                 });
             } else {
               Swal.fire({
-                icon: 'warning',
-                title: '실패',
-                text: '생일을 다시 확인해주세요.',
+                icon: "warning",
+                title: "실패",
+                text: "생일을 다시 확인해주세요.",
               });
             }
           }
         })
         .catch(function (error) {
-          // alert("가입되어 있지 않은 메일입니다.");
           console.log(error);
           Swal.fire({
-            icon: 'warning',
-            title: '실패',
-            text: '가입되어 있지 않은 메일입니다.',
+            icon: "warning",
+            title: "실패",
+            text: "가입되어 있지 않은 메일입니다.",
           });
         });
     }
@@ -90,7 +87,7 @@ function Search_pwd() {
               <div className="login-register-wrapper">
                 <div className="login-register-tab-list nav">
                   <a>
-                    <h4> Search Password </h4>
+                    <h4>비밀번호 찾기</h4>
                   </a>
                 </div>
                 <div className="tab-content">
@@ -113,11 +110,7 @@ function Search_pwd() {
                           onChange={onBirthhandler}
                         />
                         <div className="button-box">
-                          <button
-                            class="btn"
-                            type="submit"
-                            onClick={sendMail}
-                          >
+                          <button class="btn" type="submit" onClick={sendMail}>
                             <span>메일 받기</span>
                           </button>
                         </div>

@@ -5,7 +5,7 @@ import "./perfumeDetail.css";
 import { Rating } from "react-simple-star-rating";
 import { useSelector } from "react-redux";
 import { Modal, Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
@@ -62,18 +62,15 @@ const PerfumeDetail = () => {
   const handleClose = () => {
     setShow(false);
     setChoiceTag([]);
-    console.log("초기화", choiceTag);
   };
 
   const handleSave = () => {
     setShow(false);
     const temp = [];
-    console.log("태그저장", sendChoiceTag);
     //int 변환
     choiceTag.forEach((element) => {
       temp.push(parseInt(element));
     });
-    console.log("int변환", temp);
 
     setSendChoiceTag(temp);
   };
@@ -81,19 +78,12 @@ const PerfumeDetail = () => {
 
   const getPerfumeDetail = async () => {
     try {
-      // console.log("number", number);
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/perfume/detail.do/" + number,
-        // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
-        // headers: { "Content-Type" : ""}
-        // JSON.stringify()
       });
-      // console.log(response);
       if (response.status === 200) {
-        console.log("디테일");
-        console.log(response.data);
         setPerfumeDetail(response.data.pDto);
         setNoteDetail(response.data.nDto);
         setTagDetail(response.data.ptDto);
@@ -112,11 +102,8 @@ const PerfumeDetail = () => {
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/review/tag.do",
-        // headers: { "Content-Type": "multipart/form-data" },
       });
-      // console.log(response);
       if (response.status === 200) {
-        // console.log("전체 태그 리스트", response.data);
         setTagList(response.data);
       }
     } catch (error) {
@@ -126,41 +113,29 @@ const PerfumeDetail = () => {
 
   //모달창에서 태그 선택시
   const clickReviewTag = (e) => {
-    // console.log("확이니ㅣ", e.target.id);
     if (choiceTag.length <= 2) {
       if (choiceTag.length != 0) {
         if (choiceTag.includes(e.target.id)) {
-          // const temp = choiceTag;
-          // console.log(choiceTag);
           setChoiceTag(
             Object.values(choiceTag).filter((data) => data !== e.target.id),
           );
         } else {
           const tempNum = e.target.id;
-          // console.log("tempNum", tempNum);
           const temp = [...choiceTag, tempNum];
           setChoiceTag(temp);
-          // console.log("xx", choiceTag);
         }
       } else {
         const tempNum = e.target.id;
-        // console.log("tempNum", tempNum);
         setChoiceTag([e.target.id]);
       }
-      // console.log(choiceTag);
-
-      // console.log("태그선택", choiceTag);
-
       const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
       Tag[0].classList.toggle("checked");
-      // console.log("Tag", Tag);
     } else if (choiceTag.includes(e.target.id)) {
       setChoiceTag(
         Object.values(choiceTag).filter((data) => data !== e.target.id),
       );
       const Tag = document.getElementsByClassName("choice-tag-" + e.target.id);
       Tag[0].classList.toggle("checked");
-      // console.log("Tag", Tag);
     } else {
       alert("해시태그 선택은 3개까지 가능합니다.");
     }
@@ -168,17 +143,13 @@ const PerfumeDetail = () => {
 
   const get좋아싫어리스트 = async () => {
     try {
-      // console.log("number", number);
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/perfume/ldlist.do/" + number,
-        // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
       });
-      // console.log(response);
       if (response.status === 200) {
         setLdList(response.data);
-        console.log("좋아싫어리스트", response.data);
       }
     } catch (error) {
       console.log(error);
@@ -187,13 +158,11 @@ const PerfumeDetail = () => {
 
   //리뷰불러오기
   const getReview = async () => {
-    // console.log("리뷰정렬", reviewOrder);
     try {
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/review/list.do/" + number + "?order=" + reviewOrder,
       });
-      // console.log("review", response.data);
       setReviewScore(response.data.score_avg);
       setReview(response.data.review);
       setReviewCount(response.data.review_count);
@@ -208,7 +177,7 @@ const PerfumeDetail = () => {
       const response = await authaxios({
         method: "get",
         url:
-          "/api/v1/perfume/check/like?userId=" +
+          "/api/v1/perfume/check.do/like?userId=" +
           user.user_id +
           "&perfumeId=" +
           number,
@@ -232,8 +201,6 @@ const PerfumeDetail = () => {
   // Catch Rating value 별점
   const handleRating = (rate: number) => {
     setRating(rate / 20);
-    // other logic
-    // console.log("별점", rating);
   };
 
   const handleUpdateRating = (rate: number) => {
@@ -250,32 +217,27 @@ const PerfumeDetail = () => {
       });
       navigate("/login");
     } else {
-      // console.log("좋아요", user);
       try {
         let data = {
           perfumeId: perfumeDetail.perfumeId,
           userId: user.user_id,
         };
-        // console.log("유저아이디", data);
         const response = await authaxios({
           method: "post",
           url: "/api/v1/perfume/like",
           data: data,
         });
-        console.log(response);
         if (response.status === 200) {
-          // console.log("완료")
-          if (response.data == "ADD") {
+          if (response.data === "ADD") {
             let temp = {
               id: 0,
               perfumeId: perfumeDetail.perfumeId,
               userId: user.user_id,
             };
-            // console.log("temp", temp);
           }
-          if (response.data == "CANCEL") {
+          if (response.data === "CANCEL") {
           }
-          if (response.data == "DELETE") {
+          if (response.data === "DELETE") {
           }
           getPerfumeDetail();
           getLikeOrDisLike();
@@ -302,27 +264,22 @@ const PerfumeDetail = () => {
           perfumeId: perfumeDetail.perfumeId,
           userId: user.user_id,
         };
-        // console.log(data)
         const response = await authaxios({
           method: "post",
           url: "/api/v1/perfume/dislike",
           data: data,
         });
-        console.log(response);
         if (response.status === 200) {
-          // console.log("완료")
-          if (response.data == "ADD") {
+          if (response.data === "ADD") {
             let temp = {
               id: 0,
               perfumeId: perfumeDetail.perfumeId,
               userId: user.user_id,
             };
-            // console.log("temp", temp);
           }
-          if (response.data == "CANCEL") {
-            // alert("좋아요누른사람");
+          if (response.data === "CANCEL") {
           }
-          if (response.data == "DELETE") {
+          if (response.data === "DELETE") {
           }
           getPerfumeDetail();
           getLikeOrDisLike();
@@ -336,7 +293,6 @@ const PerfumeDetail = () => {
   //리뷰 작성
   const reviewWrite = async (e) => {
     e.preventDefault();
-    console.log("리뷰작성", user.user_id);
     if (!isLogined) {
       Swal.fire({
         icon: "info",
@@ -354,21 +310,17 @@ const PerfumeDetail = () => {
             tags: sendChoiceTag,
             user_id: user.user_id,
           };
-          console.log(data);
-          // console.log("유저아이디", data);
           const response = await authaxios({
             method: "post",
             url: "/api/v1/review",
             data: data,
           });
-          console.log(response);
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
               title: "성공",
-              text: "리뷰작성완료",
+              text: "리뷰 작성 완료",
             });
-            // console.log("리뷰작성완료");
             //리뷰작성창 초기화
             document.getElementById("reviewValue").value = "";
             //다시불러오기
@@ -377,6 +329,8 @@ const PerfumeDetail = () => {
         } catch (error) {
           console.log(error);
         }
+      } else {
+        alert("평점을 선택해주세요.");
       }
     }
   };
@@ -384,17 +338,13 @@ const PerfumeDetail = () => {
   //리뷰삭제
   const clickReviewRemove = async (e) => {
     var result = window.confirm("리뷰를 삭제하시겠습니까?");
-    // alert(e.target.id);
-    // console.log(e.target.id);
     if (result) {
-      console.log(e.target.id);
       try {
         const response = await authaxios({
           method: "delete",
           url: "/api/v1/review/" + e.target.id,
           headers: { "Content-Type": "multipart/form-data" },
         });
-        console.log(response);
         if (response.status === 200) {
           Swal.fire({
             icon: "success",
@@ -418,8 +368,6 @@ const PerfumeDetail = () => {
         method: "get",
         url: "/api/v1/review/list.do/like/" + number,
       });
-      console.log("좋아요 리뷰만", response.data);
-
       setReview(response.data);
     } catch (error) {
       console.log(error);
@@ -428,14 +376,11 @@ const PerfumeDetail = () => {
 
   //싫어요 리뷰만
   const clickReviewDISLIKEList = async () => {
-    // console.log("좋아요 리뷰만");
     try {
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/review/list.do/dislike/" + number,
       });
-      console.log("싫어요 리뷰만", response.data);
-
       setReview(response.data);
     } catch (error) {
       console.log(error);
@@ -445,7 +390,6 @@ const PerfumeDetail = () => {
   //리뷰수정 여기도 1000자 ?
   const clickReviewEditCommit = async (e) => {
     e.preventDefault();
-    console.log("리뷰수정", e.target.id);
     try {
       const commentBox = document.getElementById(
         "review-content-" + e.target.id,
@@ -461,7 +405,6 @@ const PerfumeDetail = () => {
           user_id: user.user_id,
         },
       });
-      console.log(response);
       if (response.status === 200) {
         const commentBox = document.getElementById(
           "review-content-" + e.target.id,
@@ -472,16 +415,12 @@ const PerfumeDetail = () => {
         const commentButtonBox2 = document.getElementById(
           "review-button-set2-" + e.target.id,
         );
-        // const commentButtonBox3 = document.getElementById(
-        //   "review-button-set3-" + e.target.id
-        // );
         const rateBox1 = document.getElementById("review-rate-" + e.target.id);
         const rateBox2 = document.getElementById(
           "review-rateEdit-" + e.target.id,
         );
         commentButtonBox1.hidden = false;
         commentButtonBox2.hidden = true;
-        // commentButtonBox3.hidden = true;
         rateBox1.hidden = false;
         rateBox2.hidden = true;
         commentBox.readOnly = true;
@@ -494,10 +433,8 @@ const PerfumeDetail = () => {
 
   //수정버튼클릭
   const clickReviewEdit = (e) => {
-    // console.log("clickReviewEdit", data);
     e.preventDefault();
     const commentBox = document.getElementById("review-content-" + e.target.id);
-    // console.log(commentBox);
     commentBox.setAttribute("name", commentBox.value);
     const commentButtonBox1 = document.getElementById(
       "review-button-set1-" + e.target.id,
@@ -505,18 +442,12 @@ const PerfumeDetail = () => {
     const commentButtonBox2 = document.getElementById(
       "review-button-set2-" + e.target.id,
     );
-    // const commentButtonBox3 = document.getElementById(
-    //   "review-button-set3-" + e.target.id
-    // );
     const rateBox1 = document.getElementById("review-rate-" + e.target.id);
     const rateBox2 = document.getElementById("review-rateEdit-" + e.target.id);
-    console.log(rateBox1);
     commentButtonBox1.hidden = true;
     commentButtonBox2.hidden = false;
-    // commentButtonBox3.hidden = false;
     rateBox1.hidden = true;
     rateBox2.hidden = false;
-    // console.log(commentBox);
     commentBox.readOnly = false;
   };
 
@@ -530,15 +461,10 @@ const PerfumeDetail = () => {
     const commentButtonBox2 = document.getElementById(
       "review-button-set2-" + e.target.id,
     );
-    // const commentButtonBox3 = document.getElementById(
-    //   "review-button-set3-" + e.target.id
-    // );
     const rateBox1 = document.getElementById("review-rate-" + e.target.id);
     const rateBox2 = document.getElementById("review-rateEdit-" + e.target.id);
-    // console.log(commentButtonBox1, commentButtonBox2);
     commentButtonBox1.hidden = false;
     commentButtonBox2.hidden = true;
-    // commentButtonBox3.hidden = true;
     rateBox1.hidden = false;
     rateBox2.hidden = true;
     commentBox.value = commentBox.getAttribute("name");
@@ -549,9 +475,7 @@ const PerfumeDetail = () => {
   // 리뷰내용변경될때마다. 1000자 제한걸기
   const reviewChange = (e) => {
     const { value } = e.target;
-    // console.log(value, name);
     setReviewContent(value);
-    // console.log(reviewContent);
   };
 
   let [btnActive, setBtnActive] = useState(false); //버튼
@@ -563,27 +487,22 @@ const PerfumeDetail = () => {
 
   //리뷰 좋아요
   const clickReviewLike = async (e) => {
-    // console.log("리뷰 좋아요", user);
     try {
       let data = {
         reviewId: e.target.id,
         userId: user.user_id,
       };
-      // console.log("유저아이디", data);
       const response = await authaxios({
         method: "post",
         url: "/api/v1/review/add/like",
         data: data,
       });
-      // console.log(response);
       if (response.status === 200) {
-        // console.log("완료")
-        if (response.data == "ADD") {
+        if (response.data === "ADD") {
         }
-        if (response.data == "CANCEL") {
-          // alert("이미 싫어요 누름. 싫어요 취소");
+        if (response.data === "CANCEL") {
         }
-        if (response.data == "X") {
+        if (response.data === "X") {
         }
         getReview();
       }
@@ -600,7 +519,7 @@ const PerfumeDetail = () => {
             <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="detail-product-details dec-img-wrap">
                 <img
-                  src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${perfumeDetail.enName}`}
+                  src={`https://pecommend.com/api/v1/perfume/getimg.do/${perfumeDetail.enName}`}
                   alt=""
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
@@ -615,7 +534,6 @@ const PerfumeDetail = () => {
                 <div className="pro-details-rating-wrap mt-10">
                   <div className="review-rating">
                     <Rating
-                      /* Available Props */
                       initialValue={`${reviewScore}`}
                       readonly
                       size={"20px"}
@@ -627,8 +545,6 @@ const PerfumeDetail = () => {
                 </div>
                 {/* 이부분에 해시태그 */}
                 <div className="detail-product-hashtag">
-                  {/* <span>$18.00 </span>
-                  <span className="old">$20.00 </span> */}
                   <ul>
                     {tagDetail &&
                       tagDetail.map((data, index) => (
@@ -679,10 +595,8 @@ const PerfumeDetail = () => {
                 </div>
 
                 {/* 좋아요 싫어요 */}
-                {/* <i class="fa-regular fa-thumbs-down"></i> */}
                 <div className="pro-details-likeDislike row">
                   <div className="col-2">
-                    {/* <i className="fa fa-heart-o"></i> */}
                     <OverlayTrigger
                       key={"top"}
                       placement={"top"}
@@ -789,7 +703,6 @@ const PerfumeDetail = () => {
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    {/* <span className="glyphicon glyphicon-thumbs-up"></span> */}
                     <span
                       className="ldltext"
                       style={{ color: "rgb(97 109 255)" }}
@@ -803,23 +716,17 @@ const PerfumeDetail = () => {
                       <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                         <a href={`/perfume/detail/${data.pId.perfumeId}`}>
                           <img
-                            // src=".\assets\tempImg\123359405127241D28.jpg"
-                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.pNameEn}`}
                             alt=""
                           />
                           <p>{data.pNameKo}</p>
                         </a>
                       </div>
                     ))}
-                  {/* <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
-                    <img src=".\assets\tempImg\123359405127241D28.jpg" alt="" />
-                    <p>향수명</p>
-                  </div> */}
                 </div>
 
                 <div className="detail-likeDislikeList-items row">
                   <div className="col-lg-3 col-sm-12">
-                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
                     <span
                       className="ldltext"
                       style={{ color: "rgb(255 97 97)" }}
@@ -833,24 +740,19 @@ const PerfumeDetail = () => {
                       <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
                         <a href={`/perfume/detail/${data.pId.perfumeId}`}>
                           <img
-                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.pNameEn}`}
                             alt=""
                           />
                           <p>{data.pNameKo}</p>
                         </a>
                       </div>
                     ))}
-                  {/* <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6">
-                    <img src=".\assets\tempImg\400x400.jpg" alt="" />
-                    <p>향수명</p>
-                  </div> */}
                 </div>
               </div>
             ) : (
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    {/* <span className="glyphicon glyphicon-thumbs-up"></span> */}
                     <span
                       className="ldltext"
                       style={{ color: "rgb(97 109 255)" }}
@@ -864,7 +766,7 @@ const PerfumeDetail = () => {
                       <div className="detail-likeDislikeList-item col-lg-2  col-sm-6 col-6">
                         <a href={`/perfume/detail/${data.pId.perfumeId}`}>
                           <img
-                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.pNameEn}`}
                             alt=""
                           />
                           <p>{data.pNameKo}</p>
@@ -875,7 +777,6 @@ const PerfumeDetail = () => {
 
                 <div className="detail-likeDislikeList-items row">
                   <div className="col-lg-3 col-sm-12">
-                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
                     <span
                       className="ldltext"
                       style={{ color: "rgb(255 97 97)" }}
@@ -889,7 +790,7 @@ const PerfumeDetail = () => {
                       <div className="detail-likeDislikeList-item dontlike col-lg-2  col-sm-6 col-6">
                         <a href={`/perfume/detail/${data.pId.perfumeId}`}>
                           <img
-                            src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg.do/${data.pNameEn}`}
+                            src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.pNameEn}`}
                             alt=""
                           />
                           <p>{data.pNameKo}</p>
@@ -904,7 +805,6 @@ const PerfumeDetail = () => {
       </div>
 
       {/* 리뷰 */}
-      {/* 게시글 상세의 댓글과 유사하게 */}
       <div className="description-review-area pb-90">
         <div className="container">
           <div className="section-title text-center mb-50">
@@ -918,32 +818,35 @@ const PerfumeDetail = () => {
                   <textarea
                     id="reviewValue"
                     className="reviewValue"
-                    placeholder="향수에 대한 리뷰를 남겨주세요."
+                    placeholder="향수에  대한  리뷰를  남겨주세요."
                     disabled=""
                     maxLength={255}
                     onChange={reviewChange}
                   ></textarea>
                 </div>
                 <div className="comment_input_bot">
-                  <Rating
-                    className="ml-10"
-                    showTooltip
-                    onClick={handleRating}
-                    ratingValue={rating} /* Available Props */
-                    fillColorArray={[
-                      "#f17a45",
-                      "#f19745",
-                      "#f1a545",
-                      "#f1b345",
-                      "#f1d045",
-                    ]}
-                  />
-                  {/* {rating}점 */}
                   <div className="image_add_wrap">
                     {/* <!-- Button trigger modal --> */}
                     <Button variant="primary" onClick={handleShow}>
                       해시태그 선택
                     </Button>
+                    <div>* 필수 X </div>
+                  </div>
+                  <div className="rate_add_wrap">
+                    <Rating
+                      className=""
+                      onClick={handleRating}
+                      ratingValue={rating}
+                      size={"30px"}
+                      fillColorArray={[
+                        "#f17a45",
+                        "#f19745",
+                        "#f1a545",
+                        "#f1b345",
+                        "#f1d045",
+                      ]}
+                    />
+                    <div>{rating} 점</div>
                   </div>
                   <span className="comment_count">
                     {" "}
@@ -1086,12 +989,13 @@ const PerfumeDetail = () => {
                                   id={`review-rate-${data.id}`}
                                 >
                                   <Rating
-                                    /* Available Props */
-                                    // tooltipDefaultText="4"
                                     initialValue={`${data.score}`}
                                     readonly
                                     size={"20px"}
                                   />
+                                  <span style={{ fontSize: "18px" }}>
+                                    | 추천수 : {data.reviewLike}
+                                  </span>
                                 </div>
                                 <div
                                   className="review-rating ml-5"
@@ -1160,9 +1064,8 @@ const PerfumeDetail = () => {
                                   </>
                                 ) : (
                                   <>
-                                    {/* <i class="fa-regular fa-thumbs-down"></i> */}
                                     <span
-                                      className="fa-regular fa-thumbs-up mr-10"
+                                      className="fa-solid fa-thumbs-up rv-up"
                                       onClick={clickReviewLike}
                                       style={{
                                         color: "rgb(72 118 239)",
@@ -1172,10 +1075,9 @@ const PerfumeDetail = () => {
                                       }}
                                       id={`${data.id}`}
                                     ></span>
-                                    {/* <span className="glyphicon glyphicon-thumbs-down"></span> */}
-                                    <span style={{ fontSize: "25px" }}>
+                                    {/* <span style={{ fontSize: "25px" }}>
                                       {data.reviewLike}
-                                    </span>
+                                    </span> */}
                                   </>
                                 )}
                               </div>
@@ -1240,7 +1142,6 @@ const PerfumeDetail = () => {
                   #{data.tagName}
                 </div>
               ))}
-            {/* <div className="">#30대</div> */}
           </div>
           <div style={{ float: "right", marginTop: "10px" }}>
             * 최대 3개 선택 가능

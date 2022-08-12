@@ -35,10 +35,20 @@
     font-family: 'CBNUJIKJI';
     font-size: 80px;
     color: #ffffff;
+    
 }
-.home-title h2{
+/* .home-title h2{
     color: #765c4b;
     font-weight: bold;
+    
+} */
+.slogan{
+    color: #7a5338;
+    font-weight: bold;
+    font-size: 30px;
+    background-color: #ffffff70;
+    padding: 2px 14px 2px;
+    
 }
 
 
@@ -136,12 +146,13 @@
     /* border: 1px solid #ffffff; */
     border-radius: 12px;
     /* border-color: #765c4b; */
-    background-color: rgb(247 247 247 / 73%);
+    background-color: rgb(247 247 247 / 80%);
     /* width: 30%; */
     padding: 10px 30px;    
     /* margin-left: 15%; */
-    font-size: 25px;
+    font-size: 21px;
     line-height: 38px;
+    font-weight: bold;
     /* font-family: 'NanumBarunGothic'; */
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     color:#72706e;
@@ -178,3 +189,31 @@
     flex: none;
   
   }
+
+
+  @media screen and (max-width:992px) {
+    .banner-box  , .banner-box2{
+        width: 80%;
+        margin: auto; 
+        float: none;
+        /* background-color: #ffffff 0.3;
+        vertical-align: middle;
+        height: 100%;
+        align-items: center;
+        display: flex;
+        margin-right: 55%;
+        width: 35%;
+        float: right; */
+    }
+    .home-banner,.home-banner2,.home-banner3{
+        justify-content: center;
+    }
+    .banner-total{
+        /* width: 80%; */
+        margin: auto;
+    }
+    .banner-title{
+        color: #000000;
+    }
+
+}

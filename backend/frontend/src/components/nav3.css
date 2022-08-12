@@ -25,8 +25,7 @@ a{
   padding-left: 0;
   margin-bottom: 0px;
   height: 100%;
-  font-family: 'EarlyFontDiary';
-  font-weight: bold
+  font-family: 'NanumBarunGothic';
 }
 
 .navbar__menu li {
@@ -36,6 +35,15 @@ a{
 .navbar__menu li a{
   text-decoration: none;
 }
+.navbar__menu li a:hover{
+  /* color: #f8f8f8; */
+  font-weight: bold;
+}
+.navbar__menu li a:focus{
+  /* color: #f8f8f8; */
+  font-weight: bold;
+}
+
 
 .navbar__icons{
   list-style: none;

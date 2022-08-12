@@ -85,7 +85,6 @@ function OauthSignUp() {
     // 8~16자리 문자, 숫자, 특수문자 조합.
     const regExp = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
     if (regExp.test(password) === false) {
-      // alert("Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.");
       return false;
     } else {
       return true;
@@ -95,8 +94,6 @@ function OauthSignUp() {
   // 닉네임 중복검사
   const checkNickname = (event) => {
     event.preventDefault();
-    console.log(nick);
-    console.log(nick_check);
     if (nick.length >= 2 && nick.length <= 8) {
       freeaxios
         .get("/api/v1/user/check.do/nickname/" + nick)
@@ -111,10 +108,9 @@ function OauthSignUp() {
             Swal.fire({
               icon: "success",
               title: "성공",
-              text: "사용 가능한 닉네임입니다.",
+              text: "사용할 수 있는 닉네임입니다.",
             });
             setNickCheck(true);
-            console.log(nick_check);
           }
         })
         .catch(function (error) {
@@ -122,14 +118,14 @@ function OauthSignUp() {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "재시도 후 문의바랍니다.",
+            text: "재시도 후 문의 바랍니다.",
           });
         });
     } else {
       Swal.fire({
         icon: "warning",
         title: "실패",
-        text: "Nickname은 2~8자리만 가능합니다.",
+        text: "닉네임은 2~8자만 가능합니다.",
       });
     }
   };
@@ -141,19 +137,19 @@ function OauthSignUp() {
       Swal.fire({
         icon: "warning",
         title: "비밀번호",
-        text: "8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.",
+        text: "8~16자로 문자, 숫자, 특수문자가 포함되어야 합니다.",
       });
     } else if (pwd !== pwdRe) {
       Swal.fire({
         icon: "warning",
         title: "비밀번호 확인",
-        text: "'비밀번호 확인'을 다시 해주세요.",
+        text: "비밀번호가 일치하지 않습니다.",
       });
     } else if (nick_check === false) {
       Swal.fire({
         icon: "warning",
         title: "닉네임",
-        text: "닉네임 중복확인이 필요합니다.",
+        text: "닉네임 중복 확인이 필요합니다.",
       });
     } else if (birth === "") {
       Swal.fire({
@@ -165,7 +161,7 @@ function OauthSignUp() {
       Swal.fire({
         icon: "warning",
         title: "생일",
-        text: "10세 이상만 가입 가능합니다.",
+        text: "10세 이상만 가입할 수 있습니다.",
       });
     } else if (gender === "") {
       Swal.fire({
@@ -177,7 +173,7 @@ function OauthSignUp() {
       Swal.fire({
         icon: "warning",
         title: "프로필 소개",
-        text: "소개는 60자 이하만 가능합니다.",
+        text: "프로필 소개는 60자 이하만 가능합니다.",
       });
     } else {
       let body = {
@@ -202,11 +198,6 @@ function OauthSignUp() {
           saveUser(saveInfo);
         })
         .then(() => {
-          Swal.fire({
-            icon: "success",
-            title: "성공",
-            text: "환영합니다!",
-          });
           document.location.href = "/";
         })
         .catch((e) => {
@@ -232,22 +223,22 @@ function OauthSignUp() {
                     <div className="login-form-container">
                       <div className="login-register-form">
                         <form onSubmit={onRegisthandler}>
-                          <label>비밀번호</label>
+                          <label>비밀번호</label><span class="essential-mark">*</span>
 
                           <input
                             type="password"
                             name="user-password"
-                            placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
+                            placeholder="비밀번호는 8~16자로 문자, 숫자, 특수문자가 포함되어야 합니다"
                             onChange={onRPWDhandler}
                           />
-                          <label>비밀번호 확인</label>
+                          <label>비밀번호 확인</label><span class="essential-mark">*</span>
                           <input
                             name="user-password-confirm"
-                            placeholder="Password confirm"
+                            placeholder="비밀번호 확인"
                             type="password"
                             onChange={onPWDReHandler}
                           />
-                          <label>닉네임</label>
+                          <label>닉네임</label><span class="essential-mark">*</span>
                           <button
                             class="btn"
                             style={{ float: "right" }}
@@ -257,11 +248,11 @@ function OauthSignUp() {
                           </button>
                           <input
                             name="nickname"
-                            placeholder="Nickname"
+                            placeholder="닉네임은 2~8자만 가능합니다"
                             type="text"
                             onChange={onNicknamehandler}
                           />
-                          <label>생일</label>
+                          <label>생일</label><span class="essential-mark">*</span>
                           <input
                             name="birthday"
                             placeholder="birthday"
@@ -269,7 +260,7 @@ function OauthSignUp() {
                             max="9999-12-31"
                             onChange={onBirthhandler}
                           />
-                          <label>성별</label>
+                          <label>성별</label><span class="essential-mark">*</span>
                           <br />
                           <input
                             name="gender"
@@ -296,7 +287,7 @@ function OauthSignUp() {
                           </label>
                           <br />
                           <br />
-                          <label>MBTI (선택)</label>
+                          <label>MBTI</label><span class="optional-mark">(선택)</span>
                           <select
                             name="mbti"
                             className="form-select"
@@ -320,7 +311,7 @@ function OauthSignUp() {
                             <option value="ENFJ">ENFJ</option>
                             <option value="ENFP">ENFP</option>
                           </select>
-                          <label>프로필 소개 (선택)</label>
+                          <label>프로필 소개</label><span class="optional-mark">(선택)</span>
                           <input
                             name="introduction"
                             placeholder="소개는 60자 이하만 가능합니다."

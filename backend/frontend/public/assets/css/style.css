@@ -10050,14 +10050,15 @@ a.default-btn {
   }
 }
 .copyright p {
-  color: #313131;
+  color: #878787;
   letter-spacing: 0.9px;
 }
 .copyright p a {
-  color: #313131;
+  color: #878787;
 }
 .copyright p a:hover {
-  color: #a749ff;
+  color: #23527c;
+  font-weight: bold;
 }
 .copyright.copyright-white p {
   color: #fff;
@@ -10087,7 +10088,8 @@ a.default-btn {
   letter-spacing: 0.3px;
 }
 .footer-widget .footer-list ul li a:hover {
-  color: #a749ff;
+  color: #337ab7;
+  font-weight: bold;
 }
 .footer-widget.footer-widget-white .footer-title h3 {
   color: #fff;
@@ -15412,7 +15414,8 @@ h3.cart-page-title {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 .login-register-wrapper .login-register-tab-list a {
   position: relative;
@@ -15441,7 +15444,7 @@ h3.cart-page-title {
   display: none;
 }
 .login-register-wrapper .login-register-tab-list a.active h4 {
-  color: #a749ff;
+  color: #23527c;
 }
 .login-register-wrapper .login-form-container {
   background: transparent none repeat scroll 0 0;
@@ -15508,30 +15511,33 @@ h3.cart-page-title {
 .login-register-wrapper .login-form-container .login-register-form form .button-box .login-toggle-btn a {
   color: #242424;
   float: right;
-  font-size: 15px;
+  font-size: 13px;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
 @media only screen and (max-width: 767px) {
   .login-register-wrapper .login-form-container .login-register-form form .button-box .login-toggle-btn a {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 .login-register-wrapper .login-form-container .login-register-form form .button-box .login-toggle-btn a:hover {
-  color: #a749ff;
+  color: #3c6f9d;
+  font-weight: bold;
 }
 .login-register-wrapper .login-form-container .login-register-form form .button-box button {
-  background-color: #f2f2f2;
+  background-color: #3c6f9d !important;
   border: medium none;
-  color: #333;
+  color: #fff;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: bold;
   line-height: 1;
   padding: 11px 30px;
   text-transform: uppercase;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  margin: 10px 0px 10px;
+  box-shadow: 5px 5px 5px rgb(0,0,0, 0.39);
 }
 .login-register-wrapper .login-form-container .login-register-form form .button-box button:hover {
   background-color: #a749ff;

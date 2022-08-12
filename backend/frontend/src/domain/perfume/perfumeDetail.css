@@ -416,14 +416,54 @@ color: #b3b3b3;
 .comment_input_wrap .comment_input_bot {
   height: 47px;
   box-sizing: border-box;
+  display: flex;
 }
 .comment_input_wrap .image_add_wrap {
   float: left;
-  padding: 6px 0 0 10px;
+  padding: 6px 0 6px 10px;
   color: #5c667b;
   font-size: 13px;
   letter-spacing: -0.5px;
   line-height: 24px;
+  display: flex;
+}
+.image_add_wrap div{
+  line-height: 34px;
+  /* margin-left: 5px; */
+  margin-right: 10px;
+}
+.image_add_wrap button{
+  margin-right: 10px;
+}
+.rate_add_wrap{
+  line-height: 34px;
+  padding: 6px 10px 6px 10px;
+  border-left: 1px solid #d7dce5;
+  border-right: 1px solid #d7dce5;
+  display: flex;
+}
+.rate_add_wrap div{
+  line-height: 34px;
+  margin-left: 5px;
+}
+
+
+@media screen and (max-width:767px){
+  .rate_add_wrap{
+
+    display: block;
+  }
+  .comment_input_wrap .image_add_wrap {
+ 
+    display: block;
+  }
+  .comment_input_bot{
+    height: 70px !important;
+  }
+  .btnSizeL{
+    height: 70px !important;
+  }
+
 }
 .comment_input_wrap .comment_submit {
   position: absolute;
@@ -720,4 +760,14 @@ margin-top: 10px;
   color: white !important;
   background-color: #6e64ff !important;
   /* pointer-events: none; */
+}
+
+.rv-up{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2px;
+  font-size: 20px;
+  color: rgb(98, 98, 218);
+  cursor: pointer;
 }

@@ -18,21 +18,46 @@
     align-items: center;
     flex-direction: column;
     border : none;
+    margin: 80px 0px 80px;
     
 }
 
 /* 테스트 타이틀 */
 .test-title {
     text-align: center;
-    color: black;
     font-size: 30px;
     margin: 20px 0px 20px 0px;
+    font-weight: bold;
+    color: rgb(68, 68, 68);
+    /* 형광펜 효과 */
+    /* border-radius: 30px;
+    padding: 10px 18px 10px;
+    background: linear-gradient(to top, #8593bb 100%, transparent 00%); */
+    /* background-color: rgb(255, 255, 255); */
+    padding: 5px 10px 5px;
+    text-decoration: underline; 
+    text-underline-position:under;
+
 }
 
 /* 타이틀 이미지 */
 .test-title-img {
     width: 70%;
 }
+
+.test-main-background{
+    background: url("/public/assets/img/nav/testMain.jpg") center bottom;
+    width: 95%;
+    height: 380px;
+    border-radius: 20px;
+    display: flex;
+    background-size: cover;
+}
+
+.test-main-content{
+    margin: auto;
+}
+
 
 .test-start-div {
     display: flex;
@@ -47,9 +72,10 @@
     height: 50px;
     border-radius: 25px;
     font-size: 25px;
-    background-color: #EEEEEE;
+    background-color: #ffffff;
     color: #222222;
     border: none;
+
 }
 .test-start-button:hover {
     /* width: 35%; */
@@ -96,6 +122,7 @@
     min-height: 100px;
     width: 100%;
     border-radius: 25px;
+    margin-bottom: 80px;
 }
 
 /* css 동시적용시 */
@@ -163,7 +190,8 @@
 
 /* 결과창 이미지 */
 .test-result-box img {
-    width: 80%;
+    margin-top: 20px;
+    width: 40%;
 }
 
 .test-result-button {
@@ -183,8 +211,8 @@
     border: none;
     margin: 20px 10px 20px 10px;
     font-size: 18px;
-    background-color: #EEEEEE;
-    color:#000000;
+    background-color: #58658a;
+    color:#fff;
 }
 
 /* 버튼 커서 올릴경우 */
@@ -193,7 +221,7 @@
     height: 50px;
     font-size: 20px;
     background-color: #373F57;
-    color: #ffffff;
+    color: #fff;
 }
 
 /* 다시하기 버튼 */
@@ -214,4 +242,75 @@
     font-size: 20px;
     background-color: #373F57;
     color: #ffffff;
+}
+
+/* .canclick {
+    border: 1px solid black;
+} */
+
+.test-result-title-style {
+    /* background-color: #373F57;
+    margin-bottom: 25px;
+    color: #fff;
+    padding: 10px; */
+    /* background: linear-gradient(to top, #AEBCE5 70%, transparent 50%); */
+    padding: 8px 20px 8px 20px;
+    text-decoration:none; 
+    /* border-radius: 30px;  */
+    font-weight: normal; 
+    /* color: #000; 
+    background: linear-gradient(to top, #AEBCE5 20%, transparent 00%); */
+}
+
+.style-color-0 {
+    color: #000; 
+    background: linear-gradient(to top, #352c2769 23%, transparent 00%);
+}
+.style-color-1 {
+    color: #000; 
+    background: linear-gradient(to top, #d6d6d6c2 23%, transparent 00%);
+}
+.style-color-2 {
+    color: #000; 
+    background: linear-gradient(to top, #d6d6d6c2 23%, transparent 00%);
+}
+.style-color-3 {
+    color: #000; 
+    background: linear-gradient(to top, #e5ddc89e 23%, transparent 00%);
+}
+.style-color-4 {
+    color: #000; 
+    background: linear-gradient(to top, #d6d6d6c2 23%, transparent 00%);
+}
+.style-color-5 {
+    color: #000; 
+    background: linear-gradient(to top, #e5dec7b8 23%, transparent 00%);
+}
+.style-color-6 {
+    color: #000; 
+    background: linear-gradient(to top, #eaea92ab 23%, transparent 00%);
+}
+.style-color-7 {
+    color: #000; 
+    background: linear-gradient(to top, #0b88c05c 23%, transparent 00%);
+}
+.style-color-8 {
+    color: #000; 
+    background: linear-gradient(to top, #d6d5bead 23%, transparent 00%);
+}
+.style-color-9 {
+    color: #000; 
+    background: linear-gradient(to top, #d6d5bead 23%, transparent 00%);
+}
+.style-color-10 {
+    color: #000; 
+    background: linear-gradient(to top, #d6d5bead 23%, transparent 00%);
+}
+.style-color-11 {
+    color: #000; 
+    background: linear-gradient(to top, #d6d5bead 23%, transparent 00%);
+}
+.style-color-12 {
+    color: #000; 
+    background: linear-gradient(to top, #a1a1a1b0 23%, transparent 00%);
 }

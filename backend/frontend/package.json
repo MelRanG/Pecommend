@@ -2,7 +2,7 @@
   "name": "test",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://i7e205.p.ssafy.io",
+  "proxy": "https://pecommend.com",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@ckeditor/ckeditor5-build-classic": "^34.2.0",

@@ -1,9 +1,16 @@
 import "./profile.css";
 import React, { useEffect, useState } from "react";
 import { authaxios, freeaxios } from "../../custom/customAxios";
-import { Link, useParams, useNavigate, NavLink, Routes, Route } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useNavigate,
+  NavLink,
+  Routes,
+  Route,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Nav } from "react-bootstrap";
+import { Nav, Button } from "react-bootstrap";
 import Pagination from "../community/pagination";
 
 function Profile() {
@@ -12,7 +19,7 @@ function Profile() {
   let number = parseInt(useParam.num); // 유저번호
   const [userprofile, setUserProfile] = useState([]);
   const [age, setAge] = useState(0);
-  const user = useSelector(state => state.userStore.nowLoginUser);
+  const user = useSelector((state) => state.userStore.nowLoginUser);
   let [tab, setTab] = useState(1);
   const [likelist, setLikeList] = useState([]);
   const [dislikelist, setDisLikeList] = useState([]);
@@ -21,15 +28,9 @@ function Profile() {
   const [limitData, setLimit] = useState(9);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limitData;
+  const offset_2 = (page - 1) * 10;
 
-  const titleName = [
-    '전체',
-    '자유',
-    '향수',
-    '인기',
-    '공지'
-  ]
-
+  const titleName = ["전체", "자유", "향수", "인기", "공지"];
 
   const getUserInfo = async () => {
     try {
@@ -37,14 +38,13 @@ function Profile() {
         method: "get",
         url: "/api/v1/user/info.do/id/" + number,
       });
-      // console.log(response.data.user_id)
       if (response.status === 200) {
         setUserProfile(response.data);
       }
       setAge(getAge(response.data.birthday));
     } catch (error) {
       console.log(error);
-      document.location.href = "/NotFound"
+      document.location.href = "/NotFound";
     }
   };
 
@@ -54,13 +54,12 @@ function Profile() {
         method: "get",
         url: "/api/v1/perfume/likelist.do/" + number,
       });
-      // console.log(response.data)
       if (response.status === 200) {
         setLikeList(response.data);
       }
     } catch (error) {
       console.log(error);
-      document.location.href = "/NotFound"
+      document.location.href = "/NotFound";
     }
   };
 
@@ -70,13 +69,12 @@ function Profile() {
         method: "get",
         url: "/api/v1/perfume/dislikelist.do/" + number,
       });
-      // console.log(response)
       if (response.status === 200) {
         setDisLikeList(response.data);
       }
     } catch (error) {
       console.log(error);
-      document.location.href = "/NotFound"
+      document.location.href = "/NotFound";
     }
   };
 
@@ -86,13 +84,12 @@ function Profile() {
         method: "get",
         url: "/api/v1/community/list.do/user/" + number,
       });
-      console.log(response.data)
       if (response.status === 200) {
         setCummuProfile(response.data);
       }
     } catch (error) {
       console.log(error);
-      document.location.href = "/NotFound"
+      document.location.href = "/NotFound";
     }
   };
 
@@ -102,13 +99,12 @@ function Profile() {
         method: "get",
         url: "/api/v1/comment/profile.do/" + number,
       });
-      console.log(response.data)
       if (response.status === 200) {
         setCommentProfile(response.data);
       }
     } catch (error) {
       console.log(error);
-      document.location.href = "/NotFound"
+      document.location.href = "/NotFound";
     }
   };
 
@@ -138,44 +134,54 @@ function Profile() {
   const getToday = (data) => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = ('0' + (today.getMonth() + 1)).slice(-2);
-    const day = ('0' + today.getDate()).slice(-2);
-    const dateString = year + '-' + month  + '-' + day;
+    const month = ("0" + (today.getMonth() + 1)).slice(-2);
+    const day = ("0" + today.getDate()).slice(-2);
+    const dateString = year + "-" + month + "-" + day;
     if (dateString === data) {
       return 0;
-    } else if (data.slice(0,4) == year) {
+    } else if (data.slice(0, 4) == year) {
       return 1;
     } else {
       return 2;
     }
-  }
+  };
 
   return (
     <div className="profile">
       <div className="container-temp">
         <div className="pernav">
           <div className="pernav-header">
-            <div className="pernav-header-title tac">
-              {/* <span></span> */}
-            </div>
+            <div className="pronav-header-title tac">{/* <span></span> */}</div>
           </div>
         </div>
       </div>
       <div className="container mainProfile">
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 profile-top">
           <div className="profileBox">
-            {(user.user_id === userprofile.user_id) && 
+            {user.user_id === userprofile.user_id && (
               <button className="profile-edit-button" type="button">
-                <Link to="/profile/update"><i className="fa-solid fa-gear"> 사용자 설정</i></Link>
-              </button>}
+                <Link to="/profile/update">
+                  <i className="fa-solid fa-gear"> 사용자 설정</i>
+                </Link>
+              </button>
+            )}
             <div>
-
+              <img
+                src="assets/tempImg/person.png"
+                style={{ width: "150px", borderRadius: "50%" }}
+              />
+            </div>
+            <div>
               <h4>{userprofile.nickname}</h4>
-              {(userprofile.introduction !== '') && 
-                <p className="introduction">"{userprofile.introduction}"</p>}
+              {userprofile.introduction !== "" && (
+                <p className="introduction">"{userprofile.introduction}"</p>
+              )}
             </div>
           </div>
-          <div className="profileText">
+          <div
+            className="profileText"
+            style={{ border: "1px solid #ccc", borderRadius: "12px" }}
+          >
             <div className="profileDataLine">
               <h5>성별 : {getGender(userprofile.gender)}</h5>
               <h5>나이 : {age}대</h5>
@@ -188,7 +194,11 @@ function Profile() {
           <div className="profile-description">
             <div className="container-fluid">
               <div>
-                <Nav className="mt-5 profile-navtab" variant="tabs" defaultActiveKey="link-1">
+                <Nav
+                  className="mt-5 profile-navtab"
+                  variant="tabs"
+                  defaultActiveKey="link-1"
+                >
                   <Nav.Item>
                     <Nav.Link eventKey="link-1" onClick={() => setTab(1)}>
                       &nbsp;Like&nbsp;
@@ -210,169 +220,197 @@ function Profile() {
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>
-                {
-                  tab === 1
-                  ? (
-                      <div>
-                        <div className="detail-likeDislikeList-items detail-ldl-first row">
-                          {likelist.slice(offset, offset + limitData).map((data) => (
-                            <div className="col-lg-4 col-sm-6 col-xs-12">
-                              <div className="col-sm-6 col-xs-6 mt-30 mb-30 rightbox-in-perfume">
+                {tab === 1 ? (
+                  <div>
+                    <div className="detail-likeDislikeList-items profile_height detail-ldl-first row">
+                      {likelist
+                        .slice(offset, offset + limitData)
+                        .map((data) => (
+                          <div className="col-lg-4 col-sm-6 col-xs-12">
+                            <div className="col-sm-6 col-xs-6 mt-10 mb-10 rightbox-in-perfume">
+                              <Link to={`/perfume/detail/${data.perfumeId}`}>
                                 <div>
                                   <img
                                     className="profile-perfume-img"
-                                    src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg/${data.enName}`}
+                                    src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
                                     alt=""
                                   />
                                 </div>
-                                <Link
-                                  to={`/perfume/detail/${data.perfumeId}`}
-                                >
+                                <div className="rightbox-in-text">
                                   {data.koName}
-                                </Link>
-                              </div>
+                                </div>
+                              </Link>
                             </div>
-                          ))}
-                        </div>
-                        <div>
-                          <Pagination
-                            total={likelist.length}
-                            limit={limitData}
-                            page={page}
-                            setPage={setPage}
-                          />
-                        </div>
-                      </div>
-                      )
-                  : ( tab === 2
-                    ? (
-                      <div>
-                        <div className="detail-likeDislikeList-items detail-ldl-first row">
-                          {dislikelist.slice(offset, offset + limitData).map((data) => (
-                            <div className="col-lg-4 col-sm-6 col-xs-12">
-                            <div className="col-sm-6 col-xs-6 mt-30 mb-30 rightbox-in-perfume">
-                              <div>
-                                <img
-                                  className="profile-perfume-img"
-                                  src={`https://i7e205.p.ssafy.io/api/v1/perfume/getimg/${data.enName}`}
-                                  alt=""
-                                />
-                              </div>
-                              <Link
-                                to={`/perfume/detail/${data.perfumeId}`}
-                              >
+                          </div>
+                        ))}
+                    </div>
+                    <div>
+                      <Pagination
+                        total={likelist.length}
+                        limit={limitData}
+                        page={page}
+                        setPage={setPage}
+                      />
+                    </div>
+                  </div>
+                ) : tab === 2 ? (
+                  <div>
+                    <div className="detail-likeDislikeList-items profile_height detail-ldl-first row">
+                      {dislikelist
+                        .slice(offset, offset + limitData)
+                        .map((data) => (
+                          <div className="col-lg-4 col-sm-6 col-xs-12">
+                            <div className="col-sm-6 col-xs-6 mt-10 mb-10 rightbox-in-perfume">
+                              <Link to={`/perfume/detail/${data.perfumeId}`}>
+                                <div>
+                                  <img
+                                    className="profile-perfume-img"
+                                    src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
+                                    alt=""
+                                  />
+                                </div>
+
                                 {data.koName}
                               </Link>
                             </div>
                           </div>
-                          ))}
-                        </div>
-                        <div>
-                          <Pagination
-                            total={dislikelist.length}
-                            limit={limitData}
-                            page={page}
-                            setPage={setPage}
-                          />
-                        </div>
-                      </div>)
-                      : ( tab === 3
-                        ? (
-                          <div className="mt-20">
-                          <table className="table table-hover">
-                          <thead>
-                            <tr className="table-top rightbox-in">
-                              <th scope="col">제목</th>
-                              <th scope="col">작성일</th>
-                              <th scope="col">추천</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {cummuProfile.slice(offset, offset + limitData).map((data) => (
+                        ))}
+                    </div>
+                    <div>
+                      <Pagination
+                        total={dislikelist.length}
+                        limit={limitData}
+                        page={page}
+                        setPage={setPage}
+                      />
+                    </div>
+                  </div>
+                ) : tab === 3 ? (
+                  <div>
+                    <div className="mt-20 mb-20 profile_height">
+                      <table className="table table-hover">
+                        <thead>
+                          <tr className="table-top rightbox-in">
+                            <th scope="col">제목</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col">추천</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {cummuProfile
+                            .slice(offset, offset + limitData)
+                            .map((data) => (
                               <tr className="table-bottom">
-                                <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
+                                <td
+                                  className=""
+                                  style={{
+                                    textAlign: "left",
+                                    paddingLeft: "10px",
+                                  }}
+                                >
                                   <div className="text-overflow">
-                                  <Link
-                                    className="community-list-titlebox"
-                                    to={`/commu/detail/${data.id}`}
-                                  >
-                                    [{titleName[data.category]}] {data.title}
-                                  </Link></div>
+                                    <Link
+                                      className="community-list-titlebox"
+                                      to={`/commu/detail/${data.id}`}
+                                    >
+                                      [{titleName[data.category]}] {data.title}
+                                    </Link>
+                                  </div>
                                 </td>
-                                { getToday(data.createDateYMD) === 0
-                                ? <td>{data.createDateHMS.slice(0,5)}</td>
-                                : (getToday(data.createDateYMD) === 1
-                                  ? <td>{data.createDateYMD.slice(5,7)}/{data.createDateYMD.slice(8,10)}</td>
-                                  : <td>{data.createDateYMD}</td>)}
+                                {getToday(data.createDateYMD) === 0 ? (
+                                  <td>{data.createDateHMS.slice(0, 5)}</td>
+                                ) : getToday(data.createDateYMD) === 1 ? (
+                                  <td>
+                                    {data.createDateYMD.slice(5, 7)}/
+                                    {data.createDateYMD.slice(8, 10)}
+                                  </td>
+                                ) : (
+                                  <td>{data.createDateYMD}</td>
+                                )}
                                 <td>{data.communityLike}</td>
                               </tr>
                             ))}
-                          </tbody>
-                          </table>
-                          <div>
-                          <Pagination
-                            total={cummuProfile.length}
-                            limit={limitData}
-                            page={page}
-                            setPage={setPage}
-                          />
-                          </div></div>
-                          )
-                          : ( tab === 4
-                            ? (
-                              <div className="mt-20">
-                              <table className="table table-hover">
-                              <thead>
-                                <tr className="table-top rightbox-in">
-                                  <th scope="col">댓글</th>
-                                  <th scope="col">작성일</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {commentProfile.slice(offset, offset + limitData).map((data) => (
-                                  <tr className="table-bottom">
-                                    <td className="" style={{ textAlign: "left", paddingLeft: "10px" }}>
-                                      <Link
-                                        className="community-list-titlebox"
-                                        to={`/commu/detail/${data.communityId}`}
-                                      >
-                                        {data.content}
-                                      </Link>
-                                    </td>
-                                    { getToday(data.createDateYMD) === 0
-                                    ? <td>{data.createDateHMS.slice(0,5)}</td>
-                                    : (getToday(data.createDateYMD) === 1
-                                      ? <td>{data.createDateYMD.slice(5,7)}/{data.createDateYMD.slice(8,10)}</td>
-                                      : <td>{data.createDateYMD}</td>)}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                            <div>
-                              <Pagination
-                                total={commentProfile.length}
-                                limit={limitData}
-                                page={page}
-                                setPage={setPage}
-                              />
-                            </div></div>
-                              )
-                              : null)))
-                }
+                        </tbody>
+                      </table>
+                    </div>
+                    <div>
+                      <Pagination
+                        total={cummuProfile.length}
+                        limit={limitData}
+                        page={page}
+                        setPage={setPage}
+                      />
+                    </div>
+                  </div>
+                ) : tab === 4 ? (
+                  <div>
+                    <div className="mt-20 mb-20 profile_height">
+                      <table className="table table-hover">
+                        <thead>
+                          <tr className="table-top rightbox-in">
+                            <th scope="col">댓글</th>
+                            <th scope="col">작성일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {commentProfile
+                            .slice(offset_2, offset_2 + 10)
+                            .map((data) => (
+                              <tr className="table-bottom">
+                                <td
+                                  className=""
+                                  style={{
+                                    textAlign: "left",
+                                    paddingLeft: "10px",
+                                  }}
+                                >
+                                  <Link
+                                    className="community-list-titlebox"
+                                    to={`/commu/detail/${data.communityId}`}
+                                  >
+                                    {data.content}
+                                  </Link>
+                                </td>
+                                {getToday(data.createDateYMD) === 0 ? (
+                                  <td>{data.createDateHMS.slice(0, 5)}</td>
+                                ) : getToday(data.createDateYMD) === 1 ? (
+                                  <td>
+                                    {data.createDateYMD.slice(5, 7)}/
+                                    {data.createDateYMD.slice(8, 10)}
+                                  </td>
+                                ) : (
+                                  <td>{data.createDateYMD}</td>
+                                )}
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div>
+                      <Pagination
+                        total={commentProfile.length}
+                        limit={10}
+                        page={page}
+                        setPage={setPage}
+                      />
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
 }
 
-{/* function TagSpawn(props) {
+{
+  /* function TagSpawn(props) {
   return (
     <button className={"hashtag" + (props.count % 3)}>#{props.tagname}</button>
   );
-} */}
+} */
+}
 
 export default Profile;

@@ -1,4 +1,3 @@
-// import { Outlet } from "react-router-dom";
 import { NavLink, Link, Routes, Route } from "react-router-dom";
 import PerfumeList from "./perfumeList";
 import PerfumeDetail from "./perfumeDetail";
@@ -9,7 +8,6 @@ import React, { useState } from "react";
 import "./perfume.css";
 // import "./perfumeList.scss";
 
-// 향수nav 구현한곳 / main, list, reglist를 중첩라우트중
 
 const Perfume = () => {
   return (

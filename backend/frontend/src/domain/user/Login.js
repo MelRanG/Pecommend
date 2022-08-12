@@ -1,6 +1,3 @@
-// import logo from "./logo.svg";
-// import "./App.css";
-// import "./App.css";
 import "./Login.css";
 import Nav from "../../components/nav";
 import Footer from "../../components/footer";
@@ -95,7 +92,7 @@ function Login() {
 
     return parseInt(age / 10) * 10;
   };
-  
+
   const onSubmithandler = (event) => {
     event.preventDefault();
     let body = {
@@ -105,7 +102,6 @@ function Login() {
     freeaxios
       .post("/api/v1/user/login.do", body)
       .then(function (response) {
-        console.log(response);
         if (response.status == 200) {
           sessionStorage.setItem("Auth", response.data.accessToken);
           sessionStorage.setItem("Refresh", response.data.refreshToken);
@@ -126,7 +122,7 @@ function Login() {
         Swal.fire({
           icon: "warning",
           title: "실패",
-          text: "ID, Password를 다시 확인해주세요.",
+          text: "이메일, 비밀번호를 다시 확인해주세요.",
         });
       });
   };
@@ -166,7 +162,6 @@ function Login() {
   const sendMail = (event) => {
     event.preventDefault();
     // 맨 처음 선언할 때 false고 여기서 true 해주고
-    console.log(email);
     const regExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (regExp.test(email) === false) {
@@ -180,9 +175,7 @@ function Login() {
         icon: "info",
         title: "Loading",
         text: "잠시만 기다려주세요.",
-        // <div class="spinner-border text-secondary" role="status">
-        //   <span class="visually-hidden">Loading...</span>
-        // </div>,
+        showConfirmButton: false,
       });
       freeaxios
         .post("/api/v1/user/email-confirm.do", email)
@@ -200,17 +193,16 @@ function Login() {
             Swal.fire({
               icon: "error",
               title: "Error",
-              text: "재시도 후 문의바랍니다.",
+              text: "재시도 후 문의 바랍니다.",
             });
           }
-          console.log(match);
         })
         .catch(function (error) {
           // false
           Swal.fire({
             icon: "warning",
             title: "실패",
-            text: "이미 가입된 메일입니다.",
+            text: "이미 사용 중인 이메일입니다.",
           });
         });
     }
@@ -219,8 +211,6 @@ function Login() {
   // 이메일 인증번호 인증
   const sendMailMatch = (event) => {
     event.preventDefault();
-    console.log(match);
-    console.log(cnum);
     if (cnum === match && cnum !== "") {
       Swal.fire({
         icon: "success",
@@ -232,7 +222,7 @@ function Login() {
       Swal.fire({
         icon: "warning",
         title: "실패",
-        text: "인증 번호를 다시 확인해 주세요.",
+        text: "인증 번호를 다시 확인해주세요.",
       });
     }
   };
@@ -250,9 +240,6 @@ function Login() {
 
   const checkNickname = (event) => {
     event.preventDefault();
-    console.log(nick);
-    console.log(nick_check);
-    console.log(nick.length);
     if (nick.length >= 2 && nick.length <= 8) {
       freeaxios
         .get("/api/v1/user/check.do/nickname/" + nick)
@@ -267,10 +254,9 @@ function Login() {
             Swal.fire({
               icon: "success",
               title: "성공",
-              text: "사용 가능한 닉네임입니다.",
+              text: "사용할 수 있는 닉네임입니다.",
             });
             setNickCheck(true);
-            console.log(nick_check);
           }
         })
         .catch(function (error) {
@@ -278,14 +264,14 @@ function Login() {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "재시도 후 문의바랍니다.",
+            text: "재시도 후 문의 바랍니다.",
           });
         });
     } else {
       Swal.fire({
         icon: "warning",
         title: "실패",
-        text: "Nickname은 2~8자리만 가능합니다.",
+        text: "닉네임은 2~8자만 가능합니다.",
       });
     }
   };
@@ -297,31 +283,31 @@ function Login() {
       Swal.fire({
         icon: "warning",
         title: "이메일",
-        text: "인증번호 받기가 필요합니다.",
+        text: "이메일 인증이 필요합니다.",
       });
     } else if (check_disabled === false) {
       Swal.fire({
         icon: "warning",
         title: "인증번호",
-        text: "인증이 필요합니다.",
+        text: "이메일 인증이 필요합니다.",
       });
     } else if (checkPassword(regist_pwd) === false) {
       Swal.fire({
         icon: "warning",
         title: "비밀번호",
-        text: "8 ~ 16자리로 문자, 숫자, 특수문자가 포함되어야 합니다.",
+        text: "8~16자로 문자, 숫자, 특수문자가 포함되어야 합니다.",
       });
     } else if (regist_pwd !== pwdRe) {
       Swal.fire({
         icon: "warning",
         title: "비밀번호 확인",
-        text: "'비밀번호 확인'을 다시 해주세요.",
+        text: "비밀번호가 일치하지 않습니다.",
       });
     } else if (nick_check === false) {
       Swal.fire({
         icon: "warning",
         title: "닉네임",
-        text: "닉네임 중복확인이 필요합니다.",
+        text: "닉네임 중복 확인이 필요합니다.",
       });
     } else if (birth === "") {
       Swal.fire({
@@ -333,7 +319,7 @@ function Login() {
       Swal.fire({
         icon: "warning",
         title: "생일",
-        text: "10세 이상만 가입 가능합니다.",
+        text: "10세 이상만 가입할 수 있습니다.",
       });
     } else if (gender === "") {
       Swal.fire({
@@ -345,7 +331,7 @@ function Login() {
       Swal.fire({
         icon: "warning",
         title: "프로필 소개",
-        text: "소개는 60자 이하만 가능합니다.",
+        text: "프로필 소개는 60자 이하만 가능합니다.",
       });
     } else {
       let body = {
@@ -357,23 +343,11 @@ function Login() {
         mbti: mbti,
         introduction: introduction,
       };
-      console.log("회원가입");
-      console.log(body);
       freeaxios
         .post("/api/v1/user/signup.do", body)
         .then(function (response) {
-          console.log(response.data.code);
-          console.log(response);
           if (response.status == 200) {
-            console.log("!!regist!!");
-            Swal.fire({
-              icon: "success",
-              title: "성공",
-              text: "환영합니다!",
-            });
             document.location.href = "/login";
-          } else {
-            console.log(response.data);
           }
         })
         .catch(function (error) {
@@ -391,10 +365,10 @@ function Login() {
               <div className="login-register-wrapper">
                 <div className="login-register-tab-list nav">
                   <a className="active" data-bs-toggle="tab" href="#lg1">
-                    <h4> SIGN IN </h4>
+                    <h4> 로그인 </h4>
                   </a>
                   <a data-bs-toggle="tab" href="#lg2">
-                    <h4> SIGN UP </h4>
+                    <h4> 회원가입 </h4>
                   </a>
                 </div>
                 <div className="tab-content">
@@ -405,14 +379,14 @@ function Login() {
                           <input
                             type="text"
                             name="lg-user-email"
-                            placeholder="Email"
+                            placeholder="이메일"
                             onChange={onIDhandler}
                             value={id}
                           />
                           <input
                             type="password"
                             name="lg-user-password"
-                            placeholder="Password"
+                            placeholder="비밀번호"
                             onChange={onPWDhandler}
                           />
                           <div className="button-box">
@@ -422,12 +396,12 @@ function Login() {
                                 onChange={onRememberHandler}
                                 checked={remember}
                               />
-                              <label>Remember me</label>
-                              <a href="/searchpwd">Forgot Password?</a>
+                              <label class="lg-cb1">이메일 저장</label>
+                              <a href="/searchpwd">비밀번호를 잊으셨나요?</a>
                             </div>
                             <div className="d-grid gap-2">
                               <button type="submit" className="bbb">
-                                <span>SIGN IN</span>
+                                <span>로그인</span>
                               </button>
                               <div className="login_l m-4"></div>
                             </div>
@@ -436,21 +410,18 @@ function Login() {
                       </div>
                       <div className="d-grid gap-2">
                         <a
-                          href="https://i7e205.p.ssafy.io/oauth2/authorization/naver"
-                          className="naver-login-btn mb-3"
+                          className="google-login-btn"
+                          href="https://pecommend.com/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com"
                         >
                           <button
                             type="submit"
-                            className="naver-login-btn mb-3"
+                            className="google-login-btn-text"
                           >
-                            네이버 로그인
-                          </button>
-                        </a>
-                        <a
-                          className="google-login-btn"
-                          href="https://i7e205.p.ssafy.io/oauth2/authorization/google?client_id=961849425553-5k6o8eljgt78pkr5hk2losbsedsua5r4.apps.googleusercontent.com"
-                        >
-                          <button type="submit" className="google-login-btn">
+                            <img
+                              src="assets/img/icon-img/google.png"
+                              height="30px"
+                              hspace="5px"
+                            />
                             구글 로그인
                           </button>
                         </a>
@@ -462,9 +433,7 @@ function Login() {
                       <div className="login-register-form">
                         <form onSubmit={onRegisthandler}>
                           <label>이메일</label>
-                          {/* 이쁘게 하기 */}
-                          {/* {abc==true? <div>전송중...</div>:<div></div>} */}
-
+                          <span class="essential-mark">*</span>
                           <button
                             class="btn"
                             style={{ float: "right" }}
@@ -474,40 +443,45 @@ function Login() {
                           </button>
                           <input
                             name="user-email"
-                            placeholder="Email"
+                            placeholder="이메일"
                             type="email"
                             onChange={onEmailhandler}
                             disabled={email_disabled}
                           />
                           <label>인증번호</label>
+                          <span class="essential-mark">*</span>
                           <button
                             class="btn"
                             style={{ float: "right" }}
                             onClick={sendMailMatch}
                           >
-                            인증
+                            인증하기
                           </button>
                           <input
                             name="user-email-confirm"
                             type="text"
+                            placeholder="인증번호를 입력해주세요"
                             onChange={onCnumhandler}
                             disabled={check_disabled}
                           />
                           <label>비밀번호</label>
+                          <span class="essential-mark">*</span>
                           <input
                             type="password"
                             name="user-password"
-                            placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
+                            placeholder="비밀번호는 8~16자로 문자, 숫자, 특수문자가 포함되어야 합니다"
                             onChange={onRPWDhandler}
                           />
                           <label>비밀번호 확인</label>
+                          <span class="essential-mark">*</span>
                           <input
                             name="user-password-confirm"
-                            placeholder="Password confirm"
+                            placeholder="비밀번호 확인"
                             type="password"
                             onChange={onPWDReHandler}
                           />
                           <label>닉네임</label>
+                          <span class="essential-mark">*</span>
                           <button
                             class="btn"
                             style={{ float: "right" }}
@@ -517,11 +491,12 @@ function Login() {
                           </button>
                           <input
                             name="nickname"
-                            placeholder="Nickname은 2~8자리만 가능합니다."
+                            placeholder="닉네임은 2~8자만 가능합니다"
                             type="text"
                             onChange={onNicknamehandler}
                           />
                           <label>생일</label>
+                          <span class="essential-mark">*</span>
                           <input
                             name="birthday"
                             placeholder="birthday"
@@ -530,6 +505,7 @@ function Login() {
                             onChange={onBirthhandler}
                           />
                           <label>성별</label>
+                          <span class="essential-mark">*</span>
                           <br />
                           <input
                             name="gender"
@@ -556,7 +532,8 @@ function Login() {
                           </label>
                           <br />
                           <br />
-                          <label>MBTI (선택)</label>
+                          <label>MBTI</label>
+                          <span class="optional-mark">(선택)</span>
                           <select
                             name="mbti"
                             className="form-select"
@@ -580,16 +557,17 @@ function Login() {
                             <option value="ENFJ">ENFJ</option>
                             <option value="ENFP">ENFP</option>
                           </select>
-                          <label>프로필 소개 (선택)</label>
+                          <label>프로필 소개</label>
+                          <span class="optional-mark">(선택)</span>
                           <input
                             name="introduction"
-                            placeholder="소개는 60자 이하만 가능합니다."
+                            placeholder="소개는 60자 이하만 가능합니다"
                             type="text"
                             onChange={onIntroduction}
                           />
                           <div className="button-box">
                             <button type="submit">
-                              <span>Sign Up</span>
+                              <span>가입</span>
                             </button>
                           </div>
                         </form>

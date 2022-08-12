@@ -1,5 +1,5 @@
 import "./Login.css";
-import {authaxios, freeaxios} from "../../custom/customAxios";
+import { authaxios, freeaxios } from "../../custom/customAxios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user_reducer";
@@ -103,9 +103,6 @@ function Profile_update() {
   // 닉네임 중복검사
   const checkNickname = (event) => {
     event.preventDefault();
-    console.log(nick);
-    console.log(nick_check);
-    console.log(nick.length);
     if (nick.length >= 2 && nick.length <= 8) {
       freeaxios
         .get("/api/v1/user/check.do/nickname/" + nick)
@@ -123,7 +120,6 @@ function Profile_update() {
               text: "사용 가능한 닉네임입니다.",
             });
             setNickCheck(true);
-            console.log(nick_check);
           }
         })
         .catch(function (error) {
@@ -134,8 +130,8 @@ function Profile_update() {
             text: "재시도 후 문의바랍니다.",
           });
         });
-      };
     };
+  };
 
   const changeNickname = (event) => {
     event.preventDefault();
@@ -151,10 +147,10 @@ function Profile_update() {
         cancelButtonText: '취소'
       }).then((result) => {
         if (result.isConfirmed) {
-            setNickDisabled(false);
-            setNickCheck(false);
-            setNickChangeMsg("변경 취소");
-          }
+          setNickDisabled(false);
+          setNickCheck(false);
+          setNickChangeMsg("변경 취소");
+        }
       })
     } else {
       Swal.fire({
@@ -172,7 +168,7 @@ function Profile_update() {
           setNickCheck(true);
           setNick(userprofile.nickname);
           setNickChangeMsg("변경");
-          }
+        }
       })
     }
   };
@@ -194,13 +190,8 @@ function Profile_update() {
           setPwdDisabled(false);
           setPwdCheck(false);
           setPwdChangeMsg("변경 취소");
-          }
+        }
       })
-      // if (window.confirm("비밀번호를 변경하시겠습니까?")) {
-      //   setPwdDisabled(false);
-      //   setPwdCheck(false);
-      //   setPwdChangeMsg("변경 취소");
-      // }
     } else {
       Swal.fire({
         title: "비밀번호 변경을 취소하시겠습니까?",
@@ -218,7 +209,7 @@ function Profile_update() {
           setPwd("");
           setPwdRe("");
           setPwdChangeMsg("변경");
-          }
+        }
       })
     }
   };
@@ -245,40 +236,22 @@ function Profile_update() {
     }).then((result) => {
       if (result.isConfirmed) {
         authaxios
-        .delete("/api/v1/user/delete")
-        .then(() => {
-          Swal.fire({
-            icon: "success",
-            title: "성공",
-            text: "탈퇴가 완료되었습니다.",
+          .delete("/api/v1/user/delete")
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "성공",
+              text: "탈퇴가 완료되었습니다.",
+            });
+          })
+          .then(() => {
+            window.location.href = "/logout";
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        })
-        .then(() => {
-          window.location.href = "/logout";
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        }
+      }
     })
-    // if (window.confirm("정말로 탈퇴하시겠습니까?")) {
-
-    //   authaxios
-    //     .delete("/api/v1/user/delete")
-    //     .then(() => {
-    //       Swal.fire({
-    //         icon: "success",
-    //         title: "성공",
-    //         text: "탈퇴가 완료되었습니다.",
-    //       });
-    //     })
-    //     .then(() => {
-    //       window.location.href = "/logout";
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
   };
 
   // 회원수정
@@ -335,10 +308,6 @@ function Profile_update() {
         mbti: mbti,
         introduction: introduction,
       };
-
-      console.log("회원수정");
-      console.log(body);
-
       authaxios
         .put("/api/v1/user/update", body)
         .then(function (response) {
@@ -365,15 +334,6 @@ function Profile_update() {
   return (
     <div className="Login">
       <div className="Login">
-        <div className="breadcrumb-area pt-35 pb-35 bg-gray-3">
-          <div className="container">
-            <div className="breadcrumb-content text-center">
-              <ul>
-                <li className="active"> Update </li>
-              </ul>
-            </div>
-          </div>
-        </div>
         <div className="login-register-area pt-100 pb-100">
           <div className="container">
             <div className="row">
@@ -381,7 +341,7 @@ function Profile_update() {
                 <div className="login-register-wrapper">
                   <div className="login-register-tab-list nav">
                     <a>
-                      <h4> 사용자 설정 </h4>
+                      <h4>회원정보 수정</h4>
                     </a>
                   </div>
                   <div className="tab-content">
@@ -400,14 +360,14 @@ function Profile_update() {
                             <input
                               type="password"
                               name="user-password"
-                              placeholder="Password는 8~16자리로 문자, 숫자, 특수문자가 포함되어야 합니다."
+                              placeholder="비밀번호는 8~16자로 문자, 숫자, 특수문자가 포함되어야 합니다"
                               onChange={onRPWDhandler}
                               disabled={pwd_disabled}
                             />
                             <label>비밀번호 확인</label>
                             <input
                               name="user-password-confirm"
-                              placeholder="Password confirm"
+                              placeholder="비밀번호 확인"
                               type="password"
                               onChange={onPWDReHandler}
                               disabled={pwd_disabled}
@@ -429,7 +389,7 @@ function Profile_update() {
                             </button>
                             <input
                               name="nickname"
-                              placeholder="Nickname"
+                              placeholder="닉네임은 2~8자만 가능합니다"
                               type="text"
                               onChange={onNicknamehandler}
                               value={nick}
@@ -476,7 +436,7 @@ function Profile_update() {
                             </label>
                             <br />
                             <br />
-                            <label>MBTI (선택)</label>
+                            <label>MBTI</label><span class="optional-mark">(선택)</span>
                             <select
                               name="mbti"
                               className="form-select"
@@ -501,17 +461,17 @@ function Profile_update() {
                               <option value="ENFJ">ENFJ</option>
                               <option value="ENFP">ENFP</option>
                             </select>
-                            <label>프로필 소개 (선택)</label>
+                            <label>프로필 소개</label><span class="optional-mark">(선택)</span>
                             <input
                               name="introduction"
-                              placeholder="소개는 60자 이하만 가능합니다."
+                              placeholder="소개는 60자 이하만 가능합니다"
                               type="text"
                               onChange={onIntroduction}
                               value={introduction}
                             />
                             <div className="button-box">
                               <button type="submit">
-                                <span>Update</span>
+                                <span>수정</span>
                               </button>
                             </div>
                             <div className="button-danger">
