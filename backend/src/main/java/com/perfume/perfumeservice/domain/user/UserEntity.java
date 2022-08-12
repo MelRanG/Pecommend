@@ -1,8 +1,14 @@
 package com.perfume.perfumeservice.domain.user;
 
+import com.perfume.perfumeservice.domain.comment.Comment;
+import com.perfume.perfumeservice.domain.comment.CommentDisLike;
+import com.perfume.perfumeservice.domain.comment.CommentLike;
 import com.perfume.perfumeservice.domain.community.Community;
 import com.perfume.perfumeservice.domain.perfume.PerfumeDislike;
 import com.perfume.perfumeservice.domain.perfume.PerfumeLike;
+import com.perfume.perfumeservice.domain.review.Review;
+import com.perfume.perfumeservice.domain.review.ReviewDisLike;
+import com.perfume.perfumeservice.domain.review.ReviewLike;
 import com.perfume.perfumeservice.dto.user.UpdateUserRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -57,7 +63,11 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Community> posts = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 
     // perfume_like
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -66,6 +76,14 @@ public class UserEntity {
     // perfume_dislike
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PerfumeDislike> perfumeDislikes = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CommentLike> commentLikes = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CommentDisLike> commentDislikes = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReviewLike> reviewLikes = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReviewDisLike> reviewDislikes = new ArrayList<>();
 
     @Column(name = "token")
     private String token;

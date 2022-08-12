@@ -63,7 +63,7 @@ a{
 }
 
 /* 반응형 */
-@media screen and (max-width:1218px) {
+@media screen and (max-width:1226px) {
   .navbar{
     flex-direction: column;
     align-items: flex-start;
