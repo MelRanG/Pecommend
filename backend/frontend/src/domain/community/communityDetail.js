@@ -593,6 +593,7 @@ function CommunityDetail() {
                       name="content"
                       placeholder="댓글을 입력하세요."
                       onChange={handleChange}
+                      maxLength="255"
                     ></textarea>
                     <button className="comment-submit">등록</button>
                   </form>
@@ -696,6 +697,7 @@ function CommunityDetail() {
                                 id={`comment-content-${data.id}`}
                                 onChange={commentEditChange}
                                 onClick={commentClick}
+                                maxLength="255"
                               >
                                 {data.content}
                               </textarea>
@@ -709,6 +711,7 @@ function CommunityDetail() {
                                 id={`comment-content-${data.id}`}
                                 onChange={commentEditChange}
                                 onClick={commentClick}
+                                maxLength="255"
                               >
                                 {noData}
                               </textarea>
@@ -818,6 +821,7 @@ function CommunityDetail() {
                                       id={`comment-content-${dataR.id}`}
                                       onChange={commentEditChange}
                                       onClick={commentClick}
+                                      maxLength="255"
                                     >
                                       {dataR.content}
                                     </textarea>
@@ -831,6 +835,7 @@ function CommunityDetail() {
                                       id={`comment-content-${dataR.id}`}
                                       onChange={commentEditChange}
                                       onClick={commentClick}
+                                      maxLength="255"
                                     >
                                       {noData}
                                     </textarea>
@@ -927,6 +932,7 @@ function CommunityDetail() {
                                             onClick={(e) =>
                                               replyClick(dataR.id, e)
                                             }
+                                            maxLength="255"
                                           >
                                             {dataRR.content}
                                           </textarea>
@@ -942,6 +948,7 @@ function CommunityDetail() {
                                             onClick={(e) =>
                                               replyClick(dataR.id, e)
                                             }
+                                            maxLength="255"
                                           >
                                             {noData}
                                           </textarea>

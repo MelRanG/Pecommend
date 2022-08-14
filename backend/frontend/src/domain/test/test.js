@@ -170,7 +170,6 @@ function Test() {
   };
 
   const setTopValue = () => {
-    console.log(point);
     let maximum = 0;
     let answer = "";
     for (let i = 0; i < point.length; i++) {
@@ -181,10 +180,8 @@ function Test() {
         answer = answer + "," + `${i}`;
       }
     }
-    console.log(answer);
     const mapping = answer.split(",");
     setResult(mapping);
-    console.log(mapping);
   };
 
   const startTest = () => {

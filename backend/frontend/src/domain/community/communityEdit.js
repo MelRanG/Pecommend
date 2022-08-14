@@ -14,7 +14,6 @@ function CommunityEdit() {
   let navigate = useNavigate();
   let useParam = useParams();
   let number = parseInt(useParam.num);
-  // const [pageDetail,setPageDetail] = useState({});
   const [formValue, setForm] = useState({
     writer: "",
     title: "",
@@ -25,16 +24,13 @@ function CommunityEdit() {
 
   const getArticleDetail = async () => {
     try {
-      console.log(number);
       const response = await freeaxios({
         method: "get",
         url: "/api/v1/community/detail.do/" + number,
         // data: registwrite,
         headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log(response);
       if (response.status === 200) {
-        console.log(response.data);
         setForm(response.data);
         const item = document.getElementById("dropdownMenuButton1");
         let text = document.getElementById(response.data.category);
@@ -63,13 +59,10 @@ function CommunityEdit() {
     // item.value = e.target.id
     item.innerText = e.target.innerText;
     const { id, name } = e.target;
-    console.log(id, name);
     setForm({
       ...formValue,
       [name]: id,
     });
-
-    console.log(formValue);
   };
 
   const [imageFile, setImgFile] = useState([]);
@@ -84,7 +77,6 @@ function CommunityEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formValue);
     try {
       const response = await authaxios({
         method: "patch",
@@ -97,9 +89,7 @@ function CommunityEdit() {
           category: formValue.category,
         },
       });
-      console.log("patch: " + response);
       if (response.status === 200) {
-        console.log("!!!");
         Swal.fire({
           icon: "success",
           title: "성공",
