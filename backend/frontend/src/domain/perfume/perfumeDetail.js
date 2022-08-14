@@ -177,7 +177,7 @@ const PerfumeDetail = () => {
       const response = await authaxios({
         method: "get",
         url:
-          "/api/v1/perfume/check.do/like?userId=" +
+          "/api/v1/perfume/check/like?userId=" +
           user.user_id +
           "&perfumeId=" +
           number,
