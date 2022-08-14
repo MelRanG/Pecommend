@@ -232,7 +232,7 @@ function Profile() {
                                 <div>
                                   <img
                                     className="profile-perfume-img"
-                                    src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
+                                    src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.enName}`}
                                     alt=""
                                   />
                                 </div>
@@ -265,7 +265,7 @@ function Profile() {
                                 <div>
                                   <img
                                     className="profile-perfume-img"
-                                    src={`http://localhost:8081/api/v1/perfume/getimg/${data.enName}`}
+                                    src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.enName}`}
                                     alt=""
                                   />
                                 </div>
