@@ -703,7 +703,6 @@ const PerfumeDetail = () => {
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="ldltext">해요</span>
                     <span
                       className="ldltext"
                       style={{ color: "rgb(97 109 255)" }}
