@@ -56,7 +56,7 @@ function CommunityDetail() {
     try {
       const response = await freeaxios({
         method: "get",
-        url: "/api/v1/comment/" + number,
+        url: "/api/v1/comment/list.do/" + number,
       });
       const commentdata = response.data;
       setPageComment(commentdata);
