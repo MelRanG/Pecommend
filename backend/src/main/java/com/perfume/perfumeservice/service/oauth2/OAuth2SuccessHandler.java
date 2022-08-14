@@ -48,6 +48,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                         .password(passwordMaker.make())
                         .build());
 
+        if(entity.getBirthday() != null){
+            entity.setAge();
+        }
+
         // 토큰 생성
         TokenDto tokenDto = tokenProvider.generateTokenDto(entity.getEmail(), entity.getRole().toString());
         entity.saveToken(tokenDto.getRefreshToken());
