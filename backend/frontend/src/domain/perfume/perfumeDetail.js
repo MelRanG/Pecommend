@@ -703,7 +703,7 @@ const PerfumeDetail = () => {
               <div>
                 <div className="detail-likeDislikeList-items detail-ldl-first row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="ldltext">이 향수를 좋아한다면</span>
+                    <span className="ldltext">해요</span>
                     <span
                       className="ldltext"
                       style={{ color: "rgb(97 109 255)" }}
@@ -728,12 +728,11 @@ const PerfumeDetail = () => {
 
                 <div className="detail-likeDislikeList-items row">
                   <div className="col-lg-3 col-sm-12">
-                    <span className="ldltext">이 향수를 싫어한다면</span>
                     <span
                       className="ldltext"
                       style={{ color: "rgb(255 97 97)" }}
                     >
-                      추천
+                      비추천
                     </span>
                     <span className="ldltext">해요</span>
                   </div>
