@@ -211,7 +211,7 @@ public class PerfumeController {
     public ResponseEntity<Map<String, Object>> getLDList(@PathVariable Long id){
         Map<String, Object> resultMap = new HashMap<String, Object>();
         // 좋아요좋아요
-        List<PerfumeLDCount> queryResult = perfumeLikeService.getDislikeDislike(id); // 상위 10개
+        List<PerfumeLDCount> queryResult = perfumeLikeService.getLikeLike(id); // 상위 10개
         Collections.shuffle(queryResult);
         List<PerfumeLDCount> shuffleResult = queryResult.subList(0, Math.min(queryResult.size(), 4));
         List<Map<String, Object>> llResult = new LinkedList<>();
