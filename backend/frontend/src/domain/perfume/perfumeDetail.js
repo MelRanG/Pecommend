@@ -985,7 +985,7 @@ const PerfumeDetail = () => {
                               </div>
                               <div className="review-text-profile-user ml-10">
                                 <div
-                                  className="review-rating mb-10 "
+                                  className="review-rating mb-1"
                                   id={`review-rate-${data.id}`}
                                 >
                                   <Rating
@@ -1010,7 +1010,7 @@ const PerfumeDetail = () => {
                                   />
                                 </div>
                                 <div>
-                                  {data.user} 님 | {data.modifiedDate}
+                                  {data.user} | {data.modifiedDate}
                                 </div>
                               </div>
                             </div>
@@ -1065,14 +1065,8 @@ const PerfumeDetail = () => {
                                 ) : (
                                   <>
                                     <span
-                                      className="fa-solid fa-thumbs-up rv-up"
+                                      className="review-like-icon fa-solid fa-thumbs-up rv-up"
                                       onClick={clickReviewLike}
-                                      style={{
-                                        color: "rgb(72 118 239)",
-                                        fontSize: "25px",
-                                        verticalAlign: "middle",
-                                        lineHeight: "25px",
-                                      }}
                                       id={`${data.id}`}
                                     ></span>
                                     {/* <span style={{ fontSize: "25px" }}>

@@ -104,7 +104,7 @@ function Test() {
         "<h4>#상큼한&nbsp&nbsp#은은한&nbsp&nbsp#모과와_바이올렛&nbsp&nbsp#머스크</h4>",
         "<h4>#은은한&nbsp&nbsp #화사한&nbsp&nbsp#새하얀_수건&nbsp&nbsp#튤립</h4>",
         "<h4>#아늑한&nbsp&nbsp#은은하게_달콤한&nbsp&nbsp#잔잔하게_묵직한&nbsp&nbsp#우디</h4>",
-        "<h4>#묵직한&nbsp&nbsp#포근한&nbsp&nbsp#빨간_사과#우디&nbsp&nbsp#스모키</h4>",
+        "<h4>#묵직한&nbsp&nbsp#포근한&nbsp&nbsp#빨간_사과&nbsp&nbsp#우디&nbsp&nbsp#스모키</h4>",
       ],
       dialog_next: "",
       result_img: [
@@ -151,7 +151,6 @@ function Test() {
       }
       setPoint(temp);
     }
-    // setSinglePoint(singlePoint)
     setTopValue();
     setPage(page + 1);
   };
@@ -189,7 +188,6 @@ function Test() {
   };
 
   const gotoPage = (perfumeId, e) => {
-    // console.log(perfumeId,"is perfumeId")
     navigate("/perfume/detail/" + perfumeId, { replace: true });
   };
 
@@ -200,13 +198,11 @@ function Test() {
           {0 < page ? (
             page < test[0].q_count + 1 ? (
               <>
-                {/* {topResult} */}
                 <img src="" />
                 <h3>Q{page}.</h3>
                 <div className="test-dialog-border">
                   <div className="test-dialog">{test[page].QDialog}</div>
                 </div>
-                {/* <h5 className="test-dialog">{test[page].QDialog}</h5> */}
                 <div className="test-button-box">
                   <button className="test-button-1" onClick={clickB1}>
                     {test[page].QB1Dialog}
@@ -218,7 +214,6 @@ function Test() {
               </>
             ) : (
               <>
-                {/* {topResult} */}
                 <div className="test-result">
                   <div className="test-result-box">
                     <div
@@ -228,20 +223,7 @@ function Test() {
                       }}
                     ></div>
                   </div>
-                  {/* {
-                                    topResult.map((top) => (
-                                        <div className="test-result-box">
-                                            <div className="test-result-title" dangerouslySetInnerHTML={ {__html: test[page].result[top]}}></div>
-                                            <img src={test[page].result_img[top]} />
-                                            <span>{singlePoint}</span>
-                                            <div className="test-result-dialog" dangerouslySetInnerHTML={ {__html: test[page].dialog_prev}}></div>
-                                            <div className="test-result-dialog" dangerouslySetInnerHTML={ {__html: test[page].result_dialog[top]}}></div>
-                                            <div className="test-result-dialog" dangerouslySetInnerHTML={ {__html: test[page].dialog_next}}></div>
-                                        </div>
-                                    ))
-                                } */}
                   <div className="test-result-box canclick">
-                    {/* <button onClick={(e) => {gotoPage(test[page].result_link[answer[singlePoint]], e)}}></button> */}
                     <div
                       className="test-result-title"
                       dangerouslySetInnerHTML={{
@@ -259,14 +241,12 @@ function Test() {
                         test[page].result_img[answer[singlePoint]]
                       }`}
                     />
-                    {/* <span>{singlePoint}</span> */}
                     <div
                       className="test-result-dialog"
                       dangerouslySetInnerHTML={{
                         __html: test[page].dialog_prev,
                       }}
                     ></div>
-
                     <div
                       className="test-result-dialog"
                       dangerouslySetInnerHTML={{
@@ -274,7 +254,6 @@ function Test() {
                       }}
                     ></div>
                   </div>
-
                   <div className="test-result-box">
                     <div
                       className="test-result-title"

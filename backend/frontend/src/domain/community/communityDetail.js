@@ -408,6 +408,9 @@ function CommunityDetail() {
       const newSubDiv = document.createElement("div");
       const newRemoveButton = document.createElement("button");
       const newSubmitButton = document.createElement("button");
+      const newIconDiv = document.createElement("div");
+      const newLineDiv = document.createElement("div");
+      const newImg = document.createElement("img");
 
       newDiv.classList.add("reply");
       newSubDiv.classList.add("reply-sub");
@@ -417,7 +420,11 @@ function CommunityDetail() {
       newSubmitButton.classList.add("reply-submit");
       newSubmitButton.classList.add("fa-solid");
       newSubmitButton.classList.add("fa-pen");
+      newIconDiv.classList.add("reply-icon");
+      newLineDiv.classList.add("reply-line");
 
+      newImg.setAttribute("src", "assets/img/icon-img/arrow-turn-up.svg");
+      newImg.setAttribute("width", "20px");
       newTextArea.setAttribute("id", "replyline");
       newTextArea.setAttribute("rows", "3");
       newTextArea.setAttribute("name", "content");
@@ -426,9 +433,13 @@ function CommunityDetail() {
       newRemoveButton.addEventListener("click", removeReply);
       newSubmitButton.setAttribute("id", e.target.id);
 
+      newIconDiv.appendChild(newImg);
+      newLineDiv.appendChild(newIconDiv);
+      newLineDiv.appendChild(newTextArea);
       newSubDiv.appendChild(newRemoveButton);
       newSubDiv.appendChild(newSubmitButton);
-      newDiv.appendChild(newTextArea);
+      newDiv.appendChild(newLineDiv);
+      // newDiv.appendChild(newTextArea);
       newDiv.appendChild(newSubDiv);
       targetComment.appendChild(newDiv);
     }
@@ -447,6 +458,9 @@ function CommunityDetail() {
       const newSubDiv = document.createElement("div");
       const newRemoveButton = document.createElement("button");
       const newSubmitButton = document.createElement("button");
+      const newIconDiv = document.createElement("div");
+      const newLineDiv = document.createElement("div");
+      const newImg = document.createElement("img");
 
       newDiv.classList.add("reply");
       newSubDiv.classList.add("reply-sub");
@@ -456,7 +470,11 @@ function CommunityDetail() {
       newSubmitButton.classList.add("reply-submit");
       newSubmitButton.classList.add("fa-solid");
       newSubmitButton.classList.add("fa-pen");
+      newIconDiv.classList.add("reply-icon");
+      newLineDiv.classList.add("reply-line");
 
+      newImg.setAttribute("src", "assets/img/icon-img/arrow-turn-up.svg");
+      newImg.setAttribute("width", "20px");
       newTextArea.setAttribute("id", "replyline");
       newTextArea.setAttribute("rows", "3");
       newTextArea.setAttribute("name", "content");
@@ -465,9 +483,13 @@ function CommunityDetail() {
       newRemoveButton.addEventListener("click", removeReply);
       newSubmitButton.setAttribute("id", "comment" + e.target.id);
 
+      newIconDiv.appendChild(newImg);
+      newLineDiv.appendChild(newIconDiv);
+      newLineDiv.appendChild(newTextArea);
       newSubDiv.appendChild(newRemoveButton);
       newSubDiv.appendChild(newSubmitButton);
-      newDiv.appendChild(newTextArea);
+      newDiv.appendChild(newLineDiv);
+      // newDiv.appendChild(newTextArea);
       newDiv.appendChild(newSubDiv);
       targetComment.appendChild(newDiv);
     }
@@ -485,6 +507,9 @@ function CommunityDetail() {
       const newSubDiv = document.createElement("div");
       const newRemoveButton = document.createElement("button");
       const newSubmitButton = document.createElement("button");
+      const newIconDiv = document.createElement("div");
+      const newLineDiv = document.createElement("div");
+      const newImg = document.createElement("img");
 
       newDiv.classList.add("reply");
       newSubDiv.classList.add("reply-sub");
@@ -494,7 +519,11 @@ function CommunityDetail() {
       newSubmitButton.classList.add("reply-submit");
       newSubmitButton.classList.add("fa-solid");
       newSubmitButton.classList.add("fa-pen");
+      newIconDiv.classList.add("reply-icon");
+      newLineDiv.classList.add("reply-line");
 
+      newImg.setAttribute("src", "assets/img/icon-img/arrow-turn-up.svg");
+      newImg.setAttribute("width", "20px");
       newTextArea.setAttribute("id", "replyline");
       newTextArea.setAttribute("rows", "3");
       newTextArea.setAttribute("name", "content");
@@ -503,9 +532,13 @@ function CommunityDetail() {
       newRemoveButton.addEventListener("click", removeReply);
       newSubmitButton.setAttribute("id", "comment-content-" + number);
 
+      newIconDiv.appendChild(newImg);
+      newLineDiv.appendChild(newIconDiv);
+      newLineDiv.appendChild(newTextArea);
       newSubDiv.appendChild(newRemoveButton);
       newSubDiv.appendChild(newSubmitButton);
-      newDiv.appendChild(newTextArea);
+      newDiv.appendChild(newLineDiv);
+      // newDiv.appendChild(newTextArea);
       newDiv.appendChild(newSubDiv);
       targetComment.appendChild(newDiv);
     }
@@ -520,7 +553,7 @@ function CommunityDetail() {
               {/* 게시글 상세 */}
               <div className="community-detail">
                 <div className="community-detail-title">
-                  <h4 className="mx-4 mt-3">
+                  <h4 className="mx-4 mt-3 detail-title">
                     [{articleCategory[pageDetail.category]}] {pageDetail.title}
                   </h4>
                 </div>
@@ -611,7 +644,7 @@ function CommunityDetail() {
                         <div className="community-comment-data">
                           <div className="row">
                             <div className="comment-data col-9">
-                              {data.writer}님&nbsp;&nbsp;|&nbsp;&nbsp;
+                              {data.writer}&nbsp;&nbsp;|&nbsp;&nbsp;
                               {data.createDateYMD}
                               &nbsp;{data.createDateHMS}
                               &nbsp;&nbsp;|&nbsp;&nbsp;추천수&nbsp;
@@ -635,7 +668,7 @@ function CommunityDetail() {
                                     id={`${data.id}`}
                                   ></button>
                                   <button
-                                    className="community-button-reply fa-solid fa-arrow-down-long"
+                                    className="community-button-reply fa-solid fa-comments"
                                     id={`-content-${data.id}`}
                                     onClick={commentClickBtn}
                                   ></button>
@@ -646,17 +679,17 @@ function CommunityDetail() {
                                   hidden
                                 >
                                   <button
-                                    className="edit-remove fa-solid fa-xmark"
+                                    className="community-edit-remove fa-solid fa-xmark"
                                     onClick={clickCommentEditRemove}
                                     id={`${data.id}`}
                                   ></button>
                                   <button
-                                    className="edit-commit fa-solid fa-pen"
+                                    className="community-edit-commit fa-solid fa-pen"
                                     onClick={clickCommentEditCommit}
                                     id={`${data.id}`}
                                   ></button>
                                   <button
-                                    className="community-button-reply fa-solid fa-arrow-down-long"
+                                    className="community-button-reply fa-solid fa-comments"
                                     id={`-content-${data.id}`}
                                     onClick={commentClickBtn}
                                   ></button>
@@ -677,7 +710,7 @@ function CommunityDetail() {
                                       id={`${data.id}`}
                                     ></button>
                                     <button
-                                      className="community-button-reply fa-solid fa-arrow-down-long"
+                                      className="community-button-reply-btn fa-solid fa-comments"
                                       id={`-content-${data.id}`}
                                       onClick={commentClickBtn}
                                     ></button>
@@ -736,7 +769,7 @@ function CommunityDetail() {
                               <div className="community-comment-data">
                                 <div className="row">
                                   <div className="comment-data col-9">
-                                    {dataR.writer}님 | {dataR.createDateYMD}{" "}
+                                    {dataR.writer} | {dataR.createDateYMD}{" "}
                                     {dataR.createDateHMS} | 추천수&nbsp;
                                     {dataR.commentLike}
                                   </div>
@@ -758,7 +791,7 @@ function CommunityDetail() {
                                           id={`${dataR.id}`}
                                         ></button>
                                         <button
-                                          className="community-button-reply fa-solid fa-arrow-down-long"
+                                          className="community-button-reply fa-solid fa-comments"
                                           id={`-content-${dataR.id}`}
                                           onClick={commentClickBtn}
                                         ></button>
@@ -769,18 +802,18 @@ function CommunityDetail() {
                                         hidden
                                       >
                                         <button
-                                          className="edit-remove fa-solid fa-xmark"
+                                          className="community-edit-remove fa-solid fa-xmark"
                                           onClick={clickCommentEditRemove}
                                           id={`${dataR.id}`}
                                         ></button>
                                         <button
-                                          className="edit-commit fa-solid fa-pen"
+                                          className="community-edit-commit fa-solid fa-pen"
                                           onClick={clickCommentEditCommit}
                                           id={`${dataR.id}`}
                                         ></button>
 
                                         <button
-                                          className="community-button-reply fa-solid fa-arrow-down-long"
+                                          className="community-button-reply fa-solid fa-comments"
                                           id={`-content-${dataR.id}`}
                                           onClick={commentClickBtn}
                                         ></button>
@@ -801,7 +834,7 @@ function CommunityDetail() {
                                             id={`${dataR.id}`}
                                           ></button>
                                           <button
-                                            className="community-button-reply fa-solid fa-arrow-down-long"
+                                            className="community-button-reply-btn fa-solid fa-comments"
                                             id={`-content-${dataR.id}`}
                                             onClick={commentClickBtn}
                                           ></button>
@@ -812,6 +845,7 @@ function CommunityDetail() {
                                     <></>
                                   )}
                                 </div>
+
                                 {dataR.deleted === false ? (
                                   <>
                                     <textarea
@@ -843,6 +877,7 @@ function CommunityDetail() {
                                 )}
                               </div>
                             </div>
+
                             <div
                               className="replybox-d1"
                               id={`community-comment-content-${dataR.id}`}
@@ -860,7 +895,7 @@ function CommunityDetail() {
                                     <div className="community-comment-data">
                                       <div className="row">
                                         <div className="comment-data col-9">
-                                          {dataRR.writer}님 |{" "}
+                                          {dataRR.writer} |{" "}
                                           {dataRR.createDateYMD}{" "}
                                           {dataRR.createDateHMS} | 추천수&nbsp;
                                           {dataRR.commentLike}
@@ -889,12 +924,12 @@ function CommunityDetail() {
                                               hidden
                                             >
                                               <button
-                                                className="edit-remove fa-solid fa-xmark"
+                                                className="community-edit-remove fa-solid fa-xmark"
                                                 onClick={clickCommentEditRemove}
                                                 id={`${dataRR.id}`}
                                               ></button>
                                               <button
-                                                className="edit-commit fa-solid fa-pen"
+                                                className="community-edit-commit fa-solid fa-pen"
                                                 onClick={clickCommentEditCommit}
                                                 id={`${dataRR.id}`}
                                               ></button>
