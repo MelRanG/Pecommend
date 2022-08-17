@@ -80,7 +80,7 @@ function CommunityList() {
   };
 
   const getArticleList = async () => {
-    if (categorys > 0) {
+    if (categorys > 0 && categorys != 3) {
       try {
         const response = await freeaxios({
           method: "get",
@@ -93,7 +93,22 @@ function CommunityList() {
       } catch (error) {
         console.log(error);
       }
-    } else {
+    }
+    else if(categorys === 3){
+      try {
+        const response = await freeaxios({
+          method: "get",
+          url: "/api/v1/community/list.do/best",
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        if (response.status === 200) {
+          setDataList(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    else {
       try {
         const response = await freeaxios({
           method: "get",
@@ -184,6 +199,7 @@ function CommunityList() {
 
   useEffect(() => {
     getArticleList();
+    clickButton1();
   }, [categorys]);
 
   return (

@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 
 function CommunityRegist ()  {
     const user = useSelector(state => state.userStore.nowLoginUser);
+    let navigate = useNavigate()
 
     useEffect(()=>{
         usercheck()
@@ -27,7 +28,7 @@ function CommunityRegist ()  {
           }
     }
 
-    let navigate = useNavigate()
+    
     const [formValue, setForm] = useState({
         writer: user.user_id,
         title: '',

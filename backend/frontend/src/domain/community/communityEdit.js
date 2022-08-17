@@ -48,6 +48,12 @@ function CommunityEdit() {
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "올바르지 못한 접근입니다!",
+      });
+      navigate("/commu/main", { replace: true });
     }
   };
   useEffect(() => {
