@@ -586,12 +586,11 @@ const PerfumeDetail = () => {
                       <div className="note_ex_text">베이스</div>
                     </div>
                   </div>
-                  <div className="detail-pro-details-list2">
+                  {/* <div className="detail-pro-details-list2">
                     <ul>
-                      {/* 탑노트/미들노트 설명 */}
                       <li>향료 설명 </li>
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* 좋아요 싫어요 */}
