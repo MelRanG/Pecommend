@@ -4,6 +4,7 @@ import { authaxios, freeaxios } from "../../custom/customAxios";
 import { useParams, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 function CommunityDetail() {
   const noData = "삭제된 댓글입니다.";
@@ -101,9 +102,22 @@ function CommunityDetail() {
             e.target.classList.remove("onthumb");
           }
         }
+      }else{
+        Swal.fire({
+          icon: "warning",
+          title: "실패",
+          text: "본인이 작성한 게시글 입니다.",
+        });
+
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "warning",
+        title: "실패",
+        text: "본인이 작성한 게시글 입니다.",
+      });
+
     }
   };
 
@@ -118,7 +132,12 @@ function CommunityDetail() {
         });
         console.log(response);
         if (response.status === 200) {
-          alert("삭제했습니다!");
+          Swal.fire({
+            icon: "success",
+            title: "성공",
+            text: "성공적으로 삭제했습니다.",
+          });
+
           navigate(-1);
         }
       } catch (error) {
@@ -144,6 +163,12 @@ function CommunityDetail() {
         });
         if (response.status === 200) {
           // alert("댓글을 작성했습니다!");
+          Swal.fire({
+            icon: "success",
+            title: "성공",
+            text: "댓글을 작성했습니다.",
+          });
+
           const commentBlock = document.getElementById("commentline");
           setForm({
             ...formValue,
@@ -158,6 +183,12 @@ function CommunityDetail() {
       } catch (error) {
         console.log(error);
         e.target.setAttribute("disabled", "false");
+        Swal.fire({
+          icon: "warning",
+          title: "실패",
+          text: "로그인이 필요합니다.",
+        });
+
       }
       e.target.setAttribute("disabled", "false");
     }
@@ -183,6 +214,12 @@ function CommunityDetail() {
         });
         if (response.status === 200) {
           // alert("댓글을 작성했습니다!");
+          Swal.fire({
+            icon: "success",
+            title: "성공",
+            text: "댓글을 작성했습니다.",
+          });
+
           const replyBox = document.getElementsByClassName("reply");
           if (replyBox.length > 0) {
             replyBox[0].remove();
@@ -192,6 +229,12 @@ function CommunityDetail() {
       } catch (error) {
         console.log(error);
         e.target.setAttribute("disabled", "false");
+        Swal.fire({
+          icon: "warning",
+          title: "실패",
+          text: "로그인이 필요합니다.",
+        });
+
       }
       e.target.setAttribute("disabled", "false");
     } else {
@@ -220,6 +263,12 @@ function CommunityDetail() {
         console.log(response);
         if (response.status === 200) {
           // alert("댓글을 작성했습니다!");
+          Swal.fire({
+            icon: "success",
+            title: "성공",
+            text: "댓글을 작성했습니다.",
+          });
+
           const replyBox = document.getElementsByClassName("reply");
           if (replyBox.length > 0) {
             replyBox[0].remove();
@@ -232,7 +281,13 @@ function CommunityDetail() {
       }
       e.target.setAttribute("disabled", "false");
     } else {
-      alert("내용을 입력해주세요!");
+      //alert("내용을 입력해주세요!");
+      Swal.fire({
+        icon: "warning",
+        title: "실패",
+        text: "내용을 입력해주세요.",
+      });
+
     }
   };
 
@@ -246,7 +301,12 @@ function CommunityDetail() {
           headers: { "Content-Type": "multipart/form-data" },
         });
         if (response.status === 200) {
-          alert("삭제했습니다!");
+          Swal.fire({
+            icon: "success",
+            title: "성공",
+            text: "성공적으로 삭제했습니다.",
+          });
+
           window.location.reload();
         }
       } catch (error) {
@@ -316,6 +376,12 @@ function CommunityDetail() {
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "warning",
+        title: "실패",
+        text: "로그인이 필요합니다.",
+      });
+
     }
   };
 
@@ -342,6 +408,12 @@ function CommunityDetail() {
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "warning",
+        title: "실패",
+        text: "로그인이 필요합니다.",
+      });
+
     }
   };
 
@@ -374,6 +446,12 @@ function CommunityDetail() {
         commentButtonBox2.hidden = true;
         commentBox.readOnly = true;
         getArticleComment();
+        Swal.fire({
+          icon: "success",
+          title: "성공",
+          text: "수정 완료했습니다.",
+        });
+
       }
     } catch (error) {
       console.log(error);

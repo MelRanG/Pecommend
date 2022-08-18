@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/nav";
 import "./perfumeRegist.css";
 import { authaxios, freeaxios } from "../../custom/customAxios";
+import Swal from "sweetalert2";
 
 function PerfumeRegist() {
   const user = useSelector(state => state.userStore.nowLoginUser);
@@ -16,6 +17,17 @@ function PerfumeRegist() {
     company: '',
     describe: '',
   });
+
+  const usercheck = () => {
+    if (user.user_id == null) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "로그인이 필요합니다.",
+        });
+        navigate("/perfume/reglist", { replace: true })
+      }
+  }
 
   const imgChange = (e) => {
     setImgFile([]);
@@ -92,6 +104,10 @@ function PerfumeRegist() {
     alert("취소했습니다")
     navigate(`/perfume/reglist`, { replace: true });
   }
+
+  useEffect(() => {
+    usercheck();
+  }, [])
 
   return (
     <div className="perfumeRegist">
