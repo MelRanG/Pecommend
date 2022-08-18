@@ -12,7 +12,7 @@ function Footer() {
             <div className="copyright mb-30">
               <div className="footer-logo">
                 <a href="/">
-                  <img alt="" src="assets/img/logo/logo-3.png" style={{ height: "26px" }} />
+                  <img alt="" src="assets/img/logo/logo-3.PNG" style={{ height: "26px" }} />
                 </a>
               </div>
               <p>
