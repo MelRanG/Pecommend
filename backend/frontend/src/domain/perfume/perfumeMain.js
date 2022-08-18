@@ -151,7 +151,7 @@ const PerfumeMain = () => {
             {/* 캐러셀 - 전체를 Link로 감싸기 detail로 이동 */}
             <div
               id="carouselExampleControls"
-              className="carousel d-none d-sm-block slide"
+              className="carousel d-sm-block slide"
               data-bs-ride="carousel"
             >
               <div className="carousel-inner per_main_review">
@@ -159,6 +159,7 @@ const PerfumeMain = () => {
                   <div className="cards-wrapper">
                     {newReview1.map((data, index) => (
                       <div key={index} className="card per_main_review_card">
+                        <Link to={`../detail/${data.pDto.perfumeId}`}>
                         <div className="image-wrapper">
                           <img
                             src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.pDto.enName}`}
@@ -184,7 +185,7 @@ const PerfumeMain = () => {
                           <p className="card-text per_main_review_text">
                             {data.rDto.content}
                           </p>
-                        </div>
+                        </div></Link>
                       </div>
                     ))}
                   </div>

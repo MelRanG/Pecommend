@@ -346,7 +346,16 @@ vertical-align: middle;
   background-color: #f4f6fa;
   border-radius: 12px;
   padding: 10px 12px;
-  height: 170px;
+  height: 180px;
+  max-height: 180px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  margin-bottom: 10px;
+
 }
 
 .per_main_review_card{

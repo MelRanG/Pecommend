@@ -161,7 +161,7 @@ function Profile() {
             {user.user_id === userprofile.user_id && (
               <button className="profile-edit-button" type="button">
                 <Link to="/profile/update">
-                  <i className="fa-solid fa-gear"> 사용자 설정</i>
+                  <i className="fa-solid fa-gear"> 정보 수정</i>
                 </Link>
               </button>
             )}
@@ -237,8 +237,7 @@ function Profile() {
                                   />
                                 </div>
                                 <div className="rightbox-in-text">
-                                  {data.koName}
-                                </div>
+                                {data.koName}</div>
                               </Link>
                             </div>
                           </div>
@@ -261,15 +260,15 @@ function Profile() {
                         .map((data) => (
                           <div className="col-lg-4 col-sm-6 col-xs-12">
                             <div className="col-sm-6 col-xs-6 mt-10 mb-10 rightbox-in-perfume">
-                              <Link to={`/perfume/detail/${data.perfumeId}`}>
-                                <div>
-                                  <img
-                                    className="profile-perfume-img"
-                                    src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.enName}`}
-                                    alt=""
-                                  />
-                                </div>
-
+                            <Link to={`/perfume/detail/${data.perfumeId}`}>
+                              <div>
+                                <img
+                                  className="profile-perfume-img"
+                                  src={`https://pecommend.com/api/v1/perfume/getimg.do/${data.enName}`}
+                                  alt=""
+                                />
+                              </div>
+                  
                                 {data.koName}
                               </Link>
                             </div>
@@ -306,9 +305,10 @@ function Profile() {
                                   style={{
                                     textAlign: "left",
                                     paddingLeft: "10px",
+                                    // maxWidth: "400px",
                                   }}
                                 >
-                                  <div className="text-overflow">
+                                  <div className="text-overflow rightbox-size">
                                     <Link
                                       className="community-list-titlebox"
                                       to={`/commu/detail/${data.id}`}
@@ -362,14 +362,16 @@ function Profile() {
                                   style={{
                                     textAlign: "left",
                                     paddingLeft: "10px",
+                                    // maxWidth: "400px",
                                   }}
                                 >
+                                  <div className='text-overflow rightbox-size'>
                                   <Link
                                     className="community-list-titlebox"
                                     to={`/commu/detail/${data.communityId}`}
                                   >
                                     {data.content}
-                                  </Link>
+                                  </Link></div>
                                 </td>
                                 {getToday(data.createDateYMD) === 0 ? (
                                   <td>{data.createDateHMS.slice(0, 5)}</td>
