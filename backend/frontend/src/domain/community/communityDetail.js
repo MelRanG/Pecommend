@@ -102,22 +102,20 @@ function CommunityDetail() {
             e.target.classList.remove("onthumb");
           }
         }
-      }else{
+      } else {
         Swal.fire({
           icon: "warning",
           title: "실패",
           text: "본인이 작성한 게시글 입니다.",
         });
-
       }
     } catch (error) {
       console.log(error);
       Swal.fire({
         icon: "warning",
         title: "실패",
-        text: "본인이 작성한 게시글 입니다.",
+        text: "로그인이 필요합니다.",
       });
-
     }
   };
 
@@ -188,7 +186,6 @@ function CommunityDetail() {
           title: "실패",
           text: "로그인이 필요합니다.",
         });
-
       }
       e.target.setAttribute("disabled", "false");
     }
@@ -234,7 +231,6 @@ function CommunityDetail() {
           title: "실패",
           text: "로그인이 필요합니다.",
         });
-
       }
       e.target.setAttribute("disabled", "false");
     } else {
@@ -287,7 +283,6 @@ function CommunityDetail() {
         title: "실패",
         text: "내용을 입력해주세요.",
       });
-
     }
   };
 
@@ -381,7 +376,6 @@ function CommunityDetail() {
         title: "실패",
         text: "로그인이 필요합니다.",
       });
-
     }
   };
 
@@ -413,7 +407,6 @@ function CommunityDetail() {
         title: "실패",
         text: "로그인이 필요합니다.",
       });
-
     }
   };
 
@@ -451,7 +444,6 @@ function CommunityDetail() {
           title: "성공",
           text: "수정 완료했습니다.",
         });
-
       }
     } catch (error) {
       console.log(error);
