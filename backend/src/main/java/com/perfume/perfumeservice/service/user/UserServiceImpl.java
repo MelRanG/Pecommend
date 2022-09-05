@@ -11,6 +11,7 @@ import com.perfume.perfumeservice.exception.user.UserNotFoundException;
 import com.perfume.perfumeservice.jwt.TokenProvider;
 import com.perfume.perfumeservice.util.SecurityUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -19,16 +20,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService{
-    private TokenProvider tokenProvider;
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public boolean checkEmail(String email) {
@@ -66,7 +69,10 @@ public class UserServiceImpl implements UserService{
 
         if(entity.isPresent()){
             entity.get().saveToken(tokenDto.getRefreshToken());
+            entity.get().setAge();
+            userRepository.save(entity.get());
         }
+
 
         // 토큰 발급
         return tokenDto;
@@ -102,6 +108,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserResponseDto getUserInfo(Long id){
+        return UserResponseDto.from(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
+    }
+
+    @Override
     public UserResponseDto getUserInfo(String email){
         return UserResponseDto.from(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
     }
@@ -111,7 +122,14 @@ public class UserServiceImpl implements UserService{
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
         if(entity.isPresent()){
+            if(requestDto.getPassword().equals("")){
+                entity.get().update(requestDto);
+                userRepository.save(entity.get());
+                return;
+            }
+
             entity.get().update(requestDto, passwordEncoder);
+            userRepository.save(entity.get());
             return;
         }
 
@@ -179,9 +197,70 @@ public class UserServiceImpl implements UserService{
 
         if(entity.isPresent()){
             entity.get().saveToken("");
+            userRepository.save(entity.get());
             return;
         }
 
         throw new RuntimeException("로그아웃에 실패했습니다.");
+    }
+
+    @Override
+    public List<Long> getUserByMbtiAndGenderAndAge(List<String> mbtis, List<String> genders, List<Integer> ages) {
+        if(ages.contains(40)){
+            for (int age=50; age<= 100; age+=10){
+                ages.add(age);
+            }
+        }
+
+        // 리스트가 null일 때에에에엥에에ㅔㅇ에에ㅔㅇ => 성능이 별로라서 sql문을 새로 만들어야 할 거 같음(조합에 맞춰서)
+//        if(mbtis.size() ==0){
+//            String allMbtis[] = { "ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ" };
+//            for (String s:allMbtis){
+//                mbtis.add(s);
+//            }
+//        }
+//        if(genders.size() == 0){
+//            String allGenders[] = {"male", "female"};
+//            for (String s:allGenders){
+//                genders.add(s);
+//            }
+//        }
+//        if(ages.size() == 0){
+//            int allAges[] = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+//            for (int i:allAges){
+//                ages.add(i);
+//            }
+//        }
+
+        if(mbtis.size()==0){
+            if(genders.size() == 0){
+                if(ages.size() == 0){ // X
+                    return userRepository.findUserId();
+                }else{ // 나이
+                    return userRepository.findByAge(ages);
+                }
+            }else{
+                if(ages.size() == 0){ // 성별
+                    return userRepository.findByGender(genders);
+                }else{ // 성별, 나이
+                    return userRepository.findByGenderAndAge(genders, ages);
+                }
+            }
+        }else{
+            if(genders.size() == 0){
+                if(ages.size() == 0){ // mbti
+                    return userRepository.findByMbti(mbtis);
+                }else{ // mbti, 나이
+                    return userRepository.findByMbtiAndAge(mbtis, ages);
+                }
+            }else{
+                if(ages.size() == 0){ // mbti, 성별
+                    return userRepository.findByMbtiAndGender(mbtis, genders);
+                }else{ // mbti, 성별, 나이
+                    return userRepository.findByMbtiAndGenderAndAge(mbtis, genders, ages);
+                }
+            }
+        }
+
     }
 }

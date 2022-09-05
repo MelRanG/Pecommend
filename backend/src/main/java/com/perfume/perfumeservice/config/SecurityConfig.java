@@ -39,11 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-                // cors
-                .cors().configurationSource(corsConfigurationSource())
-
-                // csrf
-                .and()
                 .csrf().disable()
 
                 // exception handling
@@ -67,8 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/**",
-                        "/api/v1/user/*.do/**",
+                        "/api/v1/**/*.do/**",
                         "/v2/api-docs",
                         "/swagger-resources",
                         "/swagger-resources/**",
@@ -100,18 +94,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/h2-console/**", "/swagger-ui/**");
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource(){
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-
-        return source;
-    }
 }

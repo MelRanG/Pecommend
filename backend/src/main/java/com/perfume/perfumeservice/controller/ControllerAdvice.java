@@ -50,6 +50,8 @@ public class ControllerAdvice {
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception e){
 
+        System.out.println(e.toString());
+
         final ErrorResponse response = ErrorResponse.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .code("")

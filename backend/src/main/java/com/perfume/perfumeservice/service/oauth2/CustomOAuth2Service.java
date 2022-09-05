@@ -32,6 +32,8 @@ public class CustomOAuth2Service implements OAuth2UserService<OAuth2UserRequest,
 
         OAuth2Attribute oAuth2Attribute = OAuth2Attribute.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
+        System.out.println(oAuth2Attribute.getAttributes());
+
         // Success Handler가 사용할 수 있도록 등록
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_USER.toString())),

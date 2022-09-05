@@ -7,27 +7,30 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService{
 
-    JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
-    public static final String ePw = createKey();
+    public static final StringBuilder ePw = new StringBuilder();
 
     private MimeMessage createMessage(String to) throws Exception{
         MimeMessage message = emailSender.createMimeMessage();
+        ePw.setLength(0);
+        ePw.append(createKey());
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
-        message.setSubject("LikeDisLike 회원가입 이메일 인증");//제목
+        message.setSubject("Pecommend 회원가입 이메일 인증");//제목
 
         String msgg="";
         msgg+= "<div style='margin:100px;'>";
-        msgg+= "<h1> 안녕하세요 LikeDisLike입니다. </h1>";
+        msgg+= "<h1> 안녕하세요 Pecommend입니다. </h1>";
         msgg+= "<br>";
         msgg+= "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
         msgg+= "<br>";
@@ -37,23 +40,25 @@ public class MailServiceImpl implements MailService{
         msgg+= "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
         msgg+= "<div style='font-size:130%'>";
         msgg+= "CODE : <strong>";
-        msgg+= ePw+"</strong><div><br/> ";
+        msgg+= ePw.toString()+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
-        message.setFrom(new InternetAddress("ksb5535@gmail.com","LikeDisLike"));//보내는 사람
+        message.setFrom(new InternetAddress("pecommend@gmail.com","Pecommend"));//보내는 사람
 
         return message;
     }
 
     private MimeMessage changePasswordMessage(String to) throws Exception{
         MimeMessage message = emailSender.createMimeMessage();
+        ePw.setLength(0);
+        ePw.append(createKey());
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
-        message.setSubject("LikeDisLike 새로운 비밀번호");//제목
+        message.setSubject("Pecommend 새로운 비밀번호");//제목
 
         String msgg="";
         msgg+= "<div style='margin:100px;'>";
-        msgg+= "<h1> 안녕하세요 LikeDisLike입니다. </h1>";
+        msgg+= "<h1> 안녕하세요 Pecommend입니다. </h1>";
         msgg+= "<br>";
         msgg+= "<p>비밀번호가 아래와 같이 변경되었습니다.<p>";
         msgg+= "<br>";
@@ -63,10 +68,10 @@ public class MailServiceImpl implements MailService{
         msgg+= "<h3 style='color:blue;'>새 비밀번호입니다.</h3>";
         msgg+= "<div style='font-size:130%'>";
         msgg+= "CODE : <strong>";
-        msgg+= ePw+"</strong><div><br/> ";
+        msgg+= ePw.toString()+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
-        message.setFrom(new InternetAddress("ksb5535@gmail.com","LikeDisLike"));//보내는 사람
+        message.setFrom(new InternetAddress("pecommend@gmail.com","Pecommend"));//보내는 사람
 
         return message;
     }
@@ -110,7 +115,7 @@ public class MailServiceImpl implements MailService{
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
-        return ePw;
+        return ePw.toString();
     }
 
 }
