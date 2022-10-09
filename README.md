@@ -21,7 +21,7 @@
 
 ## :star: 서비스 소개
 
-![image](/uploads/7348808649e6e83f52355239c3aa8ae7/image.png)
+![image](https://user-images.githubusercontent.com/62234293/194756941-cdff3505-324d-4bbf-9c0f-2476e5d09d4b.png)
 Pecommend는 시향없이 향수를 구매하는데 도움을 주는 웹사이트입니다!
 
 내가 좋아하거나 싫어하는 향수 리스트가 있다면 그 향수를 선호하는 유저들이 좋아하거나 싫어하는 향수 리스트와
