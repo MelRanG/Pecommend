@@ -11,7 +11,6 @@
 [테스트 목록](#keyboard-테스트-목록)  
 [배포 후 수정사항](#wrench-배포-후-수정사항)  
 [팀원 소개](#bust_in_silhouette-팀원-소개)  
-[트러블 슈팅](#dizzy-트러블-슈팅) 
 [UCC](#movie_camera-ucc)  
 
 
@@ -139,13 +138,6 @@ Pecommend는 시향없이 향수를 구매하는데 도움을 주는 웹사이�
 | 김성빈 | Back-end, 회원 파트 담당 | [ksb0903](https://github.com/ksb0903) |
 | 박유주 | Front-end, 향수 파트 담당, UI 디자인 | [9Yuju](https://github.com/9Yuju)   |
 | 박주연 | Back-end, 향수 파트 담당, 데이터 크롤링 | [juyeoon](https://github.com/juyeoon)  |
-
-
-<div align=right><a href="#memo-목차">목차로 이동</a></div>
-
-<!-- ----------------------------------------------------------------------------------------------------------- -->
-
-## :dizzy: 트러블 슈팅
 
 
 <div align=right><a href="#memo-목차">목차로 이동</a></div>
