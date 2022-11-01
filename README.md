@@ -127,6 +127,18 @@ Pecommend는 시향없이 향수를 구매하는데 도움을 주는 웹사이�
 
 <!-- ----------------------------------------------------------------------------------------------------------- -->
 
+## :desktop_computer: 기능 정의서
+![image](https://user-images.githubusercontent.com/62234293/199195089-def70dab-1c86-49ce-945d-3b4e86ec6761.png)
+
+
+## :keyboard: 깃 컨벤션
+- [INITIAL] — repository를 생성하고 최초에 파일을 업로드 할 때
+- [ADD] — 신규 파일 추가
+- [UPDATE] — 코드 변경이 일어날때
+- [REFACTOR] — 코드를 리팩토링 했을때
+- [FIX] — 잘못된 링크 정보 변경, 필요한 모듈 추가 및 삭제
+- [REMOVE] — 파일 제거
+- [STYLE] — 디자인 관련 변경사항
 
 ## :bust_in_silhouette: 팀원 소개
 
